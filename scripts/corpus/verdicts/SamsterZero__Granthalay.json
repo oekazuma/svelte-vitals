@@ -1,0 +1,432 @@
+[
+  {
+    "key": "SamsterZero/Granthalay::a11y/disallowed-aria-props::src/lib/components/reader/ReaderHeader.svelte:62::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/reader/ReaderHeader.svelte:62: <label class=\"mt-0.5 block\" aria-label=\"Chapter\"> wrapping a <select>, no role/spread/use:; docs name the <label aria-label> case as firing while the spec prohibits a name on <label> only when exposed as generic (daisyUI <label for aria-label> precedent)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/disallowed-aria-props::src/lib/components/reader/ReaderSettings.svelte:36::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/reader/ReaderSettings.svelte:36: literal <span> with aria-label and no role, spread or use: action (<span class='text-xs tabular-nums' aria-label={`${annotations.length} ...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/disallowed-aria-props::src/lib/components/reader/ReaderViewport.svelte:65::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/reader/ReaderViewport.svelte:65: literal <div> with aria-label and no role, spread or use: action (<div bind:this={scrollContainer} class='relative h-full bg-background'...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/disallowed-aria-props::src/routes/annotations/+page.svelte:123::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read annotations/+page.svelte:123: literal <div> with aria-label and no role, spread or use: action (<div class='flex w-full gap-1 rounded-lg bg-muted p-1 sm:w-auto' aria-...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/disallowed-aria-props::src/routes/settings/+page.svelte:613::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read settings/+page.svelte:613: literal <div> with aria-labelledby and no role, spread or use: action (<div class='mt-4 rounded-md bg-muted/50 p-3' aria-labelledby='restore-...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/permitted-contents::src/lib/components/library/book/ChapterList.svelte:39::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) lib/components/library/book/ChapterList.svelte:39: literal <div> whose nearest non-transparent parent is a literal <button> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/permitted-contents::src/routes/settings/+page.svelte:416::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) settings/+page.svelte:416: literal <div> whose nearest non-transparent parent is a literal <button> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "SamsterZero/Granthalay::a11y/top-level-landmark::src/routes/settings/+page.svelte:465::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte:465 <aside> sits directly in the page's own <main class=grid …> (:464) with no sectioning element between, so a complementary landmark nested in main (route /settings)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/lib/components/reader/ReaderAppearance.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reader/ReaderAppearance.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/lib/components/reader/ReaderViewport.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reader/ReaderViewport.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/lib/components/settings/AccountSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/AccountSection.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/routes/annotations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/annotations/+page.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/routes/reader/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reader/+page.svelte has 606 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 823 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/routes/store/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/store/+page.svelte has 309 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/component-size::src/routes/store/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/store/[slug]/+page.svelte has 519 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/reader/ReaderAppearance.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reader/ReaderAppearance.svelte has a single destructured $props() with 7 named props (> 6): preferences, onUpdate, onReset, heading, resetLabel, embedded, mode"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/reader/ReaderFooter.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reader/ReaderFooter.svelte has a single destructured $props() with 10 named props (> 6): chapters, currentChapter, currentPage, totalPages, pagesRead, totalBookPages, showChapterNavigation, navigation, onPrevious, onNext"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/reader/ReaderHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reader/ReaderHeader.svelte has a single destructured $props() with 13 named props (> 6): loading, bookTitle, chapters, currentChapter, showChapterSelector, darkMode, bookmarked, settingsOpen, settings, onBack, onToggleTheme, onToggleBookmark, ... (+1 more)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/reader/ReaderViewport.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reader/ReaderViewport.svelte has a single destructured $props() with 18 named props (> 6): loading, error, chapter, isCalculating, isNovelMode, typographyOverridesAllowed, preferences, activeReaderPadding, currentPage, navigation, contentContainer, containerWidth, ... (+6 more)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest element: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, ... (+2 more)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) plus a ...rest element: ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest element: ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, ... (+2 more)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/toggle-group/toggle-group.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/toggle-group/toggle-group.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, value, class, size, spacing, orientation, variant"
+  },
+  {
+    "key": "SamsterZero/Granthalay::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:112::<a href=\"/account/verify-email\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/verify-email') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/AccountSection.svelte:112 'href=\"/account/verify-email\"'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:138::<a href=\"/account/password-reset\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password-reset') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/AccountSection.svelte:138 '<a href=\"/account/password-reset\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:219::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/AccountSection.svelte:219 '<a href=\"/account/sign-in\" class=\"flex-1\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:222::<a href=\"/account/register\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/register') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/AccountSection.svelte:222 '<a href=\"/account/register\" class=\"flex-1\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/+layout.svelte:17::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/+layout.svelte:17 'href=\"/\"'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/password-reset/+page.svelte:112::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/password-reset/+page.svelte:112 '<a href=\"/account/sign-in\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/register/+page.svelte:147::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/register/+page.svelte:147 '<a href=\"/account/sign-in\" class=\"font-medium text-primary hover:underline\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/register/+page.svelte:83::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/register/+page.svelte:83 '<a href=\"/account/sign-in\" class=\"flex-1\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:112::<a href=\"/account/register\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/register') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/sign-in/+page.svelte:112 '<a href=\"/account/register\" class=\"font-medium text-primary hover:underline\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:35::goto('/account') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/account')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/sign-in/+page.svelte:35 'goto('/account');'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:86::<a href=\"/account/password-reset\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password-reset') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/sign-in/+page.svelte:86 '<a href=\"/account/password-reset\" class=\"text-xs text-primary hover:underline\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/verify-email/+page.svelte:80::<a href=\"/account\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/verify-email/+page.svelte:80 '<a href=\"/account\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/store/[slug]/+page.svelte:204::goto('/store') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/store')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/routes/store/[slug]/+page.svelte:204 '<Button class=\"mt-4\" size=\"sm\" onclick={() => goto('/store')}>Return to Storefro'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:85 '{#each weekdays as weekday, i (i)}' is keyed by its index binding and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (items have no identity beyond position): seven weekday header cells of the shadcn calendar"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' is keyed by its index binding and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (records with their own identity from load/props/$state, or validation/result lists recomputed from input): position-based identity"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/each-index-key::src/lib/components/ui/range-calendar/range-calendar.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:82 '{#each weekdays as weekday, i (i)}' is keyed by its index binding and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (items have no identity beyond position): seven weekday header cells of the shadcn range calendar"
+  },
+  {
+    "key": "SamsterZero/Granthalay::correctness/unmutated-state::src/routes/store/+page.svelte:27::$state \"size\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: size = $state(12); its only other mention is the shorthand size in the fetchCatalogTitles({...}) argument (81), a primitive copied by value; never written"
+  },
+  {
+    "key": "SamsterZero/Granthalay::security/raw-html::src/lib/components/reader/ReaderViewport.svelte:104::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ReaderViewport.svelte:104 + lib/epub/engine.ts:357-426: chapter.content is the EPUB body run through sanitize-html with a tag/attr allowlist and data/blob schemes only (image chapters are a blob: URL in a fixed template) — sanitized, reported per docs"
+  },
+  {
+    "key": "SamsterZero/Granthalay::security/raw-html::src/lib/components/reader/ReaderViewport.svelte:155::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ReaderViewport.svelte:155 + lib/epub/engine.ts:357-426: chapter.content is the EPUB body run through sanitize-html with a tag/attr allowlist and data/blob schemes only (image chapters are a blob: URL in a fixed template) — sanitized, reported per docs"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/description-length::src/app.html::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <meta name=description> of the reported length in the location file, grapheme-counted after whitespace collapse = 166): src/app.html:11 \"Read EPUB books instantly in your browser. Install Granthalay as a ...\"; the shell description of the 10 routes in the key (local CLI list), none of which sets its own; too long as claimed"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/description-length::src/routes/store/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <meta name=description> of the reported length in the location file, grapheme-counted after whitespace collapse = 58): src/routes/store/+page.svelte:137 \"Browse published catalog titles and editions on Granthalay\"; the route's shipped description; too short as claimed (store/+page.svelte head, client-rendered under ssr=false, replaces nothing else)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:11-14 literal description is the only description of the 10 routes in the key (local CLI list; only /store and /store/[slug] set their own), duplicate as claimed; public GitHub Pages app with robots index,follow, no route in the set is noindex or gated (whispering public-SPA convention)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:10 literal <title>Granthalay — Your Personal EPUB Reader</title> is the only title of /, /book/[bookId], /reader (local CLI list; those pages set none), duplicate as claimed; public GitHub Pages app with robots index,follow (app.html:8) and static/robots.txt allow-all, none of the three is noindex or gated (whispering public-SPA convention)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/heading-level-skip::src/routes/store/[slug]/+page.svelte:485::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> title (store/[slug]/+page.svelte:248), then Tabs with no heading in the specifications/editions panels, then each contributor's <h3> (:485) - h1 to h3 whichever panel is shown"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); / has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /account has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/account/password-reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /account/password-reset has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/account/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /account/register has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/account/sign-in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /account/sign-in has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/account/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /account/verify-email has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/annotations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /annotations has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/book/[bookId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /book/[bookId] has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/reader/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /reader has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /settings has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/store/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /store has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/json-ld::src/routes/store/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html (app.html head has title/description/og/twitter/canonical only); /store/[slug] has no JSON-LD"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); the library home renders lib/components/library/TopBar.svelte (no heading; the <h1> is in library/book/TopBar.svelte, not used here) and no <h1> of its own; root layout has none"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::/account/password-reset::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); account/password-reset/+page.svelte titles its Card with CardTitle (a <div>, ui/card/card-title.svelte); account/+layout.svelte header has no heading -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::/account/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); account/register/+page.svelte titles its Card with CardTitle (a <div>, ui/card/card-title.svelte); account/+layout.svelte header has no heading -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::/account/sign-in::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); account/sign-in/+page.svelte titles its Card with CardTitle (a <div>, ui/card/card-title.svelte); account/+layout.svelte header has no heading -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::/account/verify-email::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); account/verify-email/+page.svelte titles its Card with CardTitle (a <div>, ui/card/card-title.svelte); account/+layout.svelte header has no heading -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::/account::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); account/+page.svelte is a spinner stub that goto()s /settings#account in onMount; account/+layout.svelte header is links/spans, no heading -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::src/routes/annotations/+page.svelte:153::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); annotations page renders library/TopBar (no heading) and <h2>s (:153/:179) only -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/single-h1::src/routes/store/+page.svelte:199::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false SPA (routes/+layout.ts); store page renders library/TopBar (no heading), an <h2> (:199) and an <h3> (:250) only -> no <h1>"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt allows all but there is no sitemap.xml file or route; public app with index,follow + canonical in app.html and a public /store catalog with per-title /store/[slug] pages to list"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:2 next to prerender = true; app.html targets search (robots index,follow, keywords, canonical, og) and /store, /store/[slug] set per-page titles/descriptions for a public catalog, yet every prerendered page ships an empty shell (rhpo/lms precedent; judgment call: the reader itself is local-first IndexedDB)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/title-length::src/routes/account/password-reset/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 27): src/routes/account/password-reset/+page.svelte:84 \"Reset Password — Granthalay\"; the route's shipped title; too short as claimed (ssr=false SPA: the page title replaces app.html \"Granthalay — Your Personal EPUB Reader\" client-side)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/title-length::src/routes/account/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 27): src/routes/account/register/+page.svelte:57 \"Create Account — Granthalay\"; the route's shipped title; too short as claimed (ssr=false SPA: the page title replaces app.html \"Granthalay — Your Personal EPUB Reader\" client-side)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/title-length::src/routes/account/sign-in/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 20): src/routes/account/sign-in/+page.svelte:49 \"Sign In — Granthalay\"; the route's shipped title; too short as claimed (ssr=false SPA: the page title replaces app.html \"Granthalay — Your Personal EPUB Reader\" client-side)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/title-length::src/routes/account/verify-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 25): src/routes/account/verify-email/+page.svelte:58 \"Verify Email — Granthalay\"; the route's shipped title; too short as claimed (ssr=false SPA: the page title replaces app.html \"Granthalay — Your Personal EPUB Reader\" client-side)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/title-length::src/routes/annotations/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 24): src/routes/annotations/+page.svelte:115 \"Annotations · Granthalay\"; the route's shipped title; too short as claimed (ssr=false SPA: the page title replaces app.html \"Granthalay — Your Personal EPUB Reader\" client-side)"
+  },
+  {
+    "key": "SamsterZero/Granthalay::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 21): src/routes/settings/+page.svelte:396 \"Settings · Granthalay\"; the route's shipped title; too short as claimed (ssr=false SPA: the page title replaces app.html \"Granthalay — Your Personal EPUB Reader\" client-side)"
+  }
+]

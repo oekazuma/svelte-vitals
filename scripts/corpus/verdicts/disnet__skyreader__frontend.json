@@ -1,0 +1,1832 @@
+[
+  {
+    "key": "disnet/skyreader:frontend::a11y/accessible-name::src/lib/components/feed/HighlightReview.svelte:1271::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read lib/components/feed/HighlightReview.svelte:1271: empty click-away scrim <button tabindex=\"-1\" aria-hidden=\"true\"> under {#if intentOpen && !mobileStore.isMobile}; unnamed as reported, but aria-hidden and tabindex=-1 keep it out of the AT tree and tab order (aria-hidden backdrop precedent)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/disallowed-aria-props::src/lib/components/feed/AtmospherePanel.svelte:1008::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/feed/AtmospherePanel.svelte:1008: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/disallowed-aria-props::src/lib/components/feed/MobileFeedSwitcher.svelte:653::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/feed/MobileFeedSwitcher.svelte:653: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/disallowed-aria-props::src/lib/components/feed/WelcomePage.svelte:306::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/feed/WelcomePage.svelte:306: <div> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/disallowed-aria-props::src/lib/components/feed/WelcomePage.svelte:354::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/feed/WelcomePage.svelte:354: <div> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/disallowed-aria-props::src/lib/components/sidebar/FeedItem.svelte:202::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/sidebar/FeedItem.svelte:202: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/disallowed-aria-props::src/routes/feedback/+page.svelte:488::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/feedback/+page.svelte:488: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/duplicate-landmark::src/routes/daily/+page.svelte:474::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: daily/+page.svelte:474 unconditional <main class=reader-container>; root +layout.svelte renders the page inside <main class=main-full> (:246) for visitors, or inside AppShell (dynamically imported, :32) whose <main id=app-scroll> (AppShell.svelte:516) wraps children; /daily is not one of the bare routes (:218), so two mains in every arm"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/ArticleCardView.svelte:280::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/ArticleCardView.svelte:280: literal <span> inside <button> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them; the span has a literal role=\"button\", so its tabindex=-1 does not exempt it (documented)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/NavigationDropdown.svelte:763::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/NavigationDropdown.svelte:763: literal <span> inside <button> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/NavigationDropdown.svelte:914::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read NavigationDropdown.svelte: <span role=\"button\" tabindex=\"0\"> inside the <button role=\"option\"> nav item; the use:portal div (:821) is an ancestor of both, so the portal moves them together and the nesting holds in the live DOM"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/sidebar/FeedItem.svelte:155::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/sidebar/FeedItem.svelte:155: literal <span> inside <button> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/sidebar/FeedItem.svelte:175::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/sidebar/FeedItem.svelte:175: literal <span> inside <button> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/sidebar/ViewItem.svelte:73::<input> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/sidebar/ViewItem.svelte:73: literal <input> inside <button> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/interactive-nesting::src/lib/components/sidebar/ViewItem.svelte:94::<span> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/sidebar/ViewItem.svelte:94: literal <span> inside <button> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/no-autofocus::src/lib/components/AddFeedModal.svelte:296::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "read lib/components/AddFeedModal.svelte:296: autofocus input inside common/Modal {open} (renders under {#if open}, Modal.svelte:87); open = sidebarStore.addFeedModalOpen, set only by openAddFeedModal() from click/submit handlers (AddDropdownMenu.svelte:142, AddSourceInput.svelte:102/221, MobileBottomBar.svelte:159), never on load; focus moves on a user action; docs carve out only <dialog>/popover (reported as documented)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/no-autofocus::src/lib/components/AddHandleModal.svelte:586::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "read lib/components/AddHandleModal.svelte:586: autofocus input inside common/Modal (renders under {#if open}, Modal.svelte:87); open = sidebarStore.addHandleModalOpen, set only by openAddHandleModal()/openAddFeedModalForDid() from click/submit handlers (AddDropdownMenu.svelte:150, AddSourceInput.svelte:99/228, ArticleCard.svelte:175/1217), never on load; docs carve out only <dialog>/popover (reported as documented)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/no-autofocus::src/lib/components/feed/BlueskyComposer.svelte:147::autofocus on <textarea> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "read lib/components/feed/BlueskyComposer.svelte:147: autofocus textarea inside common/Modal open={Boolean(session)} (:120); session is set only by blueskyComposerStore.open() from share actions (ArticleCard.svelte:422, HighlightReview.svelte:808, ReaderDiscussion.svelte:179, useHighlights), never on load; docs carve out only <dialog>/popover (reported as documented)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/no-autofocus::src/lib/components/feed/SembleConnectionDialog.svelte:371::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "read lib/components/feed/SembleConnectionDialog.svelte:371: autofocus input inside common/Modal {open} (:303), open = sembleConnectionStore.open, set only by openFor() in createConnection/connectOnSemble action handlers (ArticleCard.svelte:1097, ReaderDiscussion.svelte:161, SavedReader.svelte:99), never on load; docs carve out only <dialog>/popover (reported as documented)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/lib/components/CollectionPicker.svelte:319::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/CollectionPicker.svelte:319 has nearest literal non-transparent ancestor <button> (line 301) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/lib/components/CollectionPicker.svelte:452::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/CollectionPicker.svelte:452 has nearest literal non-transparent ancestor <button> (line 436) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/routes/auth/login/+page.svelte:288::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/auth/login/+page.svelte:288 has nearest literal non-transparent ancestor <button> (line 274) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/routes/auth/login/+page.svelte:290::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/auth/login/+page.svelte:290 has nearest literal non-transparent ancestor <button> (line 274) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/routes/auth/login/+page.svelte:354::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/auth/login/+page.svelte:354 has nearest literal non-transparent ancestor <button> (line 344) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/routes/auth/login/+page.svelte:356::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/auth/login/+page.svelte:356 has nearest literal non-transparent ancestor <button> (line 344) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/permitted-contents::src/routes/auth/login/+page.svelte:412::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/auth/login/+page.svelte:412 has nearest literal non-transparent ancestor <button> (line 411) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/required-aria-props::src/lib/components/DomainPatternInput.svelte:111::role=\"combobox\" on <input> is missing required aria-controls",
+    "verdict": "tp",
+    "basis": "read lib/components/DomainPatternInput.svelte:111: <input type=\"text\" role=\"combobox\" aria-expanded aria-autocomplete> with no aria-controls and no list attribute (not a native combobox), no spread"
+  },
+  {
+    "key": "disnet/skyreader:frontend::a11y/top-level-landmark::src/routes/daily/+page.svelte:474::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: daily/+page.svelte:474 <main> renders inside root +layout.svelte's <main class=main-full> (:246) or AppShell's <main> (AppShell.svelte:516); /daily is not a bare route (:218), so it is nested in main in every arm"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/AddDropdownMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AddDropdownMenu.svelte has 260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/AddFeedModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AddFeedModal.svelte has 566 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/AddHandleModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AddHandleModal.svelte has 1224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/AddSourceInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AddSourceInput.svelte has 370 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/AppShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppShell.svelte has 757 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/ArticleCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleCard.svelte has 1280 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/ArticleCardView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleCardView.svelte has 2083 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/CollectionPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CollectionPicker.svelte has 977 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/DomainPatternInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DomainPatternInput.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/EditFeedModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EditFeedModal.svelte has 410 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/FilteredViewModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FilteredViewModal.svelte has 1187 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/FollowingPublications.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FollowingPublications.svelte has 358 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/Icon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Icon.svelte has 409 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/ImportOPMLModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ImportOPMLModal.svelte has 521 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/LibraryEmptyState.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LibraryEmptyState.svelte has 375 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/LinkblogDiscovery.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LinkblogDiscovery.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/NavigationDropdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NavigationDropdown.svelte has 1643 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/PopoverMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PopoverMenu.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/PullToRefresh.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PullToRefresh.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/SaveArticleModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SaveArticleModal.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 1222 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/UserSearch.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UserSearch.svelte has 298 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/common/BottomSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/BottomSheet.svelte has 336 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/AppearanceToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/AppearanceToolbar.svelte has 487 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/AtmospherePanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/AtmospherePanel.svelte has 2309 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/BlueskyComposer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/BlueskyComposer.svelte has 466 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/CollectionMagazine.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/CollectionMagazine.svelte has 602 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/CollectionReader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/CollectionReader.svelte has 387 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/DailyMagazineArticle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/DailyMagazineArticle.svelte has 452 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/FeedListView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/FeedListView.svelte has 457 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/FeedPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/FeedPage.svelte has 935 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/FeedPageHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/FeedPageHeader.svelte has 541 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/FilterPopover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/FilterPopover.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/FilterToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/FilterToolbar.svelte has 1180 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HighlightHandles.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HighlightHandles.svelte has 561 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HighlightPopover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HighlightPopover.svelte has 710 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HighlightReview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HighlightReview.svelte has 2005 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HighlightsPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HighlightsPage.svelte has 780 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HomeCustomizeDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HomeCustomizeDialog.svelte has 402 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HomeFirstRun.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HomeFirstRun.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HomeFollowsStart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HomeFollowsStart.svelte has 447 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HomeLane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HomeLane.svelte has 400 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HomeLaneCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HomeLaneCard.svelte has 311 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/HomePage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/HomePage.svelte has 1053 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/LinkContextMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/LinkContextMenu.svelte has 383 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/LinkblogEntry.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/LinkblogEntry.svelte has 762 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/MagazineRail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/MagazineRail.svelte has 422 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/MarginNote.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/MarginNote.svelte has 504 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/Marginalia.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/Marginalia.svelte has 803 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/MentionAutocomplete.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/MentionAutocomplete.svelte has 313 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/MobileBottomBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/MobileBottomBar.svelte has 548 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/MobileFeedSwitcher.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/MobileFeedSwitcher.svelte has 1041 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/MobileFilterSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/MobileFilterSheet.svelte has 1516 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/PagedView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/PagedView.svelte has 574 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/ReaderBottomBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/ReaderBottomBar.svelte has 324 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/ReaderChrome.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/ReaderChrome.svelte has 659 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/ReaderDiscussion.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/ReaderDiscussion.svelte has 301 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/SavedCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/SavedCard.svelte has 889 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/SavedReader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/SavedReader.svelte has 2127 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/SembleConnectionDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/SembleConnectionDialog.svelte has 849 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/ShareComposer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/ShareComposer.svelte has 1619 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/ShareConfirmModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/ShareConfirmModal.svelte has 280 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/TagMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/TagMenu.svelte has 323 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/feed/WelcomePage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/WelcomePage.svelte has 1315 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/rooms/RoomCombo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/rooms/RoomCombo.svelte has 395 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/rooms/RoomCreateBox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/rooms/RoomCreateBox.svelte has 467 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/rooms/RoomOpenBox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/rooms/RoomOpenBox.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/rooms/RoomPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/rooms/RoomPage.svelte has 1302 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/settings/HighlightSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/HighlightSettings.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/settings/LinkblogTargetPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/LinkblogTargetPicker.svelte has 611 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/settings/SaveBackingPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SaveBackingPicker.svelte has 783 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sidebar/FeedItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/FeedItem.svelte has 452 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sidebar/NavSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/NavSection.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sidebar/ViewItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/ViewItem.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sources/BulkActionBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sources/BulkActionBar.svelte has 313 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sources/SourceRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sources/SourceRow.svelte has 662 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sources/SourcesDiscovery.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sources/SourcesDiscovery.svelte has 335 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/lib/components/sources/SourcesToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sources/SourcesToolbar.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 425 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/auth/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/auth/login/+page.svelte has 913 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/channels/discover/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/channels/discover/+page.svelte has 644 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/daily/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/daily/+page.svelte has 778 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/collections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/collections/+page.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/discussion/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/discussion/+page.svelte has 662 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/feed/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/feed/+page.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/home/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/home/+page.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/linkblog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/linkblog/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/primitives/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/primitives/+page.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/dev/reader/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/reader/+page.svelte has 435 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/feedback/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/feedback/+page.svelte has 1529 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/privacy/+page.svelte has 324 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/save/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/save/+page.svelte has 319 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 2638 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/sources/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sources/+page.svelte has 1008 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/subscribe/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/subscribe/+page.svelte has 464 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/supporter/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/supporter/+page.svelte has 875 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/component-size::src/routes/terms/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/terms/+page.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/ArticleCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ArticleCard.svelte has a single destructured $props() with 22 named props (> 6): article, document, localArticle, siteUrl, feedTitle, feedId, isRead, isSaved, isShared, shareNote, selected, expanded, highlighted, followSharers, followLink, onToggleSave, onToggleRead, onUnshare, onSelect, onExpand, onOpenFullscreen, onOpenCollectionPiece"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/ArticleCardView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ArticleCardView.svelte has a single destructured $props() with 96 named props (> 6): itemUrl, itemTitle, relativeDate, faviconUrl, displayFeedTitle, feedTitle, feedId, readTimeMinutes, sanitizedContent, hasContent, isDocumentMode, isLinkPostMode, linkPostNote, linkPostNoteHtml, linkPostExcerpt, linkPostThumb, authorHandle, authorDisplayName, authorAvatar, authorDid, followSharers, isFollowLink, followLinkCard, socialContext, laneRow, filters, activeFilter, stream, sembleContext, itemTagCount, itemTags, collectionPieceCount, collection, isRead, isSaved, selected, expanded, isOpen, highlighted, isTruncated, canExpand, currentlyShared, canShare, canRecommend, isRecommended, currentNote, hasShareDraft, showActionBarIntegrations, overflowMenuOpen, showFetchOriginal, showFetchOriginalMenu, fetchingOriginal, hasFetchedOriginal, canFollowSource, hasSaveToSemble, hasSaveToMargin, hasOpenFullscreen, bodyEl, tagBtnRef, overflowTriggerRef, onHeaderClick, onContentTap, onToggleRead, onToggleSave, onToggleRecommend, onOpenUrl, onOpenFullscreen, onOpenCollectionPiece, onSaveCollectionPiece, isCollectionPieceSaved, onOpenLinkMenu, onExpandToggle, onTagClick, onOverflowClick, onOverflowOpenUrl, onFetchOriginal, onOverflowFetchOriginal, onOverflowTag, onOverflowSemble, onOverflowMargin, onSaveToSemble, onSaveToMargin, onFollowSource, onSelectFilter, onOpenStream, onNearViewport, onRetryStream, onCreateInLane, onComposeShare, onEditShare, onOpenAuthor, onSaveConnection, onCreateConnection, isConnectionSaved, onMentionClick, onCloseOverflow"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/common/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/common/Modal.svelte has a single destructured $props() with 8 named props (> 6): open, onclose, title, maxWidth, zIndex, children, header, footer"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/common/StateView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/common/StateView.svelte has a single destructured $props() with 11 named props (> 6): isLoading, isEmpty, loadingMessage, emptyTitle, emptyDescription, emptyIcon, emptyActionHref, emptyActionText, children, loading, empty"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/common/UserCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/common/UserCard.svelte has a single destructured $props() with 9 named props (> 6): avatarUrl, displayName, handle, size, variant, showHandle, dimmed, badge, actions"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/AtmospherePanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/AtmospherePanel.svelte has a single destructured $props() with 17 named props (> 6): laneRow, filters, activeFilter, stream, sembleContext, lanesOpen, panelId, itemUrl, showHeading, composeLead, onSelectFilter, onCreateInLane, onOpenAuthor, onRetry, onSaveConnection, onCreateConnection, isConnectionSaved"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/DailyMagazineArticle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/DailyMagazineArticle.svelte has a single destructured $props() with 13 named props (> 6): item, index, count, minutes, bodyStatus, bodyHtml, active, restore, paged, pagedController, scrollRoot, registerControls, registerRoot"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/FeedPageHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/FeedPageHeader.svelte has a single destructured $props() with 13 named props (> 6): title, feedId, expandAllItems, lastRefreshAt, isRefreshing, onToggleExpandAll, onRefresh, onMarkAllAsRead, onEdit, onDelete, showSourceFilter, hideControls, onEditChannel"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/FilterPopover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/FilterPopover.svelte has a single destructured $props() with 9 named props (> 6): iconName, label, hasFilter, open, onOpenChange, showChevron, title, buttonClass, children"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/HighlightPopover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/HighlightPopover.svelte has a single destructured $props() with 15 named props (> 6): mode, anchorRect, getAnchorRect, onHighlight, onHighlightToMargin, onRemove, onSaveToMargin, onSaveNote, onQuoteToShare, onPostToBluesky, existingNote, marginSaved, initialView, onNote, onClose"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/HomeCustomizeDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/HomeCustomizeDialog.svelte has a single destructured $props() with 7 named props (> 6): open, onclose, sections, hidden, onReorder, onToggle, onReset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/HomeLane.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/HomeLane.svelte has a single destructured $props() with 7 named props (> 6): title, icon, items, action, loading, onOpen, onHover"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/HomeLaneCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/HomeLaneCard.svelte has a single destructured $props() with 9 named props (> 6): title, domain, image, faviconUrl, metaLabel, progress, read, onOpen, onHover"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/MarginNote.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/MarginNote.svelte has a single destructured $props() with 12 named props (> 6): highlight, editing, variant, active, onEdit, onSave, onClose, onRemove, onPublish, onUnpublish, onHover, onFold"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/Marginalia.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/Marginalia.svelte has a single destructured $props() with 7 named props (> 6): highlights, community, contentEl, itemKey, layout, communityEnabled, pager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/MobileBottomBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/MobileBottomBar.svelte has a single destructured $props() with 10 named props (> 6): controlsVisible, currentTitle, onScrollToTop, onOpenFeedSwitcher, onOpenFilterSheet, onOpenNotifications, hasActiveFilters, hideFilterButton, onOpenSearch, searchActive"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/MobileFilterSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/MobileFilterSheet.svelte has a single destructured $props() with 11 named props (> 6): expandAllItems, onToggleExpandAll, isSavedView, onMarkAllAsRead, onclose, initialTab, editingChannelId, channelCreateMode, initialChannelType, oncreated, ondeleted"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/PagedView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/PagedView.svelte has a single destructured $props() with 9 named props (> 6): children, bottomInset, deps, currentPage, totalPages, oncontroller, onpagechange, overlay, sideRoom"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/ReaderBottomBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/ReaderBottomBar.svelte has a single destructured $props() with 22 named props (> 6): progress, eased, visible, onBack, onContents, onArchive, isArchived, onToggleSave, isSaved, onShare, shareActive, onRecommend, recommendActive, onTag, tagCount, tagActive, tagButtonEl, onMarkRead, markedRead, onMore, moreActive, moreButtonEl"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/ReaderChrome.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/ReaderChrome.svelte has a single destructured $props() with 23 named props (> 6): itemKey, itemType, itemTags, showTag, isArchived, isSaved, controlsVisible, readingProgress, progressVisible, barTitle, barSource, barTitleVisible, onClose, onArchive, onToggleSave, onSaveToSemble, onSaveToMargin, onRemove, onOpenUrl, onContents, onNextParagraph, onPreviousParagraph, onHighlightParagraph"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/feed/SavedReader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/feed/SavedReader.svelte has a single destructured $props() with 7 named props (> 6): readerItem, onClose, onArchive, onRemove, onToggleSave, onMarkRead, markedRead"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/rooms/RoomCombo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/rooms/RoomCombo.svelte has a single destructured $props() with 14 named props (> 6): value, placeholder, icon, rows, hint, busy, idPrefix, action, busyLabel, error, onChoose, onFirstOpen, onInput, onSubmit"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/sidebar/ContextMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/sidebar/ContextMenu.svelte has a single destructured $props() with 7 named props (> 6): x, y, onEdit, onRename, onDelete, onClose, deleteLabel"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/sidebar/FeedItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/sidebar/FeedItem.svelte has a single destructured $props() with 13 named props (> 6): subscription, unreadCount, isActive, hasError, errorMessage, errorDetails, onSelect, onContextMenu, onTouchStart, onTouchEnd, onTouchMove, onRetry, onMoreClick"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/sidebar/NavSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/sidebar/NavSection.svelte has a single destructured $props() with 10 named props (> 6): title, icon, isExpanded, showOnlyUnread, isActive, onAdd, onToggle, onLabelClick, onUnreadToggle, children"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/sidebar/ViewItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/sidebar/ViewItem.svelte has a single destructured $props() with 12 named props (> 6): view, isActive, isRenaming, unreadCount, onSelect, onContextMenu, onTouchStart, onTouchEnd, onTouchMove, onMoreClick, onRename, onRenameCancel"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/sources/BulkActionBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/sources/BulkActionBar.svelte has a single destructured $props() with 7 named props (> 6): selectionCount, folders, hasCategory, onAssignToFolder, onRemoveFromFolder, onBulkDelete, onClearSelection"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/lib/components/sources/SourceRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/sources/SourceRow.svelte has a single destructured $props() with 22 named props (> 6): iconUrl, iconRound, title, subtitle, href, description, hasError, errorDetails, subscribed, selected, fallbackIcon, onToggleSelect, onEdit, onRefresh, onRemove, onSubscribe, onPark, onReactivate, onHide, action, added, pending"
+  },
+  {
+    "key": "disnet/skyreader:frontend::architecture/prop-count::src/routes/dev/_harness/Case.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/routes/dev/_harness/Case.svelte has a single destructured $props() with 9 named props (> 6): name, note, frame, width, pad, background, relative, minHeight, children"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-index-key::src/lib/components/ArticleCardView.svelte:302::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleCardView.svelte:302 keyed by its index binding; list source is runtime data (followSharers.avatars: the followed accounts sharing this article, from the feed data)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-index-key::src/lib/components/feed/HighlightHandles.svelte:416::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/feed/HighlightHandles.svelte:416 keyed by its index binding; positional list (previewBoxes: selection rectangles recomputed wholesale from the DOM range, 159): geometry boxes have no identity beyond position"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-index-key::src/lib/components/feed/ShareComposer.svelte:680::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/ShareComposer.svelte:680 keyed by its index binding; list source is runtime data (composer.blocks: editable quote blocks with bind:value textareas and removeBlock(i) mid-list, 683-695), so textarea state follows position on removal"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/AddFeedModal.svelte:339::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AddFeedModal.svelte:339 '{#each discoveredFeeds …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/ArticleCardView.svelte:811::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleCardView.svelte:811 '{#each itemTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/DomainPatternInput.svelte:98::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DomainPatternInput.svelte:98 '{#each patterns …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/FeedDiscoveryForm.svelte:91::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FeedDiscoveryForm.svelte:91 '{#each discoveredFeeds …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/FilteredViewModal.svelte:473::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FilteredViewModal.svelte:473 '{#each feedViewStore.availableSavedDomains …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/FilteredViewModal.svelte:501::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FilteredViewModal.svelte:501 '{#each itemLabelsStore.allTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/FilteredViewModal.svelte:596::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FilteredViewModal.svelte:596 '{#each availableCategories …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/FilteredViewModal.svelte:612::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FilteredViewModal.svelte:612 '{#each availableTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/ImportOPMLModal.svelte:161::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ImportOPMLModal.svelte:161 '{#each parseErrors …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/ImportOPMLModal.svelte:196::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ImportOPMLModal.svelte:196 '{#each parsedFeeds …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/ImportOPMLModal.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ImportOPMLModal.svelte:222 '{#each parseErrors …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/ImportOPMLModal.svelte:291::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ImportOPMLModal.svelte:291 '{#each results.failed …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/KeyboardShortcutsModal.svelte:73::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/KeyboardShortcutsModal.svelte:73 '{#each categoryShortcuts …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (shortcuts: a literal list of shortcut descriptions inside $derived, 9-53, filtered by a category from the same list): fixed at author time, never reorders"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/NavigationDropdown.svelte:700::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NavigationDropdown.svelte:700 '{#each filteredItems …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/NavigationDropdown.svelte:713::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NavigationDropdown.svelte:713 '{#each items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/NavigationDropdown.svelte:851::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NavigationDropdown.svelte:851 '{#each filteredItems …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/NavigationDropdown.svelte:864::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NavigationDropdown.svelte:864 '{#each items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/PopoverMenu.svelte:146::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PopoverMenu.svelte:146 '{#each items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (menu items: every caller passes an author-written action list such as overflowItems/menuItems of ReaderChrome/FeedPageHeader/SavedCard): fixed at author time, stateless menu buttons"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/CommunityHighlightPopover.svelte:64::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/CommunityHighlightPopover.svelte:64 '{#each group.people …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/DailyMagazineArticle.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/DailyMagazineArticle.svelte:212 '{#each itemTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/FilterToolbar.svelte:570::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/FilterToolbar.svelte:570 '{#each filteredDomains …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/FilterToolbar.svelte:681::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/FilterToolbar.svelte:681 '{#each filteredSubscriptions …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/FilterToolbar.svelte:765::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/FilterToolbar.svelte:765 '{#each allTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFeedSwitcher.svelte:566::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFeedSwitcher.svelte:566 '{#each filteredItems …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFeedSwitcher.svelte:584::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFeedSwitcher.svelte:584 '{#each items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFilterSheet.svelte:509::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:509 '{#each feedViewStore.availableSavedDomains …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFilterSheet.svelte:743::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:743 '{#each feedViewStore.availableSavedDomains …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFilterSheet.svelte:769::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:769 '{#each itemLabelsStore.allTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFilterSheet.svelte:874::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:874 '{#each availableCategories …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFilterSheet.svelte:890::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:890 '{#each availableSubTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/MobileFilterSheet.svelte:972::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:972 '{#each chFilteredSubscriptions …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/SavedCard.svelte:619::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/feed/SavedCard.svelte:619 '{#each titleParts …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (titleParts: highlight segments of one title string, 279): segments of one string"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/SavedCard.svelte:656::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/SavedCard.svelte:656 '{#each tags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/SavedReader.svelte:1288::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/SavedReader.svelte:1288 '{#each itemTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/lib/components/feed/TagMenu.svelte:139::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/TagMenu.svelte:139 '{#each displayTags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/routes/feedback/+page.svelte:469::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/feedback/+page.svelte:469 '{#each post.tags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/routes/feedback/+page.svelte:603::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/feedback/+page.svelte:603 '{#each composerTypes …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/routes/settings/+page.svelte:1136::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:1136 '{#each syncFeedNotices …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/routes/settings/+page.svelte:1146::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:1146 '{#each syncMirrorNotices …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/each-key::src/routes/settings/+page.svelte:1155::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:1155 '{#each syncWarnings …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (feeds, subscriptions, domains, tags, categories, parse/sync results and warnings from app stores and API responses), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-derived::src/lib/components/feed/MobileFilterSheet.svelte:101::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MobileFilterSheet.svelte:101 the effect only does activeTab = initialTab (prop); other writes are onclick reassignments (390, 398), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-derived::src/lib/components/settings/LinkblogTargetPicker.svelte:75::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/LinkblogTargetPicker.svelte:75 the effect only does selectedUri = current.uri; the other writes are bind:group (121, 175), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-derived::src/routes/settings/+page.svelte:234::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:234 the effect only does showLinkblogPage = !linkblogPub?.pageHidden; other writes are a revert reassignment (524) and bind:checked (1280), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-derived::src/routes/settings/+page.svelte:242::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:242 the effect only copies titleStyle/cardPosition from linkblogPub.formatting; other writes are reassignments (260-261) and bind:value (1312, 1336), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-derived::src/routes/settings/+page.svelte:287::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:287 the effect only does offerAttribution = preferences.linkblogAttributionOffered; the other write is bind:checked (1352), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-onmount::src/lib/components/feed/MarginNote.svelte:132::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/feed/MarginNote.svelte:132 the effect only adds/removes a document visibilitychange listener bound to the local function handleVisibility (128) and reads nothing reactive, so it runs once like onMount"
+  },
+  {
+    "key": "disnet/skyreader:frontend::correctness/effect-as-onmount::src/lib/components/sources/SourceRow.svelte:120::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/sources/SourceRow.svelte:120 $effect(() => cancelHide) only returns the local cancelHide function (87) as cleanup; reads nothing reactive, an onDestroy stand-in as claimed"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/+layout.svelte:235::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.logo-icon 28x28, +layout.svelte:307-310) (key covers 37 routes, same element)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/auth/login/+page.svelte:241::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.login-logo 72x72, auth/login/+page.svelte:446-449)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/auth/login/+page.svelte:281::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.avatar 36x36, auth/login/+page.svelte:726-729)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/auth/login/+page.svelte:352::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.avatar 36x36)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/feedback/+page.svelte:503::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.author img 1.15rem x 1.15rem, feedback/+page.svelte:1484-1488)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/feedback/+page.svelte:530::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.reply-meta img 1.15rem x 1.15rem, :1443-1447)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/feedback/+page.svelte:643::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.attachments img 2.75rem x 2.75rem, :1060-1064)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/save/+page.svelte:140::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.logo 48x48, save/+page.svelte:225-228)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/settings/+page.svelte:800::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.avatar 56x56, settings/+page.svelte:2049-2052)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/subscribe/+page.svelte:187::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.logo 48x48, subscribe/+page.svelte:290-293)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-dimensions::src/routes/subscribe/+page.svelte:204::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.option-icon 24x24, :394-398)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/+layout.svelte:235::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the logged-out header (.header-full, +layout.svelte:231-236) — above the fold, where the docs keep the image eager (37 routes)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/auth/login/+page.svelte:241::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the login card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/auth/login/+page.svelte:281::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar on the \"continue as\" account cards of the login card (:270-285) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/auth/login/+page.svelte:352::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in the handle typeahead dropdown shown under the input while the user types (:341-352) — visible content when rendered"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/feedback/+page.svelte:503::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in each feedback post of the board list (:470-505) — posts below the fold are offscreen"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/feedback/+page.svelte:530::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: reply author avatar in each expanded thread under a post (:525-530) — offscreen-capable"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/feedback/+page.svelte:643::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of a file the user just attached in the compose form's attachment list (:639-645) — visible content when rendered"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/save/+page.svelte:140::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the centered save card (:139-140) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/settings/+page.svelte:800::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile avatar in the Account section, the first section of settings (:792-800) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/subscribe/+page.svelte:187::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the centered subscribe card (:186-187) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/image-loading-hint::src/routes/subscribe/+page.svelte:204::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: site icon on the first option button of the feed chooser in the centered card (:196-204) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/auth/login/+page.svelte:281::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: account.avatarUrl, a Bluesky avatar — raster, one fixed-size asset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/auth/login/+page.svelte:352::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: user.avatar from the Bluesky actor search — raster, one fixed-size asset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/feedback/+page.svelte:503::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: post.author.avatar, a Bluesky avatar — raster, one fixed-size asset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/feedback/+page.svelte:530::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: reply.author.avatar, a Bluesky avatar — raster, one fixed-size asset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/feedback/+page.svelte:643::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: attachment.previewUrl = URL.createObjectURL(file) of the file the user just picked (:323) — no alternate sizes exist"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/settings/+page.svelte:800::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: auth.user.avatarUrl, a Bluesky avatar — raster, one fixed-size asset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/responsive-image::src/routes/subscribe/+page.svelte:204::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: standardSite.iconUrl, a remote site icon — raster or remote image, one fixed-size asset"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/AddDropdownMenu.svelte:16::\"menuPosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"menuPosition\" in src/lib/components/AddDropdownMenu.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/AddSourceInput.svelte:21::\"menuPosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"menuPosition\" in src/lib/components/AddSourceInput.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/FollowingPublications.svelte:106::\"expanded\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"expanded\" in src/lib/components/FollowingPublications.svelte: only whole-binding reassignments and read-only uses; spread-copy reassignments; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/ImportOPMLModal.svelte:22::\"parseErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"parseErrors\" in src/lib/components/ImportOPMLModal.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/ImportOPMLModal.svelte:25::\"progress\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"progress\" in src/lib/components/ImportOPMLModal.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/ImportOPMLModal.svelte:26::\"results\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"results\" in src/lib/components/ImportOPMLModal.svelte: only whole-binding reassignments and read-only uses; results.failed {#each} items are strings; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/PopoverMenu.svelte:23::\"menuPosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"menuPosition\" in src/lib/components/PopoverMenu.svelte: only whole-binding reassignments and read-only uses; `typeof menuPosition` is a type reference and the local `position` is filled before the assignment; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/Tooltip.svelte:13::\"position\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"position\" in src/lib/components/Tooltip.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/settings/SaveBackingPicker.svelte:29::\"scopeStatus\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"scopeStatus\" in src/lib/components/settings/SaveBackingPicker.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/sidebar/FeedItem.svelte:71::\"popoverPosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"popoverPosition\" in src/lib/components/sidebar/FeedItem.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/sources/SourceRow.svelte:169::\"menuPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"menuPos\" in src/lib/components/sources/SourceRow.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/lib/components/sources/SourceRow.svelte:84::\"popoverPosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"popoverPosition\" in src/lib/components/sources/SourceRow.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::performance/state-raw::src/routes/settings/+page.svelte:196::\"syncWarnings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"syncWarnings\" in src/routes/settings/+page.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/ArticleCardView.svelte:364::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ArticleCard.svelte:225-232 → ArticleCardView.svelte:364: linkPostNoteHtml = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/ArticleCardView.svelte:447::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ArticleCard.svelte:726 → ArticleCardView.svelte:447: sanitizedContent = lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionMagazine.svelte:156::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionMagazine.svelte:52-55,122-123,156: md() = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionMagazine.svelte:223::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionMagazine.svelte:52-55,223: md(item.note) = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionMagazine.svelte:254::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionMagazine.svelte:111,254: st.html = lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionMagazine.svelte:261::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionMagazine.svelte:52-55,122-123,261: md() = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionReader.svelte:101::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionReader.svelte:56-62,101: md() = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionReader.svelte:183::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionReader.svelte:56-62,183: md() = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/CollectionReader.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/CollectionReader.svelte:56-62,83: md() = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/DailyMagazineArticle.svelte:234::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/DailyMagazineArticle.svelte:234 + routes/daily/+page.svelte:229,567: bodyHtml = lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks of the saved content — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/LinkblogEntry.svelte:323::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/LinkblogEntry.svelte:101-105,323: noteHtml = marked → lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::security/raw-html::src/lib/components/feed/SavedReader.svelte:1316::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/SavedReader.svelte:526,1316: sanitizedContent = lib/utils/sanitize.ts:80-249: sanitizeHtml = DOMPurify.sanitize with an iframe host allowlist and URL rewriting hooks — sanitized, reported per docs"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (OAuth callback handoff: auth/callback/+page.svelte completes login then goto(returnUrl)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/auth/error/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/channels/discover/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/daily/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: root +layout.svelte:43,83-84 goto('/') for signed-out visitors (APP_ROUTES)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/cards/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/collections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/common/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/discussion/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/feed/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/linkblog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/marginalia/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/primitives/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/reader/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/rooms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/sidebar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/dev/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but dev-only page: dev/+layout.ts:6-10 (ssr=false) throws error(404) whenever !dev, so production never renders it (dev-only precedent), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/discover/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/feedback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/feeds/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: root +layout.svelte:43,83-84 goto('/') for signed-out visitors (APP_ROUTES)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/following/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: redirect stub: following/+page.svelte renders only <LoadingState/> and goto()s a channel or /sources), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/highlights/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: root +layout.svelte:43,83-84 goto('/') for signed-out visitors (APP_ROUTES)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/highlights/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: root +layout.svelte:43,83-84 goto('/') for signed-out visitors (APP_ROUTES)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/linkblog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/rooms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: root +layout.svelte:78-81 sends signed-out visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/save/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: share-target action page: save/+page.svelte:87-89 sends signed-out visitors to /auth/login, else saves and goto(/saved)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/saved/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: root +layout.svelte:43,83-84 goto('/') for signed-out visitors (APP_ROUTES)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: settings/+page.svelte:291-294 onMount sends signed-out visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/subscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library) but not a search target (client-gated SPA: share-target action page: subscribe/+page.svelte:70-72 sends signed-out visitors to /auth/login, else subscribes and goto(/feeds)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/supporter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (354 files) or app.html (app.html:26-52 carries og:* and twitter:* but no canonical); functions/_middleware.ts adds none; no meta-tag library; rendered for signed-out visitors (no redirect in root +layout.svelte:61-85 or the page), no noindex"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 37 routes, mixed, labelled by majority: root +layout.svelte:193-196 literal <meta name=\"description\"> is the only description of all 37 routes, duplicate as claimed; 14 are the dev-only harness (dev/+layout.ts:9 load throws error(404) whenever !dev, so the whole /dev/* tree 404s in production), ~18 are client-rendered reading surfaces behind sign-in/guest mode (root +layout.svelte APP_ROUTES/ACCOUNT_ROUTES, AppShell only for authed/guest) or auth/share-target pages; only /, /terms, /privacy, /feedback, /supporter are public pages sharing it (a real but minority case)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 19 routes, mixed, labelled by majority: root +layout.svelte:192 literal <title>Skyreader</title> is the only literal title of /, /auth/callback, /auth/error, /auth/login, /settings and 14 /dev/* routes, duplicate as claimed; 14 of them are the dev-only harness (dev/+layout.ts:9 load throws error(404) whenever !dev, so the whole /dev/* tree 404s in production) and the rest are the landing, OAuth callback/error/login and account settings, so there is no search competition among pages that ship"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/auth/error/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/channels/discover/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/daily/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/cards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/collections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/common/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/discussion/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/feed/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/linkblog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/marginalia/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/primitives/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/reader/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/rooms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/sidebar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/dev/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/discover/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/feedback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/following/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/highlights/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/highlights/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/linkblog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/rooms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/save/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/saved/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/subscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/supporter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in frontend/src or app.html (app.html carries og:* only); the route has no JSON-LD (json-ld convention: tp, dev-only pages included)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::/auth/callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "auth/callback/+page.svelte renders only <p>Completing login...</p> in the bare layout arm (+layout.svelte:217-222); grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::/discover::Missing <h#>",
+    "verdict": "tp",
+    "basis": "discover/+page.svelte renders StaticPageChrome title=\"Discover\" (FeedPageHeader, a non-heading title) and lists whose only headings are SourceList <h3>s; grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::/following::Missing <h#>",
+    "verdict": "tp",
+    "basis": "following/+page.svelte renders only <LoadingState />; grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::/save::Missing <h#>",
+    "verdict": "tp",
+    "basis": "save/+page.svelte (bare layout arm) titles its card with <p class=\"title\">, no heading element; grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::/subscribe::Missing <h#>",
+    "verdict": "tp",
+    "basis": "subscribe/+page.svelte (bare layout arm) titles its card with <p class=\"title\">, no heading element; grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::src/lib/components/feed/CollectionMagazine.svelte:141::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "key covers 6 routes (/feeds, /saved, /highlights, /linkblog, /dev/cards, /dev/marginalia): on the four app routes the pair counted is SavedReader's reader-title <h1> (SavedReader.svelte:1269) plus CollectionMagazine's masthead <h1> (:141), which co-render only when the user opens a collection edition in the reader ({#if readerItem}, {#if collection} SavedReader.svelte:1296-1301) — not in the default view; /dev/cards adds the harness Showcase <h1> (dev harness only)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::src/lib/components/feed/SavedReader.svelte:1269::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "key covers /home, /rooms, /highlights/review: the page's own <h1> (HomePage.svelte:734 greeting, RoomPage.svelte:676, or one exclusive HighlightReview state <h1>) is joined by SavedReader's reader-title <h1> (:1269) and CollectionMagazine's masthead <h1> only while the user has an article open ({#if readerItem} <SavedReader>, HomePage.svelte:858, RoomPage.svelte:944) — the default view has one <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::src/lib/components/feed/WelcomePage.svelte:246::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "/dev/feed (dev harness, ssr=false, served under vite dev): Showcase renders its title <h1> (dev/_harness/Showcase.svelte:28) and the WelcomePage case renders WelcomePage's hero <h1> (:246) in a plain Case div (dev/feed/+page.svelte:138-139) -> two <h1> render"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::src/routes/feedback/+page.svelte:816::Missing <h#>",
+    "verdict": "tp",
+    "basis": "the page's first heading is an <h2> (:816), then <h3>s; grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::src/routes/settings/+page.svelte:795::Missing <h#>",
+    "verdict": "tp",
+    "basis": "the page's headings are section <h2>s/<h3>s (:795-1365); grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/single-h1::src/routes/sources/+page.svelte:698::Missing <h#>",
+    "verdict": "tp",
+    "basis": "the page's headings are <h2>s (:698, SourceSectionHeader) and SourceList <h3>s; grep of src finds <h1> only in CollectionMagazine/HomePage/HighlightReview/SavedReader/WelcomePage/RoomPage and a few other pages, none of them on this route; the root layout, AppShell and StaticPageChrome/FeedPageHeader render no heading -> no <h1>"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt (allow all), _headers, _redirects, manifest, og-image but no sitemap.xml, and no sitemap route or generator in frontend/src (literal claim holds); public site (app.html og:url https://skyreader.app/) with public landing, pricing, terms, privacy, feedback, supporter pages"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/ssr-disabled::src/routes/dev/+layout.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dev/+layout.ts:6 (comment: client-side SPA route); dev/+layout.ts:9 load throws error(404) whenever !dev, so the whole /dev/* tree 404s in production, a dev-only design-system harness, not content for search"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "key covers 19 routes, mixed, labelled by majority: root +layout.svelte:192 unconditional literal <title>Skyreader</title> (9 chars) is the only literal title of /, /auth/callback, /auth/error, /auth/login, /settings and 14 /dev/* routes (claim holds literally; tp on /, /auth/* and /settings, where signed-in users get AppShell's still-short '<view> - Skyreader'), but 14 of the 19 are the dev-only design-system harness (dev/+layout.ts:9 load throws error(404) whenever !dev, so the whole /dev/* tree 404s in production), which never ships (dev-only precedent: design)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/channels/discover/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Discover Channels - Skyreader</title> at src/routes/channels/discover/+page.svelte:231 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 29 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/daily/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Daily magazine - Skyreader</title> at src/routes/daily/+page.svelte:439 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 26 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/discover/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Discover - Skyreader</title> at src/routes/discover/+page.svelte:43 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 20 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/feedback/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Feedback - Skyreader</title> at src/routes/feedback/+page.svelte:453 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 20 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/feeds/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Feeds - Skyreader</title> at src/routes/feeds/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 17 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/following/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>From your follows - Skyreader</title> at src/routes/following/+page.svelte:41 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 29 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/highlights/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Highlights - Skyreader</title> at src/routes/highlights/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 22 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/highlights/review/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Review highlights - Skyreader</title> at src/routes/highlights/review/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 29 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/home/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Home - Skyreader</title> at src/routes/home/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 16 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/linkblog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Linkblog - Skyreader</title> at src/routes/linkblog/+page.svelte:24 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 20 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Privacy Policy - Skyreader</title> at src/routes/privacy/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 26 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/rooms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Reading rooms - Skyreader</title> at src/routes/rooms/+page.svelte:5 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 25 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/save/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Save to Skyreader</title> at src/routes/save/+page.svelte:135 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 17 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/saved/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Saved - Skyreader</title> at src/routes/saved/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 17 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/sources/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Sources - Skyreader</title> at src/routes/sources/+page.svelte:616 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 19 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/subscribe/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Subscribe in Skyreader</title> at src/routes/subscribe/+page.svelte:182 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 22 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/supporter/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Supporter - Skyreader</title> at src/routes/supporter/+page.svelte:207 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 21 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  },
+  {
+    "key": "disnet/skyreader:frontend::seo/title-length::src/routes/terms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Terms of Service - Skyreader</title> at src/routes/terms/+page.svelte:6 in a top-level svelte:head renders after root +layout.svelte:192's 'Skyreader' and wins; 28 chars, under 30 as claimed (for signed-in users the client-only AppShell.svelte:444 title can rewrite it to '<view> - Skyreader' / '(n) <view> - Skyreader', which is still under 30)"
+  }
+]

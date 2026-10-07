@@ -1,0 +1,1607 @@
+[
+  {
+    "key": "vizchitra/website::a11y/deprecated-attr::src/lib/components/interface/SpeakerDeck.svelte:21::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read SpeakerDeck.svelte:21-23: <iframe frameborder=\"0\"> (literal); frameborder is obsolete on iframe as reported (border:0 is already in its style)"
+  },
+  {
+    "key": "vizchitra/website::a11y/deprecated-attr::src/lib/components/interface/VideoModal.svelte:55::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read VideoModal.svelte:55-58: <iframe frameborder=\"0\"> (literal); frameborder is obsolete on iframe as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/disallowed-aria-props::src/lib/components/sections/SponsorStrip.svelte:143::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read SponsorStrip.svelte:143: <span class=\"strip-logo-link\" aria-label={s.name} {style}> (style shorthand, not a spread); no role, no spread, no use: action on the element (svelte parse); aria-label is prohibited on its generic role as claimed"
+  },
+  {
+    "key": "vizchitra/website::a11y/disallowed-aria-props::src/lib/components/sections/sponsorship/StarRating.svelte:12::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read StarRating.svelte:12: <span class=\"star-rating\" aria-label=\"… out of … stars\">; no role, no spread, no use: action on the element (svelte parse); aria-label is prohibited on its generic role as claimed"
+  },
+  {
+    "key": "vizchitra/website::a11y/duplicate-landmark::src/lib/components/patterns/BannerCurve.svelte:268::Duplicate banner landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: every Banner* pattern root div carries explicit role=\"banner\" (BannerCurve:279, BannerSquare:247, BannerBlob:279, BannerPolygon:223); root +layout.svelte:36 renders <Footer>, whose banner layer picks one in every arm (Footer.svelte:30-38), and / renders <Hero banner=\"spinner\"> (+page.svelte:20 -> Hero.svelte:74-75 BannerCurve), so two banner landmarks co-render"
+  },
+  {
+    "key": "vizchitra/website::a11y/duplicate-landmark::src/lib/components/patterns/BannerSquare.svelte:237::Duplicate banner landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: every Banner* pattern root div carries explicit role=\"banner\" (BannerSquare:247, BannerPolygon:223, BannerCurve:279, BannerBlob:279); the layout Footer renders one in every arm (Footer.svelte:30-38) and /2025/schedule renders <Header banner=\"polygon\"> (+page.svelte:5 -> Header.svelte:37-45), so two banner landmarks co-render; the location names the arm the fold picked, the duplicate holds in every arm"
+  },
+  {
+    "key": "vizchitra/website::a11y/duplicate-landmark::src/routes/studio/+page.svelte:64::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:33-35 wraps {@render children()} in <main> (only guides/[guideSlug] adds a layout, no reset); studio/+page.svelte:64 opens a second <main>"
+  },
+  {
+    "key": "vizchitra/website::a11y/interactive-nesting::src/routes/tools/speakers/+page.svelte:162::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <input> at +page.svelte:162 is a literal descendant of the <div role=\"button\"> at :107 in the same template, no component boundary between"
+  },
+  {
+    "key": "vizchitra/website::a11y/interactive-nesting::src/routes/tools/speakers/+page.svelte:175::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <input> at +page.svelte:175 is a literal descendant of the <div role=\"button\"> at :107 in the same template, no component boundary between"
+  },
+  {
+    "key": "vizchitra/website::a11y/interactive-nesting::src/routes/tools/speakers/+page.svelte:188::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <input> at +page.svelte:188 is a literal descendant of the <div role=\"button\"> at :107 in the same template, no component boundary between"
+  },
+  {
+    "key": "vizchitra/website::a11y/interactive-nesting::src/routes/tools/speakers/+page.svelte:203::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <button> at +page.svelte:203 is a literal descendant of the <div role=\"button\"> at :107 in the same template, no component boundary between"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/interface/VideoThumbnail.svelte:21::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at VideoThumbnail.svelte:21 has <button> (:14) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/proposals/UpvoteButton.svelte:186::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at UpvoteButton.svelte:186 has <button> (:147) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/sections/RecapVideo.svelte:39::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at RecapVideo.svelte:39 has <button> (:29) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/sections/VideoGrid.svelte:77::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at VideoGrid.svelte:77 has <button> (:72) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/sections/VideoGrid.svelte:83::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at VideoGrid.svelte:83 has <button> (:72) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/sections/VideoGrid.svelte:87::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at VideoGrid.svelte:87 has <button> (:72) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/permitted-contents::src/lib/components/sections/faq/FAQ.svelte:47::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at FAQ.svelte:47 has <summary> (:45) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <summary> excludes <div> as reported"
+  },
+  {
+    "key": "vizchitra/website::a11y/top-level-landmark::src/routes/guides/[guideSlug]/+layout.svelte:57::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:33-35 wraps {@render children()} in <main> (only guides/[guideSlug] adds a layout, no reset); guides/[guideSlug]/+layout.svelte:57 unlabelled <aside class=\"guide-sidebar\"> sits in <Container> (Container.svelte renders <svelte:element this={tag}>, default 'div', no tag passed) inside that <main>, so a complementary landmark nested in main"
+  },
+  {
+    "key": "vizchitra/website::a11y/top-level-landmark::src/routes/studio/+page.svelte:64::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:33-35 wraps {@render children()} in <main> (only guides/[guideSlug] adds a layout, no reset); studio/+page.svelte:64 <main> renders inside it"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/interface/CallCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/interface/CallCard.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/interface/ColumnChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/interface/ColumnChart.svelte has 501 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/interface/SquarePortraitDesigner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/interface/SquarePortraitDesigner.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/BannerBlob.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/BannerBlob.svelte has 306 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/BannerCurve.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/BannerCurve.svelte has 316 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/BannerPolygon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/BannerPolygon.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/BannerSquare.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/BannerSquare.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/PatternArc.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/PatternArc.svelte has 288 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/PatternCircle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/PatternCircle.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/PatternRiver.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/PatternRiver.svelte has 339 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/patterns/PatternStream.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/patterns/PatternStream.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/proposals/UpvoteButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/proposals/UpvoteButton.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sections/SponsorStrip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/SponsorStrip.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte has 230 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sections/sponsorship/EditorialScroller.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/sponsorship/EditorialScroller.svelte has 232 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sections/sponsorship/PackageScroller.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/sponsorship/PackageScroller.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sections/sponsorship/SponsorCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/sponsorship/SponsorCard.svelte has 314 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sections/sponsorship/SponsorScroller.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/sponsorship/SponsorScroller.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/sessions/SessionCardExpanded.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sessions/SessionCardExpanded.svelte has 838 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/structure/MobileNavDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/structure/MobileNavDrawer.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/structure/NavMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/structure/NavMenu.svelte has 334 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/components/typography/Prose.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/typography/Prose.svelte has 504 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/studio/editor/PanelShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/studio/editor/PanelShell.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/studio/editor/ProseMirrorEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/studio/editor/ProseMirrorEditor.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/studio/editor/SessionPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/studio/editor/SessionPanel.svelte has 388 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/lib/studio/editor/StudioPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/studio/editor/StudioPanel.svelte has 445 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2025/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2025/+page.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/+page.svelte has 1227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/attendee-guide/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/attendee-guide/+page.svelte has 385 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/exhibition/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/exhibition/+page.svelte has 433 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/proposals/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/proposals/+page.svelte has 271 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/schedule/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/schedule/+page.svelte has 509 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/sessions/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/sessions/[slug]/+page.svelte has 499 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/sponsorship/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/sponsorship/+page.svelte has 767 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/2026/submissions/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/2026/submissions/[id]/+page.svelte has 368 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/funding/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/funding/+page.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/guides/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/guides/+page.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/guides/[guideSlug]/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/guides/[guideSlug]/+layout.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/studio/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/studio/+page.svelte has 377 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/tools/cluster/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tools/cluster/+page.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/tools/colors/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tools/colors/+page.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/tools/pattern/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tools/pattern/+page.svelte has 383 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/tools/qr/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tools/qr/+page.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/component-size::src/routes/tools/speakers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tools/speakers/+page.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/interface/CallCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/interface/CallCard.svelte has a single destructured $props() with 17 named props (> 6): title, subtitle, description, pattern, tone, variation, titlePosition, descriptionPosition, titleWidth, descriptionWidth, href, external, compact, fillHeight, …"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/layout/Flex.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/layout/Flex.svelte has a single destructured $props() with 10 named props (> 6): direction, directionSm, directionMd, directionLg, wrap, align, justify, gap, className, children"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/layout/Grid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/layout/Grid.svelte has a single destructured $props() with 7 named props (> 6): columns, maxColumns, minWidth, maxItemWidth, gap, class, children"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/patterns/PatternCircle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/patterns/PatternCircle.svelte has a single destructured $props() with 7 named props (> 6): tone, variation, width, height, class, ariaLabel, showHatch"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/patterns/PatternRiver.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/patterns/PatternRiver.svelte has a single destructured $props() with 7 named props (> 6): tone, variation, seed, width, height, class, ariaLabel"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/patterns/PatternRough.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/patterns/PatternRough.svelte has a single destructured $props() with 7 named props (> 6): color, fillStyle, roughness, hachureAngle, hachureGap, fillWeight, opacity"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/patterns/PatternWaves.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/patterns/PatternWaves.svelte has a single destructured $props() with 7 named props (> 6): tone, variation, width, height, layerConfig, class, ariaLabel"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/proposals/ProposalFilters.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/proposals/ProposalFilters.svelte has a single destructured $props() with 7 named props (> 6): types, themes, selectedType, selectedTheme, searchQuery, sortBy, resultsCount"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/sections/sponsorship/SponsorTestimonial.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sections/sponsorship/SponsorTestimonial.svelte has a single destructured $props() with 7 named props (> 6): name, logo, photos, quote, overallRating, recommendRating, color"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/sessions/ImageCluster.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sessions/ImageCluster.svelte has a single destructured $props() with 7 named props (> 6): speakers, size, imgSize, gap, backBaseline, backHShift, backGap"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/sessions/SessionCardBackground.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sessions/SessionCardBackground.svelte has a single destructured $props() with 7 named props (> 6): sessionType, color, variation, seed, width, height, class"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/components/sessions/SessionCardExpanded.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sessions/SessionCardExpanded.svelte has a single destructured $props() with 16 named props (> 6): title, speakers, sessionType, subtitle, date, time, slot, venue, slug, tbd, soldOut, sponsored, isExpanded, descriptionHtml, …"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/studio/editor/FeedbackPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/studio/editor/FeedbackPanel.svelte has a single destructured $props() with 11 named props (> 6): submissionType, id, title, format, isEditing, onStartEdit, onStopEdit, onCancel, status, onStatusChange, getNotes"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/studio/editor/PanelShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/studio/editor/PanelShell.svelte has a single destructured $props() with 15 named props (> 6): breadcrumb, fileName, editLabel, isEditing, isDirty, saving, saveStatus, errorMessage, stagedCount, onStartEdit, onSave, onCancel, children, preview, …"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/studio/editor/SessionPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/studio/editor/SessionPanel.svelte has a single destructured $props() with 18 named props (> 6): slug, sessionType, venue, order, display, soldOut, title, subtitle, speakers, shortDescription, longDescription, speakerAbout, socialImage, isEditing, …"
+  },
+  {
+    "key": "vizchitra/website::architecture/prop-count::src/lib/studio/editor/StudioPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/studio/editor/StudioPanel.svelte has a single destructured $props() with 7 named props (> 6): filePath, frontmatter, getMarkdown, getFrontmatter, onFrontmatterChange, socialImage, previewCard"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-index-key::src/lib/components/patterns/PatternFormats.svelte:148::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each paths as { d, color, opacity }, i (i)}' keyed by its index binding; paths = Array.from({ length: NUM_CURVES }) generated curve paths (:119); positional list (one curve per index)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/assets/images/ButtonBar.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each uniqueButtons as item}' has no key; list source uniqueButtons ($: uniqueButtons = Array.from(new Map(data.map((item) => [item[keyField], item])).values() :17): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/BreadCrumb.svelte:8::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each trail as item, i}' has no key; trail prop (:2) is the breadcrumb trail; positional list (breadcrumbs)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ButtonBar.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each uniqueButtons as item}' has no key; list source uniqueButtons (let uniqueButtons = $derived( :22): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ColumnChart.svelte:199::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each gridLines as tick}' has no key; gridLines = xScale.ticks(...) (:128), axis ticks; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ColumnChart.svelte:211::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data as item, index}' has no key; list source data (export let data: Array<{ :6): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ColumnChart.svelte:246::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data as item}' has no key; list source data (export let data: Array<{ :6): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ColumnChart.svelte:253::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each lines as line, lineIndex}' has no key; lines = splitLabel(category) (:248), the wrapped lines of one label; positional list (text segments)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ColumnChart.svelte:278::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each xAxisTicks as tick}' has no key; xAxisTicks = xScale.ticks(...) (:129), axis ticks; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/ColumnChart.svelte:315::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each annotations as annotation}' has no key; list source annotations (export let annotations: Array<{ :19): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/DeckOverview.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each cards as card, i}' has no key; list source cards (cards: DeckCard[]; :17): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/Dropdown.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each uniqueOptions as item}' has no key; list source uniqueOptions (let uniqueOptions: any = $state([]); :14): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/FormatCard.svelte:82::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point}' has no key; list source points (points: string[]; :11): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/interface/MarqueeRow.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Array(repetitions).fill(items).flat() as item}' has no key; Array(repetitions).fill(items).flat(), the same items repeated for a marquee loop; positional list (duplicates by design)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/DividerCurves.svelte:136::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each segments as segment}' has no key; segments = $state (:42) regenerated decoration geometry (:116); positional list (generated shapes)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/DividerCurves.svelte:146::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each dots as dot}' has no key; dots = $state (:43) regenerated decoration geometry (:117); positional list (generated shapes)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/DividerPolygon.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each lines as line}' has no key; lines = $state (:15) generated decoration geometry; positional list (generated shapes)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/DividerPolygon.svelte:75::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point}' has no key; points = $state (:14) generated decoration geometry sorted by x (:27); positional list (generated shapes)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/PatternCircle.svelte:253::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each layers as layer}' has no key; layers = $derived(circleData.layers) (:198), generated SVG pattern layers; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/PatternMountain.svelte:185::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each layers as layer}' has no key; layers = $derived(createMountainLayers()) (:148), generated SVG pattern layers; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/PatternRiver.svelte:333::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each layers as layer}' has no key; layers = $derived(createRiverLayers()) (:296), generated SVG pattern layers; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/PatternStream.svelte:215::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each layers as layer}' has no key; layers = $derived(createStreamLayers()) (:178), generated SVG pattern layers; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/patterns/PatternWaves.svelte:162::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each layers as layer}' has no key; layers = $derived(createWaveLayers()) (:123), generated SVG pattern layers; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/proposals/ProposalFilters.svelte:106::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each themes as theme}' has no key; list source themes (themes: string[]; :4): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/proposals/ProposalFilters.svelte:94::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each types as type}' has no key; list source types (types: string[]; :3): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/PhotoStrip.svelte:122::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each loopedPhotos as photo, i}' has no key; loopedPhotos = [...photos, ...photos] (:19), the bundled photo set doubled for a scrolling loop; static list with deliberate duplicates"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte:164::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i}' has no key; points = computePoints(regularPentagonPoints, ...) (:17), the vertices of one pentagon; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte:183::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i}' has no key; points = computePoints(regularPentagonPoints, ...) (:17), the vertices of one pentagon; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/playground/PolygonGenerator.svelte:101::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i}' has no key; points (:9) are the vertices of one generated polygon (recomputed in place :24); positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/playground/PolygonGenerator.svelte:90::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i}' has no key; points (:9) are the vertices of one generated polygon (recomputed in place :24); positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/sponsorship/AttendeeMarquee.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each legendItems.sort((a, b) => b.count - a.count) as item}' has no key; legendItems (:31) maps the keys of the constant categoryColors object; static list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/sponsorship/PackageCard.svelte:85::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each pkg.benefits as benefit}' has no key; list source pkg (let { pkg }: { pkg: Package } = $props(); :22): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/sponsorship/PackageCard.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each benefit.details as detail}' has no key; list source benefit ({#each pkg.benefits as benefit} :85): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/sponsorship/PackageScroller.svelte:170::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each pkg.benefits[bi].details as detail}' has no key; list source pkg ({#each packages as pkg, i (pkg.tier)} :114): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/team/MemberPentagon.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i}' has no key; points = computePoints(memberData) (:8), the vertices of one pentagon; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/team/MemberPentagon.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i}' has no key; points = computePoints(memberData) (:8), the vertices of one pentagon; positional list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sections/venue/VenueCard.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each venue.transportation as transport}' has no key; list source venue (const { venue, index }: { venue: Venue; index?: number } = $props(); :14): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sessions/ImageCluster.svelte:84::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each speakers.slice(0, 4) as sp, i}' has no key; list source speakers (speakers: Speaker[]; :5): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sessions/PatternComingSoon.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each rings as ring}' has no key; rings = $derived([...]) literal (:48); static list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sessions/SessionCardExpanded.svelte:367::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each effectiveSpeakerName.split('//').map((s) => s.trim()) as person, i}' has no key; effectiveSpeakerName.split('//'), the names inside one string; positional list (text segments)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sessions/SessionCardExpanded.svelte:631::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each effectiveSpeakerName.split('//').map((s) => s.trim()) as person, i}' has no key; effectiveSpeakerName.split('//'), the names inside one string; positional list (text segments)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/sessions/SpeakerCluster.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each speakers.slice(0, 4) as sp, i}' has no key; list source speakers (speakers: Speaker[]; :5): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/MobileNavDrawer.svelte:101::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections.filter((s) => s.group === 'featured') as featured}' has no key; list source section ({#each navSections as section, index} :42): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/MobileNavDrawer.svelte:115::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections.filter((s) => s.group === 'primary') as subsection}' has no key; list source section ({#each navSections as section, index} :42): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/MobileNavDrawer.svelte:130::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections.filter((s) => s.group === 'secondary') as subsection, i}' has no key; list source section ({#each navSections as section, index} :42): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/MobileNavDrawer.svelte:145::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections as subsection}' has no key; list source section ({#each navSections as section, index} :42): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/MobileNavDrawer.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each navSections as section, index}' has no key; list source navSections (let { navSections = null } = $props(); :11): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/NavMenu.svelte:122::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each navSections as section}' has no key; list source navSections (let navSections = $state([ :13): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/NavMenu.svelte:158::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections.filter((s) => (s as any).group === 'featured') as featured}' has no key; list source section ({#each navSections as section} :122): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/NavMenu.svelte:177::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections.filter((s) => (s as any).group === 'primary') as item}' has no key; list source section ({#each navSections as section} :122): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/NavMenu.svelte:201::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections.filter((s) => (s as any).group === 'secondary') as item, i}' has no key; list source section ({#each navSections as section} :122): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/structure/NavMenu.svelte:222::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each section.subsections as subsection}' has no key; list source section ({#each navSections as section} :122): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/components/typography/Slanted.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each letters as l}' has no key; letters = formatSlantedText(textContent) (:24), the letters of one string; positional list (text segments)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/studio/GroupedTableCard.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each groups as group}' has no key; list source groups (groups: Group[]; :12): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/studio/GroupedTableCard.svelte:73::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each group.rows as item}' has no key; list source group ({#each groups as group} :41): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/studio/editor/StudioPanel.svelte:250::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.entries(fieldSpecs) as [key, spec]}' has no key; list source fieldSpecs (const fieldSpecs = $derived(collection ? COLLECTION_FIELD_SPECS[collection] : {}); :36): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/studio/editor/StudioPanel.svelte:277::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each spec.options ?? [] as opt}' has no key; list source spec ({#each Object.entries(fieldSpecs) as [key, spec]} :250): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/lib/studio/editor/StudioPanel.svelte:316::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.keys(frontmatter).filter((k) => !fieldSpecs[k]) as key}' has no key; the read-only frontmatter keys of the content file being edited (display-only fallback, :315); static per file"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2025/+page.svelte:246::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each sponsors as sponsor}' has no key; list source sponsors (import sponsors from '$lib/data/sponsors2025.json'; :20): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2025/sponsorship/+page.svelte:99::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each sponsors as sponsor}' has no key; list source sponsors (import sponsors from '$lib/data/sponsors2025.json' with { type: 'json' }; :20): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/exhibition/+page.svelte:105::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data.exhibitions as exhibit, i}' has no key; list source data (let { data }: { data: PageData } = $props(); :5): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/exhibition/+page.svelte:154::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each exhibit.speakers ?? [] as sp, si}' has no key; list source exhibit ({#each data.exhibitions as exhibit, i} :105): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/exhibition/+page.svelte:167::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.entries(sp.social ?? {}).filter(([, u]) => u) as [platform, url]}' has no key; list source sp ({#each exhibit.speakers ?? [] as sp, si} :154): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data.days as d, i}' has no key; list source data (let { data }: { data: PageData } = $props(); :27): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:207::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each legendItems as item}' has no key; list source legendItems (const legendItems = $derived(visibleLegend(resolvedSlots, galleryEntries.length > 0)); :96): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:221::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each schedule.tracks as track, i}' has no key; list source schedule (const schedule = $derived(data.days[activeDayIndex]); :60): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:251::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each hourMarks as mark}' has no key; list source hourMarks (const hourMarks = $derived(computeHourMarks(bounds.gridStart, bounds.gridEnd)); :76): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:269::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each renderSlots as r}' has no key; list source renderSlots (const renderSlots = $derived(dedupeSpanningBreaks(timedSlots, spanningKeys)); :121): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:311::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each r.speakers as sp}' has no key; list source r ({#each renderSlots as r} :269): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:338::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each galleryEntries as ex}' has no key; list source galleryEntries (const galleryEntries = $derived([ :82): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:355::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each ex.speakers as sp}' has no key; list source ex ({#each galleryEntries as ex} :338): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/schedule/+page.svelte:384::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each schedule.tracks as _, i}' has no key; list source schedule (const schedule = $derived(data.days[activeDayIndex]); :60): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/sessions/+page.svelte:103::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data.formats as format}' has no key; list source data (let { data }: { data: PageData } = $props(); :9): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/sessions/[slug]/+page.svelte:187::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each session.speakers ?? [] as sp}' has no key; list source session (const session = $derived(data.session); :16): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/sessions/[slug]/+page.svelte:197::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.entries(sp.social ?? {}).filter(([, u]) => u) as [platform, url]}' has no key; list source sp ({#each session.speakers ?? [] as sp} :187): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/sessions/[slug]/+page.svelte:322::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each session.speakers as sp, i}' has no key; list source session (const session = $derived(data.session); :16): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/2026/submissions/[id]/+page.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each (proposal as CFPProposal).links as link}' has no key; list source proposal (const proposal = $derived(data.proposal); :13): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/funding/+page.svelte:164::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data.fundingData.funding.channels as channel}' has no key; list source data (let { data }: { data: PageData } = $props(); :14): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/guides/[guideSlug]/+layout.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each data.sections as section, index}' has no key; list source data (let { data, children } = $props(); :4): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/lab/+page.svelte:48::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.entries(data.categories) as [categoryKey, items]}' has no key; list source data (let { data }: PageProps = $props(); :5): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/lab/+page.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each items as item}' has no key; list source items ({#each Object.entries(data.categories) as [categoryKey, items]} :48): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/studio/+page.svelte:116::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each stagedFiles as file}' has no key; stagedFiles = $state (:31) of the editor's staged uploads, cleared after commit (:49); runtime list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/studio/+page.svelte:169::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each contentGroups as group}' has no key; list source contentGroups (const contentGroups = $derived(data.contentGroups); :11): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/studio/+page.svelte:179::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each flat.files as file}' has no key; list source flat ({@const flat = group as FlatGroup} :176): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/studio/+page.svelte:211::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each tree.groups as sub}' has no key; list source tree ({@const tree = group as TreeGroup} :208): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/studio/+page.svelte:236::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each sub.files as file}' has no key; list source sub ({#each tree.groups as sub} :211): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/tools/cards/+page.svelte:144::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.entries(cardSizes) as [key, size]}' has no key; cardSizes is a same-file constant object literal (:95); static list"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/tools/cluster/+page.svelte:104::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each picks as pick, i}' has no key; picks = $state([0, 1, 2, 3]) (:9), four fixed slots whose values cycle (:12); positional list (one slot per index)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/tools/cluster/+page.svelte:201::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each speakers as sp, i}' has no key; speakers {@const} (:125) maps the four fixed pick slots to speakers; positional list (one slot per index)"
+  },
+  {
+    "key": "vizchitra/website::correctness/each-key::src/routes/tools/colors/+page.svelte:175::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each variant.colors as color}' has no key; list source variant ({#each namedVariants as variant} :168): static content: VizChitra is a prerendered conference site whose lists come from bundled content files (content-collections, JSON/CSV/markdown under content/ and $lib/data) or constants, fixed at build time and display-only, so a key cannot help"
+  },
+  {
+    "key": "vizchitra/website::correctness/effect-as-derived::src/lib/components/interface/CallCard.svelte:51::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only does internalVariation = variation (prop) (:52); the other write is a top-level reassignment (:61), the writable-$derived override pattern the ledger labels tp"
+  },
+  {
+    "key": "vizchitra/website::correctness/effect-as-derived::src/lib/components/proposals/UpvoteButton.svelte:27::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only copies initialVotes/initialHasVoted props into votes/hasVoted (:28-29); later writes are top-level reassignments (:98-137), the writable-$derived override pattern the ledger labels tp"
+  },
+  {
+    "key": "vizchitra/website::correctness/effect-as-derived::src/lib/components/sessions/SessionCardExpanded.svelte:182::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: seed/variation = Math.random() (:183-184); a $derived would compute different values on the server and during hydration (mismatch), which the post-mount $effect avoids (ledger convention for Math.random)"
+  },
+  {
+    "key": "vizchitra/website::correctness/effect-as-derived::src/lib/studio/editor/StudioPanel.svelte:55::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only does localValues = { ...frontmatter } (prop) (:56); the other write is a top-level reassignment (:60), the writable-$derived override pattern the ledger labels tp"
+  },
+  {
+    "key": "vizchitra/website::correctness/instance-browser-global::src/lib/studio/editor/FloatingToolbar.svelte:71::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: window.innerWidth is read inside a lazy $derived guarded by `coords ? ... : 0` (:70-72); coords (toolbar position) is null until the user selects text, and the toolbar's ProseMirrorEditor only renders for a studio user in edit mode, so the server never evaluates the read (ledger convention for lazy guarded $derived)"
+  },
+  {
+    "key": "vizchitra/website::correctness/prop-mutation::src/lib/components/interface/ColumnChart.svelte:93::Prop \"data\" is mutated directly — Svelte's legacy-mode reactivity is assignment-based, so this alone will not update the UI. Reassign it after mutating (e.g. \"data = data\").",
+    "verdict": "fp",
+    "basis": "read: legacy component (export let data :6); `$: data = data.sort((a, b) => b[ykey] - a[ykey]);` (:93) reassigns the prop in the same statement as the in-place sort, which is Svelte's documented mutate-then-reassign pattern; the docs exempt a mutating call when the same function also reassigns the prop, and the message's claim that 'this alone will not update the UI' is false here; the analyzer does not apply the reassignment exemption to a `$:` statement (same as the ledger's 'legacy mutate-then-reassign idiom' fp)"
+  },
+  {
+    "key": "vizchitra/website::correctness/stale-prop-derivation::src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte:74::\"pentagonXOffset\" is computed from a prop once, at initialization — it will not update when the prop changes. Prefix the assignment with $: to make it a reactive statement.",
+    "verdict": "design",
+    "basis": "read: pentagonXOffset (:74) is computed once from memberData (claim structurally true), but every render site passes a fixed entry of the bundled sessions2025.json (SpeakerCardsTrack.svelte:5-10 keyed each, KeyNote.svelte:14-15), so the prop never changes after mount (ledger convention for constant data)"
+  },
+  {
+    "key": "vizchitra/website::correctness/unmutated-state::src/lib/components/patterns/PatternFormats.svelte:60::$state \"width\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: width = $state(1080) (:60) is only read (:75, :82, :114, :142), never written, bound or passed, as claimed"
+  },
+  {
+    "key": "vizchitra/website::correctness/unmutated-state::src/lib/components/patterns/PatternFormats.svelte:61::$state \"height\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: height = $state(120) (:61) is only read (:87, :90, :105, :114, :142), never written, bound or passed, as claimed"
+  },
+  {
+    "key": "vizchitra/website::correctness/unmutated-state::src/routes/2026/+page.svelte:288::$state \"videoOpen\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: videoOpen = $state(false) (:288) is only written inside markup that is commented out (<!-- <VideoThumbnail ... onclick={() => (videoOpen = true)} /> --> :520-526 and <!-- <VideoLightBox show={videoOpen} ... /> --> :541-547), so in live code it is never written or read, as claimed"
+  },
+  {
+    "key": "vizchitra/website::correctness/unmutated-state::src/routes/2026/sessions/[slug]/+page.svelte:59::$state \"liveDescriptionHtml\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: liveDescriptionHtml = $state(untrack(() => data.descriptionHtml)) (:59) is never written; its only other mention is {@html liveDescriptionHtml} (:303), as claimed"
+  },
+  {
+    "key": "vizchitra/website::performance/iframe-loading::src/lib/components/interface/SpeakerDeck.svelte:21::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: third-party speakerdeck.com player embedded at the very end of both sponsorship pages (2025/sponsorship/+page.svelte:115 after the sponsor grid, 2026/sponsorship/+page.svelte:678 after 'Get in Touch') — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/iframe-loading::src/lib/components/interface/VideoLightBox.svelte:46::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: YouTube embed inside the lightbox rendered only {#if show && videoId} (:33) after the user opens it — on-screen by construction"
+  },
+  {
+    "key": "vizchitra/website::performance/iframe-loading::src/lib/components/interface/VideoModal.svelte:55::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: YouTube embed inside the modal rendered only {#if show && videoId} (:30) after the user opens it — on-screen by construction"
+  },
+  {
+    "key": "vizchitra/website::performance/iframe-loading::src/lib/components/sections/RecapVideo.svelte:20::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: the autoplay YouTube embed replaces the thumbnail only {#if playing} (:18), set by the play button click (:30) — created on-screen by the user, where eager is right"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/+page.svelte:585::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: own class h-32 w-1/2 md:h-44 — both dimensions fixed by CSS, box reserved"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/+page.svelte:591::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: own class h-32 w-1/2 md:h-44 — both dimensions fixed by CSS, box reserved"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/exhibition/+page.svelte:133::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .artwork-img 100% x 100% (:403-405) inside the aspect-ratio 1/1 .artwork-hero (:396-398) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/exhibition/+page.svelte:185::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .artist-photo 100% x 100% (:345-347) inside the 124x124 .artist-photo-wrap (:316-321) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/sessions/[slug]/+page.svelte:331::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .speaker-photo 100% x 100% (:461-463) inside the 124x124 .speaker-photo-wrap (:435-440) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/sponsorship/+page.svelte:562::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .edition-photo width:100%; height:280px (200px mobile) (:747-765) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/2026/sponsorship/+page.svelte:567::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .edition-photo width:100%; height:280px (200px mobile) (:747-765) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/tools/pattern/+page.svelte:250::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: reference PNG with own class block h-auto w-full only — width fixed, the natural aspect decides the height, content below shifts"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/tools/pattern/+page.svelte:320::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: reference PNG with own class block h-auto w-full only — width fixed, the natural aspect decides the height, content below shifts"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/tools/pattern/+page.svelte:374::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: reference PNG with own class block h-auto w-full only — width fixed, the natural aspect decides the height, content below shifts"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/tools/speakers/+page.svelte:125::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: inline style width:100%; height:100% inside the circleSize x circleSize px box (:118-120) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-dimensions::src/routes/tools/speakers/+page.svelte:138::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: inline style width:100%; height:100% inside the circleSize x circleSize px box (:131-133) — box reserved by CSS"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/exhibition/+page.svelte:133::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: artwork image in each {#each data.exhibitions} row (8 exhibits), after the long curatorial intro section (:24-100) — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/exhibition/+page.svelte:176::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: 18px social icon in the artist blocks of each exhibit row, after the long curatorial intro — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/exhibition/+page.svelte:185::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: artist photo in the artist bio of each exhibit row, after the long curatorial intro — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/sessions/[slug]/+page.svelte:206::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: 20px social icon in the speakers row of the session header, right under the h1 and short description (:159-206) — at the top of the page, not demonstrably offscreen"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/sessions/[slug]/+page.svelte:331::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: speaker photo in the 'about the speaker' section (:311) after the session body section (:292) — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/sponsorship/+page.svelte:562::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: photo in 'The 2025 Edition' section (:535), the third section after 'What Makes VizChitra Unique' and 'Why Sponsor' — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/2026/sponsorship/+page.svelte:567::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: photo in 'The 2025 Edition' section (:535), the third section after 'What Makes VizChitra Unique' and 'Why Sponsor' — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/tools/pattern/+page.svelte:250::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: reference image in each of the four {#each variants} ToolsCards (:67-254) — cards past the first are offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/tools/pattern/+page.svelte:320::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: reference image in the Mountain card (:262), after the four variant cards — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/tools/pattern/+page.svelte:374::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: reference image in the Arc card (:331), after the four variant cards and Mountain — offscreen on load"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/tools/speakers/+page.svelte:125::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: speaker photo in each card of the {#each data.speakers} grid of every static/images/speakers/2026 file (+page.server.ts) — cards past the first viewport are offscreen"
+  },
+  {
+    "key": "vizchitra/website::performance/image-loading-hint::src/routes/tools/speakers/+page.svelte:138::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: speaker photo in each card of the {#each data.speakers} grid of every static/images/speakers/2026 file (+page.server.ts) — cards past the first viewport are offscreen"
+  },
+  {
+    "key": "vizchitra/website::performance/lcp-image::src/routes/2026/+page.svelte:585::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the route's own templates, but it sits in the 'Workshop Day' block after the Hero, intro, PhotoStrip, feedback and video thumbnails (:368-585) — far below the fold, and the earlier images are in child components (PhotoStrip, VideoThumbnail) the source pass does not read (documented component blindness); lazy is right here"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/+page.svelte:585::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /images/exhibition/KlimateKundli.jpg, a raster photo shown at w-1/2 — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/+page.svelte:591::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /images/exhibition/VanishingWings.jpg, a raster photo shown at w-1/2 — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/exhibition/+page.svelte:133::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: exhibit.artworkHeroImage = /images/exhibition/*.jpg (content/2026/data/sessions.toml:484-678), raster — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/exhibition/+page.svelte:176::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: icon = `/images/socials/${…}.svg` (:174), always a .svg path — a vector, but dynamic, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/exhibition/+page.svelte:185::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: sp.image = /images/speakers/2026/*.webp (sessions.toml), raster — one fixed-size asset"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/sessions/[slug]/+page.svelte:206::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: iconPath = `/images/socials/${…}.svg` (:198), always a .svg path — a vector, but dynamic, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/sessions/[slug]/+page.svelte:331::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: sp.image = /images/speakers/2026/*.webp (sessions.toml), raster — one fixed-size asset"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/sponsorship/+page.svelte:562::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /images/photos/group-photo.jpg, raster photo at full column width — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/2026/sponsorship/+page.svelte:567::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /images/photos/packed-auditorium.jpg, raster photo at full column width — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/tools/pattern/+page.svelte:250::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: referenceImages[variant] = /images/patterns/*-hatched.png (:27-31), raster — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/tools/pattern/+page.svelte:320::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /images/patterns/pattern-mountain-plain.png, raster at w-full — one fixed-size asset"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/tools/pattern/+page.svelte:374::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /images/patterns/patterns-arcs-spinner.png, raster at w-full — one fixed-size asset"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/tools/speakers/+page.svelte:125::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: sp.src = /images/speakers/2026/*.webp|png (+page.server.ts), raster — one fixed-size asset"
+  },
+  {
+    "key": "vizchitra/website::performance/responsive-image::src/routes/tools/speakers/+page.svelte:138::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: sp.src = /images/speakers/2026/*.webp|png (+page.server.ts), raster — one fixed-size asset"
+  },
+  {
+    "key": "vizchitra/website::performance/sequential-awaits::src/routes/2026/sessions/[slug]/+page.server.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read 2026/sessions/[slug]/+page.server.ts:36-37 + lib/utils/markdown.ts: both awaits are markdownToHtml, an in-process unified/remark pipeline — no request to parallelize (ledger no-I/O convention)"
+  },
+  {
+    "key": "vizchitra/website::performance/sequential-awaits::src/routes/2026/sessions/[slug]/+page.server.ts:38::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read 2026/sessions/[slug]/+page.server.ts:36-40: the preceding awaits and this Promise.all are markdownToHtml, an in-process unified/remark pipeline — no request to parallelize (ledger no-I/O convention)"
+  },
+  {
+    "key": "vizchitra/website::performance/state-raw::src/lib/components/interface/Dropdown.svelte:14::\"uniqueOptions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read Dropdown.svelte:14,18,31-34: uniqueOptions is only reassigned (= Array.from(map.values())) and read in {#each uniqueOptions as item} (item[keyField]/item[labelField] reads) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vizchitra/website::performance/state-raw::src/lib/components/patterns/DividerCurves.svelte:42::\"segments\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read DividerCurves.svelte:42,116,129-144: segments is only reassigned (= newSegments) and read (.length, {#each} reading segment.path/stroke) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vizchitra/website::performance/state-raw::src/lib/components/patterns/DividerCurves.svelte:43::\"dots\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read DividerCurves.svelte:43,117,146-149: dots is only reassigned (= newDots) and read in {#each dots as dot} (cx/cy/fill) — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/interface/ColumnChart.svelte:339::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ColumnChart.svelte:19,339: annotation.text comes from the annotations prop, which its only caller AttendeeCharts.svelte:20-58 passes as literal arrays — repo-authored, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/interface/InlineSvg.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read InlineSvg.svelte:11-25: svgHtml is one of the repo's own src/lib/assets/**/*.svg files (import.meta.glob ?raw) picked by name — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/interface/QRCode.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read QRCode.svelte:2,14-36: svgContent = qrcode library SVG output — library-generated QR markup, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/proposals/ProposalCard.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ProposalCard.svelte:63 + routes/2026/submissions/+page.server.ts:4-19: summaryHtml = marked.parseInline of the CFP/CFE description from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the public submissions page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/call-to-action/HeaderCallToAction.svelte:31::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read HeaderCallToAction.svelte:2-4,31: CtaPattern is one of the repo's own patterns/cta-pattern-*.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerCard.svelte:154::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerCard.svelte:5,11,154: repo calendar.svg ?raw with a color from the literal colorMapping table substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerCard.svelte:163::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerCard.svelte:6,11,163: repo location.svg ?raw with a color from the literal colorMapping table substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerCardsTrack.svelte:116::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerCardsTrack.svelte:3,116: arrowLeft is the repo icons/arrow-left.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerCardsTrack.svelte:122::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerCardsTrack.svelte:4,122: arrowRight is the repo icons/arrow-right.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerDetailsModal.svelte:100::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerDetailsModal.svelte:100: data.talkInfo comes from the repo's own lib/data/sessions2025.json (literal talk descriptions with <br> markup) — repo-authored, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerDetailsModal.svelte:107::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerDetailsModal.svelte:3,107: repo calendar.svg ?raw with a color from a literal colorMapping substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerDetailsModal.svelte:116::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerDetailsModal.svelte:4,116: repo location.svg ?raw with a color from a literal colorMapping substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerDetailsModal.svelte:136::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerDetailsModal.svelte:6,136: repo speaker-card-pattern-2.svg ?raw with literal colorMapping colors substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerDetailsModal.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerDetailsModal.svelte:7,48: CloseIcon is the repo icons/x.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte:112::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerPentagon.svelte:3,112: repo speaker-card-pattern-2.svg ?raw with colors substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/conference/SpeakerCard/SpeakerPentagon.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SpeakerPentagon.svelte:2,98: repo speaker-card-pattern-1.svg ?raw with colors substituted — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/mission/Mission.svelte:7::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Mission.svelte:2,7: MissionViz is the repo MissionViz.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/playground/PolygonGenerator.svelte:87::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PolygonGenerator.svelte:3,87: the repo logos/vizchitra-logo-type.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/sections/sponsorship/SponsorCard.svelte:155::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SponsorCard.svelte:5-15,152-155: the logoType=\"html\" arm renders the logo prop; both callers (routes/2025/+page.svelte:249-250, 2025/sponsorship/+page.svelte:102-103) pass logoType=\"image\" with repo sponsor data — repo-authored, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/lib/components/typography/LogoTagline.svelte:20::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read LogoTagline.svelte:2,20: the repo logos/viz-logo-animate.svg imported ?raw — repo-authored SVG, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/exhibition/+page.svelte:122::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read 2026/exhibition/+page.server.ts:16: longDescriptionHtml = markdownToHtml of the editorial content/2026/data/sessions.toml (lib/utils/markdown.ts: remark-rehype with rehype-stringify defaults, which encode raw HTML) — editor-authored repo content, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/exhibition/+page.svelte:198::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read 2026/exhibition/+page.server.ts:17-19, +page.svelte:156: bioHtml = markdownToHtml of speaker about text in the editorial sessions.toml (rehype-stringify encodes raw HTML) — editor-authored repo content, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/schedule/+page.svelte:302::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read 2026/schedule/+page.server.ts:13-16: r.description = marked.parseInline of slot descriptions from the repo content/2026/data/schedule.toml — editor-authored repo content, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/sessions/[slug]/+page.svelte:303::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read 2026/sessions/[slug]/+page.server.ts:36 + lib/utils/markdown.ts: descriptionHtml = markdownToHtml(session.longDescription) of the editorial sessions.toml (rehype-stringify encodes raw HTML) — editor-authored repo content, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/sessions/[slug]/+page.svelte:346::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read 2026/sessions/[slug]/+page.server.ts:38-40: speakersAboutHtml = markdownToHtml of speaker about text in the editorial sessions.toml (rehype-stringify encodes raw HTML) — editor-authored repo content, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:183::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:227::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:237::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:250::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:261::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:272::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:283::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/2026/submissions/[id]/+page.svelte:325::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read 2026/submissions/[id]/+page.server.ts:21-55: descriptionHtml/additionalHtml = marked.parse of CFP/CFE proposal fields from content/2026/data/cfp.csv / cfe.csv (form-respondent rows synced from the submission form: respondent_id, submitted_at) — public submitters' free text through marked (no sanitizer, raw HTML passes) onto the prerendered public proposal page"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/[...slug]/+page.svelte:75::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [...slug]/+page.server.ts:3 + content-collections.ts:33-36: data.document.html is compileMarkdown output of the repo's own content pages (allPages, prerendered) — repo-authored markdown, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/funding/+page.svelte:139::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read funding/+page.server.ts:4-8: plan.description comes from the repo's static/funding.json, only URLs wrapped in <a> — repo-authored data, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/guides/[guideSlug]/[sectionSlug]/+page.svelte:78::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read guides/[guideSlug]/[sectionSlug]/+page.server.js:1-10 + content-collections.ts:56-59: section.html is compileMarkdown output of the repo guide markdown (allGuides) — repo-authored, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/raw-html::src/routes/lab/[slug]/+page.svelte:31::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lab/[slug]/+page.server.ts:1 + content-collections.ts:83-86: document.html is compileMarkdown output of the repo lab/audit markdown (allAudits) — repo-authored, reported per docs"
+  },
+  {
+    "key": "vizchitra/website::security/server-module-state::src/routes/2026/submissions/[id]/og-image.png/+server.ts:37::module-scope variable \"initialized\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read 2026/submissions/[id]/og-image.png/+server.ts:30-37: initialized is a run-once flag for resvg-wasm initWasm — process-wide init state with no request data (ledger run-once flag convention)"
+  },
+  {
+    "key": "vizchitra/website::seo/description-length::src/routes/studio/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): src/routes/studio/+page.svelte unconditional literal description, under 70 as claimed (Studio CMS area, login-gated; description-length convention tp)"
+  },
+  {
+    "key": "vizchitra/website::seo/description-length::src/routes/studio/login/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): src/routes/studio/login/+page.svelte unconditional literal description, under 70 as claimed (Studio CMS area, login-gated; description-length convention tp)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; / has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2025/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2025 has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2025/schedule/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2025/schedule has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2025/sponsorship/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2025/sponsorship has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2025/videos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2025/videos has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026 has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/attendee-guide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/attendee-guide has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/callout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/callout has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/dialogues/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/dialogues has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/exhibition/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/exhibition has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/proposals/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/proposals has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/schedule/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/schedule has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/sessions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/sessions has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/sessions/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/sessions/[slug] has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/sponsorship/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/sponsorship has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/submissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/submissions has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/submissions/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/submissions/[id] has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/talks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/talks has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/2026/workshops/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /2026/workshops has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/404/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /404 has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/[...slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /[...slug] has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/funding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /funding has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/guides/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /guides has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/guides/[guideSlug]/[sectionSlug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /guides/[guideSlug]/[sectionSlug] has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/lab/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /lab has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/lab/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /lab/[slug] has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/studio/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /studio has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/studio/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /studio/login has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/team/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /team has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/banner/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/banner has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/cards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/cards has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/cluster/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/cluster has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/colors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/colors has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/pattern/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/pattern has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/photos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/photos has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/qr/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/qr has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/selfie/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/selfie has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/json-ld::src/routes/tools/speakers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html; /tools/speakers has no JSON-LD (public conference site)"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::/2026/dialogues::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: 2026/dialogues/+page.svelte renders no markup, only onMount(() => goto('/2026/sessions?type=…')); no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64) — redirect-stub convention"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::/2026/talks::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: 2026/talks/+page.svelte renders no markup, only onMount(() => goto('/2026/sessions?type=…')); no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64) — redirect-stub convention"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::/2026/workshops::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: 2026/workshops/+page.svelte renders no markup, only onMount(() => goto('/2026/sessions?type=…')); no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64) — redirect-stub convention"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::/tools/qr::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: tools/qr renders Header (banner only) and ToolsHeader, whose title is an <h2> (interface/ToolsHeader.svelte:10), plus tool widgets with no heading; no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64)"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::/tools/selfie::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: tools/selfie renders Header (banner only) and ToolsHeader, whose title is an <h2> (interface/ToolsHeader.svelte:10), plus tool widgets with no heading; no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64)"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::src/routes/studio/login/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: studio/login renders Header (banner only, its <h1> commented out) and an <h2> 'Sign in to Studio' (:17); no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64)"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::src/routes/tools/banner/+page.svelte:45::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: tools/banner renders Header (banner only) and ToolsHeader, whose title is an <h2> (interface/ToolsHeader.svelte:10), then <h2>/<h3> sections; no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64)"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::src/routes/tools/colors/+page.svelte:122::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: tools/colors renders Header (banner only) and ToolsHeader, whose title is an <h2> (interface/ToolsHeader.svelte:10), then <h2>/<h3> sections; no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64)"
+  },
+  {
+    "key": "vizchitra/website::seo/single-h1::src/routes/tools/pattern/+page.svelte:71::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: tools/pattern renders Header (banner only) and ToolsHeader, whose title is an <h2> (interface/ToolsHeader.svelte:10), then <h2>/<h3> sections; no <h1> in root +layout.svelte (SEO, AnnouncementBar, NavMenu, Footer) — grep of src/lib finds <h1>/tag=h1 only in Heading/Text/Container (svelte:element), DeckCard, DeckOverview, SessionCardExpanded, and Header.svelte's <h1> is commented out (:58-64)"
+  },
+  {
+    "key": "vizchitra/website::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, routes or build (static/robots.txt has the Sitemap line commented out as 'Future'); public conference site vizchitra.com with many prerendered pages"
+  },
+  {
+    "key": "vizchitra/website::seo/ssr-disabled::src/routes/tools/qr/+page.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at tools/qr/+page.ts:3 so the ?url= param is read at runtime on the prerendered site; organizer QR-code generator utility (input box + download), no indexable content, so the client-only render is a reasonable choice"
+  },
+  {
+    "key": "vizchitra/website::seo/title-length::src/routes/studio/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): src/routes/studio/+page.svelte unconditional literal <title>, under 30 as claimed (Studio CMS area, login-gated)"
+  },
+  {
+    "key": "vizchitra/website::seo/title-length::src/routes/studio/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): src/routes/studio/login/+page.svelte unconditional literal <title>, under 30 as claimed (Studio CMS area, login-gated)"
+  }
+]

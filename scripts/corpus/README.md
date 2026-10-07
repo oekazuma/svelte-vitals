@@ -5,7 +5,8 @@ user-facing claim: use it to see which rules need attention and whether a change
 less trustworthy. Design: `docs/superpowers/specs/2026-09-23-corpus-precision-design.md`.
 
 - `targets.json` — the corpus: open-source SvelteKit apps, each pinned to a commit.
-- `verdicts.json` — one verdict per finding, keyed `app::rule::file:line::claim`.
+- `verdicts/` — one verdict per finding, keyed `app::rule::file:line::claim`, in one file per app
+  (`owner__repo[__path].json`, `/` and `:` written as `__`) so no file nears GitHub's size limit.
 - `measurement.json` — per-rule counts written by `pnpm corpus update`.
 
 ## Verdicts
@@ -21,7 +22,7 @@ less trustworthy. Design: `docs/superpowers/specs/2026-09-23-corpus-precision-de
 
 - **Precision** is `tp / (tp + fp)` over findings that have a verdict, with the sample size next to it. A finding nobody has read is not assumed to be correct; `design` and `unclear` count toward neither side.
 - **Design share** is the part of the reviewed findings that are reported as documented but are not a demonstrable defect. Read it next to precision: a rule at 100% precision with a high design share reports mostly things that are not wrong, and is a candidate for narrowing.
-- **"not yet reviewed"** means the rule fired on the corpus but none of its findings has a verdict yet. Add verdicts to `verdicts.json` to move it.
+- **"not yet reviewed"** means the rule fired on the corpus but none of its findings has a verdict yet. Add verdicts to `verdicts/` to move it.
 - **—** in the Reviewed column means the rule reported nothing on the corpus, which says nothing about its quality. In the Precision column it means no finding has a `tp` or `fp` verdict (for example, all are `design`), so there is nothing to compute.
 - Findings are counted once per code location and claim: a component finding on forty routes is one finding.
 - This measures false positives, not misses, on a small sample of SvelteKit code.

@@ -1,0 +1,112 @@
+[
+  {
+    "key": "aid-ly/aid-ly::a11y/id-duplication::src/lib/components/Map.svelte:100::Duplicate id \"map\"",
+    "verdict": "tp",
+    "basis": "read: Map.svelte:100 <div id=\"map\"> is unconditional; the 3 pages rendering <Map> ((auth)/org/+page.svelte:150, (app)/org/[username]:83, (app)/post/[id]:51) each wrap it in <section id=\"map\">, so the id appears twice"
+  },
+  {
+    "key": "aid-ly/aid-ly::architecture/prop-count::src/lib/components/ModularForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ModularForm.svelte has a single destructured $props() with 9 named props (> 6): title, action, classes, method, inputs, error, submit, onsubmit, disabled"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/Dropdown.svelte:26::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Dropdown.svelte:26 each over options / group items with no key; the only caller Header.svelte:95 passes locale.ul.contribute.options, static i18n menu data; static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/Dropdown.svelte:28::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Dropdown.svelte:28 each over options / group items with no key; the only caller Header.svelte:95 passes locale.ul.contribute.options, static i18n menu data; static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/Header.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Header.svelte:56 '{#each AVAILABLE_LANGUAGES as language}' has no key; AVAILABLE_LANGUAGES = Object.keys(locales) ($lib/i18n/index.ts:10), not an array literal so not an exempt shape per the docs, but fixed at author time; static list"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/ModularForm.svelte:73::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ModularForm.svelte:73 '{#each inputs as input}' has no key; callers pass fixed per-form field definitions (e.g. org/[username]/+page.svelte:55 inline literal, bind:inputs only writes values); static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/ModularForm.svelte:96::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ModularForm.svelte:96 '{#each submit as btn}' has no key; callers pass inline literal button lists (org/Post.svelte:108); static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/SEO.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SEO.svelte:32 '{#each AVAILABLE_LANGUAGES as language}' has no key; AVAILABLE_LANGUAGES = Object.keys(locales) ($lib/i18n/index.ts:10) for hreflang links; static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/admin/Console.svelte:65::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/admin/Console.svelte:65 '{#each locale.orgs.table.head as th}' has no key; table headings from the static locale dictionary; static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/lib/components/admin/Console.svelte:71::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/Console.svelte:71 '{#each paginatedOrgs as org}' has no key; paginatedOrgs = $derived page slice of the organizations prop (DB records) (Console.svelte:18); runtime data, changes with paging"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/routes/[lang=lang]/(app)/faq/+page.svelte:14::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang=lang]/(app)/faq/+page.svelte:14 each over locale.faqs.<group> with no key; FAQ entries of the static locale dictionary; static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/routes/[lang=lang]/(app)/faq/+page.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang=lang]/(app)/faq/+page.svelte:21 each over locale.faqs.<group> with no key; FAQ entries of the static locale dictionary; static list fixed at author time"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/each-key::src/routes/[lang=lang]/(auth)/org/+page.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang=lang]/(auth)/org/+page.svelte:145 '{#each posts as post}' has no key; posts = $state(data.posts) (org/+page.svelte:11), edited/deleted by the org at runtime; runtime data"
+  },
+  {
+    "key": "aid-ly/aid-ly::correctness/stale-prop-derivation::src/lib/components/admin/Console.svelte:14::\"organizationsCount\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/admin/Console.svelte:14 organizationsCount = organizations.length at init (structurally true); the only caller admin/+page.svelte:5 itself destructures data once and passes that constant list, so the prop never changes after mount"
+  },
+  {
+    "key": "aid-ly/aid-ly::security/raw-html::src/lib/components/SEO.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read components/SEO.svelte:12-23: JSON.stringify(ld) with no '<' escaping, and ld.description is the user-authored post/org description (post/[id]/+page.svelte:30 post.description, org/[username]/+page.svelte:16 org.description, written via (auth)/org actions) — a '</script>' in a description breaks out: stored XSS"
+  },
+  {
+    "key": "aid-ly/aid-ly::security/raw-html::src/lib/components/email/Welcome.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read email/Welcome.svelte:13: locale.body is a repo i18n string with newlines turned into </p><p> — repo constants, reported per docs"
+  },
+  {
+    "key": "aid-ly/aid-ly::security/raw-html::src/routes/[lang=lang]/(app)/(markdown)/+layout.svelte:10::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (markdown)/+layout.server.ts: data.html = md2html(repo src/lib/static/md/*.md) and md2html runs sanitize-html (lib/md2html.ts:29-42) — repo content, sanitized"
+  },
+  {
+    "key": "aid-ly/aid-ly::security/raw-html::src/routes/[lang=lang]/(app)/post/[id]/+page.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read post/[id]/+page.svelte:36 + lib/md2html.ts:29-42: md2html = showdown then sanitize-html with a tag/attribute allowlist — sanitized, reported per docs"
+  },
+  {
+    "key": "aid-ly/aid-ly::seo/single-h1::/[lang=lang]/privacy-policy::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: the (markdown) +layout.svelte renders {@html data.html}, which +layout.server.ts builds with md2html(src/lib/static/md/privacy-policy/<lang>.md, headerLevelStart 1) (showdown; sanitize-html keeps h1 with class); both en.md and it.md start with '# Privacy policy / Informativa sulla Privacy' -> <h1> in the server HTML"
+  },
+  {
+    "key": "aid-ly/aid-ly::seo/single-h1::/[lang=lang]/terms-of-use::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: the (markdown) +layout.svelte renders {@html data.html}, which +layout.server.ts builds with md2html(src/lib/static/md/terms-of-use/<lang>.md, headerLevelStart 1) (showdown; sanitize-html keeps h1 with class); both en.md and it.md start with '# Terms of use / Termini di utilizzo' -> <h1> in the server HTML"
+  },
+  {
+    "key": "aid-ly/aid-ly::seo/single-h1::src/lib/components/ModularForm.svelte:62::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: key covers /org and /org/[username]; ModularForm renders <h1> only {#if typeof title === 'string'} (:61-62), else <svelte:element this={title.level ?? 'h1'}>; /org/[username] has its page <h1> (:23) plus ModularForm title={{ level: 'h2' }} (:51) -> one <h1>; /org has ModularForm with a string title (one <h1>) plus title={{ level: 'h2' }} -> one <h1>; no layout/npm (svelte-cookie-consent: h3 only) <h1> -> one <h1> on both, not 3"
+  },
+  {
+    "key": "aid-ly/aid-ly::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no static/sitemap.xml and no src/routes/sitemap.xml endpoint, so /sitemap.xml itself 404s (literal claim holds); but src/routes/[lang=lang]/sitemap.xml/+server.ts serves /en/sitemap.xml and /it/sitemap.xml (organizations and posts from the DB) and src/routes/robots.txt/+server.ts advertises each as a Sitemap: line, so the site ships sitemaps (cobalt precedent)"
+  }
+]

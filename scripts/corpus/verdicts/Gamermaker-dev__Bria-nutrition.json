@@ -1,0 +1,522 @@
+[
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::a11y/label-has-control::src/routes/profile/+page.svelte:44::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/+page.svelte:44: <label> holds only static text, no for= and no wrapped control; the control that follows is a sibling"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::a11y/label-has-control::src/routes/profile/create/+page.svelte:52::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/create/+page.svelte:52: <label> holds only static text, no for= and no wrapped control; the control that follows is a sibling"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::correctness/each-index-key::src/lib/components/BriaNotification.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/BriaNotification.svelte:27 '{#each notifs as notif, i (i)}' keyed by its index binding; list source is runtime data ($notifications store: toasts added and dismissed), items can be inserted/removed, so identity follows position as claimed"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::correctness/each-index-key::src/lib/components/BriaTable.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/BriaTable.svelte:14 '{#each headers as header, i (i)}' keyed by its index binding; positional list (column headers of a table, headers prop): items have no identity beyond position"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::correctness/each-index-key::src/lib/components/BriaTable.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/BriaTable.svelte:22 '{#each row.cells as cell, i (i)}' keyed by its index binding; positional list (cells of one table row, inside the outer {#each data as row (row.id)}): items have no identity beyond position"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::correctness/each-index-key::src/lib/components/PostForm.svelte:8::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PostForm.svelte:8 '{#each errors as error, i (i)}' keyed by its index binding; list source is runtime data ($props(): errors, validation errors), items can be inserted/removed/reordered (field-error convention)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::performance/sequential-awaits::src/routes/profile/+page.server.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/+page.server.ts:29: independent DB controller query after an unrelated one (checkForErrors only throws on error, exceptional path) — Promise.all would work"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::performance/sequential-awaits::src/routes/profile/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/+page.server.ts:33: independent DB controller query after an unrelated one (checkForErrors only throws on error, exceptional path) — Promise.all would work"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::performance/sequential-awaits::src/routes/profile/create/+page.server.ts:31::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/profile/create/+page.server.ts:31: independent DB controller query after an unrelated one (checkForErrors only throws on error, exceptional path) — Promise.all would work"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/badpage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "never renders: badpage/+page.server.ts:4-6 load throws error(503) unconditionally (and badpage/+page.svelte throws in its script), so +error.svelte renders instead of this page; route-level claims on it are false"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/food/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 17 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/food/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/food/custom/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/health/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/profile/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)) but not a search target (auth-gated: root +layout.server.ts:7-9 redirects guests to /login on every route but /login and /register), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/food/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/food/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/food/custom/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/health/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html (root head only a favicon link); publicly reachable, rendered auth-flow route (root +layout.server.ts exempts /login and /register from the login redirect), no noindex"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/profile/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html; not a search target (auth-gated: root +layout.server.ts:7-8 redirects every session-less request outside /login and /register to /login)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or transitively imported components, none in app.html (root head only a favicon link); publicly reachable, rendered auth-flow route (root +layout.server.ts exempts /login and /register from the login redirect), no noindex"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/food/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/food/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/food/custom/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/health/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/profile/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/badpage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "never renders: badpage/+page.server.ts:4-6 load throws error(503) unconditionally (and badpage/+page.svelte throws in its script), so +error.svelte renders instead of this page; route-level claims on it are false"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/food/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 17 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/food/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/food/custom/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/health/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 14 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/profile/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/badpage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "never renders: badpage/+page.server.ts:4-6 load throws error(503) unconditionally (and badpage/+page.svelte throws in its script), so +error.svelte renders instead of this page; route-level claims on it are false"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/food/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 17 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/food/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/food/custom/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/health/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 14 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/profile/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/badpage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "never renders: badpage/+page.server.ts:4-6 load throws error(503) unconditionally (and badpage/+page.svelte throws in its script), so +error.svelte renders instead of this page; route-level claims on it are false"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/food/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 17 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/food/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/food/custom/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/health/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 14 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/profile/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/badpage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "never renders: badpage/+page.server.ts:4-6 load throws error(503) unconditionally (and badpage/+page.svelte throws in its script), so +error.svelte renders instead of this page; route-level claims on it are false"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/food/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 17 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/food/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/food/custom/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/health/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 14 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/profile/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/badpage::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: badpage/+page.server.ts load always throws error(503) and +page.svelte throws in its script, so the page never renders; the route shows +error.svelte, which renders <h1>{page.status}: …</h1> (+error.svelte:6)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/food/add::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /food/add page renders BriaPage with form/list content only; no <h1> in page+layouts+components: root +layout.svelte renders Web.svelte (svelte-ux@1.0.10 AppBar title is plain text in <header>, dist/components/AppBar.svelte:36-52) or Mobile.svelte (<header>BRIA</header>); BriaPage/PostForm and local form components have no headings; no svelte-ux 1.0.10 component renders an <h1> (all 106 .svelte files grepped via jsDelivr)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/food::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /food page renders BriaPage with form/list content only; no <h1> in page+layouts+components: root +layout.svelte renders Web.svelte (svelte-ux@1.0.10 AppBar title is plain text in <header>, dist/components/AppBar.svelte:36-52) or Mobile.svelte (<header>BRIA</header>); BriaPage/PostForm and local form components have no headings; no svelte-ux 1.0.10 component renders an <h1> (all 106 .svelte files grepped via jsDelivr)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /login page renders BriaPage with form/list content only; no <h1> in page+layouts+components: root +layout.svelte renders Web.svelte (svelte-ux@1.0.10 AppBar title is plain text in <header>, dist/components/AppBar.svelte:36-52) or Mobile.svelte (<header>BRIA</header>); BriaPage/PostForm and local form components have no headings; no svelte-ux 1.0.10 component renders an <h1> (all 106 .svelte files grepped via jsDelivr)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/profile/create::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /profile/create page renders BriaPage with form/list content only; no <h1> in page+layouts+components: root +layout.svelte renders Web.svelte (svelte-ux@1.0.10 AppBar title is plain text in <header>, dist/components/AppBar.svelte:36-52) or Mobile.svelte (<header>BRIA</header>); BriaPage/PostForm and local form components have no headings; no svelte-ux 1.0.10 component renders an <h1> (all 106 .svelte files grepped via jsDelivr)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/profile::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /profile page renders BriaPage with form/list content only; no <h1> in page+layouts+components: root +layout.svelte renders Web.svelte (svelte-ux@1.0.10 AppBar title is plain text in <header>, dist/components/AppBar.svelte:36-52) or Mobile.svelte (<header>BRIA</header>); BriaPage/PostForm and local form components have no headings; no svelte-ux 1.0.10 component renders an <h1> (all 106 .svelte files grepped via jsDelivr)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/single-h1::/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /register page renders BriaPage with form/list content only; no <h1> in page+layouts+components: root +layout.svelte renders Web.svelte (svelte-ux@1.0.10 AppBar title is plain text in <header>, dist/components/AppBar.svelte:36-52) or Mobile.svelte (<header>BRIA</header>); BriaPage/PostForm and local form components have no headings; no svelte-ux 1.0.10 component renders an <h1> (all 106 .svelte files grepped via jsDelivr)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/robots.txt exists but no sitemap.xml file/endpoint (literal claim holds); private nutrition tracker whose routes all redirect session-less users to /login (root +layout.server.ts), only /login and /register are public"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/food/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/food/add/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/food/custom/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/health/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/profile/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/profile/create/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/title-presence::src/routes/register/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "rendered: root +layout.svelte:69-77 renders Web.svelte in the {:else} (non-mobile UA) arm; Web.svelte:21 <AppBar title=\"Bria Nutrition\"> from svelte-ux@1.0.10 (package-lock), whose dist/components/AppBar.svelte:19,64-67 emits <title>{titleString}</title> in <svelte:head> (head defaults true, SSR); caveat: the {#if data.isMobile} arm (hooks.server.ts:44, UA contains \"Mobi\") renders Mobile.svelte, which emits no <title>, so mobile-UA HTML (incl. Googlebot Smartphone) has none"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/badpage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "never renders: badpage/+page.server.ts:4-6 load throws error(503) unconditionally (and badpage/+page.svelte throws in its script), so +error.svelte renders instead of this page; route-level claims on it are false"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/food/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 17 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/food/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/food/custom/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/health/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 14 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/profile/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  },
+  {
+    "key": "Gamermaker-dev/Bria-nutrition::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta library anywhere in src (root +layout.svelte:60-62 head has only the favicon link; app.html has charset/viewport only)"
+  }
+]

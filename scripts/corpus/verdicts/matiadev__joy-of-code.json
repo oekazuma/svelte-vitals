@@ -1,0 +1,362 @@
+[
+  {
+    "key": "matiadev/joy-of-code::a11y/permitted-contents::src/lib/ui/header/search/search.svelte:86::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "matiadev/joy-of-code::a11y/permitted-contents::src/routes/[slug]/toc.svelte:74::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <h2> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "matiadev/joy-of-code::architecture/component-size::src/lib/ui/header/search/search.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/header/search/search.svelte has 218 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "matiadev/joy-of-code::architecture/prop-count::src/lib/ui/popover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): id, label, title, trigger, children, panelClass, panel, open"
+  },
+  {
+    "key": "matiadev/joy-of-code::architecture/prop-count::src/lib/ui/slider-row.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): id, label, unit, min, max, step, value"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/lib/ui/header/menu.svelte:15::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each Object.entries(config.categories) as [slug, category]}' has no key and is not an inline literal/length-only/itemless shape; static list (unresolved): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/lib/ui/header/search/search.svelte:126::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each results as result}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (state: results), not shown static; sheet-read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/lib/ui/header/search/search.svelte:135::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each result.content as content}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: result), not shown static; sheet-read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/lib/ui/posts.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each posts as post, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: posts), not shown static; sheet-read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/routes/[slug]/toc.svelte:78::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each tableOfContents as { active, title, href }}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (state: tableOfContents), not shown static; sheet-read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/routes/archive/+page.svelte:24::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.posts as post, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/each-key::src/routes/drafts/+page.svelte:24::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.posts as post, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/effect-as-onmount::src/lib/embed/youtube.svelte:5::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: $effect(async) only does `await import('lite-youtube-embed')`; no reactive read"
+  },
+  {
+    "key": "matiadev/joy-of-code::correctness/effect-as-onmount::src/routes/[slug]/clipboard.svelte:16::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: $effect only querySelectorAll('.copy') and attaches listeners; no reactive read, runs once after mount"
+  },
+  {
+    "key": "matiadev/joy-of-code::performance/state-raw::src/lib/ui/header/search/search.svelte:15::\"results\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"results\": only whole-binding reassignments and template reads; no member writes, method calls, bind:, call args or each-item escapes"
+  },
+  {
+    "key": "matiadev/joy-of-code::security/raw-html::src/lib/components/card.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is a static SVG path map or search results cut from repo post content, with <mark> wrapping matched content (query regex-escaped, never inserted) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "matiadev/joy-of-code::security/raw-html::src/lib/ui/header/search/search.svelte:132::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is a static SVG path map or search results cut from repo post content, with <mark> wrapping matched content (query regex-escaped, never inserted) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "matiadev/joy-of-code::security/raw-html::src/lib/ui/header/search/search.svelte:136::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is a static SVG path map or search results cut from repo post content, with <mark> wrapping matched content (query regex-escaped, never inserted) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 41 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 41 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/categories/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/drafts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 41 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/drafts/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/canonical-url::src/routes/newsletter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/description-length::src/routes/newsletter/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Subscribe for updates and tasty web development tr…\" = 55 graphemes (<70)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 41 transitively imported files, or app.html; no meta-tag library in deps; #lib subpath imports followed; markdown posts: head-tag text only in code fences/inline code"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 20 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 21 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 19 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 19 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/categories/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 20 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/drafts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 19 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/drafts/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 21 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/json-ld::src/routes/newsletter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 20 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-description::src/routes/archive/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-description::src/routes/categories/[category]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-description::src/routes/drafts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-description::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-image::src/routes/archive/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-image::src/routes/categories/[category]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-image::src/routes/drafts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-image::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-title::src/routes/archive/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-title::src/routes/categories/[category]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-title::src/routes/drafts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-title::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-url::src/routes/archive/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-url::src/routes/categories/[category]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-url::src/routes/drafts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/og-url::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/single-h1::/about::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<Heading> imported via package.json subpath import #lib/ui/heading.svelte renders an unconditional <h1>; analyzer does not resolve #-imports (repro-seo-structure/hash-imports)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/single-h1::/categories/[category]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<Heading> imported via package.json subpath import #lib/ui/heading.svelte renders an unconditional <h1>; analyzer does not resolve #-imports (repro-seo-structure/hash-imports)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/single-h1::/newsletter::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<Heading> imported via package.json subpath import #lib/ui/heading.svelte renders an unconditional <h1>; analyzer does not resolve #-imports (repro-seo-structure/hash-imports)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/single-h1::src/routes/archive/+page.svelte:17::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<Heading> imported via package.json subpath import #lib/ui/heading.svelte renders an unconditional <h1>; analyzer does not resolve #-imports (repro-seo-structure/hash-imports)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/single-h1::src/routes/drafts/+page.svelte:17::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<Heading> imported via package.json subpath import #lib/ui/heading.svelte renders an unconditional <h1>; analyzer does not resolve #-imports (repro-seo-structure/hash-imports)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"About\" = 5 graphemes (<30)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/title-length::src/routes/archive/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Archive\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/title-length::src/routes/drafts/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Drafts\" = 6 graphemes (<30)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/title-length::src/routes/newsletter/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Newsletter\" = 10 graphemes (<30)"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/twitter-card::src/routes/archive/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/twitter-card::src/routes/categories/[category]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/twitter-card::src/routes/drafts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/twitter-card::src/routes/newsletter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/heading-level-skip::src/routes/archive/+page.svelte:17::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "$lib/ui/heading.svelte (#lib alias) renders <h1>{children}</h1>; the page renders <Heading> (:13) then <h3> (:17) with nothing between -> h1 to h3"
+  },
+  {
+    "key": "matiadev/joy-of-code::seo/heading-level-skip::src/routes/drafts/+page.svelte:17::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "$lib/ui/heading.svelte (#lib alias) renders <h1>{children}</h1>; the page renders <Heading> (:13) then <h3> (:17) with nothing between -> h1 to h3"
+  }
+]

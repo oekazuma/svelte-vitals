@@ -1,0 +1,1542 @@
+[
+  {
+    "key": "cmintey/wishlist::a11y/accessible-name::src/lib/components/account/EditProfile.svelte:52::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read EditProfile.svelte:52: empty <button bind:this hidden type=\"submit\"> used only as a programmatic submit target; unnamed as reported but the hidden attribute keeps it out of the AT tree (hidden-button precedent)"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/id-duplication::src/lib/components/PasswordInput.svelte:70::Duplicate id \"showpassword\"",
+    "verdict": "tp",
+    "basis": "read PasswordInput.svelte:70: hardcoded <button id=\"showpassword\">; routes render several PasswordInput together (ChangePassword.svelte:35/48/56, CreateAccountForm.svelte:72/80, reset-password :44/:53), all unconditional"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/pattern-title::src/lib/components/wishlists/ItemCard/ReorderButtons.svelte:33::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read ReorderButtons.svelte:33: <input> with literal pattern and no title, no spread, type text or absent (pattern effective)"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/PasswordInput.svelte:58::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at PasswordInput.svelte:58; nearest literal element ancestor is <label>@56 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/Search.svelte:25::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at Search.svelte:25; nearest literal element ancestor is <label>@23 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/admin/Groups.svelte:60::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at Groups.svelte:60; nearest literal element ancestor is <button {...}>@58 (direct child), no component/snippet/svelte:element boundary; not permitted content of <button> per the HTML content model; the spread cannot change the element type, so the <button> content model still applies"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/admin/InviteUser.svelte:71::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at InviteUser.svelte:71; nearest literal element ancestor is <button {...}>@69 (direct child), no component/snippet/svelte:element boundary; not permitted content of <button> per the HTML content model; the spread cannot change the element type, so the <button> content model still applies"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/modals/ChangeLanguageModal.svelte:65::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at ChangeLanguageModal.svelte:65; nearest literal element ancestor is <label>@54 (only IfBlock between), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/modals/ClaimItemModal.svelte:173::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ClaimItemModal.svelte:173; nearest literal element ancestor is <label>@171 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/modals/ClaimItemModal.svelte:184::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ClaimItemModal.svelte:184; nearest literal element ancestor is <label>@182 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/navigation/NavMenu/NavMenu.svelte:62::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <hr> at NavMenu.svelte:62; nearest literal element ancestor is <ul>@46 (direct child), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/navigation/NavMenu/NavMenu.svelte:65::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <hr> at NavMenu.svelte:65; nearest literal element ancestor is <ul>@46 (only IfBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/navigation/NavMenu/NavMenu.svelte:76::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at NavMenu.svelte:76; nearest literal element ancestor is <button>@67 (direct child), no component/snippet/svelte:element boundary; not permitted content of <button> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/navigation/NavMenu/NavMenu.svelte:80::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <hr> at NavMenu.svelte:80; nearest literal element ancestor is <ul>@46 (direct child), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/navigation/NavMenu/NavMenu.svelte:94::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at NavMenu.svelte:94; nearest literal element ancestor is <button {...}>@84 (direct child), no component/snippet/svelte:element boundary; not permitted content of <button> per the HTML content model; the spread cannot change the element type, so the <button> content model still applies"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ItemForm.svelte:164::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ItemForm.svelte:164; nearest literal element ancestor is <label>@162 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ItemForm.svelte:214::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ItemForm.svelte:214; nearest literal element ancestor is <label>@212 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ItemForm.svelte:230::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at ItemForm.svelte:230; nearest literal element ancestor is <label>@212 (only IfBlock between), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ItemForm.svelte:288::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ItemForm.svelte:288; nearest literal element ancestor is <label>@286 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ItemForm.svelte:322::`<legend>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <legend> at ItemForm.svelte:322; nearest literal element ancestor is <div>@321 (direct child), no component/snippet/svelte:element boundary; not permitted content of <div> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ItemForm.svelte:343::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ItemForm.svelte:343; nearest literal element ancestor is <label>@333 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ManageListForm.svelte:187::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ManageListForm.svelte:187; nearest literal element ancestor is <label>@186 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/ManageListForm.svelte:97::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at ManageListForm.svelte:97; nearest literal element ancestor is <label>@95 (direct child), no component/snippet/svelte:element boundary; not permitted content of <label> per the HTML content model"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/chips/BaseChip.svelte:138::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at BaseChip.svelte:138; nearest literal element ancestor is <button {...}>@123 (direct child), no component/snippet/svelte:element boundary; not permitted content of <button> per the HTML content model; the spread cannot change the element type, so the <button> content model still applies"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/permitted-contents::src/lib/components/wishlists/chips/GroupSelectChip.svelte:35::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at GroupSelectChip.svelte:35; nearest literal element ancestor is <button {...}>@29 (direct child), no component/snippet/svelte:element boundary; not permitted content of <button> per the HTML content model; the spread cannot change the element type, so the <button> content model still applies"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/top-level-landmark::src/routes/admin/settings/+page.svelte:56::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read admin/settings/+page.svelte:56: <aside> (desktop nav, CSS-hidden on mobile) inside <form>/<div>, no sectioning ancestor, rendered through the admin Tabs.Content inside root +layout.svelte:116 <main id=\"main\">; a complementary landmark nested in main"
+  },
+  {
+    "key": "cmintey/wishlist::a11y/top-level-landmark::src/routes/admin/settings/+page.svelte:70::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read admin/settings/+page.svelte:70: <aside> (mobile select, CSS-hidden on desktop) inside <form>/<div>, no sectioning ancestor, rendered inside root +layout.svelte:116 <main id=\"main\">; a complementary landmark nested in main"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/component-size::src/lib/components/modals/ClaimItemModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/ClaimItemModal.svelte has 250 physical lines (> 200), matches reported count 250"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/component-size::src/lib/components/wishlists/ItemForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wishlists/ItemForm.svelte has 401 physical lines (> 200), matches reported count 401"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/component-size::src/lib/components/wishlists/ManageListForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wishlists/ManageListForm.svelte has 242 physical lines (> 200), matches reported count 242"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/component-size::src/lib/components/wishlists/chips/BaseChip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wishlists/chips/BaseChip.svelte has 205 physical lines (> 200), matches reported count 205"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/component-size::src/routes/lists/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/lists/[id]/+page.svelte has 436 physical lines (> 200), matches reported count 436"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/PasswordInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/PasswordInput.svelte with 8 named props (> 6) plus a ...rest element: id, name, label, required, autocomplete, error, value, strengthMeter"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/modals/ClaimItemModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/modals/ClaimItemModal.svelte with 10 named props (> 6) plus a ...rest element: item, userId, groupId, claimId, requireClaimEmail, onSuccess, onFailure, trigger, claimName, alwaysShow"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/modals/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/modals/ConfirmModal.svelte with 7 named props (> 6) plus a ...rest element: title, onConfirm, onCancel, confirmText, cancelText, confirmButtonProps, cancelButtonProps"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/wishlists/ItemCard/ClaimButtons.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/wishlists/ItemCard/ClaimButtons.svelte with 10 named props (> 6): item, user, showClaimedName, showNameAcrossGroups, showClaimForOwner, showPublicClaimName, onPublicList, groupId, requireClaimEmail, isClaimableOrClaimed"
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/wishlists/ItemCard/ItemCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/wishlists/ItemCard/ItemCard.svelte with 16 named props (> 6): item, groupId, user, userCanManage, showClaimedName, showNameAcrossGroups, showClaimForOwner, showPublicClaimName, requireClaimEmail, showFor, ..."
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/wishlists/ItemCard/components/ItemAttributes.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/wishlists/ItemCard/components/ItemAttributes.svelte with 12 named props (> 6): item, onPublicList, user, groupId, showClaimedName, requireClaimEmail, showNameAcrossGroups, showClaimForOwner, showPublicClaimName, showFor, ..."
+  },
+  {
+    "key": "cmintey/wishlist::architecture/prop-count::src/lib/components/wishlists/chips/BaseChip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/wishlists/chips/BaseChip.svelte with 9 named props (> 6): options, defaultOption, searchParam, label, directionParam, prefix, multiselect, class, testId"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/PasswordInput.svelte:115::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/PasswordInput.svelte:115 header '{#each strength.feedback.suggestions as suggestion}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (strength.feedback.suggestions recomputed from the typed password (checkStrength())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/admin/Groups.svelte:76::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/admin/Groups.svelte:76 header '{#each groupsFiltered as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/admin/Settings/General/Groups.svelte:27::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/admin/Settings/General/Groups.svelte:27 header '{#each groups as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/admin/Settings/Security/Credentials.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-classified + read: src/lib/components/admin/Settings/Security/Credentials.svelte:50 header '{#each strengthOptions as label, idx}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (strengthOptions imported from src/lib/zxcvbn.ts:40 `export const strengthOptions = ['general.off', ...meterLabel]`, an export with a spread, which the docs keep reported): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/admin/Users.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/admin/Users.svelte:55 header '{#each usersFiltered as user}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/admin/Users.svelte:66::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/admin/Users.svelte:66 header '{#each user.groups?.toSorted() as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (user.groups?.toSorted() of a user record), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/navigation/NavBar.svelte:60::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-classified + read: src/lib/components/navigation/NavBar.svelte:60 header '{#each navItems as navItem}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (navItems prop: routes/+layout.svelte:113 passes navItems imported from $lib/components/navigation/navigation, the app's fixed navigation entries): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/navigation/NavMenu/GroupSubMenu.svelte:45::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/navigation/NavMenu/GroupSubMenu.svelte:45 header '{#each groups as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/navigation/NavigationDrawer.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-classified + read: src/lib/components/navigation/NavigationDrawer.svelte:42 header '{#each navItems as navItem}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (navItems prop: routes/+layout.svelte:113 passes navItems imported from $lib/components/navigation/navigation, the app's fixed navigation entries): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/wishlists/ItemCard/components/ClaimDetails.svelte:19::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/wishlists/ItemCard/components/ClaimDetails.svelte:19 header '{#each item.claims as claim}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (item.claims of the wishlist item record), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/lib/components/wishlists/ListStatistics.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/wishlists/ListStatistics.svelte:52 header '{#each totalCostByCurrency as { currency, total }}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (totalCostByCurrency $derived.by from the list's items), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/routes/admin/+layout.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-classified + read: src/routes/admin/+layout.svelte:36 header '{#each Object.entries(tabs) as [value, { label }]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Object.entries(tabs) of a same-file const tab record literal (admin/+layout.svelte:11, groups/[groupId]/+layout@.svelte:25), not an exempt array shape): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/routes/admin/groups/[groupId]/+layout@.svelte:77::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-classified + read: src/routes/admin/groups/[groupId]/+layout@.svelte:77 header '{#each Object.entries(tabs) as [value, { label }]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Object.entries(tabs) of a same-file const tab record literal (admin/+layout.svelte:11, groups/[groupId]/+layout@.svelte:25), not an exempt array shape): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/routes/admin/groups/[groupId]/members/+page.svelte:73::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/routes/admin/groups/[groupId]/members/+page.svelte:73 header '{#each data.group.users as user, row}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/routes/items/import/+page.svelte:41::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/routes/items/import/+page.svelte:41 header '{#each data.groups as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/each-key::src/routes/items/import/+page.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/routes/items/import/+page.svelte:63 header '{#each lists as list}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (group/user/list records from the load data or props), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/effect-as-derived::src/routes/claims/+page.svelte:19::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/claims/+page.svelte:19 the effect only does `items = data.items` (data prop); items is otherwise only read (31-50), so it is a plain $derived(data.items) as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/effect-as-derived::src/routes/lists/[id]/+page.svelte:87::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/lists/[id]/+page.svelte:87 the effect only does `allItems = data.list.items` (data prop); every other write (141-205) is a top-level reassignment, the writable-$derived override pattern available in the app's svelte (^5.38.2)"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/prop-mutation::src/lib/components/admin/Settings/General/Lists.svelte:41::Prop \"config\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/Settings/General/Lists.svelte:41 `config.allowPublicLists = e.currentTarget.checked` writes into the config prop, which comes down from the settings page load data (admin/settings/+page.svelte:21 via General.svelte) and is not $bindable, so the write mutates page data without a tracked update, as the rule claims (ledger convention for load-data member writes)"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/unmutated-state::src/routes/admin/about/+page.svelte:11::$state \"version\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/about/+page.svelte:11 `const version = $state(__VERSION__ || $t('admin.dev'))`; only read (versionHref $derived, and a string value in the $t values object at line 21, a primitive the callee cannot write back); never written"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/unmutated-state::src/routes/admin/about/+page.svelte:12::$state \"sha\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/about/+page.svelte:12 `const sha = $state(__COMMIT_SHA__ || ...)`; only read (shaHref $derived, $t values at line 24, a primitive); never written"
+  },
+  {
+    "key": "cmintey/wishlist::correctness/unmutated-state::src/routes/items/import/+page.svelte:12::$state \"currentGroup\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/items/import/+page.svelte:12 `let currentGroup = $state(props.data.groups?.find(...))`; only read (line 13 initialiser, line 39 value=), never written or bound"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-dimensions::src/routes/claims/+page.svelte:64::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-3/4 md:w-1/3 fixes only the width; the height comes from the imported SVG illustration once it loads, and the text below shifts"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-dimensions::src/routes/group-error/+page.svelte:10::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-3/4 md:w-1/3 fixes only the width; the height comes from the imported SVG illustration once it loads, and the text below shifts"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-dimensions::src/routes/lists/+page.svelte:41::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-3/4 md:w-1/3 fixes only the width; the height comes from the imported SVG illustration once it loads, and the text below shifts"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-dimensions::src/routes/lists/[id]/+page.svelte:346::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-3/4 md:w-1/3 fixes only the width; the height comes from the imported SVG illustration once it loads, and the text below shifts"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-loading-hint::src/routes/claims/+page.svelte:64::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: empty-state illustration, the main content of the claims list at the top of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-loading-hint::src/routes/group-error/+page.svelte:10::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: empty-state illustration, the main content of the group-error notice, right under the h1 at the top of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-loading-hint::src/routes/lists/+page.svelte:41::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: empty-state illustration, the main content of the lists page at the top of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "cmintey/wishlist::performance/image-loading-hint::src/routes/lists/[id]/+page.svelte:346::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: empty-state illustration, the main content of the list items at the top of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/+layout.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.ts:14-17: `await initFormatter(locale)` (lib/i18n.ts:72, svelte-i18n waitLocale) follows `await initLang(locale)` (init() registering that locale) — svelte-i18n locale setup ordering (ledger waitLocale-after-init convention), docs Limitations"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/groups/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is requireRole(Role.ADMIN) (lib/server/auth.ts:138, redirects/403s) — deliberate auth-before-query gate, docs Limitations"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/groups/[groupId]/members/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is requireAdminOrManager(params.groupId) (lib/server/auth.ts:148, 403s non-managers) — deliberate auth-before-query gate, docs Limitations"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/groups/[groupId]/settings/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is requireAdminOrManager(params.groupId) (lib/server/auth.ts:148, 403s non-managers) — deliberate auth-before-query gate, docs Limitations"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/settings/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is requireRole(Role.ADMIN) (lib/server/auth.ts:138, redirects/403s) — deliberate auth-before-query gate, docs Limitations"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/settings/+page.server.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/settings/+page.server.ts:14-16: client.group.findMany() uses nothing from the preceding getConfig() Prisma read (lib/server/config.ts, DB) — independent DB queries serialized after the auth gate; Promise.all would work"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/users/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: the only preceding await is requireRole(Role.ADMIN) (:8, auth gate); usersQuery is started unawaited and joined into the Promise.all — nothing real serialized besides the auth gate"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/users/[id]/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: `await getFormatter()` follows only requireRole(Role.ADMIN) (auth gate that redirects/403s) — session/locale setup per docs Limitations (ledger getFormatter-after-auth convention)"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/users/[id]/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :13-20: client.user.findUnique({id: params.id}) uses nothing from the preceding getFormatter() (svelte-i18n waitLocale); preceding requireRole is the gate — per ledger convention (immich getFormatter@) getFormatter is a non-setup preceding await, so the query serializes behind it"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/admin/users/[id]/+page.server.ts:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :20-45: getOIDCConfig(fetch) (DB config + OIDC discovery fetch) uses nothing from editingUser, whose only role is the 404 gate at :39 (exceptional path) — per convention the requests serialize on the normal path"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/items/[itemId]/edit/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :19-26: getActiveMembership(user) (Prisma) uses nothing from the preceding getFormatter() (requireLogin is sync) — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/items/import/+page.server.ts:30::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/items/import/+page.server.ts:17-45: client.list.findMany({ownerId: user.id}) uses nothing from the preceding userGroupMembership.findMany — independent Prisma queries; Promise.all would work"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/lists/[id]/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :10-12: getById(params.id) (Prisma) uses nothing from the preceding getFormatter() — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/lists/[id]/create-item/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :19-22: getActiveMembership(user) (Prisma) uses nothing from the preceding getFormatter() — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/lists/[id]/create-item/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :22-23: getById(params.id) uses nothing from activeMembership (whose no-membership redirect is the exceptional path) — independent Prisma queries; Promise.all would work"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/lists/[id]/manage/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :15-18: getActiveMembership(user) (Prisma) uses nothing from the preceding getFormatter() — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/login/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :16-22: client.user.count() uses nothing from the preceding getConfig() DB read — independent queries serialized; Promise.all would work"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/login/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :22-27: getOIDCConfig(fetch) uses nothing from userCount, whose only role is the zero-users setup-wizard redirect (exceptional, fresh install only) — per gate-on-exceptional-path convention the requests serialize on the normal path"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/setup-wizard/step/[step]/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :8-18: Promise.all(getConfig, group.findMany) uses nothing from userCount, whose role is the step-correction redirect (exceptional path) — per convention the queries serialize on the normal path"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/signup/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :17-18: getConfig() (Prisma) uses nothing from the preceding getFormatter() — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/wishlists/[username]/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :9-12: getActiveMembership(user) (Prisma) uses nothing from the preceding getFormatter() — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::performance/sequential-awaits::src/routes/wishlists/me/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body :11-14: getActiveMembership(user) (Prisma) uses nothing from the preceding getFormatter() — per ledger convention (immich getFormatter@) the request serializes behind a non-setup await"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/modals/BaseModal.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read BaseModal.svelte:48 renders a string description with {@html}; callers pass svelte-i18n messages interpolating user-authored values unescaped — DeleteItemModal.svelte:26-32 `<b>{name}</b>` with the item name (items can be suggested by other group members), admin/users/[id]/+page@.svelte:84 the target's username — stored HTML injection"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/modals/ChangeLanguageModal.svelte:69::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ChangeLanguageModal.svelte:69-74: repo i18n message with a literal GitHub href and class param — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/modals/DeleteGroupModal.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read DeleteGroupModal.svelte:42: repo i18n message admin.delete-group-message (en.json:54) with no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/wishlists/ItemCard/ManageButtons.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ManageButtons.svelte:48: $t('wishes.approval-confirmation') (en.json:380) with item.addedBy?.name, the suggesting user's display name, interpolated unescaped — shown to the list owner approving another user's suggestion"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/wishlists/ItemCard/components/ItemAttributes.svelte:102::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ItemAttributes.svelte:102-108: same $t('wishes.added-by'/'wishes.for') with item.addedBy.name / item.user.name on public lists, interpolated unescaped — user display names rendered as HTML to (public) viewers"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/wishlists/ItemCard/components/ItemAttributes.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ItemAttributes.svelte:96: $t('wishes.for') (en.json:416 `<span class=\"{class}\">{name}</span>`) with item.user.name, a user-chosen display name (validations.ts:48 only trim/min(1)); svelte-i18n does not escape values — another user's name rendered as HTML to group members"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/lib/components/wishlists/ItemCard/components/ItemAttributes.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ItemAttributes.svelte:98: $t('wishes.added-by') (en.json:375) with item.addedBy.name, a user-chosen display name (validations.ts:48 only trim/min(1)), interpolated unescaped by svelte-i18n — another user's name rendered as HTML"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/routes/+layout.svelte:131::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:102,131: webManifestLink = pwaInfo.webManifest.linkTag from virtual:pwa-info (build-time vite-plugin-pwa link tag) — not user input"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/routes/admin/about/+page.svelte:21::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/about/+page.svelte:11-21: i18n message with build-time __VERSION__ and a GitHub URL built from it — build constants, not a demonstrable XSS"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/routes/admin/about/+page.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/about/+page.svelte:12-24: i18n message with build-time __COMMIT_SHA__ and a GitHub URL built from it — build constants, not a demonstrable XSS"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/routes/admin/groups/[groupId]/members/+page.svelte:105::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read members/+page.svelte:105: repo i18n message admin.remove-member-message (en.json:100) with no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "cmintey/wishlist::security/raw-html::src/routes/admin/groups/[groupId]/members/+page.svelte:54::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read members/+page.svelte:54: repo i18n message admin.registry-mode-alert-text with no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: account/+page.server.ts:20 requireLogin() redirects guests to /login (lib/server/auth.ts:114-121)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; publicly reachable: admin/about has no load and there is no admin/+layout.server.ts (hooks only set Cache-Control)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/actions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: admin/actions/+page.server.ts:6 requireRole(ADMIN) -> requireLogin redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/groups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: admin/groups/+page.server.ts:7 requireRole(ADMIN) -> requireLogin redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 47 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: members/+page.server.ts:8 requireAdminOrManager() -> requireLogin redirect (lib/server/auth.ts:148-149)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 57 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: settings/+page.server.ts:10 requireAdminOrManager() -> requireLogin redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 56 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: admin/settings/+page.server.ts:12 requireRole(ADMIN) -> requireLogin redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: admin/users/+page.server.ts:8 requireRole(ADMIN) -> requireLogin redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/admin/users/[id]/+page@.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: admin/users/[id]/+page.server.ts:13 requireRole(ADMIN) -> requireLogin redirect), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/claims/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 67 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: claims/+page.server.ts:9 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; publicly reachable auth page, no gate/noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/group-error/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: group-error/+page.server.ts:5 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/items/[itemId]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: items/[itemId]/edit/+page.server.ts:19 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/items/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: items/import/+page.server.ts:11 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/lists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: lists/+page.server.ts:10 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/lists/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 77 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; public lists render for guests (lists/[id]/+page.server.ts:16-22 redirects only when !list.public)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/lists/[id]/create-item/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: create-item/+page.server.ts:19 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/lists/[id]/manage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: manage/+page.server.ts:15 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/lists/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: lists/create/+page.server.ts:15 requireLogin()), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; publicly reachable auth page, no gate/noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; renders with a valid reset token (reset-password/+page.server.ts:15-34)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/setup-wizard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; setup page, renders while the instance has no users (load redirects once userCount > 0); tp per the setup-page convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 65 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; setup step page, no auth gate in its load; tp per the setup-page convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/canonical-url::src/routes/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag; publicly reachable auth page, no gate/noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on the chain (admin/+layout.svelte head sets only a <title>), none in app.html; admin-panel version/build-info tab of a self-hosted app (README), not a page for search"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/actions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/groups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/admin/users/[id]/+page@.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/claims/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components (ManageListForm name=\"description\" is a form field), none in app.html; publicly reachable, rendered forgot-password page (no load gate), no noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/group-error/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/items/[itemId]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/items/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/lists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/lists/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components (ManageListForm name=\"description\" is a form field), none in app.html; publicly reachable, rendered shared wishlist page (lists/[id]/+page.server.ts:15-22 serves public lists to signed-out visitors), no noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/lists/[id]/create-item/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/lists/[id]/manage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/lists/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components, none in app.html; not a search target (auth-gated: the load calls requireLogin()/requireRole(), lib/server/auth.ts:114-122 redirects session-less requests to /login)"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components (ManageListForm name=\"description\" is a form field), none in app.html; publicly reachable, rendered login page (login/+page.server.ts has no login gate), no noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components (ManageListForm name=\"description\" is a form field), none in app.html; publicly reachable, rendered reset-password page (no login gate), no noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/setup-wizard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on the chain, none in app.html; first-run setup wizard of a self-hosted instance (setup-wizard/+page.server.ts redirects away once a user exists), not a search target"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> on the chain, none in app.html; first-run setup wizard of a self-hosted instance (setup-wizard/+page.server.ts redirects away once a user exists), not a search target"
+  },
+  {
+    "key": "cmintey/wishlist::seo/description-presence::src/routes/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified: no <meta name=\"description\"> in page, layout chain or imported components (ManageListForm name=\"description\" is a form field), none in app.html; publicly reachable, rendered signup page (signup/+page.server.ts only bounces signed-in users), no noindex"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/actions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/admin/users/[id]/+page@.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/claims/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/group-error/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/items/[itemId]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/items/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/lists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/lists/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/lists/[id]/create-item/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/lists/[id]/manage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/lists/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/setup-wizard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/setup-wizard/step/[step]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/json-ld::src/routes/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json emitter in src (the only ld+json hits are lib/server/shopping/index.ts parsing scraped product pages), none in app.html/hooks; no JSON-LD as claimed"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 47 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 57 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 56 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/admin/users/[id]/+page@.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/claims/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 67 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/group-error/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/items/[itemId]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/items/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/lists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/lists/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 77 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/lists/[id]/create-item/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/lists/[id]/manage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/lists/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/setup-wizard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 65 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-description::src/routes/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 47 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 57 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 56 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/admin/users/[id]/+page@.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/claims/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 67 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/group-error/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/items/[itemId]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/items/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/lists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/lists/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 77 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/lists/[id]/create-item/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/lists/[id]/manage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/lists/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/setup-wizard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 65 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-image::src/routes/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 47 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 57 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 56 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/admin/users/[id]/+page@.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/claims/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 67 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/group-error/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/items/[itemId]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/items/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/lists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/lists/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 77 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/lists/[id]/create-item/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/lists/[id]/manage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/lists/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/setup-wizard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 65 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-title::src/routes/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/groups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 47 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 57 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 56 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/admin/users/[id]/+page@.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/claims/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 67 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/group-error/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/items/[itemId]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/items/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/lists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/lists/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 77 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/lists/[id]/create-item/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/lists/[id]/manage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/lists/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/setup-wizard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 65 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/og-url::src/routes/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/ or routes (literal claim holds); self-hosted wishlist app (README \"self-hosted wishlist application\") whose content routes are login-gated, only auth pages and opt-in public lists are reachable"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/lib/components/Markdown.svelte:15::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "key covers 6 routes (/claims, /items/[itemId]/edit, /lists/[id], /lists/[id]/create-item, /lists/[id]/manage, /lists/create): counted are the layout <h1> (+layout.svelte:118, client-only after afterNavigate) and Markdown.svelte:15, the {#if depth === 1} arm of the heading snippet, which renders only if user-written markdown (item notes/descriptions) contains a level-1 heading — data-dependent branch counted per documented semantics, not a demonstrable second <h1>"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/routes/forgot-password/+page.svelte:15::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/forgot-password: the page's own <h1> (+page.svelte:15) is the only one that renders; the other counted <h1> is routes/+layout.svelte:117-118 {#if !disabled && documentTitle}, where documentTitle and disabled are set only in afterNavigate (client-only, never in the SSR HTML) and disabled is true for this pathname (titleDisabledUrls, +layout.svelte:24-32) — exclusive in practice (pathname-gated), not syntactically, same as the ledger's pathname-gated layout Hero convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/routes/group-error/+page.svelte:9::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/group-error: the page's own <h1> (+page.svelte:9) is the only one that renders; the other counted <h1> is routes/+layout.svelte:117-118 {#if !disabled && documentTitle}, where documentTitle and disabled are set only in afterNavigate (client-only, never in the SSR HTML) and disabled is true for this pathname (titleDisabledUrls, +layout.svelte:24-32) — exclusive in practice (pathname-gated), not syntactically, same as the ledger's pathname-gated layout Hero convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/routes/login/+page.svelte:39::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/login: the page's own <h1> (+page.svelte:39) is the only one that renders; the other counted <h1> is routes/+layout.svelte:117-118 {#if !disabled && documentTitle}, where documentTitle and disabled are set only in afterNavigate (client-only, never in the SSR HTML) and disabled is true for this pathname (titleDisabledUrls, +layout.svelte:24-32) — exclusive in practice (pathname-gated), not syntactically, same as the ledger's pathname-gated layout Hero convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/routes/reset-password/+page.svelte:23::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/reset-password: the page's own <h1> (+page.svelte:23) is the only one that renders; the other counted <h1> is routes/+layout.svelte:117-118 {#if !disabled && documentTitle}, where documentTitle and disabled are set only in afterNavigate (client-only, never in the SSR HTML) and disabled is true for this pathname (titleDisabledUrls, +layout.svelte:24-32) — exclusive in practice (pathname-gated), not syntactically, same as the ledger's pathname-gated layout Hero convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/routes/setup-wizard/+page.svelte:31::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/setup-wizard: the page's own <h1> (+page.svelte:31) is the only one that renders; the other counted <h1> is routes/+layout.svelte:117-118 {#if !disabled && documentTitle}, where documentTitle and disabled are set only in afterNavigate (client-only, never in the SSR HTML) and disabled is true for this pathname (titleDisabledUrls, +layout.svelte:24-32) — exclusive in practice (pathname-gated), not syntactically, same as the ledger's pathname-gated layout Hero convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/single-h1::src/routes/signup/+page.svelte:19::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/signup: the page's own <h1> (+page.svelte:19) is the only one that renders; the other counted <h1> is routes/+layout.svelte:117-118 {#if !disabled && documentTitle}, where documentTitle and disabled are set only in afterNavigate (client-only, never in the SSR HTML) and disabled is true for this pathname (titleDisabledUrls, +layout.svelte:24-32) — exclusive in practice (pathname-gated), not syntactically, same as the ledger's pathname-gated layout Hero convention"
+  },
+  {
+    "key": "cmintey/wishlist::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); self-hosted wishlist app (README) whose content routes are login-gated, nothing public to list beyond opt-in shared lists"
+  },
+  {
+    "key": "cmintey/wishlist::seo/title-presence::src/routes/group-error/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: group-error/+page.svelte has no svelte:head (only an <h1>), load is requireLogin() only; root +layout.svelte head has only {@html webManifestLink} (its documentTitle only reads document.title), NavBar/BottomTabs/Toaster/LightSwitch emit no <title>, app.html none, hooks transformPageChunk only fills %lang%/%dir%; SSR route renders untitled"
+  },
+  {
+    "key": "cmintey/wishlist::seo/title-presence::src/routes/items/import/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: items/import/+page.svelte has no svelte:head, load returns data (no always-redirect); root +layout.svelte head has only {@html webManifestLink} (its documentTitle only reads document.title), NavBar/BottomTabs/Toaster/LightSwitch emit no <title>, app.html none, hooks transformPageChunk only fills %lang%/%dir%; SSR route renders untitled"
+  },
+  {
+    "key": "cmintey/wishlist::seo/title-presence::src/routes/setup-wizard/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: setup-wizard/+page.svelte has no svelte:head (renders on a fresh instance: load redirects only when userCount > 0); root +layout.svelte head has only {@html webManifestLink} (its documentTitle only reads document.title), NavBar/BottomTabs/Toaster/LightSwitch emit no <title>, app.html none, hooks transformPageChunk only fills %lang%/%dir%; SSR route renders untitled"
+  },
+  {
+    "key": "cmintey/wishlist::seo/title-presence::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: setup-wizard/step/[step]/+page.svelte and its step components (CreateAccountStep/GlobalSettingsStep/InviteUsersStep/StepButtons) have no svelte:head; load returns {config, groups} on the non-redirect paths; root +layout.svelte head has only {@html webManifestLink} (its documentTitle only reads document.title), NavBar/BottomTabs/Toaster/LightSwitch emit no <title>, app.html none, hooks transformPageChunk only fills %lang%/%dir%; SSR route renders untitled"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/actions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/groups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/groups/[groupId]/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 47 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/groups/[groupId]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 57 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 56 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/admin/users/[id]/+page@.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 39 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/claims/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 67 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 32 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/group-error/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/items/[itemId]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/items/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/lists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/lists/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 77 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/lists/[id]/create-item/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/lists/[id]/manage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/lists/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/setup-wizard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 31 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/setup-wizard/step/[step]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 65 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  },
+  {
+    "key": "cmintey/wishlist::seo/twitter-card::src/routes/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no og/twitter/canonical tag in any .svelte file or app.html (og: strings only in lib/server/shopping scraper); root +layout.svelte:130 head holds only the web manifest link; script over-includes layouts across @ resets, which cannot hide a tag"
+  }
+]

@@ -1,0 +1,757 @@
+[
+  {
+    "key": "aleapc/guia-guangzhou::a11y/disallowed-aria-props::src/lib/components/LangSwitcher.svelte:20::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read src/lib/components/LangSwitcher.svelte:20: <label aria-label={tr(...)}> wrapping its <select> (no role/spread/use:); docs say the dataset prohibits a name on <label> unconditionally while the spec does only for a generic-exposed label (ledger precedent: lunarr SearchField label is design)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::a11y/label-has-control::src/routes/reservas/+page.svelte:210::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/reservas/+page.svelte:210: <label class=…>text</label> with no for= and no nested control; the datetime-local <input> is the next sibling (:211/:213, no id), so the label names nothing"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::a11y/label-has-control::src/routes/reservas/+page.svelte:212::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/reservas/+page.svelte:212: <label class=…>text</label> with no for= and no nested control; the datetime-local <input> is the next sibling (:211/:213, no id), so the label names nothing"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::architecture/component-size::src/routes/acontece/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/acontece/+page.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::architecture/component-size::src/routes/album/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/album/+page.svelte has 608 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::architecture/component-size::src/routes/local/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/local/[id]/+page.svelte has 472 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::architecture/component-size::src/routes/reservas/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reservas/+page.svelte has 235 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::architecture/component-size::src/routes/viagem/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/viagem/+page.svelte has 239 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::correctness/stale-prop-derivation::src/lib/components/AlertCard.svelte:13::\"href\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AlertCard.svelte:13 href computed from the alert prop at init (structurally true); the only render site keys the cards {#each alerts as alert (alert.title)} (routes/+page.svelte:152), so a card is never reused for a different alert and the frozen value never differs"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::correctness/stale-prop-derivation::src/lib/components/Photo.svelte:22::\"grad\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Photo.svelte:22 grad computed from the gradient prop at init and rendered (style at 25); routes/categoria/[id]/+page.svelte:50 renders <Photo gradient={category.gradient}> with category = $derived(categoryById(data.id)) and links to other /categoria/{id} pages (85-88; its own comment at 28 says the route is reused), so the header keeps the first category's gradient"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-dimensions::src/routes/album/+page.svelte:481::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; h-full w-full object-cover inside a relative aspect-square button grid cell (album/+page.svelte:479-481) — fixed box, no CLS"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-dimensions::src/routes/album/+page.svelte:546::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class absolute inset-0 h-full w-full object-contain in the fixed full-screen slideshow (album/+page.svelte:538-550) — fixed box, out of flow"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-dimensions::src/routes/album/+page.svelte:576::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; max-h-full max-w-full object-contain centred in the flex-1 area of the fixed full-screen lightbox (album/+page.svelte:569-577) — nothing flows after it, so its load moves no content"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-dimensions::src/routes/local/[id]/+page.svelte:379::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; h-full w-full object-cover inside a relative aspect-square button grid cell (local/[id]/+page.svelte:377-379) — fixed box, no CLS"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-dimensions::src/routes/local/[id]/+page.svelte:449::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; max-h-full max-w-full object-contain centred in the flex-1 area of the fixed full-screen lightbox (local/[id]/+page.svelte:442-450) — nothing flows after it, so its load moves no content"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-loading-hint::src/routes/album/+page.svelte:546::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; current slide of the {#if showDay} full-screen slideshow the user opens (album/+page.svelte:537-550), blob: src (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — on-screen by construction, no network fetch"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-loading-hint::src/routes/album/+page.svelte:576::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lightbox photo shown only after the user taps a thumbnail (album/+page.svelte:567-577), blob: src (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — on-screen by construction, no network fetch"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/image-loading-hint::src/routes/local/[id]/+page.svelte:449::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lightbox photo shown only after the user taps a thumbnail (local/[id]/+page.svelte:440-450), blob: src (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — on-screen by construction, no network fetch"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/lcp-image::src/routes/album/+page.svelte:481::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route (root layout and TopBar have none), but a ~1/3-column thumbnail in the 3-column photo grid of the first day card, rendered only after the client IndexedDB load, with a blob: src (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — not the LCP candidate and no network fetch for lazy to delay"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/lcp-image::src/routes/local/[id]/+page.svelte:379::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> rendered (the hero <Photo> at :236 shows its emoji fallback because no attraction in lib/contentExtra.ts has an image), but it is a thumbnail of the user's own photos in the 'Fotos do local' section after the about/history/what-to-do sections (:327-371) — far below the fold, blob: src (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)); lazy is right there"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/responsive-image::src/routes/album/+page.svelte:481::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a blob: object URL of the user's own photo (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — no alternate sizes exist"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/responsive-image::src/routes/album/+page.svelte:546::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a blob: object URL (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — no alternate sizes exist"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/responsive-image::src/routes/album/+page.svelte:576::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a blob: object URL (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — no alternate sizes exist"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/responsive-image::src/routes/local/[id]/+page.svelte:379::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a blob: object URL of the user's own photo (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — no alternate sizes exist"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::performance/responsive-image::src/routes/local/[id]/+page.svelte:449::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a blob: object URL (getPhotoURL returns URL.createObjectURL of the IndexedDB photo blob (lib/diary.svelte.ts:96-106)) — no alternate sizes exist"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/acontece/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /acontece: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/album/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /album: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/album/mapa/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /album/mapa: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/bolso/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /bolso: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/categoria/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /categoria/[id]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/creditos/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /creditos: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/local/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /local/[id]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 21 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/perto/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /perto: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/reservas/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reservas: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/roteiro/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /roteiro: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/sync/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sync: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/uteis/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /uteis: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/viagem/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /viagem: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/canonical-url::src/routes/voos/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /voos: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA; publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/acontece/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /acontece; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/album/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /album; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/album/mapa/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /album/mapa; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/bolso/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /bolso; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/categoria/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /categoria/[id]; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/creditos/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /creditos; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/local/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /local/[id]; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/perto/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /perto; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/reservas/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /reservas; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/roteiro/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /roteiro; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/sync/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /sync; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/uteis/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /uteis; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/viagem/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /viagem; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/description-presence::src/routes/voos/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no svelte:head anywhere in src and app.html has no description (title/icons/theme only) (literal claim holds) on /voos; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:13 literal <title>Guia Guangzhou</title> is the only title of all 15 routes (no svelte:head in src), duplicate as claimed; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH), place/category pages compete with one title"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; / has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/acontece/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /acontece has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/album/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /album has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/album/mapa/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /album/mapa has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/bolso/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /bolso has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/categoria/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /categoria/[id] has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/creditos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /creditos has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/local/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /local/[id] has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/perto/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /perto has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/reservas/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /reservas has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/roteiro/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /roteiro has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/sync/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /sync has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/uteis/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /uteis has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/viagem/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /viagem has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/json-ld::src/routes/voos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /voos has none"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/acontece/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /acontece: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/album/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /album: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/album/mapa/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /album/mapa: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/bolso/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /bolso: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/categoria/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /categoria/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/creditos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /creditos: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/local/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /local/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 21 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/perto/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /perto: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/reservas/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reservas: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/roteiro/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roteiro: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/sync/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sync: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/uteis/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /uteis: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/viagem/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /viagem: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-description::src/routes/voos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /voos: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/acontece/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /acontece: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/album/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /album: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/album/mapa/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /album/mapa: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/bolso/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /bolso: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/categoria/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /categoria/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/creditos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /creditos: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/local/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /local/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 21 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/perto/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /perto: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/reservas/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reservas: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/roteiro/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roteiro: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/sync/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sync: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/uteis/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /uteis: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/viagem/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /viagem: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-image::src/routes/voos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /voos: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/acontece/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /acontece: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/album/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /album: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/album/mapa/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /album/mapa: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/bolso/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /bolso: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/categoria/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /categoria/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/creditos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /creditos: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/local/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /local/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 21 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/perto/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /perto: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/reservas/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reservas: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/roteiro/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roteiro: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/sync/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sync: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/uteis/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /uteis: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/viagem/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /viagem: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-title::src/routes/voos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /voos: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/acontece/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /acontece: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/album/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /album: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/album/mapa/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /album/mapa: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/bolso/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /bolso: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/categoria/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /categoria/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/creditos/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /creditos: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/local/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /local/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 21 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/perto/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /perto: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/reservas/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reservas: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/roteiro/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roteiro: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/sync/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sync: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/uteis/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /uteis: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/viagem/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /viagem: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/og-url::src/routes/voos/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /voos: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon/icons/photos only, no robots.txt file, route or generator; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH) (GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/single-h1::/categoria/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned for <h1>/svelte:element/role=heading/{@html}): no <h1> on /categoria/[id]; the category title is a <p class=\"text-2xl font-bold\"> over the Photo hero (categoria/[id]/+page.svelte:71), root +layout.svelte renders only the update banner and children"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/single-h1::src/routes/local/[id]/+page.svelte:328::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned): no <h1> on /local/[id]; the place name is a <p class=\"text-2xl font-bold\"> over the Photo hero (local/[id]/+page.svelte:248) and the sections use <h3> (:328-402); TopBar's <h1> is not used on this route"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml file, route or generator; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH), with /local/[id] and /categoria/[id] place pages to list"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: app.html:13 literal <title>Guia Guangzhou</title> (14 chars), the only title on the 15 routes; public evergreen travel-guide PWA prerendered with adapter-static and deployed to GitHub Pages (README deploy.ps1, svelte.config.js paths.base BASE_PATH), under 30 as claimed"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/acontece/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /acontece: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/album/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /album: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/album/mapa/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /album/mapa: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/bolso/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /bolso: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/categoria/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /categoria/[id]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/creditos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /creditos: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/local/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /local/[id]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 21 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/perto/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /perto: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/reservas/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reservas: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/roteiro/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roteiro: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/sync/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sync: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/uteis/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /uteis: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/viagem/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /viagem: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  },
+  {
+    "key": "aleapc/guia-guangzhou::seo/twitter-card::src/routes/voos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /voos: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 14 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library or Svelte UI deps; ungated prerendered static travel-guide PWA"
+  }
+]

@@ -1,7 +1,8 @@
 // Renders the generated block of scripts/corpus/README.md (the internal rule-reliability report) from
-// the committed corpus measurement. Pure apart from hashing: gen-rule-reliability.js and
-// scripts/corpus-measure.js do the I/O. Design: docs/superpowers/specs/2026-09-23-corpus-precision-design.md
+// the committed corpus measurement. Pure apart from hashing and `readVerdicts`: gen-rule-reliability.js
+// and scripts/corpus-measure.js do the rest of the I/O. Design: docs/superpowers/specs/2026-09-23-corpus-precision-design.md
 import { createHash } from 'node:crypto';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { normalizeBlock } from './rules-index.js';
 
@@ -29,6 +30,17 @@ export function reportPath(repoRoot) {
 /** Of the parsed value, so reformatting a committed JSON file never reads as an edit. */
 export function digest(value) {
   return createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 16);
+}
+
+/**
+ * The verdict ledger: `scripts/corpus/verdicts/`, one file per app (`owner__repo[__path].json`, with
+ * `/` and `:` as `__`) so no file nears GitHub's size limit, read in file-name order.
+ */
+export function readVerdicts(dir) {
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .sort()
+    .flatMap((f) => JSON.parse(readFileSync(join(dir, f), 'utf8')));
 }
 
 export function appId({ repo, path }) {

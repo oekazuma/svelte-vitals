@@ -1,0 +1,1952 @@
+[
+  {
+    "key": "gchq/LD-Explorer::a11y/permitted-contents::src/lib/components/ui/rdfjs/TripleTerm.svelte:18::`<dl>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <dl> at this line has literal parent <span> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "gchq/LD-Explorer::architecture/prop-count::src/lib/components/ui/Badge.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): type, visible, position, variant, size, textLabel, ariaLabel"
+  },
+  {
+    "key": "gchq/LD-Explorer::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): onclick, onkeydown, icon, className, label, variant, size, type, disabled, ariaLabel"
+  },
+  {
+    "key": "gchq/LD-Explorer::architecture/prop-count::src/lib/components/ui/ButtonLink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): icon, label, href, external, variant, size, ariaLabel"
+  },
+  {
+    "key": "gchq/LD-Explorer::architecture/prop-count::src/lib/components/ui/Heading.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): beforeText, afterText, id, text, tag, variant, applyVerticalMargins"
+  },
+  {
+    "key": "gchq/LD-Explorer::architecture/prop-count::src/lib/components/ui/TextField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 14 named props (> 6): oninput, label, value, helperText, inline, placeholder, readonly, codeEditor, type, required, validationEnabled, isValid, validationErrorMessage, rows"
+  },
+  {
+    "key": "gchq/LD-Explorer::correctness/each-index-key::src/lib/components/ui/HighlightedText.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: header '{#each parts as part, idx (idx)}' keyed by its index binding (claim literally true); positional list (text split around highlight): items have no identity beyond position"
+  },
+  {
+    "key": "gchq/LD-Explorer::correctness/each-index-key::src/lib/components/views/IRIView.svelte:64::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each Array.from(uniquePredicateIRIs) as iri, idx (idx)}' keyed by its index binding (claim literally true); list source is runtime data (query/state/prop/fetched records), not static or positional; source read"
+  },
+  {
+    "key": "gchq/LD-Explorer::correctness/each-index-key::src/routes/shacl-ui/+page.svelte:120::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each report.results as result, index (index)}' keyed by its index binding (claim literally true); list source is runtime data (query/state/prop/fetched records), not static or positional; source read"
+  },
+  {
+    "key": "gchq/LD-Explorer::correctness/each-index-key::src/routes/sources/+page.svelte:58::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each allSources as source, index (index)}' keyed by its index binding (claim literally true); list source is runtime data — user-managed sources rendered as stateful Remote/LocalSourceCard components, not static or positional; source read"
+  },
+  {
+    "key": "gchq/LD-Explorer::correctness/unmutated-state::src/lib/components/layout/nav/SideNav.svelte:49::$state \"logAlertLevel\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: every reference of the name in the file listed (hc grep); no reassignment/mutation/bind:/call-arg/directive/component prop; only rendered/used in a derived-like object (should be $derived, claim still true)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/classes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/classes/base/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/individuals/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/iris/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/iris/detail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/iris/detail/instances/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/metadata/domains/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/metadata/labels/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/metadata/ranges/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/named-graphs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/properties/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/explore/triples/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/policy/a11y/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/policy/cookies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/policy/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/settings/prefixes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/settings/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/shacl-ui/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sitemap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/catalog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/local/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/local/[id]/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/local/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sources/remote/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/canonical-url::src/routes/sparql-ui/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/classes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/classes/base/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/individuals/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/iris/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/iris/detail/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/iris/detail/instances/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/metadata/domains/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/metadata/labels/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/metadata/ranges/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/named-graphs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/properties/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/explore/triples/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/policy/a11y/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/policy/cookies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/policy/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/settings/prefixes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/settings/terms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/shacl-ui/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sitemap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/catalog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/local/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/local/[id]/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/local/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sources/remote/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/description-presence::src/routes/sparql-ui/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/about/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/classes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/classes/base/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/individuals/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/appearances/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/instances/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/subclasses/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/superclasses/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/metadata/domains/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/metadata/labels/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/metadata/ranges/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/named-graphs/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/properties/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/triples/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/logs/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/policy/a11y/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/policy/cookies/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/policy/privacy/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/settings/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/settings/prefixes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/settings/terms/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/shacl-ui/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sitemap/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/[id]/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/catalog/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/local/[id]/edit/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/local/[id]/import/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/local/add/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/remote/[id]/edit/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/remote/add/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sparql-ui/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/classes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/classes/base/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/individuals/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/iris/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/iris/detail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/iris/detail/appearances/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/iris/detail/instances/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/metadata/domains/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/metadata/labels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/metadata/ranges/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/named-graphs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/properties/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/explore/triples/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/policy/a11y/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/policy/cookies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/policy/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/settings/prefixes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/settings/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/shacl-ui/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sitemap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/catalog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/local/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/local/[id]/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/local/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/remote/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sources/remote/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/json-ld::src/routes/sparql-ui/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/classes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/classes/base/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/individuals/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/iris/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/iris/detail/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/iris/detail/instances/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/metadata/domains/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/metadata/labels/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/metadata/ranges/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/named-graphs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/properties/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/explore/triples/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/policy/a11y/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/policy/cookies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/policy/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/settings/prefixes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/settings/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/shacl-ui/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sitemap/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/catalog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/local/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/local/[id]/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/local/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sources/remote/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-description::src/routes/sparql-ui/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/classes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/classes/base/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/individuals/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/iris/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/iris/detail/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/iris/detail/instances/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/metadata/domains/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/metadata/labels/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/metadata/ranges/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/named-graphs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/properties/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/explore/triples/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/policy/a11y/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/policy/cookies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/policy/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/settings/prefixes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/settings/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/shacl-ui/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sitemap/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/catalog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/local/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/local/[id]/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/local/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sources/remote/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-image::src/routes/sparql-ui/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/classes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/classes/base/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/individuals/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/iris/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/iris/detail/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/iris/detail/instances/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/metadata/domains/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/metadata/labels/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/metadata/ranges/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/named-graphs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/properties/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/explore/triples/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/policy/a11y/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/policy/cookies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/policy/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/settings/prefixes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/settings/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/shacl-ui/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sitemap/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/catalog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/local/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/local/[id]/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/local/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sources/remote/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-title::src/routes/sparql-ui/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/classes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/classes/base/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/individuals/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/iris/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/iris/detail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/iris/detail/instances/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/metadata/domains/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/metadata/labels/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/metadata/ranges/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/named-graphs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/properties/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/explore/triples/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/policy/a11y/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/policy/cookies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/policy/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/settings/prefixes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/settings/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/shacl-ui/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sitemap/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/catalog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/local/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/local/[id]/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/local/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sources/remote/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/og-url::src/routes/sparql-ui/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/ or routes; public site"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/about::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/explore/individuals::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/explore/named-graphs::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/explore/properties::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/explore/triples::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/logs::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sitemap::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources/catalog::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources/local/[id]/edit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources/local/[id]/import::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources/local/add::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources/remote/[id]/edit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources/remote/add::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sources::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/single-h1::/sparql-ui::Missing <h#>",
+    "verdict": "tp",
+    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: only an HTML /sitemap page (routes/sitemap/+page.svelte), no sitemap.xml; public GitHub Pages site"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/ssr-disabled::src/routes/+layout.ts:9::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at reported line; deliberate SPA (\"puts the whole app into SPA mode\", required for GitHub Pages); docs say turn the rule off"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/about/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/classes/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/classes/base/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/individuals/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/iris/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/iris/detail/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/iris/detail/instances/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/metadata/domains/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/metadata/labels/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/metadata/ranges/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/named-graphs/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/properties/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/explore/triples/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/logs/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/policy/a11y/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/policy/cookies/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/policy/privacy/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/settings/prefixes/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/settings/terms/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/shacl-ui/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sitemap/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/[id]/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/catalog/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/local/[id]/edit/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/local/[id]/import/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/local/add/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sources/remote/add/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/title-presence::src/routes/sparql-ui/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "fp barrel-reexport: page renders PageView/TabbedPageView/HtmlHead via $lib/components(/views) index.ts barrels -> HtmlHead.svelte unconditional <title>{title} - LD-Explorer</title>; analyzer cannot follow barrel re-exports. hsp-check reach + read (root +layout.ts ssr=false: title is client-rendered)"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/classes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/classes/base/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/individuals/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/iris/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/iris/detail/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/iris/detail/appearances/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/iris/detail/instances/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/iris/detail/subclasses/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/iris/detail/superclasses/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/metadata/domains/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/metadata/labels/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/metadata/ranges/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/named-graphs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/properties/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/explore/triples/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/policy/a11y/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/policy/cookies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/policy/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/settings/prefixes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/settings/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/shacl-ui/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sitemap/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/catalog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/local/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/local/[id]/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/local/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/remote/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sources/remote/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/twitter-card::src/routes/sparql-ui/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all (HtmlHead.svelte has only title/author/description); no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  }
+]

@@ -1,0 +1,1177 @@
+[
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/disallowed-aria-props::src/lib/components/Influence.svelte:15::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/Influence.svelte:15: literal <span> with aria-label and no role, spread or use: action (<span class='influence' style={theme ? `--color: var(--${theme})` : ''...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/disallowed-aria-props::src/lib/components/Table.svelte:59::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/Table.svelte:59: literal <span> with aria-label and no role, spread or use: action (<span class='table-cell--not-applicable' aria-label='Not applicable'>...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/disallowed-aria-props::src/lib/components/decklist/Item.svelte:53::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/decklist/Item.svelte:53: literal <div> with aria-label and no role, spread or use: action (<div aria-label='[value] Likes'>...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/disallowed-aria-props::src/lib/components/decklist/Item.svelte:57::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/decklist/Item.svelte:57: literal <div> with aria-label and no role, spread or use: action (<div aria-label='[value] Favorites'>...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/disallowed-aria-props::src/lib/components/decklist/Item.svelte:61::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified + read lib/components/decklist/Item.svelte:61: literal <div> with aria-label and no role, spread or use: action (<div aria-label='[value] Comments'>...); its role (generic) prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/duplicate-landmark::src/routes/decklists/+layout.svelte:61::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: decklists/+layout.svelte:61-63 renders children in its own <main>, inside Container's <article>, inside root +layout.svelte:123-125 <main class=root>; <main> is a landmark regardless of sectioning, so two <main> landmarks co-render (routes /decklists, /decklists/[category], /decklists/search)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/permitted-contents::src/routes/faction/[slug]/+page.svelte:114::`<summary>` is not permitted content here — `<li>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) faction/[slug]/+page.svelte:114: literal <summary> whose nearest non-transparent parent is a literal <li> in the same file, no component/snippet/{@render} boundary between; <summary> is permitted only as the first child of <details>, as reported"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/permitted-contents::src/routes/faction/[slug]/+page.svelte:115::`<details>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) faction/[slug]/+page.svelte:115: literal <details> whose nearest non-transparent parent is a literal <summary> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/permitted-contents::src/routes/faction/[slug]/+page.svelte:92::`<details>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) faction/[slug]/+page.svelte:92: literal <details> whose nearest non-transparent parent is a literal <ul> in the same file, no component/snippet/{@render} boundary between; <ul> admits only <li>/script-supporting, as reported"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/top-level-landmark::src/routes/decklists/+layout.svelte:47::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: decklists/+layout.svelte:46-60 puts the <aside> inside <Container class=wrapper>, whose root is <article class=container> (lib/components/Container.svelte), so the unlabelled <aside> is scoped by sectioning content and is not a complementary landmark (HTML-AAM; rule docs); the analyzer does not see the component's <article> (routes /decklists, /decklists/[category], /decklists/search)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::a11y/top-level-landmark::src/routes/decklists/+layout.svelte:61::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: decklists/+layout.svelte:61-63 renders children in its own <main>, inside Container's <article>, inside root +layout.svelte:123-125 <main class=root>; <main> is a landmark regardless of sectioning, so it is nested in the root <main> (routes /decklists, /decklists/[category], /decklists/search)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/lib/components/SearchInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SearchInput.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/lib/components/Tooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Tooltip.svelte has 326 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/lib/components/decklist/Builder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/decklist/Builder.svelte has 381 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/lib/components/decklist/IdentityPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/decklist/IdentityPicker.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/routes/bans/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/bans/+page.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/routes/card/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/card/[slug]/+page.svelte has 317 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/component-size::src/routes/decklist/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/decklist/[id]/+page.svelte has 359 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/prop-count::src/lib/components/card/CardImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/card/CardImage.svelte has a single destructured $props() with 7 named props (> 6): card, href, loading, class, boxShadow, hasTransition, responsive"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: children, icon, class, href, type, color, size, disabled"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::architecture/prop-count::src/lib/components/ui/dropdown/Dropdown.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/dropdown/Dropdown.svelte has a single destructured $props() with 12 named props (> 6): children, label, trigger, open, side, align, side_offset, portal, color, size, disabled, class"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-index-key::src/lib/components/review/Item.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/review/Item.svelte:37 '{#each review.attributes.comments as comment, index (index)}' is keyed by its index binding and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (records with their own identity from load/props/$state, or validation/result lists recomputed from input): position-based identity"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-key::src/lib/components/FormatText.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/FormatText.svelte:43 '{#each paragraph_array as paragraph, index}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (items have no identity beyond position): paragraphs/segments parsed from one text (paragraph_array)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-key::src/lib/components/FormatText.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/FormatText.svelte:45 '{#each paragraph as segment}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (items have no identity beyond position): paragraphs/segments parsed from one text (paragraph_array)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-key::src/routes/(private)/decks/+page.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(private)/decks/+page.svelte:30 '{#each page.data.decks as deck}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-key::src/routes/card/[slug]/+page.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/card/[slug]/+page.svelte:200 '{#each data.card.attributes.card_cycle_ids as cycle_id, index}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-key::src/routes/card/[slug]/+page.svelte:209::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/card/[slug]/+page.svelte:209 '{#each data.card.attributes.card_set_ids as set_id, index}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::correctness/each-key::src/routes/faction/[slug]/+page.svelte:90::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/faction/[slug]/+page.svelte:90 '{#each grouped_decklists.find((g) => g.identity === identity.id)?.decklists ?? [] as decklist}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/load-waterfall::src/routes/card/[slug]/+page.ts:23::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read card/[slug]/+page.ts:16-23: printing -> card chain is real, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/load-waterfall::src/routes/decklist/create/+page.ts:36::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read decklist/create/+page.ts:15-37: identities -> sideCards chain is real, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/bans/+page.server.ts:86::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "fp",
+    "basis": "read bans/+page.server.ts:72-88: the printings fetch interpolates cardIdsArray = Array.from(cardIds), and cardIds is filled by restrictionsJsons.forEach(... cardIds.add(id)) from the preceding await (:67) — the await DOES depend on the earlier result; analyzer misses a container filled inside a callback over an awaited value"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/card/[slug]/+page.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read card/[slug]/+page.ts:25: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/card/[slug]/+page.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read card/[slug]/+page.ts:27: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/card/[slug]/+page.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read card/[slug]/+page.ts:29: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/cycles/[slug]/+page.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read cycles/[slug]/+page.ts:29: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/decklist/create/+page.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read decklist/create/+page.ts:17: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/decklist/create/+page.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read decklist/create/+page.ts:19: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/faction/[slug]/+page.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read faction/[slug]/+page.ts:13: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/faction/[slug]/+page.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read faction/[slug]/+page.ts:15: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/illustrators/+page.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read illustrators/+page.ts:18: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/illustrators/[slug]/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read illustrators/[slug]/+page.server.ts:7-19: the illustrator fetch uses only params.slug; the preceding cache_guard callback fetches printings (lib/server/guard.ts runs it unless the nrdb_cache cookie is set) — two independent NRDB API fetches serialized"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/reviews/[slug]/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read reviews/[slug]/+page.server.ts:7-17: the reviews fetch uses only params.slug; the preceding cache_guard callback fetches the card (lib/server/guard.ts) — two independent NRDB API fetches serialized"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/sets/+page.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read sets/+page.ts:22: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/sequential-awaits::src/routes/sets/[slug]/+page.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read sets/[slug]/+page.ts:25: independent sql`` query, but $lib/sqlite.ts:4 `sql` is a SQLocal (in-browser SQLite worker over OPFS) client and the route exports ssr = false — every hop is a local DB query, no network round trip (ledger local-IndexedDB-in-SPA convention)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::performance/state-raw::src/lib/components/Tooltip.svelte:18::\"adjusted_position\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to adjusted_position: decl :18, whole-binding reassignment :155, template reads :200 — no member writes, method calls, bind:, or escapes"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::security/raw-html::src/lib/components/FormatText.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read FormatText.svelte:55: segment is card text/flavor (callers Tooltip/ModalInfo/card page pass card.attributes.text) from the org's own NetrunnerDB card database (api.netrunnerdb.com / its SQLite export) — first-party curated game data, not user input; reported per docs"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/(private)/activity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2)) but not a search target (auth-gated (client-side): (private)/+layout.svelte:13-14 calls signIn('nsg-keycloak') in onMount when !page.data.session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/(private)/decks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2)) but not a search target (auth-gated (client-side): (private)/+layout.svelte:13-14 calls signIn('nsg-keycloak') in onMount when !page.data.session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/(private)/decks/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2)) but not a search target (auth-gated (client-side): (private)/+layout.svelte:13-14 calls signIn('nsg-keycloak') in onMount when !page.data.session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/(private)/decks/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2)) but not a search target (auth-gated (client-side): (private)/+layout.svelte:13-14 calls signIn('nsg-keycloak') in onMount when !page.data.session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/(private)/user/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2)) but not a search target (auth-gated (client-side): (private)/+layout.svelte:13-14 calls signIn('nsg-keycloak') in onMount when !page.data.session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 68 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/bans/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/card/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/cycles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/cycles/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/decklist/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/decklist/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 78 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/decklists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/decklists/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/decklists/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/faction/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 69 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/factions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/formats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/formats/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/illustrators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/illustrators/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/profile/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/reviews/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/reviews/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/rulings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/sets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/canonical-url::src/routes/sets/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); publicly reachable, rendered route (static/robots.txt:3 empty Disallow, no noindex, no always-redirecting load)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/(private)/activity/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html (Meta.svelte emits only title/icon/og) (literal claim holds); not a search target: personal (private) group page whose (private)/+layout.svelte onMount calls signIn() for session-less visitors (decks/activity/settings of the signed-in user)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/(private)/decks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html (Meta.svelte emits only title/icon/og) (literal claim holds); not a search target: personal (private) group page whose (private)/+layout.svelte onMount calls signIn() for session-less visitors (decks/activity/settings of the signed-in user)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/(private)/decks/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html (Meta.svelte emits only title/icon/og) (literal claim holds); not a search target: personal (private) group page whose (private)/+layout.svelte onMount calls signIn() for session-less visitors (decks/activity/settings of the signed-in user)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/(private)/decks/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html (Meta.svelte emits only title/icon/og) (literal claim holds); not a search target: personal (private) group page whose (private)/+layout.svelte onMount calls signIn() for session-less visitors (decks/activity/settings of the signed-in user)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/(private)/user/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html (Meta.svelte emits only title/icon/og) (literal claim holds); not a search target: personal (private) group page whose (private)/+layout.svelte onMount calls signIn() for session-less visitors (decks/activity/settings of the signed-in user)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); / is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/bans/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /bans is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/card/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /card/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/cycles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /cycles is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/cycles/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /cycles/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/decklist/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /decklist/[id] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/decklist/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /decklist/create is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/decklists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /decklists is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/decklists/[category]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /decklists/[category] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/decklists/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /decklists/search is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/faction/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /faction/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/factions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /factions is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/formats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /formats is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/formats/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /formats/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/illustrators/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /illustrators is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/illustrators/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /illustrators/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/profile/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /profile/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/reviews/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /reviews is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/reviews/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /reviews/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/rulings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /rulings is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /search is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/sets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /sets is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/description-presence::src/routes/sets/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in src or app.html ($lib/components/Meta.svelte, the only svelte:head, emits title/icon/og:site_name/og:locale only); /sets/[slug] is a public page of the NetrunnerDB card database (static/robots.txt allows all, no noindex), so it ships without a description as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/(private)/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /activity has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/(private)/decks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decks has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/(private)/decks/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decks/[id] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/(private)/decks/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decks/[id]/edit has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/(private)/user/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /user/settings has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; / has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/bans/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /bans has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/card/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /card/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/cycles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /cycles has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/cycles/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /cycles/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/decklist/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decklist/[id] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/decklist/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decklist/create has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/decklists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decklists has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/decklists/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decklists/[category] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/decklists/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /decklists/search has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/faction/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /faction/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/factions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /factions has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/formats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /formats has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/formats/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /formats/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/illustrators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /illustrators has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/illustrators/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /illustrators/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/profile/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /profile/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/reviews/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /reviews has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/reviews/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /reviews/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/rulings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /rulings has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /search has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/sets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /sets has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/json-ld::src/routes/sets/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh: grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json/schema.org anywhere in src or app.html; /sets/[slug] has no JSON-LD (its loads do not always redirect: only /card, /decklist, /faction stubs do, and they are not reported)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/(private)/activity/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/(private)/decks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/(private)/decks/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/(private)/decks/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/(private)/user/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 68 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/bans/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/card/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/cycles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/cycles/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/decklist/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/decklist/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 78 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/decklists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/decklists/[category]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/decklists/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/faction/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 69 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/factions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/formats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/formats/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/illustrators/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/illustrators/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/profile/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/reviews/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/reviews/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/rulings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/sets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-image::src/routes/sets/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:image in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/(private)/activity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/(private)/decks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/(private)/decks/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/(private)/decks/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/(private)/user/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 68 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/bans/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/card/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/cycles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/cycles/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/decklist/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/decklist/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 78 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/decklists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/decklists/[category]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/decklists/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/faction/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 69 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/factions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/formats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/formats/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/illustrators/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/illustrators/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/profile/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/reviews/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/reviews/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/rulings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/sets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/og-url::src/routes/sets/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no og:url in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/single-h1::/activity::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte (Navigation, Meta, Footer, Tooltip, CardModalHost) has no heading and the only <h1> in src is lib/components/Header.svelte:22, not used here; (private)/activity/+page.svelte is an empty file"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/single-h1::/decks/[id]/edit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte (Navigation, Meta, Footer, Tooltip, CardModalHost) has no heading and the only <h1> in src is lib/components/Header.svelte:22, not used here; (private)/decks/[id]/edit/+page.svelte is a one-line placeholder"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/single-h1::/decks/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte (Navigation, Meta, Footer, Tooltip, CardModalHost) has no heading and the only <h1> in src is lib/components/Header.svelte:22, not used here; (private)/decks/[id]/+page.svelte is the placeholder text \"View deck [id]\""
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/single-h1::/user/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte (Navigation, Meta, Footer, Tooltip, CardModalHost) has no heading and the only <h1> in src is lib/components/Header.svelte:22, not used here; (private)/user/settings/+page.svelte is an empty file"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/single-h1::src/lib/components/Header.svelte:22::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: decklists/+layout.svelte renders <Header title=\"Decklists\" /> and decklists/[category]/+page.svelte:16 renders <Header title={data.title} />; Header.svelte:22 renders an unconditional <h1>{title} -> two <h1>s"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/single-h1::src/routes/+page.svelte:41::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: no <h1> renders: root +layout.svelte (Navigation, Meta, Footer, Tooltip, CardModalHost) has no heading and the only <h1> in src is lib/components/Header.svelte:22, which the home page does not use; its sections are <h2> (+page.svelte:41/:57)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt allows all and there is no sitemap.xml file, route or generator; public card database with card/set/cycle/decklist pages to list"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/card/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/card/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/cycles/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/cycles/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/cycles/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/cycles/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/decklist/create/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/decklist/create/+page.ts:7; interactive deck builder whose universal load queries the in-browser sqlocal SQLite DB, a tool screen rather than content for search"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/faction/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/faction/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/factions/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/factions/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/formats/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/formats/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/formats/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/formats/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/illustrators/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/illustrators/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/illustrators/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/illustrators/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/reviews/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/reviews/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/search/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/search/+page.ts:1; client-side card search tool (results come from the in-browser sqlocal SQLite DB per query), a tool screen rather than content for search"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/sets/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/sets/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/ssr-disabled::src/routes/sets/[slug]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/sets/[slug]/+page.ts:7 (its universal load reads the in-browser sqlocal SQLite DB); a public card-database content page (robots.txt allows all) that now ships as an empty shell to non-JS crawlers, as claimed (openbancor public-catalog precedent)"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/(private)/activity/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/(private)/decks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/(private)/decks/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/(private)/decks/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/(private)/user/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 58 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 68 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/bans/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/card/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/cycles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/cycles/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/decklist/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 71 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/decklist/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 78 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/decklists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/decklists/[category]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/decklists/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 2 ancestor layout(s), 65 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/faction/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 69 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/factions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/formats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/formats/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/illustrators/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/illustrators/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 61 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/profile/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/reviews/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/reviews/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/rulings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/sets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 60 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  },
+  {
+    "key": "Null-Signal-Games/nrdbv2::seo/twitter-card::src/routes/sets/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b-work/reach.py, comments stripped; positive control finds Seo.svelte/Meta.svelte/(app) layout/app.html on sibling routes): no twitter:card in page, 1 ancestor layout(s), 63 files incl. transitively imported local files and app.html; only head emitter is lib/components/Meta.svelte (root +layout.svelte:121 and pages) with <title>, icon, og:site_name, og:title/og:description behind {#if}, og:locale; no og:image/og:url/twitter:card/canonical anywhere in src or app.html; npm Svelte deps scanned on jsDelivr at lockfile versions emit none (@auth/sveltekit@1.11.3, bits-ui@2.19.2, @lucide/svelte@1.28.0, @storybook/addon-svelte-csf@5.1.2); route renders (no always-redirecting load or hook redirect) (og/twitter rules have no search-target exemption); missing as claimed"
+  }
+]

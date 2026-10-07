@@ -1,0 +1,1502 @@
+[
+  {
+    "key": "akmmp241/akmmp-porto::a11y/duplicate-landmark::src/lib/components/admin/admin-shell.svelte:237::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte:22-23 renders {@render children()} bare in {#if isAdmin} and inside <main id=\"main-content\"> (:44-46) only in {:else}; isAdmin = pathname.startsWith('/admin') (:12) holds on all 20 flagged /admin routes, so admin-shell.svelte's <main> (:237, rendered by admin/+layout.svelte:12-19 when data.user) is the only main (no admin page has its own); the analyzer composed the admin layout into the {:else} arm (identical to the ledger fp for root +layout {#if isAdmin || isAuth} children bare)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/blog-post-form.svelte:125::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at blog-post-form.svelte:125 has literal <label>@114 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/blog-post-form.svelte:137::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at blog-post-form.svelte:137 has literal <label>@127 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/blog-post-form.svelte:153::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at blog-post-form.svelte:153 has literal <label>@142 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/blog-post-form.svelte:168::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at blog-post-form.svelte:168 has literal <label>@157 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/blog-post-form.svelte:185::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at blog-post-form.svelte:185 has literal <label>@174 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/blog-post-form.svelte:203::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at blog-post-form.svelte:203 has literal <label>@192 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/case-study-form.svelte:82::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at case-study-form.svelte:82 has literal <label>@73 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/case-study-form.svelte:95::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at case-study-form.svelte:95 has literal <label>@86 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/experience-form.svelte:127::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at experience-form.svelte:127 has literal <label>@116 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/experience-form.svelte:142::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at experience-form.svelte:142 has literal <label>@131 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/experience-form.svelte:176::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at experience-form.svelte:176 has literal <label>@165 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/experience-form.svelte:76::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at experience-form.svelte:76 has literal <label>@66 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/experience-form.svelte:88::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at experience-form.svelte:88 has literal <label>@78 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/image-dropzone.svelte:148::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at image-dropzone.svelte:148 has literal <label>@147 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/image-dropzone.svelte:160::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at image-dropzone.svelte:160 has literal <label>@147 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:101::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:101 has literal <label>@90 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:116::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:116 has literal <label>@105 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:145::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:145 has literal <label>@137 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:155::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:155 has literal <label>@147 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:165::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:165 has literal <label>@157 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:71::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:71 has literal <label>@61 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/admin/project-form.svelte:85::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at project-form.svelte:85 has literal <label>@74 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/fx/interactive-hover-button.svelte:25::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at interactive-hover-button.svelte:25 has literal <button>@17 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/fx/interactive-hover-button.svelte:35::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at interactive-hover-button.svelte:35 has literal <button>@17 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/lib/components/layout/header.svelte:142::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at header.svelte:142 has literal <ul>@137 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <ul> admits only <li> and script-supporting elements"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/settings/+page.svelte:249::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:249 has literal <label>@238 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/skills/+page.svelte:238::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:238 has literal <label>@228 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/skills/+page.svelte:250::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:250 has literal <label>@240 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:106::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:106 has literal <label>@91 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:154::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:154 has literal <label>@152 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:177::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:177 has literal <label>@152 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:184::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:184 has literal <label>@182 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:207::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:207 has literal <label>@182 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:214::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:214 has literal <label>@212 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:239::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:239 has literal <label>@212 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:86::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:86 has literal <label>@75 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/admin/user/+page.svelte:93::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:93 has literal <label>@91 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/contact/+page.svelte:209::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:209 has literal <button>@199 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::a11y/permitted-contents::src/routes/contact/+page.svelte:216::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:216 has literal <button>@199 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/lib/components/admin/admin-shell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/admin-shell.svelte has 258 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/lib/components/admin/block-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/block-editor.svelte has 378 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/lib/components/admin/blog-post-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/blog-post-form.svelte has 292 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/lib/components/admin/experience-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/experience-form.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/lib/components/admin/project-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/project-form.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/lib/components/layout/header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/header.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/analytics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/analytics/+page.svelte has 606 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/guestbook/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/guestbook/+page.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/messages/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/messages/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/projects/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/projects/+page.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/settings/+page.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/skills/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/skills/+page.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/admin/user/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/user/+page.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/contact/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contact/+page.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/guestbook/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/guestbook/+page.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/prop-count::src/lib/components/fx/highlighter.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/fx/highlighter.svelte has a single destructured $props() with 9 named props (> 6): children, action, color, strokeWidth, animationDuration, iterations, padding, multiline, threshold"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::architecture/prop-count::src/lib/components/fx/reveal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/fx/reveal.svelte has a single destructured $props() with 7 named props (> 6): children, direction, delay, duration, threshold, once, class"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/lib/components/fx/icon-cloud.svelte:106::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/fx/icon-cloud.svelte:106 '{#each placed as icon, idx (idx)}' keyed by its index binding; positional list (placed = $derived icon positions of a decorative icon cloud): items have no identity beyond position"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/lib/components/fx/icon-cloud.svelte:93::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/fx/icon-cloud.svelte:93 '{#each RINGS.slice(1) as ring, i (i)}' keyed by its index binding; static list (RINGS.slice(1) of a same-file constant ring definition list): fixed decoration"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/lib/components/sections/contribution-heatmap.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/sections/contribution-heatmap.svelte:68 '{#each displayedWeeks as week, wi (wi)}' keyed by its index binding; positional list (displayedWeeks: calendar weeks of a contribution heatmap): items have no identity beyond position"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/lib/components/sections/quote.svelte:43::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/sections/quote.svelte:43 '{#each segments as seg, i (i)}' keyed by its index binding; positional list (segments = $derived text segments of one quote): text segments"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/lib/components/sections/skills.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/sections/skills.svelte:37 '{#each skillGroups as group, i (i)}' keyed by its index binding; list source is runtime data (skillGroups prop: skill groups loaded from the database (server/content.ts:79, admin-ordered)): runtime records"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/lib/components/seo/seo-head.svelte:70::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/seo/seo-head.svelte:70 '{#each jsonLdContent as content, i (i)}' keyed by its index binding; positional list (jsonLdContent: the JSON-LD blocks of one page's head): static positional list"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/routes/admin/settings/+page.svelte:160::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/settings/+page.svelte:160 '{#each $aboutForm.socials as social, i (i)}' keyed by its index binding; list source is runtime data ($aboutForm.socials: superforms rows with bound inputs, appended at :76 and removed mid-list at :82): input state follows position"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/each-index-key::src/routes/search/+page.svelte:179::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/search/+page.svelte:179 '{#each snippetParts(r.snippet || r.excerpt) as part, i (i)}' keyed by its index binding; positional list (snippetParts(snippet): highlighted text segments of one search result): text segments"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/effect-as-derived::src/routes/admin/analytics/+page.svelte:36::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: admin/analytics/+page.svelte:36; the effect only copies data.from/to into $state strings; later writes are reassignments from inputs, the writable-$derived override pattern"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::correctness/effect-as-derived::src/routes/search/+page.svelte:21::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: search/+page.svelte:21; the effect copies data.q/type into $state and clears liveResults; later writes are reassignments, the writable-$derived override pattern"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-dimensions::src/routes/admin/projects/+page.svelte:125::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: 36px project thumbnail with own class h-9 w-9 — box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-dimensions::src/routes/blog/+page.svelte:86::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: cover is h-full w-full inside its card's <div class=\"relative aspect-[16/9] overflow-hidden\"> — the box is reserved by the aspect-ratio parent"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-dimensions::src/routes/blog/[slug]/+page.svelte:134::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class w-full object-cover, no height or aspect-ratio — the cover's natural aspect decides the box height"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-dimensions::src/routes/blog/tag/[tag]/+page.svelte:71::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: cover is h-full w-full inside its card's <div class=\"relative aspect-[16/9] overflow-hidden\"> — the box is reserved by the aspect-ratio parent"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-dimensions::src/routes/projects/[slug]/+page.svelte:157::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[4/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-dimensions::src/routes/projects/[slug]/+page.svelte:77::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-square w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-loading-hint::src/routes/about/+page.svelte:59::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: portrait beside the about intro text in the page's first section (about/+page.svelte:30-66, flex row on lg) — above the fold on desktop, where the docs keep the image eager"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-loading-hint::src/routes/blog/[slug]/+page.svelte:134::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the post's cover directly under the article header ({#if data.post.coverImage}, [slug]/+page.svelte:131-139) — the hero/LCP image, kept eager per docs"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/image-loading-hint::src/routes/projects/[slug]/+page.svelte:77::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: project image in the page header beside the <h1> (projects/[slug]/+page.svelte:73-86) — above the fold"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/lcp-image::src/routes/admin/projects/+page.svelte:125::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (admin layout/AdminShell render none), but it is the 36px row thumbnail in the projects table under the <h1> (:64-125) — not the LCP candidate, lazy costs no largest paint"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/lcp-image::src/routes/blog/+page.svelte:86::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (root layout, Header and SplashScreen render none): the 16:9 cover of the first post card in the grid directly under the page heading — in view on load, yet marked loading=\"lazy\""
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/lcp-image::src/routes/blog/tag/[tag]/+page.svelte:71::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (root layout, Header and SplashScreen render none): the 16:9 cover of the first post card in the grid directly under the page heading — in view on load, yet marked loading=\"lazy\""
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/about/+page.svelte:59::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/akm-1.png is a 1614x2152 PNG shown at max-w-sm (~384px) — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/admin/projects/+page.svelte:125::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: row.image is an upload re-encoded to one webp size (lib/server/upload.ts:74-78) shown at 36px — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/blog/+page.svelte:86::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: post.coverImage is an upload re-encoded to one webp size (lib/server/upload.ts:74-78) — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/blog/[slug]/+page.svelte:134::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.post.coverImage is an upload re-encoded to one webp size (lib/server/upload.ts:74-78) shown full-width — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/blog/tag/[tag]/+page.svelte:71::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: post.coverImage is an upload re-encoded to one webp size (lib/server/upload.ts:74-78) — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/projects/[slug]/+page.svelte:157::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: gallery image URL (upload re-encoded to one webp size, lib/server/upload.ts:74-78) in a 3-column grid — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/responsive-image::src/routes/projects/[slug]/+page.svelte:77::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.project.image is an upload re-encoded to one webp size (lib/server/upload.ts:74-78) — raster, one fixed-size asset"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/+page.server.ts:22: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :13 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/audit/+page.server.ts:39::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/audit/+page.server.ts:39: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :21 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/audit/+page.server.ts:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/audit/+page.server.ts:45: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :21,39 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/blog/[id]/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/blog/[id]/+page.server.ts:22: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :19 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/guestbook/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/guestbook/+page.server.ts:17: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :11 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/projects/[id]/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/projects/[id]/+page.server.ts:18: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :15 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/skills/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/skills/+page.server.ts:15: flagged await is superValidate(zod(skillGroupFormSchema)) — in-process form defaults, no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/admin/user/+page.server.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/user/+page.server.ts:29: flagged await is superValidate(zod(changePasswordSchema)) after another superValidate — in-process form building, no request (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/guestbook/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/guestbook/+page.server.ts:20: the only preceding await is superValidate(zod(guestbookFormSchema)) — in-process, nothing is serialized behind a request (ledger superValidate convention)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::performance/sequential-awaits::src/routes/guestbook/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/guestbook/+page.server.ts:28: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :13,20 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::security/raw-html::src/lib/components/seo/seo-head.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/seo/seo-head.svelte:72: jsonLdContent = jsonLd.map(d => JSON.stringify(d).replace(/</g,'\\\\u003c')) (seo-head.svelte:5-7) — script-safe serialization per docs"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::security/raw-html::src/routes/blog/[slug]/+page.svelte:144::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/blog/[slug]/+page.svelte:144: data.html from renderMarkdown (lib/server/markdown.ts: remark→rehype-sanitize→stringify) or renderEditorJS (lib/server/editorjs-renderer.ts escapeHtml()s every text/URL, rejects unsafe schemes) over admin-authored posts — sanitized/escaped, reported per docs"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::security/raw-html::src/routes/projects/[slug]/+page.svelte:143::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/projects/[slug]/+page.svelte:143: data.html from renderMarkdown (lib/server/markdown.ts: remark→rehype-sanitize→stringify) or renderEditorJS (lib/server/editorjs-renderer.ts escapeHtml()s every text/URL, rejects unsafe schemes) over admin-authored posts — sanitized/escaped, reported per docs"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/analytics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/blog/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/blog/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/experiences/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/experiences/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/experiences/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/guestbook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/messages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/messages/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/projects/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/settings/api-keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/skills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/admin/user/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library) but not a search target (literal noindex,nofollow robots meta at root +layout.svelte:17-19 for every /admin path (isAdmin from page.url.pathname); also auth-gated: hooks.server.ts handleAdminGuard and admin/+layout.server.ts:9-11 redirect guests to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/guestbook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library); publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library); publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/analytics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/analytics/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/audit/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/blog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/blog/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/blog/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/blog/[id]/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/blog/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/blog/new/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/experiences/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/experiences/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/experiences/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/experiences/[id]/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/experiences/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/experiences/new/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/guestbook/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/guestbook/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/login/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin sign-in screen, noindex via root +layout.svelte {#if isAdmin} robots meta, not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/messages/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/messages/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/messages/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/messages/[id]/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/projects/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/projects/[id]/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/projects/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/projects/new/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/settings/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/settings/api-keys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/settings/api-keys/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/skills/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/skills/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/admin/user/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/user/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); admin route, admin/+layout.server.ts:9-11 redirects every session-less request except /admin/login to /admin/login (and root +layout.svelte renders robots noindex for /admin paths), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/guestbook/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/guestbook/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); public guestbook page (load reads approved entries without a session), no noindex"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/search/+page.svelte head has only a literal <title>; it does not render SeoHead (the site's only description source), root +layout.svelte head has an RSS link and conditional robots only, app.html none (literal claim holds); the page sets literal robots noindex, follow (:91), not a search target"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/heading-level-skip::src/routes/admin/skills/+page.svelte:178::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: admin/skills/+page.svelte:102 <h1>Skill groups</h1>, then each group card in {#each groups} shows <h3>{g.title.en}</h3> (:178, the non-editing {:else} arm); no <h2> between (admin layout/AdminShell render no heading) -> h1 to h3"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/heading-level-skip::src/routes/guestbook/+page.svelte:190::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: guestbook/+page.svelte:94 <SectionHeading> renders <h1> (section-heading.svelte:13); the entry list and pagination have no heading, then <h3>Sign Guestbook</h3> (:190) -> h1 to h3"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/heading-level-skip::src/routes/search/+page.svelte:173::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: search/+page.svelte:95 <SectionHeading> renders <h1> (section-heading.svelte:13); the search box and filter pills have no heading, then each result card's <h3> (:173, {#each filtered}) -> h1 to h3"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/indexability::src/routes/search/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: search/+page.svelte:91 unconditional svelte:head literal <meta name=\"robots\" content=\"noindex, follow\">; noindex as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/analytics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/analytics/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/analytics has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/audit/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/audit has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/blog/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/blog has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/blog/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/blog/[id]/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/blog/[id] has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/blog/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/blog/new/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/blog/new has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/experiences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/experiences/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/experiences has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/experiences/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/experiences/[id]/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/experiences/[id] has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/experiences/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/experiences/new/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/experiences/new has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/guestbook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/guestbook/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/guestbook has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/login/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/login has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/messages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/messages/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/messages has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/messages/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/messages/[id]/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/messages/[id] has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/projects/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/projects has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/projects/[id]/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/projects/[id] has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/projects/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/projects/new/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/projects/new has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/settings/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/settings has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/settings/api-keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/settings/api-keys/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/settings/api-keys has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/skills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/skills/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/skills has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/admin/user/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/admin/user/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /admin/user has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/guestbook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/guestbook/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /guestbook has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD source is $lib/components/seo/seo-head.svelte ({@html} over jsonLdContent), rendered only by /, /about, /blog*, /contact, /projects*; src/routes/search/+page.svelte uses a plain <svelte:head> with just a <title> (and root +layout.svelte head has only an RSS link/robots), so /search has no JSON-LD"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/analytics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/blog/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/blog/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/experiences/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/experiences/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/experiences/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/guestbook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/projects/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/settings/api-keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/skills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/analytics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/blog/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/blog/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/experiences/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/experiences/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/experiences/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/guestbook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/projects/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/settings/api-keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/skills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/analytics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/blog/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/blog/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/experiences/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/experiences/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/experiences/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/guestbook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/projects/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/settings/api-keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/skills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/analytics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/blog/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/blog/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/experiences/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/experiences/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/experiences/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/guestbook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/messages/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/projects/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/settings/api-keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/skills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/admin/user/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/guestbook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/single-h1::src/lib/components/layout/section-heading.svelte:13::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: / renders Hero's unconditional <h1> (sections/hero.svelte:47) and the ProjectsGrid/Skills/Experience/AboutMe/Contacts sections, each opening with SectionHeading, whose only heading is an unconditional <h1> (layout/section-heading.svelte:13) — six <h1>s render together (the local run also lists /about and /contact, which likewise pair page <h1>s with SectionHeading <h1>s) (route counts: installed first-look 1, local run 3; labelled by the shared cause)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/+page.svelte has a literal <title> of 17 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/analytics/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/analytics/+page.svelte has a literal <title> of 17 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/audit/+page.svelte has a literal <title> of 18 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/blog/+page.svelte has a literal <title> of 12 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/blog/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/blog/[id]/+page.svelte has a literal <title> of 17 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/blog/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/blog/new/+page.svelte has a literal <title> of 16 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/experiences/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/experiences/+page.svelte has a literal <title> of 19 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/experiences/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/experiences/new/+page.svelte has a literal <title> of 22 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/guestbook/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/guestbook/+page.svelte has a literal <title> of 28 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/login/+page.svelte has a literal <title> of 15 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/messages/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/messages/+page.svelte has a literal <title> of 16 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/projects/+page.svelte has a literal <title> of 16 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/projects/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/projects/new/+page.svelte has a literal <title> of 19 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/settings/+page.svelte has a literal <title> of 16 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/settings/api-keys/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/settings/api-keys/+page.svelte has a literal <title> of 16 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/skills/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/skills/+page.svelte has a literal <title> of 14 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/admin/user/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/admin/user/+page.svelte has a literal <title> of 20 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/guestbook/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/guestbook/+page.svelte has a literal <title> of 20 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/title-length::src/routes/search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/search/+page.svelte has a literal <title> of 17 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/analytics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/blog/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/blog/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/experiences/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/experiences/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/experiences/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/guestbook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/messages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/messages/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/projects/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/settings/api-keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/skills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/admin/user/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/guestbook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  },
+  {
+    "key": "akmmp241/akmmp-porto::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (grep of src/**): the only emitter is lib/components/seo/seo-head.svelte (canonical/og:*/twitter:card unconditionally), rendered only by /, /about, /blog, /blog/[slug], /blog/tag/[tag], /contact, /projects, /projects/[slug]; this route does not render it; root +layout.svelte:15-20 head is an RSS link plus {#if isAdmin} robots noindex; app.html none; no meta-tag library)"
+  }
+]

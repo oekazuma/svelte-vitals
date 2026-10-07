@@ -1,0 +1,837 @@
+[
+  {
+    "key": "fcrozatier/SoME::a11y/id-duplication::src/routes/(auth)/change-password/+page.svelte:80::Duplicate id \"password\"",
+    "verdict": "tp",
+    "basis": "read: change-password/+page.svelte has two <input id=\"password\"> (:56 new password, :81 confirm) in the same {:else} arm with no branch between (both <label for=\"password\">); the spreads add only formgator validation attributes, so both render with the same id"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/id-duplication::src/routes/(auth)/login/+page.svelte:76::Duplicate id \"credentials-error\"",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte renders span#credentials-error under {#if form?.issues?.email} (:55-57) and under {#if form?.issues?.password} (:75-77); formgate(LoginSchema) returns an issue per failing field, so both can render together"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/id-duplication::src/routes/user/entries/new/+page.svelte:372::Duplicate id \"url-error\"",
+    "verdict": "tp",
+    "basis": "read: user/entries/new/+page.svelte: span#url-error renders under {#if form?.issues?.url} and again under {#if url !== \"\" && url.match(urlRegex) === null}; a submitted malformed URL keeps both true, so both spans render"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/id-duplication::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:363::Duplicate id \"url-error\"",
+    "verdict": "tp",
+    "basis": "read: user/entries/update/[entryUid=uuid]/+page.svelte: span#url-error renders under {#if form?.issues?.url} and again under {#if url !== \"\" && url.match(urlRegex) === null}; a submitted malformed URL keeps both true, so both spans render"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/admin/survey/+page.svelte:36::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <hr> at +page.svelte:36 has literal <ul>@27 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <ul> admits only <li> and script-supporting elements"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/admin/update/[entryUid=uuid]/+page.svelte:157::`<button>` is not permitted content here — `<select>` admits only `<option>`, `<optgroup>`, `<hr>` and script-supporting elements",
+    "verdict": "fp",
+    "basis": "read admin/update/[entryUid=uuid]/+page.svelte:157: <button><selectedcontent></selectedcontent></button> is the first child of a drop-down <select> (single-value, no multiple/size; the category select's fg.select attributes add only required) styled as a customizable select (src/app.css:245-247 `select, ::picker(select) { appearance: base-select }`, selectedcontent styled :263); the current WHATWG select content model admits zero or one <button> first in a drop-down select, so the claim that <select> admits only option/optgroup/hr is false (same class as the ledger wordplay Options.svelte fp: vendored spec data predates customizable select)"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/archive/+page.svelte:90::`<button>` is not permitted content here — `<select>` admits only `<option>`, `<optgroup>`, `<hr>` and script-supporting elements",
+    "verdict": "fp",
+    "basis": "read archive/+page.svelte:90: <button><selectedcontent></selectedcontent></button> is the first child of a drop-down <select> (single-value, no multiple/size; the category select's fg.select attributes add only required) styled as a customizable select (src/app.css:245-247 `select, ::picker(select) { appearance: base-select }`, selectedcontent styled :263); the current WHATWG select content model admits zero or one <button> first in a drop-down select, so the claim that <select> admits only option/optgroup/hr is false (same class as the ledger wordplay Options.svelte fp: vendored spec data predates customizable select)"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/user/entries/new/+page.svelte:188::`<button>` is not permitted content here — `<select>` admits only `<option>`, `<optgroup>`, `<hr>` and script-supporting elements",
+    "verdict": "fp",
+    "basis": "read user/entries/new/+page.svelte:188: <button><selectedcontent></selectedcontent></button> is the first child of a drop-down <select> (single-value, no multiple/size; the category select's fg.select attributes add only required) styled as a customizable select (src/app.css:245-247 `select, ::picker(select) { appearance: base-select }`, selectedcontent styled :263); the current WHATWG select content model admits zero or one <button> first in a drop-down select, so the claim that <select> admits only option/optgroup/hr is false (same class as the ledger wordplay Options.svelte fp: vendored spec data predates customizable select)"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:183::`<button>` is not permitted content here — `<select>` admits only `<option>`, `<optgroup>`, `<hr>` and script-supporting elements",
+    "verdict": "fp",
+    "basis": "read user/entries/update/[entryUid=uuid]/+page.svelte:183: <button><selectedcontent></selectedcontent></button> is the first child of a drop-down <select> (single-value, no multiple/size; the category select's fg.select attributes add only required) styled as a customizable select (src/app.css:245-247 `select, ::picker(select) { appearance: base-select }`, selectedcontent styled :263); the current WHATWG select content model admits zero or one <button> first in a drop-down select, so the claim that <select> admits only option/optgroup/hr is false (same class as the ledger wordplay Options.svelte fp: vendored spec data predates customizable select)"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.svelte:164::`<h#>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <h4> at +page.svelte:164 has literal <label>@163 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <h4> is not phrasing content"
+  },
+  {
+    "key": "fcrozatier/SoME::a11y/permitted-contents::src/routes/user/votes/+page.svelte:149::`<h#>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <h4> at +page.svelte:149 has literal <label>@148 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <h4> is not phrasing content"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/lib/components/Slider.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Slider.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/(auth)/signup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/signup/+page.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/(prerendered)/rules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(prerendered)/rules/+page.svelte has 386 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/admin/flagged/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/flagged/+page.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/admin/strikes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/strikes/+page.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/admin/update/[entryUid=uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/update/[entryUid=uuid]/+page.svelte has 422 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/user/entries/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/entries/new/+page.svelte has 457 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/entries/update/[entryUid=uuid]/+page.svelte has 505 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/user/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/profile/+page.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/component-size::src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.svelte has 380 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/prop-count::src/lib/components/Media.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Media.svelte has a single destructured $props() with 9 named props (> 6): category, uid, url, title, description, thumbnail, thumbnailWidth, gap, redirect"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/prop-count::src/lib/components/layouts/LayoutSideBySide.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/layouts/LayoutSideBySide.svelte has a single destructured $props() with 8 named props (> 6): side, gap, sidePanelMaxWidth, mainPanelMinWidth, class, alignment, sidePanel, mainPanel"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/route-component-import::src/routes/admin/entries/+page.svelte:11::src/routes/entries/[uid=uuid]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/entries/+page.svelte:11 default-imports ../../entries/[uid=uuid]/+page.svelte; loadData() (l.35-41) runs preloadData(href) then pushState(href,{entry}) and stores result.data, and l.155-157 renders <EntriesPage data={entryPageData}> inside {#if entryPageData} in a dialog: SvelteKit documented shallow-routing pattern passing the route its own load data (same shape as the ledger sira313/kagisearch design entries); reported as documented, not a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::architecture/route-component-import::src/routes/archive/+page.svelte:12::src/routes/entries/[uid=uuid]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/archive/+page.svelte:12 default-imports ../entries/[uid=uuid]/+page.svelte; l.39-42 preloadData(href) then pushState(href,{entry: result.data}) and l.171 renders <EntriesPage data={entry}> in a dialog: SvelteKit documented shallow-routing pattern passing the route its own load data (same shape as the ledger sira313/kagisearch design entries); reported as documented, not a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/lib/components/Display.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Display.svelte:30 '{#each audience as audience}' has no key; list source is runtime data (audience = $derived(data.tags filtered by levels): tags of a database entry passed in as data): runtime records"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/lib/components/Display.svelte:38::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Display.svelte:38 '{#each otherTags as tag}' has no key; list source is runtime data (otherTags = $derived Set difference of the entry's database tags): runtime records"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/lib/components/Pagination.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Pagination.svelte:32 '{#each array as n}' has no key; positional list (array = $derived(makeArray(pageNumber)): page numbers around the current page): items have no identity beyond position"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/+page.svelte:61::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:61 '{#each data.selection as selection}' has no key; list source is runtime data (data.selection: entries loaded from the database by +page.server.ts)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/+page.svelte:93::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:93 '{#each data.top.slice(0, 5) as top}' has no key; list source is runtime data (data.top: top-ranked entries loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/deactivated/+page.svelte:22::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/deactivated/+page.svelte:22 '{#each data.inactiveEntries as { title, url, uid, created_at, updated_at, deleted_at }' has no key; list source is runtime data (data.inactiveEntries loaded from the database; admin actions remove entries)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/deactivated/+page.svelte:62::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/deactivated/+page.svelte:62 '{#each strikes as { note, reason, state }' has no key; list source is runtime data (strikes = data.withStrikes[uid], strike records loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/deactivated/+page.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/deactivated/+page.svelte:85 '{#each flags as { reason }' has no key; list source is runtime data (flags = data.withFlags[uid], flag records loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/deleted/+page.svelte:22::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/deleted/+page.svelte:22 '{#each data.deletedEntries as { title, url, uid, created_at, updated_at, deleted_at }' has no key; list source is runtime data (data.deletedEntries loaded from the database; admin actions remove entries)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/deleted/+page.svelte:62::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/deleted/+page.svelte:62 '{#each strikes as { note, reason, state }' has no key; list source is runtime data (strikes = data.withStrikes[uid], strike records loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/deleted/+page.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/deleted/+page.svelte:85 '{#each flags as { reason }' has no key; list source is runtime data (flags = data.withFlags[uid], flag records loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/feedbacks/+page.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/feedbacks/+page.svelte:25 '{#each data.feedbacks as f}' has no key; list source is runtime data (data.feedbacks loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/feedbacks/+page.svelte:73::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/feedbacks/+page.svelte:73 '{#each selected as value}' has no key; list source is runtime data (selected $state bound with bind:group to checkboxes, :33): items inserted/removed by the user"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/flagged/+page.svelte:117::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/flagged/+page.svelte:117 '{#each flags as flag}' has no key; list source is runtime data (flags: flag records of one entry from data.flagged, loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/flagged/+page.svelte:175::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/flagged/+page.svelte:175 '{#each Object.keys(reasons) as value}' has no key; static list (Object.keys(reasons) of a same-file constant object, :15): fixed <option>s"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/flagged/+page.svelte:61::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/flagged/+page.svelte:61 '{#each Object.entries(data.flagged) as [entryUid, flags]}' has no key; list source is runtime data (Object.entries(data.flagged): flagged entries loaded from the database; admin actions resolve them)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/rank/[category=category]/+page.svelte:42::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/rank/[category=category]/+page.svelte:42 '{#each data.entries as { ranking, median, nb_votes, nb_skips, ...entry }' has no key; list source is runtime data (data.entries: ranking rows loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/strikes/+page.svelte:44::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/strikes/+page.svelte:44 '{#each data.strikes as { title, url, uid, state, reason, created_at, updated_at, deleted_at, note }' has no key; list source is runtime data (data.strikes loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/survey/+page.svelte:28::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/survey/+page.svelte:28 '{#each data.surveys as { json }' has no key; list source is runtime data (data.surveys loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/survey/+page.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/survey/+page.svelte:30 '{#each Object.entries(JSON.parse(json as string)) as [k, v]}' has no key; list source is runtime data (Object.entries(JSON.parse(json)) of one survey record loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/update/[entryUid=uuid]/+page.svelte:229::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/update/[entryUid=uuid]/+page.svelte:229 '{#each levels as level}' has no key; static list (levels imported from $lib/validation, an exported array literal (validation.ts:28) the module only hands to fg.select; but this component passes it to new Set(levels) (:48), which the docs say keeps it reported): fixed at author time"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/update/[entryUid=uuid]/+page.svelte:295::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/update/[entryUid=uuid]/+page.svelte:295 '{#each tags as tag}' has no key; list source is runtime data (tags SvelteSet of the entry's tags, added/deleted by the user at :235-280)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/update/[entryUid=uuid]/+page.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/update/[entryUid=uuid]/+page.svelte:83 '{#each usernames as _, i}' has no key; list source is runtime data (usernames: co-author inputs bound with bind:value={usernames[i]} (:96), appended (:60) and spliced mid-list (:120)): input state follows position"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/users/banned/+page.svelte:19::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/users/banned/+page.svelte:19 '{#each data.bannedUsers as user}' has no key; list source is runtime data (data.bannedUsers loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/admin/users/deleted/+page.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/users/deleted/+page.svelte:20 '{#each data.deletedUsers as { uid, username, deleted_at }' has no key; list source is runtime data (data.deletedUsers loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/archive/+page.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/archive/+page.svelte:106 '{#each data.entries as { uid, title, description, category, thumbnail, url, rank }' has no key; list source is runtime data (data.entries: archive entries loaded from the database per year)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/archive/+page.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/archive/+page.svelte:78 '{#each years as year}' has no key; static list (years = Array.from({ length: n }, (_, i) => defaultYear() - i), computed once): a derived year range, positional"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/entries/[uid=uuid]/+page.svelte:109::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/entries/[uid=uuid]/+page.svelte:109 '{#each comments as { feedback, score, username, bio, is_teacher }' has no key; list source is runtime data (comments = data.feedbacks filtered, feedback records loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/survey/+page.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/survey/+page.svelte:118 '{#each Object.entries(form.issues) as [k, issue]}' has no key; list source is runtime data (Object.entries(form.issues): validation issues returned by the form action; ledger error-list convention)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/+page.svelte:62::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/entries/+page.svelte:62 '{#each Object.entries(entriesByYear).sort(([y1], [y2]) => Number(y2) - Number(y1)) as [year, entries]}' has no key; list source is runtime data (Object.entries(entriesByYear): the user's entries loaded from the database, grouped by year)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/+page.svelte:65::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/entries/+page.svelte:65 '{#each entries! as { uid, title, description, category, thumbnail, url, state, createdAt }' has no key; list source is runtime data (entries of one year group of the user's database entries)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/new/+page.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/entries/new/+page.svelte:114 '{#each usernames as _, i}' has no key; list source is runtime data (usernames $state: co-author inputs bound with bind:value={usernames[i]} (:127), appended (:63) and spliced mid-list (:151)): input state follows position"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/new/+page.svelte:259::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/user/entries/new/+page.svelte:259 '{#each levels as level}' has no key; static list (levels imported from $lib/validation, an exported array literal (validation.ts:28) the module only hands to fg.select; but this component passes it to new Set(levels) (:51), which the docs say keeps it reported): fixed at author time"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/new/+page.svelte:325::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/entries/new/+page.svelte:325 '{#each tags as tag}' has no key; list source is runtime data (tags SvelteSet added/deleted by the user at :265-310)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:109::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:109 '{#each usernames as _, i}' has no key; list source is runtime data (usernames: co-author inputs bound with bind:value={usernames[i]} (:122), pushed (:66) and spliced mid-list (:146)): input state follows position"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:254::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:254 '{#each levels as level}' has no key; static list (levels imported from $lib/validation, an exported array literal (validation.ts:28) the module only hands to fg.select; but this component passes it to new Set(levels) (:54), which the docs say keeps it reported): fixed at author time"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:320::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:320 '{#each tags as tag}' has no key; list source is runtime data (tags SvelteSet of the entry's tags, added/deleted by the user at :260-305)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/vote/+page.svelte:87::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/user/vote/+page.svelte:87 '{#each CATEGORIES.toReversed() as category}' has no key; static list (CATEGORIES.toReversed(): a call on the constant CATEGORIES = ['video', 'non-video'] as const (constants.ts:11), not the bare list the docs exempt): fixed at author time"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/votes/+page.svelte:60::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/user/votes/+page.svelte:60 '{#each years as year}' has no key; positional list (years = $derived distinct years of the user's votes, sorted): a derived year range, positional"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/votes/+page.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/votes/+page.svelte:75 '{#each votesByYear[year]?.sort((v1, v2) => Number(v2.score) - Number(v1.score)) as vote}' has no key; list source is runtime data (votesByYear[year] sorted by score: the user's votes loaded from the database)"
+  },
+  {
+    "key": "fcrozatier/SoME::correctness/each-key::src/routes/user/watchlist/+page.svelte:24::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/watchlist/+page.svelte:24 '{#each data.watchlist as entry, i}' has no key; list source is runtime data (data.watchlist: the user's watchlist loaded from the database; entries are added/removed)"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/image-dimensions::src/routes/+layout.svelte:179::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor logo with width=\"35\" only and no CSS height (class not-prose inline) — height comes from the image's natural aspect (static/sponsors/3b1b-logo.png is 1000x1000)"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/image-loading-hint::src/routes/+layout.svelte:179::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 3Blue1Brown logo in the \"Presented by\" line directly under the layout <h1> (+layout.svelte:169-182) — above the fold"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/image-loading-hint::src/routes/admin/update/[entryUid=uuid]/+page.svelte:337::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: \"Current thumbnail\" of the edit form, after the title, description textarea, tags and url fields, below the layout header (h1 + sponsor line) — offscreen on load"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/image-loading-hint::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:374::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: \"Current thumbnail\" of the edit form, after the title, description textarea, tags and url fields, below the layout header (h1 + sponsor line) — offscreen on load"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/responsive-image::src/routes/+layout.svelte:179::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/sponsors/3b1b-logo.png is a 1000x1000 PNG shown at 35px — raster, one fixed-size asset"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/responsive-image::src/routes/admin/update/[entryUid=uuid]/+page.svelte:337::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: S3-uploaded entry thumbnail (https://{bucket}.{endpoint}/{entry.thumbnail}) shown at max 480px — raster, one fixed-size asset"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/responsive-image::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte:374::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: S3-uploaded entry thumbnail (https://{bucket}.{endpoint}/{entry.thumbnail}) shown at max 480px — raster, one fixed-size asset"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/admin/update/[entryUid=uuid]/+page.server.ts:42::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/update/[entryUid=uuid]/+page.server.ts:42: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :33 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/admin/update/[entryUid=uuid]/+page.server.ts:48::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/update/[entryUid=uuid]/+page.server.ts:48: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :33,42 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/entries/[uid=uuid]/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/entries/[uid=uuid]/+page.server.ts:26: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :16 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/entries/[uid=uuid]/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/entries/[uid=uuid]/+page.server.ts:33: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :16,26 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/entries/+page.server.ts:31::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/user/entries/+page.server.ts:31: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :17 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/entries/update/[entryUid=uuid]/+page.server.ts:51::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/user/entries/update/[entryUid=uuid]/+page.server.ts:51: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :38 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/entries/update/[entryUid=uuid]/+page.server.ts:58::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/user/entries/update/[entryUid=uuid]/+page.server.ts:58: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :38,51 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/profile/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/user/profile/+page.server.ts:26: the only preceding await is the signed-in user's row lookup by session uid that redirects to /login when missing — auth/user-validation gate (ledger loadUserData gate convention)"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/vote/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/user/vote/+page.server.ts:20: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :10 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.server.ts:101::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.server.ts:101: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :52,64,74,83,89 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::performance/sequential-awaits::src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.server.ts:121::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.server.ts:121: independent postgres-js Drizzle query that names no binding from the preceding non-gate await(s) at :52,64,74,83,89,101,109 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/lib/components/Description.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Description.svelte:32: entry description stored as parseAndSanitizeMarkdown(data.description) at write (user/entries/new/+page.server.ts:154, update:209, admin/update:179; lib/utils/markdown.ts rehype-sanitize defaultSchema) — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/lib/components/Media.svelte:47::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Media.svelte:47: entry description stored as parseAndSanitizeMarkdown(data.description) at write (user/entries/new/+page.server.ts:154, update:209, admin/update:179; lib/utils/markdown.ts rehype-sanitize defaultSchema) — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/lib/components/Timeline.svelte:70::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Timeline.svelte:70: phase.description comes from a literal phases array in Timeline.svelte:13 — repo constants, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/lib/components/Toasts.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Toasts.svelte:56: toast.content is a literal message or a server error string passed to newToast (lib/actions.ts:38-45, admin pages) — repo-authored, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/(auth)/change-password/+page.svelte:103::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(auth)/change-password/+page.svelte:103: form.feedback is a literal server message (login/+page.server.ts:43-52 'Account suspended…' with a date slice, change-password/+page.server.ts:29 literal anchor) — repo constants, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/(auth)/login/+page.svelte:86::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(auth)/login/+page.svelte:86: form.feedback is a literal server message (login/+page.server.ts:43-52 'Account suspended…' with a date slice, change-password/+page.server.ts:29 literal anchor) — repo constants, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/admin/deactivated/+page.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/deactivated/+page.svelte:67: strike note stored as parseAndSanitizeMarkdown(data.note) (admin/strikes/+page.server.ts:150, admin/flagged/+page.server.ts:105, rehype-sanitize) or rendered through it inline — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/admin/deleted/+page.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/deleted/+page.svelte:67: strike note stored as parseAndSanitizeMarkdown(data.note) (admin/strikes/+page.server.ts:150, admin/flagged/+page.server.ts:105, rehype-sanitize) or rendered through it inline — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/admin/flagged/+page.svelte:195::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/flagged/+page.svelte:195: strike note stored as parseAndSanitizeMarkdown(data.note) (admin/strikes/+page.server.ts:150, admin/flagged/+page.server.ts:105, rehype-sanitize) or rendered through it inline — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/admin/strikes/+page.svelte:116::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/strikes/+page.svelte:116: strike note stored as parseAndSanitizeMarkdown(data.note) (admin/strikes/+page.server.ts:150, admin/flagged/+page.server.ts:105, rehype-sanitize) or rendered through it inline — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/admin/strikes/+page.svelte:183::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/strikes/+page.svelte:183: strike note stored as parseAndSanitizeMarkdown(data.note) (admin/strikes/+page.server.ts:150, admin/flagged/+page.server.ts:105, rehype-sanitize) or rendered through it inline — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/entries/[uid=uuid]/+page.svelte:128::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/entries/[uid=uuid]/+page.svelte:128: vote feedback stored as feedbackSafe = parseAndSanitizeMarkdown(data.feedback) (user/vote/[category]/+page.server.ts:191-200, user/votes/+page.server.ts:36-40, rehype-sanitize) — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/user/entries/+page.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/user/entries/+page.svelte:27: strike note stored as parseAndSanitizeMarkdown(data.note) (admin/strikes/+page.server.ts:150, admin/flagged/+page.server.ts:105, rehype-sanitize) or rendered through it inline — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::security/raw-html::src/routes/user/votes/+page.svelte:88::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/user/votes/+page.svelte:88: vote feedback stored as feedbackSafe = parseAndSanitizeMarkdown(data.feedback) (user/vote/[category]/+page.server.ts:191-200, user/votes/+page.server.ts:36-40, rehype-sanitize) — sanitized, reported per docs"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(auth)/change-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(auth)/change-password/[token=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(auth)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(prerendered)/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(prerendered)/gdpr/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/(prerendered)/rules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/deactivated/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/deleted/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/entries/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 23 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/feedbacks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/flagged/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/rank/[category=category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 18 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/strikes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/survey/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/update/[entryUid=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/users/ban/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 12 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (static/robots.txt:4 Disallow: /admin/ (admin panel; admin/users/ban/+page.server.ts has no load gate, only its action calls assertIsAdmin at :12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/users/banned/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/admin/users/deleted/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (admin-only: each admin load calls assertIsAdmin (lib/server/authorization.ts:8 error(403) unless locals.user.isAdmin), and static/robots.txt:4 Disallow: /admin/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 22 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/entries/[uid=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/survey/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library; publicly reachable, rendered route, no noindex (survey/+page.server.ts redirect is conditional on resultsAvailable(), so the page renders)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/entries/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/entries/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/vote/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/votes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/canonical-url::src/routes/user/watchlist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 page/layout/transitively imported local files or app.html; app.html:15-32 carries og:url/title/description/image + twitter:card for every route but no <link rel=\"canonical\">; no canonical anywhere in src, no meta-tag library) but not a search target (auth-gated: user/+layout.server.ts:3 assertIsLoggedIn redirects guests to /login (lib/server/authorization.ts:12)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:8-11 literal description is the only description of all 32 routes (no svelte:head in src sets one), including the public /, /rules, /archive, /entries/[uid], /contact and /gdpr; duplicate as claimed on a public site"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(auth)/change-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /change-password has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(auth)/change-password/[token=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /change-password/[token=uuid] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /login has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(auth)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /signup has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(prerendered)/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /contact has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(prerendered)/gdpr/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /gdpr has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/(prerendered)/rules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /rules has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; / has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/deactivated/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/deactivated has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/deleted/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/deleted has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/entries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/entries has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/feedbacks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/feedbacks has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/flagged/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/flagged has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/rank/[category=category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/rank/[category=category] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/strikes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/strikes has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/survey/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/survey has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/update/[entryUid=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/update/[entryUid=uuid] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/users/ban/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/users/ban has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/users/banned/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/users/banned has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/admin/users/deleted/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /admin/users/deleted has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /archive has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/entries/[uid=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /entries/[uid=uuid] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/survey/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /survey has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/entries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/entries has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/entries/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/entries/new has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/entries/update/[entryUid=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/entries/update/[entryUid=uuid] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/profile has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/vote/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/vote has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/vote/[category=category]/[[entryUid=uuid]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/vote/[category=category]/[[entryUid=uuid]] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/votes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/votes has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/json-ld::src/routes/user/watchlist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src; app.html carries only meta/og/twitter/icon tags; /user/watchlist has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt (Disallow /admin/) but no sitemap.xml file, route or generator; public competition site (/, /rules, /archive, /entries/[uid], /contact, /gdpr)"
+  },
+  {
+    "key": "fcrozatier/SoME::seo/title-presence::src/routes/user/entries/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of user/entries/+page.svelte > +layout.svelte (+15 imported local files); npm svelte deps checked on jsDelivr): user/entries/+page.svelte has no svelte:head; root +layout.svelte:28-33 head is only the lite-youtube script, app.html no <title>, no document.title; every sibling user/* page sets <title>{formatTitle(...)}; load renders for a logged-in user"
+  }
+]

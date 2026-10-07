@@ -1,0 +1,1177 @@
+[
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/deprecated-attr::src/lib/components/table/variant/standard-table/index.svelte:119::`cellpadding`, `cellspacing` on <table> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read table/variant/standard-table/index.svelte:119-121: <table cellpadding={0} cellspacing={0}>, both deprecated on <table> as reported"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/disallowed-aria-props::src/lib/components/label-container/index.svelte:148::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read label-container/index.svelte:148: <label aria-label={label} for={name}> with no role/spread whose text is the same {label}; docs name <label aria-label> as firing while the spec prohibits a name only when exposed generic (daisyUI <label for aria-label> precedent)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/interactive-nesting::src/lib/components/dropdown/index.svelte:239::<select> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read dropdown/index.svelte:224-239: native <select> inside a wrapper <div role=\"button\" tabindex=\"-1\" onclick>; role=button is children-presentational, so the nested select is hidden from AT as reported"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/interactive-nesting::src/lib/components/textinput/index.svelte:271::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read textinput/index.svelte:229-271: visible Confirm <button aria-label> inside the wrapper <div role=\"button\" tabindex=\"-1\">; role=button is children-presentational, nested control as reported"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/interactive-nesting::src/lib/components/textinput/index.svelte:280::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read textinput/index.svelte:229-280: visible Cancel <button aria-label> inside the wrapper <div role=\"button\" tabindex=\"-1\">; role=button is children-presentational, nested control as reported"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/components/LogoutButton.svelte:38::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read LogoutButton.svelte:31-38: literal <div class=\"spinner\"> inside <button>; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/internal/components/json-tree/index.svelte:120::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read json-tree/index.svelte:120: literal <div class=\"exp_icon\"> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/internal/components/json-tree/index.svelte:138::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read json-tree/index.svelte:138: literal <div class=\"exp_icon\"> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/internal/components/json-tree/index.svelte:178::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read json-tree/index.svelte:178: literal <div class=\"exp_icon\"> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/lib/components/table/variant/div-table/index.svelte:196::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read div-table/index.svelte:196: literal <div> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/lib/components/table/variant/div-table/index.svelte:260::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read div-table/index.svelte:260: literal <div> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/lib/components/table/variant/div-table/index.svelte:318::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read div-table/index.svelte:318: literal <div> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/lib/components/table/variant/div-table/index.svelte:322::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read div-table/index.svelte:322: literal <div> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/lib/components/table/variant/standard-table/index.svelte:208::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read standard-table/index.svelte:208: literal <div> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/lib/components/table/variant/standard-table/index.svelte:212::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read standard-table/index.svelte:212: literal <div> inside <button type=\"button\">; <button> admits phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/routes/admin/+page.svelte:641::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read admin/+page.svelte:641: literal <div class=\"spinner\"> inside <button class=\"action-button\">; phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/routes/admin/+page.svelte:831::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read admin/+page.svelte:831: literal <div class=\"button-spinner\"> inside <button class=\"revalidate-button\">; phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::a11y/permitted-contents::src/routes/login/+page.svelte:293::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read login/+page.svelte:293: literal <div class=\"spinner\"> inside <button type=\"submit\">; phrasing content only"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/block-assembly-modal/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/block-assembly-modal/index.svelte has 463 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/json-tree/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/json-tree/index.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/msgbox/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/msgbox/index.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/home/home-stats-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/home/home-stats-card/index.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/network/connected-nodes-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/network/connected-nodes-card/index.svelte has 310 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/viewer/block/block-details-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/viewer/block/block-details-card/index.svelte has 320 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/viewer/blocks/blocks-table-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/viewer/blocks/blocks-table-card/index.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/viewer/subtree/subtree-details-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/viewer/subtree/subtree-details-card/index.svelte has 369 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/viewer/tx/merkle-proof-visualizer/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/viewer/tx/merkle-proof-visualizer/index.svelte has 1212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/viewer/tx/tx-details-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/viewer/tx/tx-details-card/index.svelte has 388 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/page/viewer/tx/tx-io-card/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/page/viewer/tx/tx-io-card/index.svelte has 481 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/internal/components/pager/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/internal/components/pager/index.svelte has 252 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/button/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/button/index.svelte has 304 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/checkbox/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/checkbox/index.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/dropdown/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dropdown/index.svelte has 498 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/navigation/drawer/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/navigation/drawer/index.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/pager/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pager/index.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/radio/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/radio/index.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/switch/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/switch/index.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/tab/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tab/index.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/table/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/table/index.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/table/variant/div-table/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/table/variant/div-table/index.svelte has 704 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/table/variant/standard-table/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/table/variant/standard-table/index.svelte has 472 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/textinput/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/textinput/index.svelte has 429 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/lib/components/toggle/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/toggle/index.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 1695 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/ancestors/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ancestors/+page.svelte has 774 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/forks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/forks/+page.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 526 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/network/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/network/+page.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/p2p/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p2p/+page.svelte has 438 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/peers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/peers/+page.svelte has 1887 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/peers/LegacyPeersCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/peers/LegacyPeersCard.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 1036 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/component-size::src/routes/wstest/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/wstest/+page.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/action-status-icon/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/action-status-icon/index.svelte has a single destructured $props() with 9 named props (> 6): size, icon, iconSuccess, iconFailure, statusIndicationPeriod, action, actionData, status, onstatus"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/card/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/card/index.svelte has a single destructured $props() with 11 named props (> 6): title, headerPadding, contentPadding, footerPadding, stretch, showFooter, wrapHeader, subtitle, headerTools, footer, children"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/item-renderers/link-hash-copy/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/item-renderers/link-hash-copy/index.svelte has a single destructured $props() with 9 named props (> 6): href, text, className, external, iconValue, icon, iconSize, iconPadding, tooltip"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/item-renderers/link-with-icon/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/item-renderers/link-with-icon/index.svelte has a single destructured $props() with 11 named props (> 6): href, text, className, external, iconValue, icon, iconSize, iconPadding, tooltip, onIcon, onselect"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/json-tree/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/json-tree/index.svelte has a single destructured $props() with 11 named props (> 6): level, id, isLastChild, expandState, inlineArr, inlineObj, showCommas, showFinalComma, data, parentKey, blockHash"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/page/network/connected-nodes-card/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/page/network/connected-nodes-card/index.svelte has a single destructured $props() with 9 named props (> 6): data, allData, connected, page, pageSize, sortColumn, sortOrder, onpagechange, onsort"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/pager/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/pager/index.svelte has a single destructured $props() with 15 named props (> 6): testId, name, value, totalItems, siblingCount, boundaryCount, hasBoundaryRight, dataSize, i18n, expandUp, stretch, showPageSize, showQuickNav, showNav, onchange"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/internal/components/typo/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/internal/components/typo/index.svelte has a single destructured $props() with 11 named props (> 6): testId, class, style, variant, size, color, hoverColor, html, value, wrap, overflow"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/button/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/button/index.svelte has a single destructured $props() with 25 named props (> 6): testId, class, style, variant, icon, iconColor, iconAfter, tabindex, hasFocusRect, emulateHover, tooltip, disabled, selected, toggle, width, round, ico, stretch, uppercase, size, onclick, onfocus, onblur, onkeydown, children"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/checkbox/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/checkbox/index.svelte has a single destructured $props() with 17 named props (> 6): testId, class, style, label, footnote, required, name, checked, disabled, valid, error, labelPlacement, labelAlignment, size, onchange, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/dropdown/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dropdown/index.svelte has a single destructured $props() with 22 named props (> 6): testId, class, style, label, footnote, required, name, value, multiple, items, disabled, valid, error, maxVisibleListItems, expandUp, stretch, labelPlacement, labelAlignment, size, onchange, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/footnote-container/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/footnote-container/index.svelte has a single destructured $props() with 11 named props (> 6): testId, class, style, disabled, size, footnote, error, stretch, html, footnoteAlignment, children"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/icon/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/icon/index.svelte has a single destructured $props() with 9 named props (> 6): testId, class, style, name, size, opacity, color, iconSvg, onclick"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/label-container/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/label-container/index.svelte has a single destructured $props() with 15 named props (> 6): testId, class, style, name, disabled, required, label, interactive, margin, stretch, labelPlacement, labelAlignment, size, onclick, children"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/logo/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/logo/index.svelte has a single destructured $props() with 9 named props (> 6): testId, class, style, name, width, height, opacity, logoSvg, onclick"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/navigation/drawer/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/navigation/drawer/index.svelte has a single destructured $props() with 18 named props (> 6): testId, position, minWidth, maxWidth, offsetTop, snapBelowHeader, coverColor, showCover, showHeader, showFooter, enableCollapse, collapsed, onmetrics, onclose, onheaderSelect, header, footer, children"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/navigation/menu-item/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/navigation/menu-item/index.svelte has a single destructured $props() with 8 named props (> 6): selected, collapsed, icon, iconSelected, label, onclick, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/pager/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pager/index.svelte has a single destructured $props() with 11 named props (> 6): testId, name, value, totalItems, siblingCount, boundaryCount, hasBoundaryRight, dataSize, i18n, expandUp, onchange"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/radio/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/radio/index.svelte has a single destructured $props() with 19 named props (> 6): testId, class, style, label, footnote, required, name, group, checked, disabled, valid, error, allowToggle, labelPlacement, labelAlignment, size, onchange, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/spinner/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/spinner/index.svelte has a single destructured $props() with 8 named props (> 6): size, speed, color, coverColor, thickness, gap, radius, offsetX"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/switch/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/switch/index.svelte has a single destructured $props() with 17 named props (> 6): testId, class, style, label, footnote, required, name, checked, disabled, valid, error, labelPlacement, labelAlignment, size, onchange, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/tab/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/tab/index.svelte has a single destructured $props() with 20 named props (> 6): testId, class, style, variant, icon, iconAfter, border, disabled, selected, toggle, width, round, hasFocusRect, stretch, size, children, onclick, onkeydown, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/table/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/table/index.svelte has a single destructured $props() with 38 named props (> 6): testId, variant, name, colDefs, data, idField, renderCells, renderTypes, disabled, expandUp, wrapTitles, i18n, maxHeight, fullWidth, bgColorTable, bgColorHead, selectable, selectedRowIds, getRowIconActions, getRenderProps, filters, filtersEnabled, useServerFilters, sort, sortEnabled, useServerSort, sortByTypeFunctions, pagination, paginationEnabled, useServerPagination, hasBoundaryRight, pager, alignPager, useServerAll, onfilter, onsort, onpaginate, onaction"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/table/renderers/render-hash-with-miner/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/table/renderers/render-hash-with-miner/index.svelte has a single destructured $props() with 8 named props (> 6): hash, hashUrl, shortHash, miner, className, tooltip, showCopyButton, copyTooltip"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/table/variant/div-table/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/table/variant/div-table/index.svelte has a single destructured $props() with 33 named props (> 6): name, colDefs, data, idField, renderCells, renderTypes, disabled, expandUp, i18n, maxHeight, fullWidth, bgColorTable, bgColorHead, selectable, selectedRowIds, filtersEnabled, filtersState, sortEnabled, sortState, paginationEnabled, paginationState, totalItems, hasBoundaryRight, pager, alignPager, getRowIconActions, getRenderProps, wrapTitles, onfilter, onheader, onselect, onpaginate, onaction"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/table/variant/standard-table/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/table/variant/standard-table/index.svelte has a single destructured $props() with 33 named props (> 6): name, colDefs, data, idField, renderCells, renderTypes, disabled, expandUp, i18n, maxHeight, fullWidth, bgColorTable, bgColorHead, selectable, selectedRowIds, filtersEnabled, filtersState, sortEnabled, sortState, paginationEnabled, paginationState, totalItems, hasBoundaryRight, pager, alignPager, getRowIconActions, getRenderProps, wrapTitles, onfilter, onheader, onselect, onpaginate, onaction"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/textinput/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/textinput/index.svelte has a single destructured $props() with 32 named props (> 6): testId, class, style, type, min, max, label, footnote, footnoteHtml, required, name, value, placeholder, disabled, valid, error, autocomplete, stretch, width, focusWidth, icon, iconAfter, labelPlacement, labelAlignment, size, confirm, onchange, onmount, onconfirm, onkeydown, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/toggle/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/toggle/index.svelte has a single destructured $props() with 15 named props (> 6): name, items, value, tabindex, disabled, hasFocusRect, round, stretch, testId, class, style, size, onchange, onfocus, onblur"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/prop-count::src/lib/components/typo/index.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/typo/index.svelte has a single destructured $props() with 9 named props (> 6): testId, class, style, variant, size, color, html, value, wrap"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::architecture/route-component-import::src/routes/+page.svelte:4::src/routes/home/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:1-7 only default-imports ./home/+page.svelte and renders <Home /> with no props; the imported home page has no load file, declares no $props()/data and fetches its own data via $internal/api in onMount (ssr = false in +layout.ts) -- deliberate alias route rendering / as /home, same exceptionless-wrapper shape as the ledger's design entries"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/block-assembly-modal/index.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: block-assembly-modal/index.svelte:142 '{#each paginatedSubtrees as subtree, index}' has no key; paginatedSubtrees = $derived page slice of the fetched block-assembly subtrees (:21-26): runtime data that changes with paging/refresh"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/breadcrumbs/index.svelte:57::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: breadcrumbs/index.svelte:57 '{#each data as crumb, i}' has no key; data = $derived.by of URL path segments (:17-53): positional list (breadcrumbs), items have no identity beyond position (ledger breadcrumb convention)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/json-tree/index.svelte:126::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: json-tree/index.svelte:126 '{#each entries as [key, value], i}' has no key; entries = Object.entries(data prop) (:57), arbitrary runtime JSON (block/tx API data) whose keys change between records: runtime data (ledger Object.entries-of-runtime convention)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/page/home/home-stats-card/index.svelte:80::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: home-stats-card/index.svelte:80 '{#each cols as colId, i}' has no key; cols = $derived choice between the same-file constant column lists colsLg/colsMd (:28-48): static list (fixed columns), never reorders, a key cannot help"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/page/viewer/tx/tx-details-card/index.svelte:138::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: tx-details-card/index.svelte:138 '{#each data.blockHeights as height, i}' has no key; data is the fetched transaction record prop (:25): runtime data from the API"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/page/viewer/tx/tx-details-card/index.svelte:161::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: tx-details-card/index.svelte:161 '{#each data.subtreeIdxs as subtreeIdx, i}' has no key; data is the fetched transaction record prop (:25): runtime data from the API"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/page/viewer/tx/tx-io-card/index.svelte:131::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: tx-io-card/index.svelte:131 '{#each inputSlice as input, i}' has no key; inputSlice = $derived(inputs.slice(0, sliceCount)) (:56) of the fetched transaction's inputs, which change per tx: runtime data"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/page/viewer/tx/tx-io-card/index.svelte:185::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: tx-io-card/index.svelte:185 '{#each outputSlice as output, i}' has no key; outputSlice = $derived(outputs.slice(0, sliceCount)) (:57) of the fetched transaction's outputs, which change per tx: runtime data"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/internal/components/pager/index.svelte:189::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: internal pager/index.svelte:189 '{#each btnData as btn}' has no key; btnData = $derived(getBtnData(totalPages, page, …)) (:66): positional list (pagination page buttons), items have no identity beyond position (ledger pagination convention)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/lib/components/pager/index.svelte:144::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: lib pager/index.svelte:144 '{#each btnData as btn}' has no key; btnData = $derived(getBtnData(totalPages, page, …)) (:57): positional list (pagination page buttons), items have no identity beyond position (ledger pagination convention)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/routes/admin/+page.svelte:631::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/+page.svelte:631 '{#each fsmEvents.sort(...) as event}' has no key; fsmEvents = $state([]) filled from the FSM events API (result.data, :156): runtime data"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/routes/admin/+page.svelte:808::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/+page.svelte:808 '{#each invalidBlocks as block}' has no key; invalidBlocks $state replaced by each paginated fetch (:491): runtime records"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/routes/p2p/+page.svelte:279::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: p2p/+page.svelte:279 '{#each peers as peer}' has no key; peers $state reassigned from live websocket messages (:184): runtime data"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/routes/settings/+page.svelte:285::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte:285 '{#each categories as category}' has no key; categories $state filled from the settings API response (data.categories, :91): runtime data"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/each-key::src/routes/wstest/+page.svelte:180::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: wstest/+page.svelte:180 '{#each connectionLog as log}' has no key; connectionLog $state appended per websocket event (:17) and cleared (:27): runtime list (ledger log-list convention)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/breadcrumbs/index.svelte:13::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: breadcrumbs/index.svelte:12-15 $effect.pre(() => { ready = true }), the mount-flag idiom the docs list as a known limitation (ready gates $page.url reads, :19, to avoid a hydration mismatch)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/page/viewer/block/index.svelte:17::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: viewer/block/index.svelte:16-19 $effect(() => { ready = true }), the mount-flag idiom the docs list as a known limitation (ready gates $page.url.searchParams reads, :27)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/page/viewer/block/index.svelte:28::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: viewer/block/index.svelte:28-30 the effect only does display = tab === json ? json : overview from a $derived; the other write is a wholesale reassignment in onDisplay (:41), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/page/viewer/subtree/index.svelte:16::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: viewer/subtree/index.svelte:15-18 $effect(() => { ready = true }), the mount-flag idiom the docs list as a known limitation (ready gates $page.url.searchParams reads, :24-30)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/page/viewer/subtree/index.svelte:35::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: viewer/subtree/index.svelte:35-37 the effect only does display = tab === json ? json : overview from a $derived; the other write is a wholesale reassignment in onDisplay (:59), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/page/viewer/tx/index.svelte:18::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: viewer/tx/index.svelte:17-20 $effect(() => { ready = true }), the mount-flag idiom the docs list as a known limitation (ready gates $page.url.searchParams reads, :28)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/page/viewer/tx/index.svelte:29::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: viewer/tx/index.svelte:29-32 the effect only maps the $derived tab to display; the other write is a wholesale reassignment in onDisplay (:46), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/internal/components/pager/index.svelte:60::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: internal pager/index.svelte:60-62 the effect only does pageInput = `${page}` (prop); other writes are wholesale reassignments (:110, :112), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/lib/components/navigation/drawer/index.svelte:50::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: drawer/index.svelte:50-52 the effect only does collapse = collapsed (prop); the other write is collapse = !collapse in onCollapseClick (:55), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/lib/components/pager/index.svelte:51::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: lib pager/index.svelte:51-53 the effect only does pageInput = `${page}` (prop); other writes are wholesale reassignments (:101, :103), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/lib/components/table/index.svelte:110::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: table/index.svelte:110-112 the effect only does filtersState = { ...filters } (prop); the other write is a wholesale spread reassignment (:130-136), no deep writes, the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/lib/components/table/index.svelte:143::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: table/index.svelte:143-145 the effect only does sortState = { ...sort } (prop); the other write is a wholesale reassignment in toggleSort (:161), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/lib/components/table/index.svelte:169::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: table/index.svelte:169-171 the effect only does paginationState = { ...pagination } (prop); the other write is a wholesale reassignment (:178), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/lib/components/textinput/index.svelte:93::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: textinput/index.svelte:93-95 the effect only does localValue = value (prop); other writes are wholesale reassignments (:163, :181), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/effect-as-derived::src/routes/login/+page.svelte:23::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte:23-25 the effect only does errorMessage = $authError (store); other writes are wholesale reassignments (:91, :109), the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/unmutated-state::src/internal/components/block-assembly-modal/index.svelte:17::$state \"subtreesPerPage\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w subtreesPerPage in the file): block-assembly-modal/index.svelte:17 let subtreesPerPage = $state(10); every other mention is a read (:20-28); never written, bound or passed"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/unmutated-state::src/routes/admin/+page.svelte:19::$state \"fsmStates\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w fsmStates in the file): admin/+page.svelte:19 let fsmStates = $state([]) is declared and never mentioned again (dead state); never written, bound or passed"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::correctness/unmutated-state::src/routes/admin/+page.svelte:24::$state \"selectedEvent\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w selectedEvent in the file): admin/+page.svelte:24 let selectedEvent = $state(null) is declared and never mentioned again (dead state); never written, bound or passed"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::performance/state-raw::src/internal/components/page/viewer/tx/tx-io-card/index.svelte:25::\"outputAddresses\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/internal/components/page/viewer/tx/tx-io-card/index.svelte:25 — script-listed every reference to \"outputAddresses\" in index.svelte: only whole-binding reassignments and read-only template uses (reassigned to a freshly built local newAddresses at :109, read as outputAddresses[i] at :197-200); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::performance/state-raw::src/routes/wstest/+page.svelte:14::\"connectionLog\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/routes/wstest/+page.svelte:14 — script-listed every reference to \"connectionLog\" in +page.svelte: only whole-binding reassignments and read-only template uses (reassigned by spread-copy at :17 and reset at :27, {#each} at :180 reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/internal/components/msgbox/index.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/internal/components/msgbox/index.svelte:83: formatJSON (msgbox/json-highlight.ts) escapes every fragment with escapeHtml and only emits its own <span class> wrappers — escaped — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/internal/components/page/viewer/block/block-details-card/index.svelte:172::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/internal/components/page/viewer/block/block-details-card/index.svelte:172: difficultyDisplay = formatNumberExpStr(getDifficultyFromBits(header.bits)) (lib/utils/format.ts:202), a numeric formatter's exponent markup — no user text — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/internal/components/typo/index.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/internal/components/typo/index.svelte:57: the {@html value} arm runs only when html=true, and no caller of $internal/components/typo passes html (grep) — every value renders as text — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/lib/components/icon/index.svelte:97::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/icon/index.svelte:97: iconSvg prop — no caller passes iconSvg (grep); named icons render via bundled SvgIcon components — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/lib/components/logo/index.svelte:59::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/logo/index.svelte:59: logoSvg prop — no caller passes logoSvg (grep) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/lib/components/logo/index.svelte:61::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/logo/index.svelte:61: $injectedLogos is set once from the bundled $internal/assets/logos (routes/+layout.svelte:25,69) — repo SVG constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/lib/components/logo/index.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/logo/index.svelte:63: logos from ./svg, bundled SVG constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::security/raw-html::src/lib/components/typo/index.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/typo/index.svelte:50: html=true reaches it only via footnote-container from textinput's footnoteHtml, and no caller passes a footnote (grep) — no value ever renders here — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist) but not a search target (auth-gated: admin/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/ancestors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ancestors (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/forks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forks (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /home (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/network/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /network (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/p2p/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /p2p (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/peers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /peers (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist) but not a search target (auth-gated: settings/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/viewer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /viewer (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/viewer/[type]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /viewer/[type] (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/canonical-url::src/routes/wstest/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /wstest (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal app.html <meta name=\"description\" content=\"Teranode explorer\"> at src/app.html:6, grapheme count = 17 as reported, the only description on all 13 routes) (literal claim holds); but this is the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:6 literal description 'Teranode explorer' is the only description of all 13 routes (local CLI list), duplicate as claimed; but this is the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:4 literal <title>Teranode</title> is the only title of the 12 routes other than /login (local CLI list; login/+page.svelte:149 sets its own), duplicate as claimed; but this is the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so / ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/ancestors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /ancestors ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/forks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /forks ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /home ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /login ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/network/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /network ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/p2p/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /p2p ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/peers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /peers ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /settings ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/viewer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /viewer ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/viewer/[type]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /viewer/[type] ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/json-ld::src/routes/wstest/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /wstest ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: admin/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/ancestors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ancestors (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/forks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forks (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/network/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /network (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/p2p/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /p2p (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/peers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /peers (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: settings/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/viewer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /viewer (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/viewer/[type]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /viewer/[type] (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-description::src/routes/wstest/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /wstest (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: admin/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/ancestors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ancestors (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/forks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forks (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/network/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /network (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/p2p/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /p2p (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/peers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /peers (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: settings/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/viewer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /viewer (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/viewer/[type]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /viewer/[type] (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-image::src/routes/wstest/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /wstest (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: admin/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/ancestors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ancestors (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/forks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forks (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/home/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/network/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /network (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/p2p/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /p2p (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/peers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /peers (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: settings/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/viewer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /viewer (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/viewer/[type]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /viewer/[type] (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-title::src/routes/wstest/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /wstest (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: admin/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/ancestors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ancestors (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/forks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forks (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/network/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /network (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/p2p/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /p2p (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/peers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /peers (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: settings/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/viewer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /viewer (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/viewer/[type]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /viewer/[type] (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/og-url::src/routes/wstest/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /wstest (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on / (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/ancestors::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /ancestors (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/forks::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /forks (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/home::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /home (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/network::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /network (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/p2p::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /p2p (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/viewer/[type]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /viewer/[type] (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::/viewer::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /viewer (ssr=false SPA)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::src/routes/peers/+page.svelte:989::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /peers; its first heading is the peer-detail modal <h2> (peers/+page.svelte:989)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/single-h1::src/routes/wstest/+page.svelte:155::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of ui/dashboard/src finds <h1> only in admin, settings and login pages; root +layout.svelte renders GlobalStyle/{@render children()}/Spinner/SvelteToast, the PageWithMenu template and Heading/Typo components render <span>s, no svelte:element, no heading npm package (svelte-exmarkdown only on /settings) -> no <h1> on /wstest; the page opens with <h3>s (wstest/+page.svelte:155)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: ui/dashboard/static has robots.txt (allow all), fonts, js, blog, no sitemap.xml route or generator (literal claim holds); node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target, nothing to list"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:3 (literal claim holds); deliberate client-only rendering in the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/ssr-disabled::src/routes/admin/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/+page.ts:6 (literal claim holds); deliberate client-only rendering in the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/ssr-disabled::src/routes/settings/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/settings/+page.ts:6 (literal claim holds); deliberate client-only rendering in the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal app.html <title> \"Teranode\" at src/app.html:4, grapheme count = 8 as reported; no route sets its own title except /login) (literal claim holds); but this is the node-operator dashboard bundled with a Teranode node (ssr = false SPA built with adapter-static and served by the node's Go asset service, hooks.server.ts:4-8; app.html preconnects to localhost:8090), not a search target"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: admin/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/ancestors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ancestors (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/forks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forks (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/network/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /network (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/p2p/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /p2p (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/peers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /peers (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); rendered route (auth-gated: settings/+page.ts:9-15 load redirects unauthenticated browsers to /login (ssr=false, prerender=false); the hooks.server.ts:42-56 cookie redirect is not treated as \"answers before resolve\" because the file states it does not run in production (adapter-static served by the Go asset service); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/viewer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /viewer (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/viewer/[type]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /viewer/[type] (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  },
+  {
+    "key": "bsv-blockchain/teranode:ui/dashboard::seo/twitter-card::src/routes/wstest/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /wstest (script-verified (repo-wide grep of ui/dashboard excl. node_modules, incl. src/internal ($internal alias) and app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is title/description/icon/preconnect/font preloads; the only <svelte:head> is login/+page.svelte:148-150 (<title>); no hooks transformPageChunk, no meta-tag library (npm Svelte deps svelte-toast/svelte-exmarkdown/svelte-i18next emit none); ssr=false app-wide (routes/+layout.ts:3) so client heads would count and none exist); publicly reachable, rendered route, no auth gate or noindex (static/robots.txt allows all)"
+  }
+]

@@ -1,0 +1,1727 @@
+[
+  {
+    "key": "yavuzilyas/laf::a11y/duplicate-landmark::src/lib/App.svelte:125::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+page.svelte:69 (and [lang]/+page.svelte:69) wraps <App> in <main>, and App.svelte:125 renders its own unconditional <main>, so / and /[lang] always have two main landmarks"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/duplicate-landmark::src/lib/components/settings-dialog.svelte:1090::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: settings-dialog.svelte:1090 <main> sits in one Tabs.Content of the bits-ui <Dialog.Content> (:568), rendered only while Navbar's settings dialog is open (Navbar.svelte:252 bind:open={openSettings}, a user action); a main inside a user-opened modal dialog is counted per documented semantics (prior dialog-main verdicts are design); the page's always-present duplicate is App.svelte:125, labelled tp"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/duplicate-landmark::src/lib/components/settings-dialog.svelte:619::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: settings-dialog.svelte:619 <main> sits in one Tabs.Content of the bits-ui <Dialog.Content> (:568), rendered only while Navbar's settings dialog is open (Navbar.svelte:252 bind:open={openSettings}, a user action); a main inside a user-opened modal dialog is counted per documented semantics (prior dialog-main verdicts are design); the page's always-present duplicate is App.svelte:125, labelled tp"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/duplicate-landmark::src/lib/components/settings-dialog.svelte:763::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: settings-dialog.svelte:763 <main> sits in one Tabs.Content of the bits-ui <Dialog.Content> (:568), rendered only while Navbar's settings dialog is open (Navbar.svelte:252 bind:open={openSettings}, a user action); a main inside a user-opened modal dialog is counted per documented semantics (prior dialog-main verdicts are design); the page's always-present duplicate is App.svelte:125, labelled tp"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/duplicate-landmark::src/lib/components/settings-dialog.svelte:823::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: settings-dialog.svelte:823 <main> sits in one Tabs.Content of the bits-ui <Dialog.Content> (:568), rendered only while Navbar's settings dialog is open (Navbar.svelte:252 bind:open={openSettings}, a user action); a main inside a user-opened modal dialog is counted per documented semantics (prior dialog-main verdicts are design); the page's always-present duplicate is App.svelte:125, labelled tp"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/duplicate-landmark::src/lib/components/settings-dialog.svelte:937::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: settings-dialog.svelte:937 <main> sits in one Tabs.Content of the bits-ui <Dialog.Content> (:568), rendered only while Navbar's settings dialog is open (Navbar.svelte:252 bind:open={openSettings}, a user action); a main inside a user-opened modal dialog is counted per documented semantics (prior dialog-main verdicts are design); the page's always-present duplicate is App.svelte:125, labelled tp"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/ProfileCard.svelte:504::Duplicate id \"banner-color-input\"",
+    "verdict": "design",
+    "basis": "read: input#banner-color-input (ProfileCard.svelte:504, under {#if isOwnProfile && isEditing}); the counted copies are article/[slug]/+page.svelte:2625 (in {#if collaborators.length > 0}) and :2755 (in a separate {#if collaborators.length === 0 && ...}); complementary separate {#if}s never co-render (documented co-render model)"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1505::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR75\" on a province <path> and again on the label <circle> at :1505 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1506::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR08\" on a province <path> and again on the label <circle> at :1506 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1507::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR73\" on a province <path> and again on the label <circle> at :1507 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1508::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR30\" on a province <path> and again on the label <circle> at :1508 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1509::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR76\" on a province <path> and again on the label <circle> at :1509 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1510::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR04\" on a province <path> and again on the label <circle> at :1510 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1511::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR65\" on a province <path> and again on the label <circle> at :1511 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1512::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR39\" on a province <path> and again on the label <circle> at :1512 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1513::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR22\" on a province <path> and again on the label <circle> at :1513 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1514::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR36\" on a province <path> and again on the label <circle> at :1514 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1515::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR47\" on a province <path> and again on the label <circle> at :1515 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1516::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR63\" on a province <path> and again on the label <circle> at :1516 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1517::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR79\" on a province <path> and again on the label <circle> at :1517 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1518::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR27\" on a province <path> and again on the label <circle> at :1518 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1519::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR31\" on a province <path> and again on the label <circle> at :1519 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1520::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR34\" on a province <path> and again on the label <circle> at :1520 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1521::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR59\" on a province <path> and again on the label <circle> at :1521 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1522::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR17\" on a province <path> and again on the label <circle> at :1522 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1523::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR53\" on a province <path> and again on the label <circle> at :1523 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1524::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR61\" on a province <path> and again on the label <circle> at :1524 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1525::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR28\" on a province <path> and again on the label <circle> at :1525 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1526::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR52\" on a province <path> and again on the label <circle> at :1526 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1527::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR55\" on a province <path> and again on the label <circle> at :1527 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1528::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR57\" on a province <path> and again on the label <circle> at :1528 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1529::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR37\" on a province <path> and again on the label <circle> at :1529 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1530::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR74\" on a province <path> and again on the label <circle> at :1530 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1531::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR67\" on a province <path> and again on the label <circle> at :1531 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1532::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR81\" on a province <path> and again on the label <circle> at :1532 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1533::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR54\" on a province <path> and again on the label <circle> at :1533 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1534::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR41\" on a province <path> and again on the label <circle> at :1534 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1535::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR77\" on a province <path> and again on the label <circle> at :1535 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1536::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR16\" on a province <path> and again on the label <circle> at :1536 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1537::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR10\" on a province <path> and again on the label <circle> at :1537 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1538::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR35\" on a province <path> and again on the label <circle> at :1538 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1539::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR09\" on a province <path> and again on the label <circle> at :1539 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1540::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR48\" on a province <path> and again on the label <circle> at :1540 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1541::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR07\" on a province <path> and again on the label <circle> at :1541 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1542::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR33\" on a province <path> and again on the label <circle> at :1542 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1543::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR01\" on a province <path> and again on the label <circle> at :1543 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1544::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR14\" on a province <path> and again on the label <circle> at :1544 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1545::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR06\" on a province <path> and again on the label <circle> at :1545 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1546::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR11\" on a province <path> and again on the label <circle> at :1546 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1547::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR26\" on a province <path> and again on the label <circle> at :1547 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1548::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR18\" on a province <path> and again on the label <circle> at :1548 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1549::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR78\" on a province <path> and again on the label <circle> at :1549 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1550::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR60\" on a province <path> and again on the label <circle> at :1550 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1551::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR58\" on a province <path> and again on the label <circle> at :1551 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1552::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR19\" on a province <path> and again on the label <circle> at :1552 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1553::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR05\" on a province <path> and again on the label <circle> at :1553 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1554::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR43\" on a province <path> and again on the label <circle> at :1554 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1555::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR42\" on a province <path> and again on the label <circle> at :1555 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1556::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR70\" on a province <path> and again on the label <circle> at :1556 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1557::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR51\" on a province <path> and again on the label <circle> at :1557 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1558::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR38\" on a province <path> and again on the label <circle> at :1558 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1559::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR32\" on a province <path> and again on the label <circle> at :1559 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1560::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR45\" on a province <path> and again on the label <circle> at :1560 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1561::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR20\" on a province <path> and again on the label <circle> at :1561 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1562::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR15\" on a province <path> and again on the label <circle> at :1562 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1563::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR68\" on a province <path> and again on the label <circle> at :1563 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1564::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR50\" on a province <path> and again on the label <circle> at :1564 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1565::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR66\" on a province <path> and again on the label <circle> at :1565 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1566::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR40\" on a province <path> and again on the label <circle> at :1566 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1567::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR64\" on a province <path> and again on the label <circle> at :1567 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1568::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR24\" on a province <path> and again on the label <circle> at :1568 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1569::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR62\" on a province <path> and again on the label <circle> at :1569 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1570::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR03\" on a province <path> and again on the label <circle> at :1570 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1571::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR71\" on a province <path> and again on the label <circle> at :1571 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1572::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR46\" on a province <path> and again on the label <circle> at :1572 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1573::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR49\" on a province <path> and again on the label <circle> at :1573 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1574::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR25\" on a province <path> and again on the label <circle> at :1574 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1575::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR44\" on a province <path> and again on the label <circle> at :1575 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1576::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR23\" on a province <path> and again on the label <circle> at :1576 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1577::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR13\" on a province <path> and again on the label <circle> at :1577 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1578::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR12\" on a province <path> and again on the label <circle> at :1578 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1579::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR80\" on a province <path> and again on the label <circle> at :1579 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1580::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR02\" on a province <path> and again on the label <circle> at :1580 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1581::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR21\" on a province <path> and again on the label <circle> at :1581 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1582::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR72\" on a province <path> and again on the label <circle> at :1582 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1583::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR56\" on a province <path> and again on the label <circle> at :1583 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1584::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR69\" on a province <path> and again on the label <circle> at :1584 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/id-duplication::src/lib/components/TurkeyMap.svelte:1585::Duplicate id \"TR#\"",
+    "verdict": "tp",
+    "basis": "script-verified: TurkeyMap.svelte has id=\"TR29\" on a province <path> and again on the label <circle> at :1585 (a second literal list :1505-1585), both unconditional in the same <svg> (:509-1587, no {#if}/{#each}); rendered once, unconditionally, on /[lang]/events (+page.svelte:408), so the id occurs twice in the DOM"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/interactive-nesting::src/lib/components/ui/category-tree/CategoryTree.svelte:75::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read lib/components/ui/category-tree/CategoryTree.svelte:75: literal <button> inside <div role=\"button\"> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/ArticleRecommendation.svelte:256::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/ArticleRecommendation.svelte:256 has nearest literal non-transparent ancestor <span> (line 241) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/ArticleSearch.svelte:553::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/ArticleSearch.svelte:553 has nearest literal non-transparent ancestor <button> (line 548) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/DropdownMenuMotion.svelte:125::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/DropdownMenuMotion.svelte:125 has nearest literal non-transparent ancestor <button> (line 120) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/DropdownMenuMotion.svelte:216::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <li> at lib/components/DropdownMenuMotion.svelte:216 has nearest literal non-transparent ancestor <div> (line 215) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; runtime chain <ul>@136 > <Motion> slot > <div use:motion>@215 > <li>, so the <li>'s parent is a <div>, not ul/ol/menu"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/DropdownMenuMotion.svelte:228::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <li> at lib/components/DropdownMenuMotion.svelte:228 has nearest literal non-transparent ancestor <div> (line 215) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; runtime chain <ul>@136 > <Motion> slot > <div use:motion>@215 > <li>, so the <li>'s parent is a <div>, not ul/ol/menu"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/DropdownMenuMotion.svelte:241::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <li> at lib/components/DropdownMenuMotion.svelte:241 has nearest literal non-transparent ancestor <div> (line 215) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; runtime chain <ul>@136 > <Motion> slot > <div use:motion>@215 > <li>, so the <li>'s parent is a <div>, not ul/ol/menu"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/lib/components/QASearch.svelte:422::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/QASearch.svelte:422 has nearest literal non-transparent ancestor <button> (line 417) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/routes/[lang]/moderation/+page.svelte:2178::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/[lang]/moderation/+page.svelte:2178 has nearest literal non-transparent ancestor <button> (line 2174) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "yavuzilyas/laf::a11y/permitted-contents::src/routes/[lang]/moderation/+page.svelte:2181::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/[lang]/moderation/+page.svelte:2181 has nearest literal non-transparent ancestor <button> (line 2174) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/App.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/App.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/Navbar.svelte has 318 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleCard.svelte has 578 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleFilter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleFilter.svelte has 292 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleFilterPopover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleFilterPopover.svelte has 222 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleHero.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleList.svelte has 203 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleRecommendation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleRecommendation.svelte has 280 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ArticleSearch.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArticleSearch.svelte has 630 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/AuthForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AuthForm.svelte has 1309 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/DropdownMenuMotion.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DropdownMenuMotion.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/MnemonicVerificationPopup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MnemonicVerificationPopup.svelte has 247 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/NotificationDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotificationDialog.svelte has 420 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/PasswordVerificationPopup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PasswordVerificationPopup.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ProfileCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProfileCard.svelte has 1232 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/QAFilterPopover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QAFilterPopover.svelte has 288 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/QASearch.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QASearch.svelte has 499 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ReportDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReportDrawer.svelte has 268 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ScratchToReveal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScratchToReveal.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/ShowMnemonicDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShowMnemonicDrawer.svelte has 340 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/TurkeyMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TurkeyMap.svelte has 1658 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/Write.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Write.svelte has 1031 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/chart-area-interactive.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart-area-interactive.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-table.svelte has 4661 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/donation-chart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/donation-chart.svelte has 374 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/donations-section.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/donations-section.svelte has 711 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/edra/shadcn/components/MediaExtended.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/edra/shadcn/components/MediaExtended.svelte has 300 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/edra/shadcn/components/MediaExtended~20251021-023447.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/edra/shadcn/components/MediaExtended~20251021-023447.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/edra/shadcn/editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/edra/shadcn/editor.svelte has 328 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/magic/cool-mode/cool-mode.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/magic/cool-mode/cool-mode.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/magic/icon-cloud/icon-cloud.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/magic/icon-cloud/icon-cloud.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/monero-badges.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/monero-badges.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/monero-wallet-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/monero-wallet-dialog.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/components/settings-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings-dialog.svelte has 1141 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/lib/motion-core/dithered-image/DitheredImageScene.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/motion-core/dithered-image/DitheredImageScene.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/[nickname]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/[nickname]/+page.svelte has 1024 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/article/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/article/[slug]/+page.svelte has 4482 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/articles/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/articles/+page.svelte has 438 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/events/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/events/+page.svelte has 787 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/forgot/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/forgot/+page.svelte has 432 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/moderation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/moderation/+page.svelte has 2268 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/qa/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/qa/+page.svelte has 2318 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/component-size::src/routes/[lang]/qa/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[lang]/qa/[slug]/+page.svelte has 1399 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ArticleList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ArticleList.svelte has a single destructured $props() with 13 named props (> 6) plus a ...rest element: articles, loading, layout, variant, showLoadMore, hasMore, onLoadMore, usePagination, itemsPerPage, currentPage, onPageChange, maxColumns, class"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ArticleSearch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ArticleSearch.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: value, placeholder, suggestions, recentSearches, showSuggestions, onSearch, onClear, class"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/Pagination.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/Pagination.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: currentPage, totalPages, totalItems, itemsPerPage, onPageChange, showInfo, class"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ProfileCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ProfileCard.svelte has a single destructured $props() with 36 named props (> 6): profileData, profileUser, isOwnProfile, isEditing, isSaving, avatarUploading, bannerUploading, avatarInputId, bannerInputId, joinDate, formatDate, onToggleEdit, onCancelEdit, onSaveProfile, onTriggerAvatarFile, onAvatarUpload, onAvatarRemove, onInterestAdd, onInterestRemove, onBannerColorChange, onTriggerBannerFile, onBannerUpload, onBannerRemove, onFollowUser, onUnfollowUser, onBlockUser, onUnblockUser, isFollowing, isBlocked, followersCount, followingCount, isFollowingMe, followersList, followingList, currentUserId, showProfileLink"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/QASearch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/QASearch.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: value, placeholder, suggestions, recentSearches, showSuggestions, onSearch, onClear, class"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/SEO.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/SEO.svelte has a single destructured $props() with 9 named props (> 6): title, description, keywords, ogImage, ogType, canonical, noindex, jsonLd, enabled"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/data-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/data-table.svelte has a single destructured $props() with 14 named props (> 6): data, pendingArticlesInitial, reportsInitial, banUser, unbanUser, hideUser, unhideUser, deleteUser, undoDeleteUser, currentUser, promoteToModerator, demoteToUser, approveDonation, rejectDonation"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/edra/components/BubbleMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/edra/components/BubbleMenu.svelte has a single destructured $props() with 10 named props (> 6) plus a ...rest element: editor, editorId, shouldShow, class, style, children, updateDelay, resizeDelay, pluginKey, options"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/edra/shadcn/components/MediaExtended.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/edra/shadcn/components/MediaExtended.svelte has a single destructured $props() with 7 named props (> 6): node, editor, selected, deleteNode, updateAttributes, children, mediaRef"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/edra/shadcn/components/MediaExtended~20251021-023447.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/edra/shadcn/components/MediaExtended~20251021-023447.svelte has a single destructured $props() with 7 named props (> 6): node, editor, selected, deleteNode, updateAttributes, children, mediaRef"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/edra/shadcn/editor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/edra/shadcn/editor.svelte has a single destructured $props() with 10 named props (> 6): editor, editable, content, onUpdate, autofocus, class, id, commentId, qaId, dir"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/magic/file-tree/file-tree.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/magic/file-tree/file-tree.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: initialSelectedId, initialExpandedItems, elements, indicator, openIcon, closeIcon, dir, children, class"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/magic/light-rays/light-rays.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/magic/light-rays/light-rays.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: class, count, color, blur, speed, length, style"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/magic/magic-card/magic-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/magic/magic-card/magic-card.svelte has a single destructured $props() with 7 named props (> 6): children, class, gradientSize, gradientColor, gradientOpacity, gradientFrom, gradientTo"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/magic/marquee/marquee.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/magic/marquee/marquee.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: children, class, reverse, pauseOnHover, vertical, repeat, duration"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest element: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) plus a ...rest element: ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6) plus a ...rest element: ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "yavuzilyas/laf::architecture/prop-count::src/lib/motion-core/dithered-image/DitheredImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/motion-core/dithered-image/DitheredImage.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: src, class, ditherMap, pixelSize, color, backgroundColor, threshold"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-index-key::src/lib/components/edra/shadcn/components/SlashCommandList.svelte:101::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/edra/shadcn/components/SlashCommandList.svelte:101 keyed by its index binding; list source is runtime data (props.items: slash-command groups filtered by the typed query, so groups/commands are inserted and removed mid-list)"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-index-key::src/lib/components/edra/shadcn/components/SlashCommandList.svelte:104::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/edra/shadcn/components/SlashCommandList.svelte:104 keyed by its index binding; list source is runtime data (props.items: slash-command groups filtered by the typed query, so groups/commands are inserted and removed mid-list)"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-index-key::src/routes/[lang]/qa/+page.svelte:1734::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/qa/+page.svelte:1734 keyed by its index binding; positional list (image URLs parsed from one question's HTML, extractImagesFromHtml, 1732): parse output of one text"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/Navbar.svelte:286::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/Navbar.svelte:286 '{#each menu …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (menu: an author-written literal nav list inside $derived for translated labels, 50): fixed at author time, stateless links"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleCard.svelte:206::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleCard.svelte:206 '{#each article.tags.slice(0, 3) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleCard.svelte:236::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleCard.svelte:236 '{#each article.collaborators.slice(0, 3) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleCard.svelte:344::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleCard.svelte:344 '{#each article.collaborators.slice(0, 2) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleCard.svelte:545::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleCard.svelte:545 '{#each article.collaborators.slice(0, 2) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:111 '{#each options.categories …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:133::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:133 '{#each options.authors …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:155::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:155 '{#each options.dateRanges …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (date-range/sort option lists of a filter UI; the only analogous caller builds dateRanges as a literal, articles/+page.svelte:132-136, and nothing imports ArticleFilter.svelte): fixed option buttons, never reorder"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:176::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:176 '{#each options.sortOptions …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (date-range/sort option lists of a filter UI; the only analogous caller builds dateRanges as a literal, articles/+page.svelte:132-136, and nothing imports ArticleFilter.svelte): fixed option buttons, never reorder"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:193 '{#each filters.tags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:209::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:209 '{#each options.tags.filter(tag => !filters.tags.includes(tag)) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:241::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:241 '{#each options.categories …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:255::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:255 '{#each options.sortOptions …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (date-range/sort option lists of a filter UI; the only analogous caller builds dateRanges as a literal, articles/+page.svelte:132-136, and nothing imports ArticleFilter.svelte): fixed option buttons, never reorder"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilter.svelte:278::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleFilter.svelte:278 '{#each filters.tags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleFilterPopover.svelte:194::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ArticleFilterPopover.svelte:194 '{#each options.statuses …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (options.statuses: an author-written literal status list, [nickname]/+page.svelte:758): fixed option buttons"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleHero.svelte:232::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleHero.svelte:232 '{#each article.tags.slice(0, 4) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleRecommendation.svelte:240::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleRecommendation.svelte:240 '{#each article.collaborators.slice(0, 2) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleSearch.svelte:519::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleSearch.svelte:519 '{#each filteredRecentSearches.slice(0, 5) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleSearch.svelte:537::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleSearch.svelte:537 '{#each Object.entries(groupedSuggestions) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ArticleSearch.svelte:546::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ArticleSearch.svelte:546 '{#each items.slice(0, 5) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/AuthForm.svelte:1153::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AuthForm.svelte:1153 '{#each mnemonic …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (words of one generated mnemonic phrase, mnemonicString.split(\" \"), 354): order is the content, no identity beyond position"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/BadgeList.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/BadgeList.svelte:86 '{#each badges.slice(maxVisible) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/BookList.svelte:100::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/BookList.svelte:100 '{#each level.books …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (level.books: nested items of the same-file constant bookLevels literal, 20-35): fixed at author time, never reorders"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/DropdownMenuMotion.svelte:147::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DropdownMenuMotion.svelte:147 '{#each items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (items: the Navbar's author-written logged-in/logged-out menu lists, Navbar.svelte:58-240, 314): fixed at author time, stateless menu entries"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/GridPattern.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/GridPattern.svelte:39 '{#each squares …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (squares: decorative grid-pattern coordinates, default [[0, 0]], stateless SVG rects)"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/NotificationDialog.svelte:278::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NotificationDialog.svelte:278 '{#each sortedGroups …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Pagination.svelte:108::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Pagination.svelte:108 '{#each visiblePages() …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (page-number buttons computed from the current page): positions, not items, stateless"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/QASearch.svelte:388::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/QASearch.svelte:388 '{#each filteredRecentSearches.slice(0, 5) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/QASearch.svelte:406::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/QASearch.svelte:406 '{#each Object.entries(groupedSuggestions) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/QASearch.svelte:415::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/QASearch.svelte:415 '{#each items.slice(0, 5) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/SEO.svelte:71::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SEO.svelte:71 '{#each i18n.availableLocales …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (the app's available locales, i18n config availableLocales, i18n.svelte.ts:233, rendered as hreflang links/options): fixed per build, never reorders"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/UserSearch.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/UserSearch.svelte:114 '{#each selectedUsers …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/UserSearch.svelte:89::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/UserSearch.svelte:89 '{#each searchResults …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:582::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Write.svelte:582 '{#each availableLangs …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:653::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Write.svelte:653 '{#each availableLangs …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:724::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Write.svelte:724 '{#each articleData.tags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:800::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Write.svelte:800 '{#each displayLangs …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:828::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Write.svelte:828 '{#each availableLanguages.filter(opt => !originalLanguages.includes(opt.value …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (availableLanguages: the imported array literal `languages` of $lib/data/languages, filtered by a .filter call, which the docs keep reported): fixed at author time"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:869::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Write.svelte:869 '{#each displayLangs …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/Write.svelte:992::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Write.svelte:992 '{#each articleEditor.versions …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/settings-dialog.svelte:904::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings-dialog.svelte:904 '{#each Object.keys(sounds) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Object.keys(sounds): keys of the constant sounds map in $lib/stores/sound.ts:16): fixed at author time"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/timeline/Timeline.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/timeline/Timeline.svelte:59 '{#each timelineData …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (timelineData prop of a timeline component whose only use is commented out, App.svelte:10-19 with a literal timelineData): no runtime list"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ui/category-tree/CategoryTree.svelte:114::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/category-tree/CategoryTree.svelte:114 '{#each category.children …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (categories: every caller passes categoryTree, a constant from $lib/data/categories, ArticleFilterPopover.svelte:12/160, Write.svelte:29/407; 114 iterates its nested children): fixed at author time"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/lib/components/ui/category-tree/CategoryTree.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/category-tree/CategoryTree.svelte:55 '{#each categories …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (categories: every caller passes categoryTree, a constant from $lib/data/categories, ArticleFilterPopover.svelte:12/160, Write.svelte:29/407; 114 iterates its nested children): fixed at author time"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/+page.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:56 '{#each i18n.availableLocales …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (the app's available locales, i18n config availableLocales, i18n.svelte.ts:233, rendered as hreflang links/options): fixed per build, never reorders"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/+page.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/+page.svelte:56 '{#each i18n.availableLocales …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (the app's available locales, i18n config availableLocales, i18n.svelte.ts:233, rendered as hreflang links/options): fixed per build, never reorders"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/article/[slug]/+page.svelte:2170::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/article/[slug]/+page.svelte:2170 '{#each Object.entries(article.availableTranslations) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/article/[slug]/+page.svelte:2340::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/article/[slug]/+page.svelte:2340 '{#each localeConfig.availableLocales …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (the app's available locales, i18n config availableLocales, i18n.svelte.ts:233, rendered as hreflang links/options): fixed per build, never reorders"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/article/[slug]/+page.svelte:2604::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/article/[slug]/+page.svelte:2604 '{#each article.tags …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/article/[slug]/+page.svelte:2663::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/article/[slug]/+page.svelte:2663 '{#each collaboratorProfiles …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/events/+page.svelte:762::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/events/+page.svelte:762 '{#each selectedEvent.attendees …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/help/+page.svelte:134::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/help/+page.svelte:134 '{#each faqItems …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (faqItems: an author-written FAQ literal inside $derived for translated strings, 16): fixed at author time"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/links/+page.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/links/+page.svelte:83 '{#each Object.entries(groupedLinks) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/moderation/+page.svelte:1652::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:1652 '{#each getEventsPageNumbers() …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (page-number buttons computed from the current page): positions, not items, stateless"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/moderation/+page.svelte:1735::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:1735 '{#each group.users.slice(0, 3) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/moderation/+page.svelte:1782::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:1782 '{#each getQrPageNumbers() …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (page-number buttons computed from the current page): positions, not items, stateless"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/moderation/+page.svelte:1837::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:1837 '{#each selectedQrUsers …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/moderation/+page.svelte:2173::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:2173 '{#each attendeeSuggestions …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/moderation/+page.svelte:2197::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:2197 '{#each selectedAttendees …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/each-key::src/routes/[lang]/qa/+page.svelte:1946::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/qa/+page.svelte:1946 '{#each question.answers …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (articles, tags, collaborators, badges, search suggestions/results, notifications, editor languages/versions, events, attendees, answers from props/state/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/lib/components/DropdownMenuMotion.svelte:28::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DropdownMenuMotion.svelte:28 the effect only does isHighContrast = $highContrast (store); the other write is a toggle reassignment (34), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/lib/components/Preloader.svelte:4::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Preloader.svelte:4 the effect only does active = !!$navigating; never written elsewhere, a plain $derived as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/lib/components/magic/light-rays/light-rays.svelte:69::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/magic/light-rays/light-rays.svelte:69 rays = createRays(count, cycleDuration) builds rays with Math.random() (45-51); a $derived would compute different values on the server and during hydration (attribute mismatch), which the post-mount $effect avoids (the replaced onMount is commented at 66); same class as the docs-listed mount-flag/hydration-guard limitation"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/lib/components/magic/magic-card/magic-card.svelte:88::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/magic/magic-card/magic-card.svelte:88 $effect(() => { mounted = true; }): the mount-flag idiom the docs list as a known limitation"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/lib/components/settings-dialog.svelte:209::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings-dialog.svelte:209 the effect only does currentUser = $userStore.user; never written elsewhere, a plain $derived as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/lib/components/settings-dialog.svelte:78::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings-dialog.svelte:78 the effect only copies three stores; the only other write is an isHighContrast toggle (138), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/routes/[lang]/article/[slug]/+page.svelte:1201::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/article/[slug]/+page.svelte:1201 the effect only does currentLocale = getCurrentLocale(), which returns i18n.currentLocale (stores/i18n.svelte.ts:243, reactive); line 637 is a shadowing function-local const; a plain $derived as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/effect-as-derived::src/routes/[lang]/moderation/+page.svelte:73::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/moderation/+page.svelte:73 the effect only copies data.tableData/links/events; the other write is a links reassignment (856) and DataTable only reads data (no member write or mutating call in data-table.svelte), the writable-$derived override pattern (svelte >= 5.25 in the app)"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/edra/shadcn/components/FileAttachment.svelte:13::\"url\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/edra/shadcn/components/FileAttachment.svelte:13-16 url/filename/size/type snapshot node.attrs at init and are rendered; the file-attachment node's attrs are set at insertion and no code calls updateAttributes on it (only MediaExtended does), and initialUrl (22) is a deliberate snapshot for cleanup; no demonstrated prop change"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/edra/shadcn/components/FileAttachment.svelte:14::\"filename\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/edra/shadcn/components/FileAttachment.svelte:13-16 url/filename/size/type snapshot node.attrs at init and are rendered; the file-attachment node's attrs are set at insertion and no code calls updateAttributes on it (only MediaExtended does), and initialUrl (22) is a deliberate snapshot for cleanup; no demonstrated prop change"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/edra/shadcn/components/FileAttachment.svelte:15::\"size\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/edra/shadcn/components/FileAttachment.svelte:13-16 url/filename/size/type snapshot node.attrs at init and are rendered; the file-attachment node's attrs are set at insertion and no code calls updateAttributes on it (only MediaExtended does), and initialUrl (22) is a deliberate snapshot for cleanup; no demonstrated prop change"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/edra/shadcn/components/FileAttachment.svelte:16::\"type\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/edra/shadcn/components/FileAttachment.svelte:13-16 url/filename/size/type snapshot node.attrs at init and are rendered; the file-attachment node's attrs are set at insertion and no code calls updateAttributes on it (only MediaExtended does), and initialUrl (22) is a deliberate snapshot for cleanup; no demonstrated prop change"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/magic/file-tree/file-tree.svelte:87::\"direction\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/magic/file-tree/file-tree.svelte:87 direction from the dir prop (default \"ltr\"), rendered (103); the magic-ui Tree component has no importer in the app (only its own index.ts), so no parent changes dir"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/monero-wallet-dialog.svelte:22::\"desktopWallets\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/monero-wallet-dialog.svelte:22/49 wallet lists interpolate the walletAddress prop; the only parent (donations-section.svelte:711) passes a module constant (const walletAddress = \"4A9r...\", 58), so the frozen value never differs"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/lib/components/monero-wallet-dialog.svelte:49::\"mobileWallets\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/monero-wallet-dialog.svelte:22/49 wallet lists interpolate the walletAddress prop; the only parent (donations-section.svelte:711) passes a module constant (const walletAddress = \"4A9r...\", 58), so the frozen value never differs"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/stale-prop-derivation::src/routes/[lang]/write/+page.svelte:9::\"user\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/[lang]/write/+page.svelte:9 user = data?.user, rendered in {#if !user} (46); switching [lang] reuses the page but the session user is unchanged, and sign-in leaves the page; no demonstrated stale value"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/lib/components/ArticleSearch.svelte:333::$state \"currentItemIndex\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/ArticleSearch.svelte:333 `let currentItemIndex = $state(-1);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/lib/components/AuthForm.svelte:42::$state \"formLoadTime\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/AuthForm.svelte:42 `let formLoadTime = $state(Date.now());`; its other mentions (426) are reads (template, conditions, $derived, values passed by copy); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/lib/components/QASearch.svelte:228::$state \"currentItemIndex\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/QASearch.svelte:228 `let currentItemIndex = $state(-1);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/lib/components/data-table.svelte:250::$state \"selectedArticles\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/data-table.svelte:250 `let selectedArticles = $state<Set<string>>(new Set());`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/lib/components/data-table.svelte:251::$state \"showArticleBulkActions\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/data-table.svelte:251 `let showArticleBulkActions = $state(false);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/lib/components/data-table.svelte:264::$state \"reportsTypeFilter\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/data-table.svelte:264 `let reportsTypeFilter = $state<\"all\" | \"profile\" | \"article\" | \"comment\" | \"erro`; its other mentions (734, 736) are reads (template, conditions, $derived, values passed by copy); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/[nickname]/+page.svelte:39::$state \"userProfileData\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/[nickname]/+page.svelte:39 `let userProfileData = $state(data.userProfileData);`; its other mentions (351, 428) are reads (template, conditions, $derived, values passed by copy); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/[nickname]/+page.svelte:555::$state \"newInterest\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/[nickname]/+page.svelte:555 `let newInterest = $state(\"\");`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:1234::$state \"replyContent\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:1234 `let replyContent = $state<any>(emptyDoc);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:1237::$state \"replyEditor\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:1237 `let replyEditor = $state<Editor | null>(null);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:673::$state \"filteredArticles\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:673 `let filteredArticles = $state([...articles]);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:674::$state \"displayedArticles\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:674 `let displayedArticles = $state([...articles]);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:675::$state \"searchQuery\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:675 `let searchQuery = $state('');`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:676::$state \"activeFilters\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:676 `let activeFilters = $state<any>({`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:683::$state \"loadingArticles\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:683 `let loadingArticles = $state(false);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:684::$state \"hasMore\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:684 `let hasMore = $state(false);`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/article/[slug]/+page.svelte:998::$state \"newInterest\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/article/[slug]/+page.svelte:998 `let newInterest = $state('');`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/qa/+page.svelte:181::$state \"moderatorTab\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/qa/+page.svelte:181 `let moderatorTab = $state('pending');`; its other mentions (884, 885) are reads (template, conditions, $derived, values passed by copy); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/qa/+page.svelte:453::$state \"preloadedData\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/qa/+page.svelte:453 `let preloadedData = $state<Record<string, {questions: any[], pagination: any}>>(`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::correctness/unmutated-state::src/routes/[lang]/qa/+page.svelte:454::$state \"isPreloading\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/routes/[lang]/qa/+page.svelte:454 `let isPreloading = $state<Record<string, boolean>>({});`; it is never mentioned again (dead state); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/article/[slug]/+page.svelte:2506::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class w-full h-auto max-h-[500px] — width fixed, height comes from the image, no box reserved"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/events/+page.svelte:768::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (w-full h-full inside the w-8 h-8 avatar circle, events/+page.svelte:765-768)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/forgot/+page.svelte:243::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-11 w-11)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/links/+page.svelte:104::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class w-12 h-12)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/login/+page.svelte:45::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-11 w-11)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/moderation/+page.svelte:1511::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class w-12 h-12)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/qa/+page.svelte:1304::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class w-auto xs:h-24 md:h-28 — no height below the xs breakpoint and width from the image, no box reserved"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/qa/+page.svelte:1740::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class w-24 h-24)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/qa/+page.svelte:2302::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-w-[90vw] max-h-[90vh] only — no box reserved, size comes from the image"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/qa/[slug]/+page.svelte:1385::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-w-[90vw] max-h-[90vh] only — no box reserved, size comes from the image"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-dimensions::src/routes/[lang]/register/+page.svelte:45::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-11 w-11)"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/article/[slug]/+page.svelte:2506::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the article's cover thumbnail in the article header block right after the title <h1> and meta ([slug]/+page.svelte:2362-2510) — the page's main image in view on load, where the docs keep the image eager"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/events/+page.svelte:768::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: attendee avatars in the event detail Dialog footer the user opens (:755-770) — the dialog's visible content"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/forgot/+page.svelte:243::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the forgot-password card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/links/+page.svelte:104::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in each link row of the {#each} links list (links/+page.svelte:95-106) — rows past the first screen are offscreen"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/login/+page.svelte:45::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the login card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/moderation/+page.svelte:1511::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in each draggable link row of the moderation links editor list (moderation/+page.svelte:1495-1511) — offscreen-capable rows"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/qa/+page.svelte:1304::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: LAF QA logo at the top of the QA page header, above the <h1> (qa/+page.svelte:1300-1306) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/qa/+page.svelte:1740::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: question image previews inside each question card of the questions list (qa/+page.svelte:1728-1742) — offscreen-capable"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/qa/+page.svelte:2302::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image inside the lightbox modal the user opens from a question image (qa/+page.svelte:2280-2305) — the modal's visible content"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/qa/[slug]/+page.svelte:1385::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image inside the lightbox modal the user opens (qa/[slug]/+page.svelte:1370-1388) — the modal's visible content"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/image-loading-hint::src/routes/[lang]/register/+page.svelte:45::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the register card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/article/[slug]/+page.svelte:2506::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: article.thumbnail, an uploaded cover image URL — raster, one fixed-size asset shown full width"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/events/+page.svelte:768::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: attendee.avatar_url, an uploaded avatar — raster, one fixed-size asset"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/links/+page.svelte:104::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: link.icon_url, a remote/uploaded icon — raster or remote image, one fixed-size asset"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/login/+page.svelte:45::Missing <img> srcset",
+    "verdict": "fp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src=\"{logo}\" where logo is imported from $lib/assets/laf1.svg (login/+page.svelte:4) — the docs exempt an src whose name is imported from a .svg file, and forgot/+page.svelte:243 (src={logo}, same import) is not flagged; the quoted-attribute form was missed"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/moderation/+page.svelte:1511::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: link.icon_url — raster or remote image, one fixed-size asset"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/qa/+page.svelte:1740::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: imageUrl extracted from the question HTML — uploaded raster, one fixed-size asset"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/qa/+page.svelte:2302::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: selectedImage, the full question image — raster, one fixed-size asset"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/qa/[slug]/+page.svelte:1385::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: selectedImage, the full question image — raster, one fixed-size asset"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/responsive-image::src/routes/[lang]/register/+page.svelte:45::Missing <img> srcset",
+    "verdict": "fp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src=\"{logo}\" where logo is imported from $lib/assets/laf1.svg (register/+page.svelte:4) — the docs exempt an src whose name is imported from a .svg file; the same import used as src={logo} in forgot/+page.svelte:243 is not flagged, the quoted-attribute form was missed"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/[nickname]/+page.server.ts:111::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/[nickname]/+page.server.ts:92-111: getUsers({id: viewerId}) fetches the viewer's own record, which uses nothing from the preceding profile lookup; that lookup only gates the 404 / hidden-profile 403, which does not protect the viewer's own row — pg queries serialize on the normal path"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/events/+page.server.ts:84::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/events/+page.server.ts:84: the user-counts-by-city query uses nothing from the preceding events query / per-event attendee queries — independent pg queries serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/moderation/+page.server.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/moderation/+page.server.ts:26-29: getUsers({limit:150}) uses nothing from the preceding getArticles({status:'pending'}) (the role check is synchronous) — independent pg queries serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/moderation/+page.server.ts:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/moderation/+page.server.ts:32: getLinks() uses nothing from the preceding getArticles/getUsers — independent pg queries serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/moderation/+page.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/moderation/+page.server.ts:35: the events query uses nothing from the preceding getArticles/getUsers/getLinks — independent pg queries serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/qa/+page.server.ts:101::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/+page.server.ts:11-101: the questions query uses url params and the locals role, nothing from the preceding question_topics query — independent pg queries serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/qa/+page.server.ts:209::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/+page.server.ts:199-209: the count query uses selectedTopic/isModerator/sortBy (url/locals), nothing from the preceding questions/answers results — independent pg queries serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/sequential-awaits::src/routes/[lang]/qa/[slug]/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/[slug]/+page.server.ts:11-27: fetch(`/api/qa/${slug}`) uses only params.slug, nothing from the preceding question_topics query — independent requests serialized"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/state-raw::src/lib/components/Lens.svelte:11::\"mousePosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"mousePosition\" in src/lib/components/Lens.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/state-raw::src/lib/components/ToastHost.svelte:11::\"liveList\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"liveList\" in src/lib/components/ToastHost.svelte: only whole-binding reassignments (the binding is never read at all); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/state-raw::src/lib/components/data-table.svelte:266::\"reportReasonsDialogText\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"reportReasonsDialogText\" in src/lib/components/data-table.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "yavuzilyas/laf::performance/state-raw::src/routes/[lang]/[nickname]/+page.svelte:191::\"filteredArticles\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"filteredArticles\" in src/routes/[lang]/[nickname]/+page.svelte: only whole-binding reassignments (the binding is never read at all); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/lib/Navbar.svelte:296::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/Navbar.svelte:34,209-229,296: no menu item ever sets iconSvg (loggedInItems/baseLoggedOut are in-file literals with lucide components) — the branch never renders anything, not a demonstrable XSS"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/lib/components/donations-section.svelte:438::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read donations-section.svelte:14,438 + lib/stores/i18n.svelte.ts:33: t('help.faq.donate.answer') is a repo locale JSON string (src/lib/locales/*.json, loaded by import.meta.glob) with literal links — repo constants, reported per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/lib/components/magic/file-tree/file.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read magic/file-tree/file.svelte:41,63: defaultFileIcon is an in-file literal SVG string — repo constant, reported per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/lib/components/magic/file-tree/folder.svelte:82::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read magic/file-tree/folder.svelte:61-62,82: defaultOpenIcon/defaultCloseIcon are in-file literal SVG strings — repo constants, reported per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/+page.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:8-21,65: meta.structuredData — lib/utils/seo.ts:22-182: generateSEOMeta/generateBreadcrumbs build it from repo i18n strings (getPageSEO → locale JSON), constant site URLs and a canonical URL (constant) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/+page.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:19-21,66: breadcrumbs — lib/utils/seo.ts:22-182: generateSEOMeta/generateBreadcrumbs build it from repo i18n strings (getPageSEO → locale JSON), constant site URLs and a canonical URL (constant) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/+page.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/+page.svelte:9-25,65: meta.structuredData — lib/utils/seo.ts:22-182: generateSEOMeta/generateBreadcrumbs build it from repo i18n strings (getPageSEO → locale JSON), constant site URLs and a canonical URL (site URL + percent-encoded page.url.pathname) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/+page.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/+page.svelte:22-25,66: breadcrumbs — lib/utils/seo.ts:22-182: generateSEOMeta/generateBreadcrumbs build it from repo i18n strings (getPageSEO → locale JSON), constant site URLs and a canonical URL (site URL + percent-encoded page.url.pathname) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/[nickname]/+page.svelte:879::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/[nickname]/+page.svelte:45-100,879: seoMeta.structuredData holds the user's bio, name/surname and username (DB, user-authored) — JSON.stringify with no '<' escaping inside <script type=application/ld+json> (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/[nickname]/+page.svelte:880::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/[nickname]/+page.svelte:100-116,880: seoMeta.breadcrumbs item 2 is the user's displayName (user-authored) — JSON.stringify with no '<' escaping inside <script type=application/ld+json> (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/article/[slug]/+page.svelte:2213::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/article/[slug]/+page.svelte:2213-2238: Article JSON-LD of article.title/excerpt/tags/authorName (user-authored DB article) — JSON.stringify with no '<' escaping (ledger per-post JSON-LD tp convention)"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/article/[slug]/+page.svelte:2241::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/article/[slug]/+page.svelte:2241-2266: breadcrumb item 3 is article.title (user-authored) — JSON.stringify with no '<' escaping (ledger per-post JSON-LD tp convention)"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/article/[slug]/+page.svelte:2590::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/article/[slug]/+page.svelte:2589-2590: article.content (user-written DB article HTML) rendered with {@html}; no sanitizer exists anywhere in src (grep dompurify/sanitize-html: none; write/+page.server.ts sanitizeTranslation only reshapes fields) — stored XSS"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/articles/+page.svelte:372::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/articles/+page.svelte:22-37,372: seoMeta.structuredData — lib/utils/seo.ts:22-182: generateSEOMeta/generateBreadcrumbs build it from repo i18n strings (getPageSEO → locale JSON), constant site URLs and a canonical URL (site URL + current locale) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/articles/+page.svelte:373::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/articles/+page.svelte:34-37,373: breadcrumbs of repo i18n strings and constant URLs — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/events/+page.svelte:357::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/events/+page.svelte:57-60,357-379: CollectionPage JSON-LD of repo i18n strings, constant site URL and a canonical URL (location.href in the browser, percent-encoded) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/help/+page.svelte:105::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/help/+page.svelte:12-30,105-120: FAQPage JSON-LD of repo i18n FAQ strings (t('help.faq.*')) with tags stripped, constant URLs — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/help/+page.svelte:140::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/help/+page.svelte:16-30,140: item.answer is a repo locale string t('help.faq.*.answer') — repo constants, reported per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/qa/+page.svelte:1279::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [lang]/qa/+page.svelte:163-166,1279: QAPage JSON-LD of repo i18n strings (JSON.stringify'd), constant siteUrl and the i18n store's currentLocale — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/qa/+page.svelte:2134::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/+page.svelte:2134: answer.contentHtml is answers.content_html, stored verbatim from the client request body by api/qa/answer/+server.ts:16,60-68,184 and rendered with no sanitizer anywhere in src — user-authored HTML, stored XSS"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/qa/[slug]/+page.svelte:1181::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/[slug]/+page.svelte:1181: answer.contentHtml is answers.content_html, stored verbatim from the client request body by api/qa/answer/+server.ts:16,60-68,184 and rendered with no sanitizer anywhere in src — user-authored HTML, stored XSS"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/qa/[slug]/+page.svelte:723::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/[slug]/+page.svelte:723-752: QAPage JSON-LD of question.title, authorName and plainContent (user-authored) — JSON.stringify with no '<' escaping (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/qa/[slug]/+page.svelte:756::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/[slug]/+page.svelte:756-779: breadcrumb item 3 is question.title (user-authored) — JSON.stringify with no '<' escaping (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "yavuzilyas/laf::security/raw-html::src/routes/[lang]/qa/[slug]/+page.svelte:896::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read [lang]/qa/[slug]/+page.svelte:896: question.contentHtml is questions.content_html, written from the request body (api/qa/id/[id]/+server.ts:67) with no sanitizer anywhere in src — user-authored HTML, stored XSS"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/heading-level-skip::src/routes/[lang]/article/[slug]/+page.svelte:2602::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "article/[slug]/+page.svelte:2362 <h1> (article title), then the tags <h3> (:2602) after the article body; no <h2> between (the :2307 <h2> is the exclusive no-article arm) -> h1 to h3"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/heading-level-skip::src/routes/[lang]/qa/[slug]/+page.svelte:1240::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "qa/[slug]/+page.svelte:837 <h1> (question), then in the {:else} (no answers) arm of {#if answers.length > 0} the \"Henüz Cevap Yok\" <h3> (:1240); the answers <h2> (:1082) is in the other arm -> h1 to h3 on an unanswered question"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/indexability::src/routes/[lang]/forgot/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/[lang]/forgot/+page.svelte:220 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in the page's top-level svelte:head; the root layout's {#if useDefaultSEO} <SEO /> may add 'index, follow' too, but crawlers apply the most restrictive directive, so the route is noindex as claimed (deliberate for forgot page)"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/indexability::src/routes/[lang]/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/[lang]/login/+page.svelte:20 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in the page's top-level svelte:head; the root layout's {#if useDefaultSEO} <SEO /> may add 'index, follow' too, but crawlers apply the most restrictive directive, so the route is noindex as claimed (deliberate for login page)"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/indexability::src/routes/[lang]/moderation/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/[lang]/moderation/+page.svelte:1405 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in the page's top-level svelte:head; the root layout's {#if useDefaultSEO} <SEO /> may add 'index, follow' too, but crawlers apply the most restrictive directive, so the route is noindex as claimed (deliberate for moderation page)"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/indexability::src/routes/[lang]/register/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/[lang]/register/+page.svelte:20 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in the page's top-level svelte:head; the root layout's {#if useDefaultSEO} <SEO /> may add 'index, follow' too, but crawlers apply the most restrictive directive, so the route is noindex as claimed (deliberate for register page)"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/indexability::src/routes/[lang]/write/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/[lang]/write/+page.svelte:27 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in the page's top-level svelte:head; the root layout's {#if useDefaultSEO} <SEO /> may add 'index, follow' too, but crawlers apply the most restrictive directive, so the route is noindex as claimed (deliberate for write page)"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/single-h1::src/lib/components/AuthForm.svelte:1188::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/register: AuthForm's step arms are exclusive; the default step shows one <h1> (:856), and two <h1>s (:1141 mnemonic title, :1188 mnemonic warning) co-render only in {#if step === 2}, after the user submits the registration form"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/single-h1::src/lib/components/ProfileCard.svelte:590::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "article page <h1> (article/[slug]/+page.svelte:2362) plus the author ProfileCard (:2625 or :2755 arm) whose name is an unconditional <h1> (ProfileCard.svelte:590) -> at least two <h1> render; the reported 5 adds exclusive arms and translator/collaborator loops"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/single-h1::/[lang]/403::Missing <h#>",
+    "verdict": "tp",
+    "basis": "[lang]/403/+page.svelte renders Navbar, lib/components/403.svelte and Footer; the error title is Empty.Title (ui/empty/empty-title.svelte renders a <div>), Footer has an <h2>, Navbar none; no <h1>; npm svelte-animate-icons/bits-ui/vaul-svelte render none"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/single-h1::/[lang]/404::Missing <h#>",
+    "verdict": "tp",
+    "basis": "[lang]/404/+page.svelte renders Navbar, lib/components/404.svelte and Footer; the error title is Empty.Title (ui/empty/empty-title.svelte renders a <div>), Footer has an <h2>, Navbar none; no <h1>; npm svelte-animate-icons/bits-ui/vaul-svelte render none"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/single-h1::/[lang]/500::Missing <h#>",
+    "verdict": "tp",
+    "basis": "[lang]/500/+page.svelte renders Navbar, lib/components/500.svelte and Footer; the error title is Empty.Title (ui/empty/empty-title.svelte renders a <div>), Footer has an <h2>, Navbar none; no <h1>; npm svelte-animate-icons/bits-ui/vaul-svelte render none"
+  },
+  {
+    "key": "yavuzilyas/laf::seo/single-h1::src/routes/[lang]/help/+page.svelte:127::Missing <h#>",
+    "verdict": "tp",
+    "basis": "help/+page.svelte renders Navbar and FAQ/contact sections headed by <h2> (:127); {@html} is JSON-LD (:105) and FAQ answer text (:140); no <h1> in page/root layout/followed components"
+  }
+]

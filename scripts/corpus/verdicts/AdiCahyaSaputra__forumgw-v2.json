@@ -1,0 +1,1032 @@
+[
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::a11y/permitted-contents::src/lib/components/reusable/comment/CommentInput.svelte:129::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/lib/components/reusable/comment/CommentInput.svelte:129 has literal <button> as its nearest element ancestor in the same template (only {#if}/{#each} blocks between, no component/slot/{@render} boundary); outside button's permitted content"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::a11y/permitted-contents::src/lib/components/reusable/discussion/CardPost.svelte:62::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/lib/components/reusable/discussion/CardPost.svelte:62 has literal <button> as its nearest element ancestor in the same template (only {#if}/{#each} blocks between, no component/slot/{@render} boundary); outside button's permitted content"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::a11y/permitted-contents::src/lib/components/reusable/group/MemberPopup.svelte:63::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/lib/components/reusable/group/MemberPopup.svelte:63 has literal <button> as its nearest element ancestor in the same template (only {#if}/{#each} blocks between, no component/slot/{@render} boundary); outside button's permitted content"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::a11y/permitted-contents::src/lib/components/reusable/group/MemberPopup.svelte:97::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/lib/components/reusable/group/MemberPopup.svelte:97 has literal <button> as its nearest element ancestor in the same template (only {#if}/{#each} blocks between, no component/slot/{@render} boundary); outside button's permitted content"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/component-size::src/lib/components/section/global/AppAside.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/section/global/AppAside.svelte has 203 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/component-size::src/routes/register/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/register/+page.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/prop-count::src/lib/components/reusable/comment/CreateReplyCommentForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reusable/comment/CreateReplyCommentForm.svelte has a single destructured $props() with 7 named props (> 6): openReplyComment, formReplyComment, formEditReplyComment, defaultCommentText, commentId, repliesCount, currentUser"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/prop-count::src/lib/components/reusable/global/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reusable/global/ConfirmDialog.svelte has a single destructured $props() with 8 named props (> 6): open, title, description, cancel, submit, onCancel, onSubmit, isPending"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/prop-count::src/lib/components/reusable/group/CardGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reusable/group/CardGroup.svelte has a single destructured $props() with 7 named props (> 6): id, name, logo, description, leader, _count, alreadyMember"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/prop-count::src/lib/components/section/discussion/TagSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/section/discussion/TagSection.svelte has a single destructured $props() with 7 named props (> 6): onTagSelected, selectedTags, clearFilter, groupId, className, onlyCurrentUser, userId"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 7 named props (> 6): class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/comment/CommentInput.svelte:115::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/comment/CommentInput.svelte:115 keyed by its index binding (idx); $users.data.data is a tRPC query result (user search) that changes with the input; runtime data, items inserted/removed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/comment/CreateReplyCommentForm.svelte:106::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/comment/CreateReplyCommentForm.svelte:106 keyed by its index binding (idx); list is flatMap over $replies infinite-query pages (tRPC); runtime data that grows/changes as pages load and replies are added"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/discussion/CardPost.svelte:79::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/discussion/CardPost.svelte:79 keyed by its index binding (idx); post.tags of the post prop (API records rendered in feed lists); runtime data"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/discussion/TagFilter.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/discussion/TagFilter.svelte:38 keyed by its index binding (idx); filteredTags is $derived.by filtering fetched tags by the search input (TagFilter.svelte:13); items inserted/removed as the user types"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/discussion/TagInput.svelte:117::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/discussion/TagInput.svelte:117 keyed by its index binding (idx); filteredTags is $derived.by filtering $allTags query data by the search input (TagInput.svelte:26); items inserted/removed as the user types"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/discussion/TagInput.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/discussion/TagInput.svelte:68 keyed by its index binding (idx); tags is a $bindable prop the component appends to (122/137) and splices from mid-list (72-77); identity follows position on removal"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/group/InviteUserInput.svelte:114::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/group/InviteUserInput.svelte:114 keyed by its index binding (idx); filterUsers is $derived.by filtering a fetched user query by the input (InviteUserInput.svelte:25); runtime data"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/group/InviteUserInput.svelte:69::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/group/InviteUserInput.svelte:69 keyed by its index binding (idx); usernames is a $bindable prop appended to (119) and spliced mid-list (78); identity follows position on removal"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/reusable/group/MemberPopup.svelte:84::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reusable/group/MemberPopup.svelte:84 keyed by its index binding (idx); flatMap over $groupMembers infinite-query pages; runtime data"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/section/discussion/TagSection.svelte:79::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/section/discussion/TagSection.svelte:79 keyed by its index binding (idx); selectedTags is the filter selection prop toggled by the user; runtime data, items inserted/removed mid-list"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/section/discussion/TagSection.svelte:93::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/section/discussion/TagSection.svelte:93 keyed by its index binding (idx); tagItems is $derived from the tags infinite query (TagSection.svelte:42/50); runtime data"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/section/manage-post/DiscussionSection.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/section/manage-post/DiscussionSection.svelte:75 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/section/manage-post/GroupSection.svelte:87::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/section/manage-post/GroupSection.svelte:87 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/section/manage-post/UserGroupSection.svelte:34::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/section/manage-post/UserGroupSection.svelte:34 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/lib/components/section/profile/PostSection.svelte:74::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/section/profile/PostSection.svelte:74 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/discussion/+page.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/discussion/+page.svelte:82 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/group/+page.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/+page.svelte:54 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/group/+page.svelte:83::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/+page.svelte:83 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/group/[id]/+page.svelte:123::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/[id]/+page.svelte:123 keyed by its index binding (idx); list is flatMap over a tRPC infinite query's pages (posts/groups), runtime data that grows and changes (new posts insert at the top)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/group/[id]/+page.svelte:62::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/[id]/+page.svelte:62 keyed by its index binding (idx); data.groupMetadata.members from the group page load (API data); runtime data"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/notification/+page.svelte:58::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/notification/+page.svelte:58 keyed by its index binding (idx); $notifications.data.data is a tRPC query result; runtime data, items inserted/removed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-index-key::src/routes/(app)/reported-post/+page.svelte:84::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/reported-post/+page.svelte:84 keyed by its index binding (idx); $reportedPost.data.data is a tRPC query result (admin moderation list, items removed as handled); runtime data"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::correctness/each-key::src/lib/components/ui/form/form-field-errors.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/form/form-field-errors.svelte:25 '{#each errors as error}' has no key; errors are the formsnap FieldErrors snippet's validation errors, which change with input; runtime data (ledger form-field-errors convention)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::performance/sequential-awaits::src/routes/(app)/group/[id]/+page.server.ts:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/group/[id]/+page.server.ts:10-43: the members Drizzle query uses only event.params.id, nothing from the preceding groupMetadata query — independent DB queries serialized; Promise.all would work"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::performance/sequential-awaits::src/routes/(app)/group/[id]/+page.server.ts:46::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/group/[id]/+page.server.ts:46: flagged await is superValidate(zod(schema)) — in-process form defaults, no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/discussion/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 127 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/discussion/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 137 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/group/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/group/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 132 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/manage-group/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 72 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/manage-post/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 144 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/notification/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 80 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/profile/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 110 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/(app)/reported-post/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 104 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (auth-gated: hooks.server.ts:45-57 redirects guests to /login and non-developer users to /discussion), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 62 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>) but not a search target (hooks.server.ts:37 redirects \"/\" to /login (it renders only under the \"id\" locale prefix, which the raw-pathname checks miss); placeholder \"Welcome to SvelteKit\" page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/demo/paraglide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/linktree/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/maintenance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/account/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/account/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/discussion/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/discussion/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/discussion/[id]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/discussion/[id]/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/group/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/group/[id]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/[id]/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/manage-group/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/manage-group/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/manage-post/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/manage-post/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/notification/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/notification/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/profile/[username]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/profile/[username]/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/(app)/reported-post/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/reported-post/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/login/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-length::src/routes/register/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/register/+page.svelte top-level svelte:head has an unconditional literal <meta name=description> of the stated length (e.g. 'ForumGW Account: Change your account setting' 44, 'Fullstack ForumGW app built with SvelteKit' 42), under 70 as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on / (page, root layout, ParaglideJS, app.html) (literal claim holds); leftover sv-create scaffold/demo page (/ additionally redirects to /login at hooks.server.ts:37 except via the /id prefix), not a page for search (KAIROS demo precedent)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-presence::src/routes/demo/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /demo (page, root layout, ParaglideJS, app.html) (literal claim holds); leftover sv-create scaffold/demo page (/ additionally redirects to /login at hooks.server.ts:37 except via the /id prefix), not a page for search (KAIROS demo precedent)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-presence::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /demo/paraglide (page, root layout, ParaglideJS, app.html) (literal claim holds); leftover sv-create scaffold/demo page (/ additionally redirects to /login at hooks.server.ts:37 except via the /id prefix), not a page for search (KAIROS demo precedent)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-presence::src/routes/linktree/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> in linktree/+page.svelte, root layout (ParaglideJS alternate links only) or app.html; publicly reachable link-hub page of the forum, no noindex"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/description-presence::src/routes/maintenance/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in maintenance/+page.svelte, root layout or app.html (literal claim holds); it is the 'I'm working on it' placeholder hooks.server.ts:40 redirects /group and /manage-group to, not a page for search"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/duplicate-description::src/routes/login/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte:74 and register/+page.svelte:75 both literal content='Fullstack ForumGW app built with SvelteKit'; both are public guest routes (hooks.server.ts guestRoutes), duplicate as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/duplicate-description::src/routes/register/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte:74 and register/+page.svelte:75 both literal content='Fullstack ForumGW app built with SvelteKit'; both are public guest routes (hooks.server.ts guestRoutes), duplicate as claimed"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/duplicate-title::src/routes/(app)/discussion/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (app)/discussion/+page.svelte:40 and (app)/discussion/[id]/+page.svelte:36 both literal <title>Discussion</title>, duplicate as claimed; both in hooks.server.ts protectedRoutes (session-less requests redirect to /login), so no search competition"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/duplicate-title::src/routes/(app)/discussion/[id]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (app)/discussion/+page.svelte:40 and (app)/discussion/[id]/+page.svelte:36 both literal <title>Discussion</title>, duplicate as claimed; both in hooks.server.ts protectedRoutes (session-less requests redirect to /login), so no search competition"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /account has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/discussion/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /discussion has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/discussion/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /discussion/[id] has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/group/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /group has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/group/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /group/[id] has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/manage-group/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /manage-group has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/manage-post/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /manage-post has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/notification/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /notification has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/profile/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /profile/[username] has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/(app)/reported-post/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /reported-post has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; / has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /demo has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/demo/paraglide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /demo/paraglide has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/linktree/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /linktree has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /login has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/maintenance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /maintenance has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /register has no JSON-LD"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/discussion/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 127 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/discussion/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 137 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/group/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/group/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 132 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/manage-group/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 72 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/manage-post/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 144 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/notification/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 80 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 110 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/(app)/reported-post/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 104 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:45-57 redirects guests to /login and non-developer users to /discussion (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 62 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:37 redirects \"/\" to /login (it renders only under the \"id\" locale prefix, which the raw-pathname checks miss); placeholder \"Welcome to SvelteKit\" page (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/demo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/linktree/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/discussion/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 127 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/discussion/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 137 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/group/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/group/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 132 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/manage-group/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 72 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/manage-post/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 144 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/notification/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 80 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 110 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/(app)/reported-post/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 104 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:45-57 redirects guests to /login and non-developer users to /discussion (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 62 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:37 redirects \"/\" to /login (it renders only under the \"id\" locale prefix, which the raw-pathname checks miss); placeholder \"Welcome to SvelteKit\" page (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/linktree/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/discussion/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 127 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/discussion/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 137 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/group/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/group/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 132 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/manage-group/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 72 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/manage-post/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 144 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/notification/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 80 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 110 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/(app)/reported-post/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 104 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:45-57 redirects guests to /login and non-developer users to /discussion (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 62 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:37 redirects \"/\" to /login (it renders only under the \"id\" locale prefix, which the raw-pathname checks miss); placeholder \"Welcome to SvelteKit\" page (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/demo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/linktree/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/discussion/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 127 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/discussion/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 137 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/group/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/group/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 132 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/manage-group/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 72 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/manage-post/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 144 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/notification/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 80 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 110 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/(app)/reported-post/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 104 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:45-57 redirects guests to /login and non-developer users to /discussion (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 62 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:37 redirects \"/\" to /login (it renders only under the \"id\" locale prefix, which the raw-pathname checks miss); placeholder \"Welcome to SvelteKit\" page (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/demo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/linktree/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/maintenance/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only favicon.png, no robots.txt route or generator (literal claim holds); forum whose content routes are all login-gated by hooks.server.ts protectedRoutes, public surface is login/register/linktree/maintenance, little for crawl rules to steer"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/demo/paraglide::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/paraglide/+page.svelte renders only two language <button>s; root +layout.svelte renders ProgressBar/ParaglideJS/QueryClientProvider/Toaster and no heading -> no <h1>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte renders only an <input> and a <p> (bad-word filter demo); root +layout.svelte renders no heading -> no <h1>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/discussion/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/discussion/[id]/+page.svelte and its components render no <h1>; whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/discussion::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/discussion/+page.svelte renders no heading element; components (badge svelte:element this={href?\"a\":\"span\"}, lucide icons, bits-ui) render none; whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte:97 heading is <CardTitle level={1}> = <div role=\"heading\" aria-level=\"1\"> (ui/card/card-title.svelte:18-19), not an <h1> element (same convention as imputnet/cobalt PageNav aria-level=1 -> tp); whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/manage-post::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/manage-post/+page.svelte and its components render no <h1>; whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:98 heading is <CardTitle level={1}> = <div role=\"heading\" aria-level=\"1\"> (ui/card/card-title.svelte:18-19), not an <h1> element (same convention as imputnet/cobalt PageNav aria-level=1 -> tp); whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::src/routes/(app)/account/+page.svelte:51::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/account/+page.svelte:51 first heading is <h2>User Info</h2>; no <h1>; whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::src/routes/(app)/group/+page.svelte:66::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: (app)/group/+page.svelte has two unconditional <h1>s, :42 (user groups) and :66 (all groups), in consecutive sections -> two real <h1>s"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::src/routes/(app)/group/[id]/+page.svelte:55::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/group/[id]/+page.svelte:55 page title is <h3>{groupMetadata.name}</h3>, then <h4>; no <h1>; whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/single-h1::src/routes/(app)/profile/[username]/+page.svelte:59::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/profile/[username]/+page.svelte:59 headings are <h4>; no <h1>; whole-src grep: <h1>s exist only in /, manage-group, reported-post, group, notification, linktree, maintenance pages, none rendered here; root/(app) layouts render no heading -> no <h1> element"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator (literal claim holds); forum whose content routes are all login-gated by hooks.server.ts protectedRoutes, nothing public to list beyond login/register"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/account/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/discussion/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/discussion/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/discussion/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/discussion/[id]/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/group/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/group/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/group/[id]/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/manage-group/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/manage-group/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/manage-post/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/manage-post/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/notification/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/notification/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/profile/[username]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/profile/[username]/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/(app)/reported-post/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/reported-post/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-length::src/routes/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/register/+page.svelte top-level svelte:head has an unconditional literal <title> of the stated length (e.g. 'Account' 7, 'Log-In' 6, 'Community Discussion' 20), under 30 as claimed (the /group and /manage-group pages render under the /id locale prefix, which the hooks.server.ts maintenance redirect does not match)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: +page.svelte is the leftover sv-create 'Welcome to SvelteKit' page with no svelte:head; root +layout.svelte renders ParaglideJS (@inlang/paraglide-sveltekit 0.15.5 dist/runtime/ParaglideJS.svelte: svelte:head holds only AlternateLinks), Toaster, ProgressBar, no <title>; app.html none, no document.title; hooks.server.ts:37 redirects only the literal pathname '/', but paraglide's reroute (hooks.ts) serves this route at /id, where it renders untitled"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-presence::src/routes/demo/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/demo/+page.svelte (leftover sv-create demo / bad-word filter test page) has no svelte:head; root +layout.svelte (ParaglideJS emits only alternate links, Toaster/QueryClientProvider/ProgressBar) and app.html have no <title>, no document.title; not in any hooks.server.ts redirect list, publicly reachable, served untitled (KAIROS demo precedent)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-presence::src/routes/demo/paraglide/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/demo/paraglide/+page.svelte (leftover sv-create demo / bad-word filter test page) has no svelte:head; root +layout.svelte (ParaglideJS emits only alternate links, Toaster/QueryClientProvider/ProgressBar) and app.html have no <title>, no document.title; not in any hooks.server.ts redirect list, publicly reachable, served untitled (KAIROS demo precedent)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-presence::src/routes/linktree/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/linktree/+page.svelte has no svelte:head (only body markup / lucide icon); root +layout.svelte (ParaglideJS alternate links only) and app.html have no <title>, no document.title; public page (linktree is a public link hub, maintenance is the redirect target of hooks.server.ts:40), served untitled"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/title-presence::src/routes/maintenance/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/maintenance/+page.svelte has no svelte:head (only body markup / lucide icon); root +layout.svelte (ParaglideJS alternate links only) and app.html have no <title>, no document.title; public page (linktree is a public link hub, maintenance is the redirect target of hooks.server.ts:40), served untitled"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/discussion/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 127 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/discussion/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 137 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/group/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/group/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 132 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/manage-group/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 72 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:39-41 sends /group and /manage-group to /maintenance and :54-57 redirects guests to /login (both bypassed only under the \"id\" locale prefix) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/manage-post/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 144 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/notification/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 80 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/profile/[username]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 110 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:54-57 protectedRoutes redirect guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/(app)/reported-post/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 104 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: auth-gated: hooks.server.ts:45-57 redirects guests to /login and non-developer users to /discussion (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 62 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>; route context: hooks.server.ts:37 redirects \"/\" to /login (it renders only under the \"id\" locale prefix, which the raw-pathname checks miss); placeholder \"Welcome to SvelteKit\" page (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/demo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/linktree/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/maintenance/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 60 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "AdiCahyaSaputra/forumgw-v2::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 87 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in src or app.html (the \"canonical\" hits are canonicalPath identifiers in LangSwitcher/demo paraglide); heads are per-page <title>+description only; root +layout.svelte ParaglideJS (@inlang/paraglide-sveltekit@0.15.5 AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  }
+]

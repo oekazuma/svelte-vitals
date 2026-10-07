@@ -1,10 +1,10 @@
 // Corpus precision (design doc: docs/superpowers/specs/2026-09-23-corpus-precision-design.md).
 //
 // Measures every rule's findings on real third-party SvelteKit apps pinned in scripts/corpus/targets.json
-// and joins them with the human verdicts in scripts/corpus/verdicts.json. Reports; never gates.
+// and joins them with the human verdicts in scripts/corpus/verdicts/. Reports; never gates.
 //
 //   node scripts/corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] [--jobs <n>] --out <file>
-//   node scripts/corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]
+//   node scripts/corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <dir>]
 //   node scripts/corpus-measure.js update [--cache <dir>] [--jobs <n>]
 //   node scripts/corpus-measure.js fetch [--cache <dir>] [--jobs <n>]
 //
@@ -21,6 +21,7 @@ import {
   VERDICTS,
   appId,
   digest,
+  readVerdicts,
   reportPath,
   renderBlock,
   replaceBlock
@@ -38,7 +39,7 @@ const corpusDir = join(root, 'scripts/corpus');
 const readJson = (file) => JSON.parse(readFileSync(file, 'utf8'));
 // `--targets` swaps in another pinned list (the v1 holdout) for `run`; everything else uses the corpus.
 let targets = readJson(join(corpusDir, 'targets.json'));
-const verdictsFile = join(corpusDir, 'verdicts.json');
+const verdictsDir = join(corpusDir, 'verdicts');
 const measurementFile = join(corpusDir, 'measurement.json');
 
 /**
@@ -252,9 +253,9 @@ async function fetchAll({ cache, jobs }) {
   return failed;
 }
 
-function verdictMap(file = verdictsFile) {
+function verdictMap(dir = verdictsDir) {
   const map = new Map();
-  for (const entry of readJson(file)) {
+  for (const entry of readVerdicts(dir)) {
     if (!VERDICTS.includes(entry.verdict)) throw new Error(`${entry.key}: unknown verdict ${entry.verdict}`);
     if (map.has(entry.key)) throw new Error(`${entry.key}: duplicate verdict`);
     map.set(entry.key, entry);
@@ -351,13 +352,13 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   }
 
   // The gate: a change may not silently drop a finding already judged real, or bring back one
-  // judged false. Changing the verdict in verdicts.json in the same PR is the explicit way through.
+  // judged false. Changing the verdict in verdicts/ in the same PR is the explicit way through.
   const lostTp = [...removed.values()].flat().filter((f) => verdicts.get(f.key)?.verdict === 'tp');
   const backFp = [...added.values()].flat().filter((f) => verdicts.get(f.key)?.verdict === 'fp');
   const failures = [];
   if (lostTp.length)
     failures.push(
-      `${lostTp.length} real defect(s) (\`tp\`) are no longer reported. If that is intended, change or remove their verdicts in \`scripts/corpus/verdicts.json\` in this PR`
+      `${lostTp.length} real defect(s) (\`tp\`) are no longer reported. If that is intended, change or remove their verdicts in \`scripts/corpus/verdicts/\` in this PR`
     );
   if (backFp.length)
     failures.push(
@@ -371,13 +372,13 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     measurement &&
     !after.apps.some((app) => app.error) &&
     (measurement.targets !== digest(targets) ||
-      measurement.verdicts !== digest(readJson(verdictsFile)) ||
+      measurement.verdicts !== digest(readVerdicts(verdictsDir)) ||
       JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules));
   if (stale) failures.push('`scripts/corpus/measurement.json` is out of date: run `pnpm corpus update && pnpm format`');
 
   const out = [`## Corpus findings — ${failures.length ? '❌ gate failed' : '✅ gate passed'}`, ''];
   out.push(
-    `Measured on ${targets.length} real SvelteKit apps (\`scripts/corpus/targets.json\`), base vs this PR. Verdicts come from \`scripts/corpus/verdicts.json\`: **tp** a real defect, **fp** a false positive, **design** reported as documented but not a defect; a finding without one counts under "unclear or no verdict".`,
+    `Measured on ${targets.length} real SvelteKit apps (\`scripts/corpus/targets.json\`), base vs this PR. Verdicts come from \`scripts/corpus/verdicts/\`: **tp** a real defect, **fp** a false positive, **design** reported as documented but not a defect; a finding without one counts under "unclear or no verdict".`,
     ''
   );
   for (const [label, measured] of [
@@ -433,7 +434,8 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   else {
     out.push(`- Added: ${byVerdict(added, verdicts)}`, `- Removed: ${byVerdict(removed, either)}`);
     const unlabeled = [...added.values()].flat().filter((f) => !verdicts.has(f.key)).length;
-    if (unlabeled) out.push(`- ⚠️ ${unlabeled} added finding(s) have no verdict yet: label them in \`verdicts.json\``);
+    if (unlabeled)
+      out.push(`- ⚠️ ${unlabeled} added finding(s) have no verdict yet: label them in \`scripts/corpus/verdicts/\``);
   }
   for (const f of failures) out.push(`- ❌ ${f}`);
   out.push('');
@@ -460,7 +462,7 @@ async function update({ cache, jobs }) {
   const failed = measured.apps.filter((a) => a.error);
   if (failed.length) throw new Error(`${failed.length} app(s) failed; measurement.json left untouched`);
 
-  const ledger = readJson(verdictsFile);
+  const ledger = readVerdicts(verdictsDir);
   const verdicts = verdictMap();
   const measurement = {
     targets: digest(targets),
@@ -532,7 +534,7 @@ async function main() {
       'usage: corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] [--jobs <n>] --out <file>'
     );
     console.error(
-      '       corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]'
+      '       corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <dir>]'
     );
     console.error('       corpus-measure.js update [--cache <dir>] [--jobs <n>]');
     console.error('       corpus-measure.js fetch [--cache <dir>] [--jobs <n>]');

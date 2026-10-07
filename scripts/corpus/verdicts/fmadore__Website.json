@@ -1,0 +1,672 @@
+[
+  {
+    "key": "fmadore/Website::a11y/disallowed-aria-props::src/lib/components/visualisations/LocationMap.svelte:556::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/ctx.mjs) + read: lib/components/visualisations/LocationMap.svelte:556 is a literal <div> with aria-label and no role, spread or use: action (aria-live/aria-busy/title do not give it a role), so its role is generic and the name is prohibited as reported"
+  },
+  {
+    "key": "fmadore/Website::a11y/permitted-contents::src/lib/components/reference/ItemReference.svelte:222::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <div> at lib/components/reference/ItemReference.svelte:222 has literal parent <span>@201 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <div> is outside that parent's content model as reported"
+  },
+  {
+    "key": "fmadore/Website::a11y/top-level-landmark::src/routes/activities/+page.svelte:198::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read activities/+page.svelte:198: <aside> in the page's divs (no sectioning ancestor), rendered inside root +layout.svelte:103-121 <main id=\"main\"> around {@render children()} (no {#if}); complementary nested in main"
+  },
+  {
+    "key": "fmadore/Website::a11y/top-level-landmark::src/routes/activities/year/[year]/+page.svelte:173::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read activities/year/[year]/+page.svelte:173: <aside> in the page's divs (no sectioning ancestor), rendered inside root +layout.svelte:103-121 <main id=\"main\"> around {@render children()} (no {#if}); complementary nested in main"
+  },
+  {
+    "key": "fmadore/Website::a11y/top-level-landmark::src/routes/conference-activity/visualisations/+page.svelte:441::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read conference-activity/visualisations/+page.svelte:441: <aside> in the page's divs (no sectioning ancestor, aria-labelledby set), rendered inside root +layout.svelte:103-121 <main id=\"main\"> around {@render children()} (no {#if}); complementary nested in main"
+  },
+  {
+    "key": "fmadore/Website::a11y/top-level-landmark::src/routes/publications/visualisations/+page.svelte:586::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read publications/visualisations/+page.svelte:586: <aside> in the page's divs (no sectioning ancestor, aria-labelledby set), rendered inside root +layout.svelte:103-121 <main id=\"main\"> around {@render children()} (no {#if}); complementary nested in main"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/atoms/Button.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/atoms/Button.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/atoms/RangeSlider.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/atoms/RangeSlider.svelte has 551 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/common/ContentBody.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/ContentBody.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/common/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/Footer.svelte has 369 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/common/PageHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/PageHeader.svelte has 247 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/common/RecordLayout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/RecordLayout.svelte has 449 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/communications/CommunicationRecordRail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/communications/CommunicationRecordRail.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/communications/SlideDeckEmbed.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/communications/SlideDeckEmbed.svelte has 387 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/cv/CVHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/cv/CVHeader.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/cv/CVPublications.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/cv/CVPublications.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/cv/CVTableOfContents.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/cv/CVTableOfContents.svelte has 399 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/entity-index/EntityFacetGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/entity-index/EntityFacetGrid.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/entity-index/FacetCombobox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/entity-index/FacetCombobox.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/media/MediaPlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/media/MediaPlayer.svelte has 570 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/media/VolumeControl.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/media/VolumeControl.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/menu/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/Header.svelte has 356 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/menu/MobileMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/MobileMenu.svelte has 348 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/menu/MobileNavItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/MobileNavItem.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/menu/NavItemWithDropdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/NavItemWithDropdown.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/molecules/BibliographyRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/molecules/BibliographyRow.svelte has 340 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/molecules/Pagination.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/molecules/Pagination.svelte has 239 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/panels/RelevantItemsList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/panels/RelevantItemsList.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/publications/MetaTags.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/publications/MetaTags.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/publications/PublicationItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/publications/PublicationItem.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/publications/PublicationRecordRail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/publications/PublicationRecordRail.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/publications/Reviews.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/publications/Reviews.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/reference/ItemReference.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reference/ItemReference.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/reference/ReferencePreviewCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reference/ReferencePreviewCard.svelte has 515 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/research/ResearchProjectLayout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/research/ResearchProjectLayout.svelte has 404 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/CareerTimeline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/CareerTimeline.svelte has 630 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/ChartToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/ChartToolbar.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/EChartsBarChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/EChartsBarChart.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/EChartsGanttChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/EChartsGanttChart.svelte has 366 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/EChartsHorizontalBarChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/EChartsHorizontalBarChart.svelte has 393 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/EChartsStackedBarChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/EChartsStackedBarChart.svelte has 430 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/EChartsTreemap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/EChartsTreemap.svelte has 446 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/LocationMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/LocationMap.svelte has 960 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/MapVisualization.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/MapVisualization.svelte has 675 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/NetworkArcDiagram.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/NetworkArcDiagram.svelte has 530 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/NetworkControls.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/NetworkControls.svelte has 288 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/NetworkGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/NetworkGraph.svelte has 765 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/NetworkMatrix.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/NetworkMatrix.svelte has 456 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/VizChartCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/VizChartCard.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/lib/components/visualisations/timeline/TimelineDetailCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/visualisations/timeline/TimelineDetailCard.svelte has 353 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/+error.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+error.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 381 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/activities/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/activities/+page.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/activities/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/activities/[id]/+page.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/activities/year/[year]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/activities/year/[year]/+page.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/communications/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/communications/[id]/+page.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/conference-activity/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/conference-activity/+page.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/conference-activity/slides/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/conference-activity/slides/+page.svelte has 314 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/conference-activity/visualisations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/conference-activity/visualisations/+page.svelte has 803 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/cv/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cv/+page.svelte has 414 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/digital-humanities/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/digital-humanities/+page.svelte has 673 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/digital-humanities/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/digital-humanities/[id]/+page.svelte has 340 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/publications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/publications/+page.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/publications/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/publications/[id]/+page.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/publications/visualisations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/publications/visualisations/+page.svelte has 994 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/research/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/research/+page.svelte has 428 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/style-guide/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/style-guide/+page.svelte has 2461 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/component-size::src/routes/teaching/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/teaching/+page.svelte has 264 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/SEO.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/SEO.svelte has a single destructured $props() with 15 named props (> 6): title, description, keywords, canonical, ogImage, type, includeCitationAuthor, breadcrumbs, pageType, datePublished, dateModified, additionalSchemas, includeRSSLink, noindex, schemaName"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/atoms/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/atoms/Button.svelte has a single destructured $props() with 17 named props (> 6) plus ...rest: variant, size, href, type, disabled, block, iconOnly, surface, bare, loading, ariaLabel, additionalClasses, class, onclick, icon, children, label"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/atoms/RangeSlider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/atoms/RangeSlider.svelte has a single destructured $props() with 15 named props (> 6): min, max, step, values, single, pips, pipstep, first, last, float, ariaLabel, minAriaLabel, ariaValueText, minAriaValueText, onchange"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/common/PageHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/PageHeader.svelte has a single destructured $props() with 10 named props (> 6): title, backLinkHref, backLinkLabel, date, tags, typeBadgeText, authors, editors, tier, additionalClasses"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/common/RecordLayout.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/RecordLayout.svelte has a single destructured $props() with 13 named props (> 6): section, eyebrow, title, byline, bylineSuffix, deck, breadcrumbItems, jsonLdScriptId, jsonLdString, main, railPrimary, railSecondary, related"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/cv/CVSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/cv/CVSection.svelte has a single destructured $props() with 7 named props (> 6): title, items, year, key, emptyMessage, conditional, entry"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/entity-index/EntityFacetGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/entity-index/EntityFacetGrid.svelte has a single destructured $props() with 10 named props (> 6): filters, open, minYear, maxYear, totalEntries, matchCount, activeFilterCount, anyNarrowing, onclearall, typeLabels"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/entity-index/EntityFilterBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/entity-index/EntityFilterBar.svelte has a single destructured $props() with 11 named props (> 6): filters, typeLabels, typeChipLabels, ariaLabel, searchPlaceholder, searchAriaLabel, sortAriaLabel, searchTerm, facetsOpen, activeSort, extraControls"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/media/MediaPlayer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/media/MediaPlayer.svelte has a single destructured $props() with 11 named props (> 6): src, type, title, poster, autoplay, loop, muted, surface, showControls, width, height"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/menu/DesktopNav.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/menu/DesktopNav.svelte has a single destructured $props() with 10 named props (> 6): navItems, activeDropdown, currentPath, onMouseEnter, onMouseLeave, onFocusIn, onFocusOut, onToggle, onClose, onDropdownItemClick"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/menu/NavItemWithDropdown.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/menu/NavItemWithDropdown.svelte has a single destructured $props() with 11 named props (> 6): item, isActive, index, currentPath, onMouseEnter, onMouseLeave, onFocusIn, onFocusOut, onToggle, onClose, onDropdownItemClick"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/molecules/BibliographyRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/molecules/BibliographyRow.svelte has a single destructured $props() with 25 named props (> 6): href, kindLabel, languageNote, kindNotes, title, titleLang, italicTitle, byline, standfirst, summary, apparatus, image, imageAlt, imageWidth, imageHeight, plateAspect, plateSizes, loading, actions, reference, citedCount, yearLabel, headingLevel, featured, oncopystate"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/molecules/IframeRenderer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/molecules/IframeRenderer.svelte has a single destructured $props() with 7 named props (> 6): id, src, title, height, variant, allowfullscreen, sandbox"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/organisms/RelatedItemsList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/organisms/RelatedItemsList.svelte has a single destructured $props() with 12 named props (> 6): allItems, currentItemId, filterKey, filterValue, title, itemComponent, baseItemUrl, viewAllUrl, maxItems, sectionClass, titleClass, gridClass"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/panels/RelevantItemsList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/panels/RelevantItemsList.svelte has a single destructured $props() with 10 named props (> 6): title, items, collectionLabel, emptyLabel, basePath, viewAllPath, projectName, formatType, formatAuthors, filters"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/reference/ReferenceLink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reference/ReferenceLink.svelte has a single destructured $props() with 13 named props (> 6): item, itemType, label, hasPopup, isActive, ariaExpanded, ariaControls, onclick, onkeydown, onfocus, onblur, onpointerenter, onpointerleave"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/reference/ReferencePreviewCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reference/ReferencePreviewCard.svelte has a single destructured $props() with 7 named props (> 6): item, itemType, referenceElement, positionClass, onpointerenter, onpointerleave, onclose"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/research/ResearchProjectAside.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/research/ResearchProjectAside.svelte has a single destructured $props() with 14 named props (> 6): plateSrc, plateAlt, plateCaption, years, directors, funderLabel, programme, grantAmount, grantStatus, grantCount, regions, sourceLanguages, ctas, showFunding"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/research/ResearchProjectLayout.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/research/ResearchProjectLayout.svelte has a single destructured $props() with 21 named props (> 6): title, shortTitle, cardTitle, id, years, imageSrc, imageAlt, seoDescription, seoKeywords, audioSrc, projectName, subtitle, figCaption, coDirectors, funder, programme, regions, sourceLanguages, ctas, showFunding, children"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/ChartToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/ChartToolbar.svelte has a single destructured $props() with 7 named props (> 6): chart, onDownload, showDecal, showDecalToggle, showFullscreen, fullscreenTarget, filename"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/EChartsBarChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/EChartsBarChart.svelte has a single destructured $props() with 11 named props (> 6): data, xAccessor, yAccessor, xAxisLabel, yAxisLabel, measure, barColor, accentKey, itemSingular, itemPlural, description"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/EChartsHorizontalBarChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/EChartsHorizontalBarChart.svelte has a single destructured $props() with 13 named props (> 6): data, xAccessor, yAccessor, xAxisLabel, yAxisLabel, measure, barColor, accentKey, maxValue, itemSingular, itemPlural, descriptionLead, description"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/EChartsStackedBarChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/EChartsStackedBarChart.svelte has a single destructured $props() with 9 named props (> 6): data, keys, xAxisLabel, yAxisLabel, measure, colorMap, itemSingular, itemPlural, description"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/EChartsTreemap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/EChartsTreemap.svelte has a single destructured $props() with 8 named props (> 6): data, title, colors, itemSingular, itemPlural, entrySingular, entryPlural, description"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/MapVisualization.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/MapVisualization.svelte has a single destructured $props() with 9 named props (> 6): markersData, initialView, initialZoom, maxZoom, maxClusterZoom, preferDarkMode, restrictBounds, showLegend, noun"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/NetworkArcDiagram.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/NetworkArcDiagram.svelte has a single destructured $props() with 10 named props (> 6): nodes, edges, centerId, maxNodes, visibleEdgeKinds, highlightQuery, order, labels, filename, ariaDescription"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/NetworkControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/NetworkControls.svelte has a single destructured $props() with 10 named props (> 6): topN, minN, maxN, edgeKindOptions, visibleKinds, searchQuery, searchLabel, searchPlaceholder, entityLabel, suggestions"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/NetworkGraph.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/NetworkGraph.svelte has a single destructured $props() with 10 named props (> 6): nodes, edges, centerId, maxNodes, visibleEdgeKinds, highlightQuery, entityColor, labels, filename, ariaDescription"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/NetworkMatrix.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/NetworkMatrix.svelte has a single destructured $props() with 8 named props (> 6): nodes, edges, maxNodes, highlightQuery, order, labels, filename, ariaDescription"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/VizChartCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/VizChartCard.svelte has a single destructured $props() with 7 named props (> 6): variant, height, placeholderHeight, hasData, placeholder, table, children"
+  },
+  {
+    "key": "fmadore/Website::architecture/prop-count::src/lib/components/visualisations/VizSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/visualisations/VizSection.svelte has a single destructured $props() with 15 named props (> 6): no, id, title, count, description, last, variant, height, placeholderHeight, hasData, empty, controls, placeholder, table, children"
+  },
+  {
+    "key": "fmadore/Website::correctness/each-index-key::src/lib/components/publications/PublicationToc.svelte:58::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: PublicationToc.svelte:58 '{#each tocEntries as item, index (index)}' keyed by its index binding; table of contents of one publication (:41): positional list (structure of one fixed document)"
+  },
+  {
+    "key": "fmadore/Website::correctness/each-index-key::src/routes/activities/[id]/+page.svelte:196::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: activities/[id]/+page.svelte:196 '{#each contentSegments as segment, segmentIndex (segmentIndex)}' keyed by its index binding; segments of one activity's body text (:115): positional list (text segments of one document)"
+  },
+  {
+    "key": "fmadore/Website::correctness/each-index-key::src/routes/communications/[id]/+page.svelte:222::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: communications/[id]/+page.svelte:222 '{#each abstractParagraphs as paragraph, index (index)}' keyed by its index binding; paragraphs of one abstract (:70): positional list (text of one document)"
+  },
+  {
+    "key": "fmadore/Website::correctness/each-index-key::src/routes/publications/[id]/+page.svelte:134::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: publications/[id]/+page.svelte:134 '{#each abstractParagraphs as paragraph, index (index)}' keyed by its index binding; paragraphs of one abstract (:83): positional list (text of one document)"
+  },
+  {
+    "key": "fmadore/Website::correctness/effect-as-derived::src/lib/components/media/MediaPlayer.svelte:46::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: MediaPlayer.svelte:46; the effect only does isMuted = muted (prop); the later write is a reassignment (isMuted = !isMuted, :142), the writable-$derived override pattern (svelte ^5.57)"
+  },
+  {
+    "key": "fmadore/Website::correctness/effect-as-onmount::src/lib/components/communications/SlideDeckEmbed.svelte:40::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: SlideDeckEmbed.svelte:40; $effect(() => clearWatchdog) is teardown-only and reads nothing reactive, so it runs once like onDestroy"
+  },
+  {
+    "key": "fmadore/Website::performance/lcp-image::src/routes/conference-activity/slides/+page.svelte:132::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: 176x99 poster plate of the first deck entry directly under PageHeader and PageIntro (slides/+page.svelte:120-140) — in view on load, yet loading=\"lazy\""
+  },
+  {
+    "key": "fmadore/Website::performance/lcp-image::src/routes/digital-humanities/+page.svelte:293::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: full-width 16:9 dossier plate of the lead project, directly under the masthead (h1, standfirst, period bars) and the Featured h2 (:226-293) — top in view on a desktop viewport and the largest element, yet loading=\"lazy\""
+  },
+  {
+    "key": "fmadore/Website::performance/lcp-image::src/routes/digital-humanities/[id]/+page.svelte:119::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the page source, but it is an embedded figure inside {#each embeds} after the record's narrative prose (documentColumn, :94-119) — below the fold; lazy is right there"
+  },
+  {
+    "key": "fmadore/Website::performance/lcp-image::src/routes/research/+page.svelte:177::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: full-width 16:9 dossier plate of the lead project directly under PageHeader, the intro and the period bars (research/+page.svelte:103-177), the same idiom as /digital-humanities — top in view on a desktop viewport, yet loading=\"lazy\""
+  },
+  {
+    "key": "fmadore/Website::performance/lcp-image::src/routes/style-guide/+page.svelte:1844::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the page source, but it sits in the Plates specimen section ~1170 template lines into the long style guide — far below the fold; lazy is right there"
+  },
+  {
+    "key": "fmadore/Website::performance/responsive-image::src/routes/digital-humanities/[id]/+page.svelte:119::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: item.src is a remote raster png (e.g. raw.githubusercontent.com .../collaborators_gender.png in lib/data/digital-humanities/remoboko.ts:52) — one fixed-size asset"
+  },
+  {
+    "key": "fmadore/Website::performance/responsive-image::src/routes/digital-humanities/[id]/+page.svelte:132::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: item.src is a remote raster png (lib/data/digital-humanities/*.ts) — one fixed-size asset"
+  },
+  {
+    "key": "fmadore/Website::performance/responsive-image::src/routes/style-guide/+page.svelte:1844::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: images/publications/Cahiers-détudes-africaines-229.webp (style-guide:516-517) raster cover, 600x901 — one fixed-size asset"
+  },
+  {
+    "key": "fmadore/Website::performance/responsive-image::src/routes/style-guide/+page.svelte:1871::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: images/publications/muslim-minorities-africa.webp (style-guide:522-523) raster cover, 600x908 — one fixed-size asset"
+  },
+  {
+    "key": "fmadore/Website::performance/state-raw::src/routes/style-guide/+page.svelte:200::\"resolved\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/style-guide/+page.svelte (and each {#each} body over it): only whole-binding reassignments and read-only template/expression uses (member reads, .length, {@const} reads passed on only as primitives); no member writes, mutating calls, bind:, call-arg/prop escapes; each items only read — $state.raw fits"
+  },
+  {
+    "key": "fmadore/Website::performance/state-raw::src/routes/style-guide/+page.svelte:260::\"measured\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/style-guide/+page.svelte (and each {#each} body over it): only whole-binding reassignments and read-only template/expression uses (member reads, .length, {@const} reads passed on only as primitives); no member writes, mutating calls, bind:, call-arg/prop escapes; each items only read — $state.raw fits"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/common/JsonLd.svelte:54::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read common/JsonLd.svelte:13-31,54: block escapes '<' as \\u003c (escapeForScript) — script-safe serialization per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVConferences.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVConferences.svelte:26: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVConferences.svelte:46::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVConferences.svelte:46: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVConferences.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVConferences.svelte:64: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVDigitalHumanities.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVDigitalHumanities.svelte:67: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVEvents.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVEvents.svelte:24: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVInvitedTalks.svelte:30::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVInvitedTalks.svelte:30: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/cv/CVPublications.svelte:38::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/cv/CVPublications.svelte:38: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/lib/components/publications/PublicationRecordRail.svelte:238::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/publications/PublicationRecordRail.svelte:238: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/activities/[id]/+page.svelte:163::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read activities/[id]/+page.svelte:94-107,163: heroImagePreloadHtml builds a <link rel=preload> from encodeURI'd repo image paths of the site's own activity data — repo data; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/activities/[id]/+page.svelte:200::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/activities/[id]/+page.svelte:200: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/communications/[id]/+page.svelte:224::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/communications/[id]/+page.svelte:224: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/digital-humanities/[id]/+page.svelte:102::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/digital-humanities/[id]/+page.svelte:102: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/digital-humanities/[id]/+page.svelte:161::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/digital-humanities/[id]/+page.svelte:161: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/digital-humanities/[id]/+page.svelte:178::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/digital-humanities/[id]/+page.svelte:178: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/digital-humanities/[id]/+page.svelte:192::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/digital-humanities/[id]/+page.svelte:192: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/digital-humanities/[id]/+page.svelte:218::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/digital-humanities/[id]/+page.svelte:218: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  },
+  {
+    "key": "fmadore/Website::security/raw-html::src/routes/publications/[id]/+page.svelte:136::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/publications/[id]/+page.svelte:136: HTML from the site's own committed data files (src/lib/data/*: publications/communications/activities/DH projects, CV entries) on a personal academic site — repo-authored content; reported per docs"
+  }
+]

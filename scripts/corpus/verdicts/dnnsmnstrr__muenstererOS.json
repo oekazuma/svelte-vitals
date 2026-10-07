@@ -1,0 +1,1582 @@
+[
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/deprecated-attr::src/routes/playlists/+page.svelte:183::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/ctx.mjs): <iframe> at playlists/+page.svelte:183 carries literal frameBorder (HTML attributes are case-insensitive), obsolete per HTML as reported"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/disallowed-aria-props::src/lib/components/design/examples/Skeleton.svelte:9::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/ctx.mjs) + read: lib/components/design/examples/Skeleton.svelte:9 is a literal <div> with aria-label and no role, spread or use: action (aria-live/aria-busy/title do not give it a role), so its role is generic and the name is prohibited as reported"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/id-duplication::src/routes/Menu.svelte:216::Duplicate id \"docsearch\"",
+    "verdict": "tp",
+    "basis": "mixed, labelled by majority (41 of 43 routes tp, /og-preview and /pap/preview fp): root +layout.svelte:371 renders <Command> (Command.svelte:1166 unconditional div#docsearch, the @docsearch/js container :368) and, via Header.svelte:57, <Menu> whose Dialog.Content holds a second div#docsearch (Menu.svelte:214-216) once the user opens the picker; both co-exist then. On /og-preview and /pap/preview the {#if isIsolatedPage} (page.route.id test, :326-328) arm renders neither"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/no-autofocus::src/lib/components/ui/terminal/terminal-input.svelte:53::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read terminal-input.svelte:53: <input autofocus> unconditional in the component, rendered by routes/terminal/+page.svelte:588 (<Terminal.Input>) without user action, so it takes focus when the page shows it"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/permitted-contents::src/routes/admin/DynamicForm.svelte:179::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <div> at admin/DynamicForm.svelte:179 has literal parent <button>@169 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <div> is outside that parent's content model as reported"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/permitted-contents::src/routes/admin/DynamicForm.svelte:290::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <h3> at admin/DynamicForm.svelte:290 has literal parent <button>@280 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <h3> is outside that parent's content model as reported"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/permitted-contents::src/routes/onboarding/+page.svelte:157::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <div> at onboarding/+page.svelte:157 has literal parent <button>@150 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <div> is outside that parent's content model as reported"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/permitted-contents::src/routes/terminal/+page.svelte:582::`<pre>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <pre> at terminal/+page.svelte:582 has literal parent <span>@578 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <pre> is outside that parent's content model as reported"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/top-level-landmark::src/routes/design/+page.svelte:166::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read design/+page.svelte:166: <aside> in the page's divs (no sectioning ancestor), rendered inside root +layout.svelte:385-411 <main> in the {:else} of {#if isIsolatedPage} (route.id is not /og-preview or /pap/preview); complementary nested in main"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::a11y/top-level-landmark::src/routes/notes/[slug]/+page.svelte:233::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read notes/[slug]/+page.svelte:233: <aside> inside <NotesLayout> (notes/NotesLayout.svelte renders {@render children()} in plain divs) under {#if note && !loadingNote}, rendered inside root +layout.svelte:385-411 <main> in the {:else} of {#if isIsolatedPage} (route.id is not /og-preview or /pap/preview); complementary nested in main"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/lib/components/AnnouncementBanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AnnouncementBanner.svelte has 266 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/lib/components/DraggableWindow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DraggableWindow.svelte has 610 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/lib/components/JSEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/JSEditor.svelte has 780 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/lib/components/JsonEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/JsonEditor.svelte has 1047 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 414 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/Command.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/Command.svelte has 1166 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/Menu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/Menu.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/achievements/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/achievements/+page.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 352 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/admin/DynamicForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/DynamicForm.svelte has 629 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/admin/GistEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/GistEditor.svelte has 241 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/api/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/api/+page.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/concerts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/concerts/+page.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/experiment/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/experiment/+page.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/export/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/export/+page.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/faq/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/faq/+page.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/hotkeys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/hotkeys/+page.svelte has 321 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/micro/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/micro/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/notes/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/notes/[slug]/+page.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/pap/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/pap/+page.svelte has 752 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/ping/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ping/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/playlists/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playlists/+page.svelte has 348 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/redirects/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/redirects/+page.svelte has 344 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/settings/AppearanceSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/AppearanceSettings.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/sites/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sites/+page.svelte has 486 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/slashes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/slashes/+page.svelte has 313 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/snippets/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/snippets/+page.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/terminal/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/terminal/+page.svelte has 597 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/timeline/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/timeline/+page.svelte has 586 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/component-size::src/routes/uses/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/uses/+page.svelte has 404 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/CustomSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CustomSelect.svelte has a single destructured $props() with 7 named props (> 6): options, value, name, emptyItem, placeholder, onValueChange, class"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/MessageInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MessageInput.svelte has a single destructured $props() with 7 named props (> 6): topic, placeholder, submitLabel, submittingLabel, successMessage, errorMessage, onSuccess"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/emoji-picker/emoji-picker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/emoji-picker/emoji-picker.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: value, skin, onSelect, showRecents, recentsKey, maxRecents, onSkinChange, class, children"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/menubar/menubar-link.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-link.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, href, target, name, class, inset, children"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/split-button/split-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/split-button/split-button.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, orientation, value, disabled, onclick, onClickPromise, onActionSelect, children"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/terminal/terminal-loading.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/terminal/terminal-loading.svelte has a single destructured $props() with 7 named props (> 6): delay, loadingMessage, completeMessage, completeDelay, oncomplete, duration, class"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/terminal/terminal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/terminal/terminal.svelte has a single destructured $props() with 9 named props (> 6): delay, speed, onComplete, onMinimize, onMaximize, onClose, isMaximized, children, class"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/underline-tabs/underline-tabs-trigger.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/underline-tabs/underline-tabs-trigger.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: ref, value, class, onmouseenter, onmouseleave, onfocus, onblur, children"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/lib/components/ui/window/window.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/window/window.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: children, titlebarRight, titlebarCenter, onClose, onMinimize, onMaximize, isMaximized, class, childClassName"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/routes/admin/GistEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/admin/GistEditor.svelte has a single destructured $props() with 8 named props (> 6): githubToken, gistData, gistInfo, schema, isSaving, onFormatJson, onResetEditor, onSaveGist"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/routes/admin/GistSelection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/admin/GistSelection.svelte has a single destructured $props() with 7 named props (> 6): open, loading, selectedGist, customGistId, customFilename, availableGists, onLoadGist"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::architecture/prop-count::src/routes/notes/NotesLayout.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/notes/NotesLayout.svelte has a single destructured $props() with 9 named props (> 6): notes, loading, activeSlug, title, searchQuery, collapsibleSidebar, titlebarRight, toolbarActions, children"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-index-key::src/lib/components/PlaylistScreensaver.svelte:162::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: PlaylistScreensaver.svelte:162 '{#each visibleGrid as playlist, i (i)}' keyed by its index binding; visibleGrid is a fixed number of grid slots whose cover is swapped in place (flipCover sets updatedGrid[index], :111-115) with an inner {#key playlist.imageId} for the flip: the slot position is the identity"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/ButtonMarquee.svelte:13::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ButtonMarquee.svelte:13 '{#each doubledButtons …}' has no key; doubledButtons = [...filteredButtons, ...filteredButtons] of the bundled data/buttons.json filtered by the category prop (:2-8), a JSON list, not an exempt literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/IconPicker.svelte:130::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: IconPicker.svelte:130 '{#each filteredIcons.slice(0, 100) …}' has no key; filteredIcons = $derived icons matching the user's search (:37): items inserted/removed as the user types"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/IconPicker.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: IconPicker.svelte:83 '{#each filteredIcons.slice(0, 100) …}' has no key; filteredIcons = $derived icons matching the user's search (:37): items inserted/removed as the user types"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/JsonNode.svelte:42::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: JsonNode.svelte:42 '{#each Object.entries(value) …}' has no key; recursive viewer of JsonView's data, an API response (api/+page.svelte:373) or a gist schema (admin/DynamicForm.svelte:622): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/JsonView.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: JsonView.svelte:11 '{#each Object.entries(data) …}' has no key; data is an API response (api/+page.svelte:373) or a gist schema (admin/DynamicForm.svelte:622): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/Profile.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Profile.svelte:33 '{#each descriptions …}' has no key; descriptions = $derived([...]) authored literal with translated labels (:9): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/Timeline.svelte:19::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Timeline.svelte:19 '{#each items …}' has no key; items prop, and no file in the repo renders <Timeline>: claim structurally true, no demonstrable list that changes"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/design/DesignToc.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DesignToc.svelte:44 '{#each items …}' has no key; items = the authored tocItems literal of design/+page.svelte:25: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/design/DesignToc.svelte:70::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DesignToc.svelte:70 '{#each item.children …}' has no key; children of the authored tocItems literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/design/ThemeViewer.svelte:166::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ThemeViewer.svelte:166 '{#each Object.entries(theme[tokenMode]) …}' has no key; tokens of a theme parsed from the bundled stylesheet: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/design/ThemeViewer.svelte:92::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ThemeViewer.svelte:92 '{#each previewThemes …}' has no key; previewThemes = parseThemes(stylesheet) (themes.ts:26), a computed export, not an array literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/ui/form/form-field-errors.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: form-field-errors.svelte:26 '{#each errors …}' has no key; validation errors of a superforms field: runtime validation data recomputed from user input"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/ui/slider/slider.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: slider.svelte:23 '{#each thumbs …}' has no key; bits-ui slider thumbs, one per slider value: positional list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/lib/components/ui/toc/toc.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: toc.svelte:86 '{#each headings …}' has no key; headings $state rebuilt from the current page's heading elements (:25): items inserted/removed on navigation"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Command.svelte:1097::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Command.svelte:1097 '{#each Object.entries(commandConfig).filter(…) …}' has no key; command groups shown change as the user enters and leaves a sub-group (currentGroup): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Command.svelte:1104::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Command.svelte:1104 '{#each commands …}' has no key; commands of a group, including entries fetched at runtime (/api/notes, :527) and loading placeholders (:903, :928): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Command.svelte:1118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Command.svelte:1118 '{#each Object.entries(links).filter(…).map(…) …}' has no key; links of the static $lib/config filtered against the group's commands: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Command.svelte:1145::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Command.svelte:1145 '{#each keyboardShortcuts …}' has no key; keyboardShortcuts = $derived([...]) authored literal (:157): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Command.svelte:1149::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Command.svelte:1149 '{#each shortcut.key as singleKey, index}' has no key; keys of an authored shortcut: positional list (text tokens)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Menu.svelte:169::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Menu.svelte:169 '{#each bookmarks as bookmark, index}' has no key; bookmarks = Header.svelte's $derived authored literal (:27): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Menu.svelte:174::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Menu.svelte:174 '{#each bookmark …}' has no key; a group of the authored bookmarks literal (Header.svelte:27): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/Menu.svelte:184::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Menu.svelte:184 '{#each bookmark.sub …}' has no key; sub-items of the authored bookmarks literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/MobileMenu.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MobileMenu.svelte:34 '{#each bookmarks as bookmark, index}' has no key; bookmarks = Header.svelte's $derived authored literal (:27): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/MobileMenu.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MobileMenu.svelte:36 '{#each bookmark …}' has no key; a group of the authored bookmarks literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/MobileMenu.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MobileMenu.svelte:46 '{#each bookmark.sub …}' has no key; sub-items of the authored bookmarks literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/achievements/+page.svelte:120::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: achievements/+page.svelte:120 '{#each achievementList …}' has no key; achievementList maps the fixed set of achievements in the store (:34); items gain unlocked/level fields but are never inserted, removed or reordered"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/achievements/+page.svelte:192::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: achievements/+page.svelte:192 '{#each missingPages …}' has no key; missingPages = pages the visitor has not explored yet (:71), shrinking as they explore: items removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/achievements/+page.svelte:219::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: achievements/+page.svelte:219 '{#each achievement.milestones as milestone, i}' has no key; authored milestones of an achievement: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/admin/DynamicForm.svelte:257::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DynamicForm.svelte:257 '{#each Object.entries(s.properties || {}) …}' has no key; properties of the gist's JSON schema: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/admin/DynamicForm.svelte:370::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DynamicForm.svelte:370 '{#each obj[key] as _, index}' has no key; array items of the edited gist data, removed mid-list (filter by index, :380) and inserted mid-list (newArr.splice(index + 1, 0, newItem), :399), with form inputs per item: input state follows position"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/admin/DynamicForm.svelte:481::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DynamicForm.svelte:481 '{#each s.enum …}' has no key; enum options of a JSON-schema field: static option list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/admin/DynamicForm.svelte:583::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DynamicForm.svelte:583 '{#each Object.entries(schema.properties || {}).sort(…) …}' has no key; properties of the gist's JSON schema: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/admin/GistSelection.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: GistSelection.svelte:52 '{#each availableGists …}' has no key; availableGists prop = gists listed by the admin page at runtime (admin/+page.svelte:312): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/api/+page.svelte:241::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: api/+page.svelte:241 '{#each endpoints as ep, i}' has no key; endpoints is `export const endpoints = [ … ]` (:11), and the documented same-file exemption covers only a non-exported const: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/api/+page.svelte:266::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: api/+page.svelte:266 '{#each currentEndpoint.options …}' has no key; options of an item of the authored endpoints literal: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/buttons/+page.svelte:57::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: buttons/+page.svelte:57 '{#each categories …}' has no key; categories = $derived of the bundled buttons data (:12): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/buttons/+page.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: buttons/+page.svelte:70 '{#each filteredButtons …}' has no key; filteredButtons = $derived filter by the selected category (:20): items inserted/removed as the user picks a category"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/concerts/+page.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: concerts/+page.svelte:118 '{#each concerts …}' has no key; concerts = data.concerts fetched from /api/gists/concerts (concerts/+page.ts), a gist edited outside the deploy: runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/concerts/+page.svelte:186::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: concerts/+page.svelte:186 '{#each festivals …}' has no key; festivals = data.festivals fetched from /api/gists/concerts: runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/concerts/+page.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: concerts/+page.svelte:225 '{#each festival.artists …}' has no key; artists of a festival from the fetched gist: runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/concerts/ConcertStats.svelte:135::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ConcertStats.svelte:135 '{#each artistStats as { name, count }}' has no key; artistStats = ranking computed from the fetched concerts gist (:35): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/concerts/ConcertStats.svelte:157::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ConcertStats.svelte:157 '{#each yearStats as { year, total }}' has no key; per-year totals drawn as chart bars (:55): positional list (chart bars)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/concerts/ConcertStats.svelte:87::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ConcertStats.svelte:87 '{#each [...yearStats].reverse() …}' has no key; per-year totals table rows: positional list (chart rows by year)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/experiment/+page.svelte:164::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: experiment/+page.svelte:164 '{#each snippets …}' has no key; snippets is imported from ./snippets.json, and the docs keep a JSON list reported: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/faq/+page.svelte:134::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: faq/+page.svelte:134 '{#each data.faqData as item, i}' has no key; data.faqData fetched from /api/faq (faq/+page.ts:5), served from a gist: runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/faq/+page.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: faq/+page.svelte:145 '{#each item.tags …}' has no key; tags of a fetched FAQ item: runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/faq/+page.svelte:205::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: faq/+page.svelte:205 '{#each recentQuestions …}' has no key; recentQuestions $state = ntfy messages fetched at runtime (:83): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/hotkeys/+page.svelte:274::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: hotkeys/+page.svelte:274 '{#each shortcuts …}' has no key; shortcuts = $derived([...]) authored literal (:23): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/hotkeys/VirtualKeyboard.svelte:113::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: VirtualKeyboard.svelte:113 '{#each row as key}' has no key; keys of a keyboard layout row: static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/log/+page.svelte:28::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: log/+page.svelte:28 '{#each changelog as entry, i}' has no key; changelog = JSON.parse of the bundled changes data (:18): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/notes/+page.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: notes/+page.svelte:75 '{#each recommendations …}' has no key; recommendations $state fetched from /api/notes/recommendations (:27): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/notes/NotesLayout.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: NotesLayout.svelte:86 '{#each filteredNotes …}' has no key; filteredNotes = $derived notes filtered by the user's search (:49): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/notes/[slug]/+page.svelte:195::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: notes/[slug]/+page.svelte:195 '{#each note.tags …}' has no key; tags of the note fetched at runtime (:49): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/notes/[slug]/+page.svelte:241::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: notes/[slug]/+page.svelte:241 '{#each backlinks …}' has no key; backlinks $state fetched per note (:87): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/notes/[slug]/+page.svelte:258::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: notes/[slug]/+page.svelte:258 '{#each referencedNotes …}' has no key; referencedNotes = links extracted from the note's content (:139): positional list (parse of one document)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/now/Versions.svelte:38::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Versions.svelte:38 '{#each versions as version, index}' has no key; versions = nowData.versions, the gist revision history fetched from the GitHub API (now/+page.svelte:74, api/now/+server.ts:5): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/pap/preview/+page.svelte:27::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: pap/preview/+page.svelte:27 '{#each items …}' has no key; items = JSON decoded from the ?data= URL parameter (:8): runtime data"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/ping/+page.svelte:209::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ping/+page.svelte:209 '{#each recentMessages …}' has no key; recentMessages $state = ntfy messages fetched at runtime (:82): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/playlists/+page.svelte:250::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: playlists/+page.svelte:250 '{#each filteredPlaylists …}' has no key; filteredPlaylists = $derived filter by the user's search (:49): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/playlists/+page.svelte:270::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: playlists/+page.svelte:270 '{#each aggregatedPlaylists …}' has no key; filter of data.playlists fetched from /api/playlists (gist-backed, api/playlists/+server.ts:22): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/playlists/+page.svelte:306::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: playlists/+page.svelte:306 '{#each otherPlaylists …}' has no key; filter of data.playlists fetched from /api/playlists (gist-backed): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/playlists/TopArtists.svelte:105::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: TopArtists.svelte:105 '{#each artistStats as { name, count }}' has no key; artistStats = ranking computed from the fetched playlists (:42): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/projects/+page.svelte:60::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: projects/+page.svelte:60 '{#each allTags …}' has no key; allTags = unique tags of data.projects fetched from /api/projects (gist-backed): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/projects/+page.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: projects/+page.svelte:68 '{#each filteredProjects …}' has no key; filteredProjects = $derived filter by the selected tag (:36): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/projects/+page.svelte:89::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: projects/+page.svelte:89 '{#each project.tags …}' has no key; tags of a fetched project: runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/redirects/+page.svelte:191::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: redirects/+page.svelte:191 '{#each filteredRedirects …}' has no key; filteredRedirects reassigned by the user's search (:44): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/redirects/+page.svelte:265::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: redirects/+page.svelte:265 '{#each filteredRedirects …}' has no key; filteredRedirects reassigned by the user's search (:44): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/redirects/+page.svelte:301::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: redirects/+page.svelte:301 '{#each redirect.aliases …}' has no key; aliases of an entry of the authored $lib/redirects list (redirects.ts:9): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/settings/GeneralSettings.svelte:92::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: GeneralSettings.svelte:92 '{#each suggestionsLimitOptions …}' has no key; [0, 3, 5, 10, 15].map(...) with translated labels (:16): static option list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/sitemap/+page.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sitemap/+page.svelte:21 '{#each data.urls …}' has no key; the site's own sitemap.xml parsed in the load (+page.server.ts:11): fixed per deploy"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/sites/+page.svelte:429::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sites/+page.svelte:429 '{#each filteredEdges …}' has no key; filteredEdges = $derived edges within the user's display depth (:61): items inserted/removed as the depth changes"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/sites/+page.svelte:442::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sites/+page.svelte:442 '{#each filteredNodes …}' has no key; filteredNodes = nodes.filter(depth <= displayDepth) (:60): items inserted/removed as the depth changes"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/slashes/+page.svelte:263::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: slashes/+page.svelte:263 '{#each slashes as slash, i}' has no key; slashes = $derived([...]) authored literal with translated descriptions (:22): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/snippets/+page.svelte:168::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: snippets/+page.svelte:168 '{#each categories …}' has no key; categories = ['All', ...new Set(categories of the bundled snippets data)] (:31): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/snippets/+page.svelte:177::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: snippets/+page.svelte:177 '{#each filteredSnippets …}' has no key; filteredSnippets = $derived filter by category/search (:33): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/status/+page.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: status/+page.svelte:50 '{#each statusItems …}' has no key; statusItems = $derived([...]) fixed authored rows whose values come from data.status (:12): static list fixed at author time"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/terminal/+page.svelte:577::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: terminal/+page.svelte:577 '{#each lines …}' has no key; lines $state appended per command the user runs (:97): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/timeline/+page.svelte:367::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: timeline/+page.svelte:367 '{#each parsedEvents as event, index}' has no key; parsedEvents = sorted events $state fetched at runtime (:120, :130): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/timeline/+page.svelte:445::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: timeline/+page.svelte:445 '{#each gridUnits as unit, index}' has no key; gridUnits = $derived.by time grid units (:35): positional list (grid cells)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/timeline/+page.svelte:515::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: timeline/+page.svelte:515 '{#each displayUnit!.events …}' has no key; events of the hovered/selected grid unit shown in a detail panel replaced wholesale per unit (:489): positional list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/uses/+page.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uses/+page.svelte:212 '{#each filteredTags …}' has no key; filteredTags = $derived tags of the gist-backed uses data filtered by the selection (:91): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/uses/+page.svelte:250::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uses/+page.svelte:250 '{#each filteredUses …}' has no key; filteredUses = $derived uses filtered by category/tag (:63): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/uses/+page.svelte:285::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uses/+page.svelte:285 '{#each item.tags …}' has no key; tags of a uses item fetched from /api/uses (gist-backed): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/uses/+page.svelte:346::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uses/+page.svelte:346 '{#each filteredUses …}' has no key; filteredUses = $derived uses filtered by category/tag (:63): items inserted/removed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/each-key::src/routes/uses/+page.svelte:382::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: uses/+page.svelte:382 '{#each item.tags …}' has no key; tags of a uses item fetched from /api/uses (gist-backed): runtime records"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/effect-as-onmount::src/lib/components/JSEditor.svelte:495::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: JSEditor.svelte:495; the effect only returns a cleanup that disposes the editor; nothing reactive is read, so it runs once like onDestroy"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/effect-as-onmount::src/lib/components/JsonEditor.svelte:341::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: JsonEditor.svelte:341; the effect only returns a cleanup that disposes the editor; nothing reactive is read, so it runs once like onDestroy"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/effect-as-onmount::src/routes/Command.svelte:415::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: Command.svelte:415; loadingProgress.set(loading ? 100 : 0) reads only `let loading = false` (:140), a plain local that is never written, so the effect runs once and never re-runs, as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/effect-as-onmount::src/routes/hotkeys/+page.svelte:205::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: hotkeys/+page.svelte:205; the effect only adds/removes a window keyup listener for the local handleKeyUp behind a typeof window guard; nothing reactive is read, so it runs once like onMount"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/prop-mutation::src/routes/concerts/+page.svelte:57::Prop \"data\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: concerts/+page.svelte:57 (data.concerts as Concert[]).sort(...) inside $derived sorts the page's load data array in place, a mutating call on the non-bindable data prop; toSorted is the non-mutating form (ledger data.*.sort convention)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::correctness/prop-mutation::src/routes/concerts/+page.svelte:63::Prop \"data\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: concerts/+page.svelte:63 (data.festivals as Festival[]).sort(...) inside $derived sorts the page's load data array in place, a mutating call on the non-bindable data prop; toSorted is the non-mutating form (ledger data.*.sort convention)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/buttons/+page.svelte:75::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full in the aspect-[88/31] wrapper, :72)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/hotkeys/+page.svelte:229::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-4 w-4)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/now/+page.svelte:147::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-square w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/pap/+page.svelte:702::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside an absolutely positioned board item (class absolute, left/top from item.x/y, :656-665) — out of flow, it moves no content"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/pap/preview/+page.svelte:35::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside an absolutely positioned canvas item (class absolute, :29-31) — out of flow, it moves no content"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/playlists/+page.svelte:323::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-square w-16 — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/projects/+page.svelte:73::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class h-48 w-full — fixed height and width reserve the box"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/snippets/+page.svelte:116::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-14 w-14)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/snippets/+page.svelte:129::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-4 w-4)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/uses/+page.svelte:254::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class h-48 w-full — fixed height and width reserve the box"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-dimensions::src/routes/uses/+page.svelte:349::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-10 w-10)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/buttons/+page.svelte:75::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: button in each cell of the {#each} grid of 23 buttons — later rows are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/hotkeys/+page.svelte:229::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: Raycast icon in the link under the page heading — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/now/+page.svelte:147::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: playlist cover in the playlist card of the first grid row (lg:row-start-1) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/pap/+page.svelte:702::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: GIF placed on the paste-a-picture canvas, the page's main content — visible on load, where the docs keep the image eager"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/pap/preview/+page.svelte:35::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: GIF on the single 1200x630 canvas export view, the page's only content — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/playlists/+page.svelte:323::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: src is an inline data: placeholder and the real GIF is deferred by the page's own data-gif-lazy loader — nothing for loading to defer"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/projects/+page.svelte:73::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in each card of the {#each} projects grid — cards past the first row are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/redirects/+page.svelte:207::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: favicon in each row of the {#each} redirects table — later rows are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/redirects/+page.svelte:216::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: favicon in each row of the {#each} redirects table — later rows are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/redirects/+page.svelte:282::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: favicon in each card of the {#each} redirects card list — later cards are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/redirects/+page.svelte:291::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: favicon in each card of the {#each} redirects card list — later cards are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/snippets/+page.svelte:116::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the page heading at the top — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/snippets/+page.svelte:129::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: Raycast icon in the toggle button of the header row — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/uses/+page.svelte:254::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in each card of the {#each} uses grid — cards past the first row are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/image-loading-hint::src/routes/uses/+page.svelte:349::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in each row of the {#each} uses table — later rows are offscreen"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/namespace-import::src/lib/components/IconPicker.svelte:2::Namespace import \"import * as … from 'lucide-svelte/icons/index'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/lib/components/IconPicker.svelte:2: the namespace is used as a whole — Object.keys(LucideIcons) lists the whole library as the picker's catalogue (:24) and (LucideIcons as any)[name] renders the pick (:69,:84); the app's icon picker offers every lucide icon by name, so every export is reachable and no narrower named-import form exists (unlike the ledger's fixed-list lucide tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/namespace-import::src/lib/components/OGPreview.svelte:5::Namespace import \"import * as … from 'lucide-svelte'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/lib/components/OGPreview.svelte:5: the namespace is used as a whole — (LucideIcons as any)[iconName] (:35) renders an icon named by a URL/query value chosen with the all-icons IconPicker; the app's icon picker offers every lucide icon by name, so every export is reachable and no narrower named-import form exists (unlike the ledger's fixed-list lucide tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/namespace-import::src/routes/pap/+page.svelte:15::Namespace import \"import * as … from 'lucide-svelte'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/routes/pap/+page.svelte:15: the namespace is used as a whole — (LucideIcons as any)[item.content] (:99,:715) renders board items whose icon names come from the all-icons IconPicker; the app's icon picker offers every lucide icon by name, so every export is reachable and no narrower named-import form exists (unlike the ledger's fixed-list lucide tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/namespace-import::src/routes/pap/preview/+page.svelte:4::Namespace import \"import * as … from 'lucide-svelte'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/routes/pap/preview/+page.svelte:4: the namespace is used as a whole — (LucideIcons as any)[item.content] (:48) renders exported board items whose icon names come from the all-icons IconPicker; the app's icon picker offers every lucide icon by name, so every export is reachable and no narrower named-import form exists (unlike the ledger's fixed-list lucide tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/buttons/+page.svelte:75::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: button.src from data/buttons.json — 12 png and 11 gif 88x31 buttons (script-verified), raster, one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/now/+page.svelte:147::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: Spotify playlist cover (i.scdn.co, now/+page.svelte:31-35) — the CDN serves several sizes a srcset could list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/pap/+page.svelte:702::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: item.content is a remote GIF URL — raster, one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/pap/preview/+page.svelte:35::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: item.content is a remote GIF URL — raster, one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/playlists/+page.svelte:323::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: src is a 1x1 transparent data:image/gif placeholder; the page's own data-gif-lazy loader swaps in data-gif-src — no alternate sizes exist for the placeholder"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/projects/+page.svelte:73::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: project.image, a raster project screenshot/logo — one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/redirects/+page.svelte:207::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: getFaviconUrl(redirect.url), a remote raster favicon shown at 16px — one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/redirects/+page.svelte:216::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: static /images/muenstererOS.png raster shown at 16px — one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/redirects/+page.svelte:282::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: getFaviconUrl(redirect.url), a remote raster favicon shown at 16px — one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/redirects/+page.svelte:291::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: /favicon.ico raster shown at 16px — one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/snippets/+page.svelte:116::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: /images/snippets-clear{Light,Dark}.png raster shown at 56px — one fixed-size asset"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/uses/+page.svelte:254::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: src is either an imported SvgIcons .svg ($lib/components/icons/index.ts, all .svg) or an item.image URL from /api/uses — dynamic, partly SVG, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/responsive-image::src/routes/uses/+page.svelte:349::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: src is either an imported SvgIcons .svg or an item.image URL from /api/uses — dynamic, partly SVG, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::performance/state-raw::src/routes/notes/+page.svelte:12::\"recommendations\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/notes/+page.svelte (and each {#each} body over it): only whole-binding reassignments and read-only template/expression uses (member reads, .length, {@const} reads passed on only as primitives); no member writes, mutating calls, bind:, call-arg/prop escapes; each items only read — $state.raw fits"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::security/raw-html::src/routes/micro/+page.svelte:119::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read micro/+page.svelte:25-27,119 + micrographics.ts:361: svg is renderSvg(config) of the visitor's own client-side config with escapeText on the title — self-only, escaped; reported per docs"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::security/raw-html::src/routes/snippets/+page.svelte:217::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read snippets/+page.svelte:89-102,217: formatSnippetText escapes &<>\"' before wrapping {placeholders} in spans — escaped; reported per docs"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::security/server-module-state::src/routes/api/notes/[slug]/backlinks/+server.ts:18::module-scope variable \"buildingIndex\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/api/notes/[slug]/backlinks/+server.ts:11-26: `buildingIndex` dedupes an in-flight build of the public GitHub-notes backlink index (same for every visitor, cached in gistCache) and is reset in finally — process-wide cache of public data, no per-user data"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::security/server-module-state::src/routes/api/notes/[slug]/backlinks/+server.ts:25::module-scope variable \"buildingIndex\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/api/notes/[slug]/backlinks/+server.ts:11-26: `buildingIndex` dedupes an in-flight build of the public GitHub-notes backlink index (same for every visitor, cached in gistCache) and is reset in finally — process-wide cache of public data, no per-user data"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 138 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 123 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/achievements/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 127 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 151 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/admin/og/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 129 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/api/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 138 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/buttons/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 127 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/concerts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 129 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 116 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/design/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 121 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/experiment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 113 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 125 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/faq/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 133 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/hello/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 116 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/helloworld/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 112 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/hotkeys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 120 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/legal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 119 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/lobster/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 119 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/log/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 112 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/micro/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 133 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 116 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/notes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 120 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/now/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 120 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/og-preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 114 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 127 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/pap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 158 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/pap/preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 114 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/ping/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 141 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/playground/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 114 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/playlists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 126 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/playlists/covers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 114 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 129 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/redirects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 130 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 144 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/sitemap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 112 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/sites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 113 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/slashes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 112 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/snippets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 129 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/status/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 130 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/terminal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 151 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/timeline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 123 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/uses/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 141 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/canonical-url::src/routes/where/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a15/reach.mjs, HTML/line comments stripped; positive control over every page of the 4 apps partitions exactly into tag-present/unflagged vs tag-absent/flagged): no <link rel=\"canonical\"> in page, 1 layout(s), 121 reached local files incl. app.html; no canonical anywhere in src or app.html (root +layout.svelte:340-359 head emits title/og:*/twitter:* only); no hooks, no meta-tag library; publicly reachable (static/robots.txt allows all, no noindex/auth gate); route renders (the always-redirecting de/styleguide/admin/[file] loads are correctly absent from the findings)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-length::src/routes/lobster/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal in the page's top-level svelte:head, renders after root layout's title and wins"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/achievements/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /admin is a gist-editing admin tool that needs a GitHub token, not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/admin/og/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /admin/og is an OG image builder tool, not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/export/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/faq/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/helloworld/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /helloworld is a test page whose whole body is the text 'hello world', not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/legal/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/log/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/notes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/notes/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all; notes are public markdown pages)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/now/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/og-preview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /og-preview is an OG image render target driven by query params, not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/pap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /pap is a page behind a client-side password prompt, not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/pap/preview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /pap/preview is a canvas-export render target driven by query params, not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/ping/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/playground/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); /playground is an unlinked cursor-spring experiment page (not in static/sitemap.xml), not a page for search"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/playlists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/playlists/covers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/redirects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/sitemap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/sites/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/description-presence::src/routes/status/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> on the route (root +layout.svelte:340-358 head sets title, og:description and twitter:description but no meta description; page head none; app.html none) (literal claim holds); public page of the prerendered personal site (static/robots.txt allows all)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/heading-level-skip::src/routes/timeline/+page.svelte:381::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: timeline <h1> (:258), then per event a <svelte:element this={event.url ? 'a' : 'div'}> card (:371, never a heading) whose title is <h3> (:381) -> h1 to h3"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/achievements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/admin/og/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/buttons/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/concerts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/design/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/experiment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/faq/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/hello/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/helloworld/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/hotkeys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/legal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/lobster/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/log/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/micro/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/notes/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/now/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/og-preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/pap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/pap/preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/ping/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/playground/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/playlists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/playlists/covers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/redirects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/sitemap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/sites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/slashes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/snippets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/status/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/terminal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/timeline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/uses/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/json-ld::src/routes/where/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in muenstererOS; static/schemas/faq.json is a JSON file, not rendered as ld+json); route renders no JSON-LD (json-ld convention: tp)"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/single-h1::src/lib/components/CrashScreensaver.svelte:69::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers 4 routes (/design, /experiment, /onboarding, /timeline), each with one page <h1> (e.g. timeline/+page.svelte:258); the second is CrashScreensaver's <h1> (:69), which the root layout mounts only under {#if $screensaverActiveStore && $screensaver === 'crash'} (+layout.svelte:372-374) — an idle screensaver overlay, false by default (lib/stores/desktop.ts:63); counted per documented semantics"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/single-h1::src/lib/components/OGPreview.svelte:96::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: OGPreview renders at most one <h1>: its two <h1>{name} (:96, :118) sit in the exclusive arms of one {#if showWindow}…{:else} block, each further under {#if props.children}{:else}; key covers 3 routes: /og-preview (isolated page, +layout.svelte:326-328, renders OGPreview alone -> 1 <h1>) and /pap/preview (passes children, so neither <h1> renders -> 0) are fp; only /admin/og has 2 (its Heading component, svelte:element this={\"h\" + depth} with depth 1, plus OGPreview) — labelled by the majority"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/ssr-disabled::src/routes/notes/+layout.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/notes/+layout.ts:3 on a public page of the personal site listed in static/sitemap.xml (/notes and below), so its content is invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/ssr-disabled::src/routes/playlists/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/playlists/+page.ts:1 on a public page of the personal site listed in static/sitemap.xml (/playlists), so its content is invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/ssr-disabled::src/routes/sites/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/sites/+page.ts:1 on a public page of the personal site listed in static/sitemap.xml (/sites), so its content is invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/ssr-disabled::src/routes/slashes/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/slashes/+page.ts:1 on a public page of the personal site listed in static/sitemap.xml (/slashes), so its content is invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/ssr-disabled::src/routes/timeline/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/timeline/+page.ts:1 on a public page of the personal site listed in static/sitemap.xml (/timeline), so its content is invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/ssr-disabled::src/routes/where/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/where/+page.ts:1 on a public page of the personal site listed in static/sitemap.xml (/where), so its content is invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/title-length::src/routes/lobster/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal in the page's top-level svelte:head, renders after root layout's title and wins"
+  },
+  {
+    "key": "dnnsmnstrr/muenstererOS::seo/title-length::src/routes/playlists/covers/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal in the page's top-level svelte:head, renders after root layout's title and wins"
+  }
+]

@@ -1,0 +1,1022 @@
+[
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/disallowed-aria-props::src/lib/components/GlossaryTooltip.svelte:57::`aria-label` is prohibited on role `tooltip`",
+    "verdict": "tp",
+    "basis": "read src/lib/components/GlossaryTooltip.svelte:57-63: <div role=\"tooltip\" aria-label=...> with no spread/use:; ARIA 1.3 lists aria-label as prohibited on tooltip (Name From: prohibited)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/disallowed-aria-props::src/routes/[bookSlug]/+page.svelte:147::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/routes/[bookSlug]/+page.svelte:147: <div class=chapter-dots aria-label=...> with no role/spread/use:; a generic div's name is prohibited, so the label is not exposed"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/id-duplication::src/lib/components/study/SessionPlanner.svelte:122::Duplicate id \"chapter-filter\"",
+    "verdict": "design",
+    "basis": "read: on /[bookSlug]/nam the other select#chapter-filter is SearchModal.svelte:289, under {#if isOpen} (header search dialog, Header.svelte:171) and {#if showFilters}; it renders next to SessionPlanner's select (:122, {#if chapters.length > 1}) only while the user has the search modal open with filters shown; documented separate-{#if} co-render model (user-opened overlay precedent)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/interactive-nesting::src/routes/feedback/+page.svelte:104::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read src/routes/feedback/+page.svelte:94-104: the success card is a <div role=\"button\" tabindex=0 onclick={resetForm}> under {#if submitSuccess} that contains a mailto <a> and a literal <button class=btn-secondary> (:104), so controls are nested in a role=button"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/SearchModal.svelte:407::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/SearchModal.svelte:407 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/SearchModal.svelte:421::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/SearchModal.svelte:421 is a literal <p> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/SearchModal.svelte:425::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/SearchModal.svelte:425 is a literal <p> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/SearchModal.svelte:430::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/SearchModal.svelte:430 is a literal <p> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/SettingsModal.svelte:247::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/SettingsModal.svelte:247 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReflectPhase.svelte:102::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReflectPhase.svelte:102 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReflectPhase.svelte:103::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReflectPhase.svelte:103 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:101::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:101 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:125::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:125 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:127::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:127 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:134::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:134 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:136::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:136 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:143::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:143 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:145::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:145 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:152::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:152 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/ReviewPhase.svelte:154::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/ReviewPhase.svelte:154 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/lib/components/study/SessionPlanner.svelte:173::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/study/SessionPlanner.svelte:173 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:196::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:196 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:221::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:221 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:223::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:223 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:230::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:230 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:232::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:232 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:239::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:239 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:241::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:241 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:248::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:248 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/permitted-contents::src/routes/[bookSlug]/minniskort/+page.svelte:250::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/[bookSlug]/minniskort/+page.svelte:250 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::a11y/top-level-landmark::src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.svelte:112::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.svelte:112: unlabelled <aside> at the page's template top level (no sectioning ancestor), and [bookSlug]/+layout.svelte:113-121 renders {@render children()} in <main id=main-content><div>, so a complementary landmark is nested inside main"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/AdaptiveQuiz.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AdaptiveQuiz.svelte has 615 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/AnnotationSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AnnotationSidebar.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/DownloadBookButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DownloadBookButton.svelte has 289 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/FlashcardModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FlashcardModal.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/KeyboardShortcutsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/KeyboardShortcutsModal.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/NavigationButtons.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NavigationButtons.svelte has 370 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/PeriodicTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PeriodicTable.svelte has 562 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/PomodoroTimer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PomodoroTimer.svelte has 384 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/SearchModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SearchModal.svelte has 443 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/SettingsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SettingsModal.svelte has 444 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/TextHighlighter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TextHighlighter.svelte has 525 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/analytics/FlashcardStatsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/analytics/FlashcardStatsTab.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/analytics/GoalsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/analytics/GoalsTab.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/analytics/ReadingPatternsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/analytics/ReadingPatternsTab.svelte has 225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/layout/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Header.svelte has 428 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/layout/MobileBottomNav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/MobileBottomNav.svelte has 324 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/layout/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Sidebar.svelte has 925 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/study/PracticePhase.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/study/PracticePhase.svelte has 246 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/study/ReadingPhase.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/study/ReadingPhase.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/study/ReviewPhase.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/study/ReviewPhase.svelte has 375 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/lib/components/study/SessionPlanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/study/SessionPlanner.svelte has 354 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/+error.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+error.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 1425 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/+page.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/atridiordasskra/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/atridiordasskra/+page.svelte has 536 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/bokamerki/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/bokamerki/+page.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/greining/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/greining/+page.svelte has 455 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte has 595 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/leyfi/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/leyfi/+page.svelte has 327 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/markmid/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/markmid/+page.svelte has 328 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/minniskort/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/minniskort/+page.svelte has 521 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/ordabok/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/ordabok/+page.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/[bookSlug]/yfirlit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[bookSlug]/yfirlit/+page.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/feedback/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/feedback/+page.svelte has 578 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/component-size::src/routes/for-teachers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/for-teachers/+page.svelte has 660 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::architecture/prop-count::src/lib/components/ContentRenderer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ContentRenderer.svelte has a single destructured $props() with 7 named props (> 6): content, bookSlug, chapterSlug, sectionSlug, chapterNumber, sectionType, hideStaticObjectives"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/lib/components/BookCover.svelte:33::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/BookCover.svelte:33 '{#each ... as [tag, attrs], i (i)}' keyed by its index binding; positional list (the fixed child elements of one SVG icon/motif definition): no identity beyond position"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/lib/components/Icon.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Icon.svelte:53 '{#each ... as [tag, attrs], i (i)}' keyed by its index binding; positional list (the fixed child elements of one SVG icon/motif definition): no identity beyond position"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/lib/components/SearchModal.svelte:402::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SearchModal.svelte:402 '{#each results as result, index (index)}' keyed by its index binding; results = $state search results replaced on each query (SearchModal.svelte:34, 109-144): runtime data"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/lib/components/analytics/ReadingPatternsTab.svelte:193::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/analytics/ReadingPatternsTab.svelte:193 '{#each $hourlyReadingDistribution as data, i (i)}' keyed by its index binding; positional list (24 fixed hour buckets from a derived store, stores/analytics.ts:755): no identity beyond position"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/lib/components/study/ReadingPhase.svelte:48::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/study/ReadingPhase.svelte:48 '{#each sections as section, i (i)}' keyed by its index binding; the component tracks progress by index (markedDone: Set<number>, markedDone.has(i), sections[index], 18-29), so index is the intended identity of a session's fixed section list; reported per docs but not a defect"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/[bookSlug]/atridiordasskra/+page.svelte:301::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/[bookSlug]/atridiordasskra/+page.svelte:301 '{#each term.refs as ref, i (i)}' keyed by its index binding; refs of a term in the book's static subject index: static list fixed at author time"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/[bookSlug]/greining/+page.svelte:405::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/[bookSlug]/greining/+page.svelte:405 '{#each topSections as section, i (i)}' keyed by its index binding; topSections = $derived(getTopSections(5)) from the user's reading analytics (176), a ranking that reorders as reading time accrues: runtime data"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte:381::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte:381 '{#each data.section.objectives as objective, i (i)}' keyed by its index binding; objectives of a static textbook section, and completion is tracked by index (completedObjectiveIndices.has(i), toggleObjective(i, ...)), so index is the intended identity; static list"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/[bookSlug]/yfirlit/+page.svelte:236::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/[bookSlug]/yfirlit/+page.svelte:236 '{#each group.blocks as block, i (i)}' keyed by its index binding; blocks = extractReviewBlocks(html) of one chapter section's HTML (yfirlit/+page.svelte:90): parse output of one text, positional"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte:40::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte:40 '{#each data.blocks as block, i (i)}' keyed by its index binding; print route rendering the static chapter content blocks of the book (prerendered, comment at 37-38): static list fixed at author time"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/print/[bookSlug]/ordabok/+page.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/print/[bookSlug]/ordabok/+page.svelte:28 '{#each data.terms as ..., i (i)}' keyed by its index binding on the print glossary page; static glossary terms, and the index is deliberately the anchor id (gloss-{i}, comment 41-42): static list"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::correctness/each-index-key::src/routes/print/[bookSlug]/ordabok/+page.svelte:44::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/print/[bookSlug]/ordabok/+page.svelte:44 '{#each data.terms as ..., i (i)}' keyed by its index binding on the print glossary page; static glossary terms, and the index is deliberately the anchor id (gloss-{i}, comment 41-42): static list"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::performance/load-waterfall::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.ts:106::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.ts:106: the content fetch uses the folder/file taken from toc.json, which loadTableOfContents fetched first (utils/contentLoader.ts:39-59, uncached by design: 'No in-memory cache'); the universal load reruns on client navigation (adapter-static, csr on), so it is two dependent browser round trips"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::performance/load-waterfall::src/routes/[bookSlug]/svarlykill/[chapter]/+page.ts:74::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read src/routes/[bookSlug]/svarlykill/[chapter]/+page.ts:74: the content fetch uses the folder/file taken from toc.json, which loadTableOfContents fetched first (utils/contentLoader.ts:39-59, uncached by design: 'No in-memory cache'); the universal load reruns on client navigation (adapter-static, csr on), so it is two dependent browser round trips"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::performance/load-waterfall::src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.ts:58::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.ts:58: the content fetch uses the folder/file taken from toc.json, which loadTableOfContents fetched first (utils/contentLoader.ts:39-59, uncached by design: 'No in-memory cache'); the universal load reruns on client navigation (adapter-static, csr on), so it is two dependent browser round trips"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::performance/sequential-awaits::src/routes/print/[bookSlug]/bok/+page.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read print/[bookSlug]/bok/+page.ts:6,24-35: export const prerender = true + entries(); the /print/* routes exist only for Playwright PDF generation (print/+layout.svelte:2-3) - the fetches run at build time, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::performance/sequential-awaits::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read print/[bookSlug]/kafli/[chapterSlug]/+page.ts:13,46-56: export const prerender = true + entries(); the /print/* routes exist only for Playwright PDF generation (print/+layout.svelte:2-3) - the glossary/toc fetches run at build time, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::performance/state-raw::src/lib/components/SearchModal.svelte:38::\"chapters\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"chapters\" in src/lib/components/SearchModal.svelte: declared at :38, whole-binding reassignments at :92; other references (:294) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::security/raw-html::src/lib/components/ContentRenderer.svelte:73::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/ContentRenderer.svelte:73: HTML is the site's own pre-rendered textbook content fetched same-origin from /content/<book>/... (README: static site, content produced by the owner's namsbokasafn-efni pipeline, no backend or user content) - first-party content, reported per docs"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::security/raw-html::src/lib/components/SearchModal.svelte:426::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/SearchModal.svelte:426 + utils/searchIndex.ts:351-371: highlightQuery escapeHtml()s both snippet and query before wrapping matches in <mark> - escaped, reported per docs"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::security/raw-html::src/routes/+page.svelte:436::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:436: item.answer from $lib/data/faq (repo constant FAQ list) - repo-authored, reported per docs"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::security/raw-html::src/routes/[bookSlug]/yfirlit/+page.svelte:246::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[bookSlug]/yfirlit/+page.svelte:246: HTML is the site's own pre-rendered textbook content fetched same-origin from /content/<book>/... (README: static site, content produced by the owner's namsbokasafn-efni pipeline, no backend or user content) - first-party content, reported per docs"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::security/raw-html::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte:42: HTML is the site's own pre-rendered textbook content fetched same-origin from /content/<book>/... (README: static site, content produced by the owner's namsbokasafn-efni pipeline, no backend or user content) - first-party content, reported per docs"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::security/raw-html::src/routes/print/[bookSlug]/vidauki/+page.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/print/[bookSlug]/vidauki/+page.svelte:42: HTML is the site's own pre-rendered textbook content fetched same-origin from /content/<book>/... (README: static site, content produced by the owner's namsbokasafn-efni pipeline, no backend or user content) - first-party content, reported per docs"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/canonical-url::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only) but not a search target (literal noindex, nofollow robots meta at print/+layout.svelte:26 and static/robots.txt Disallow: /print/; PDF-render-only routes), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/canonical-url::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only) but not a search target (literal noindex, nofollow robots meta at print/+layout.svelte:26 and static/robots.txt Disallow: /print/; PDF-render-only routes), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/canonical-url::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only) but not a search target (literal noindex, nofollow robots meta at print/+layout.svelte:26 and static/robots.txt Disallow: /print/; PDF-render-only routes), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/canonical-url::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only) but not a search target (literal noindex, nofollow robots meta at print/+layout.svelte:26 and static/robots.txt Disallow: /print/; PDF-render-only routes), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/canonical-url::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only) but not a search target (literal noindex, nofollow robots meta at print/+layout.svelte:26 and static/robots.txt Disallow: /print/; PDF-render-only routes), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-length::src/routes/[bookSlug]/lotukerfi/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: [bookSlug]/lotukerfi/+page.svelte:15 literal <meta name=description content=\"Gagnvirkt lotukerfi frumefnanna\"> (31 chars) in a top-level svelte:head, the route's only description; public OER reader page (served via the 200.html SPA fallback, rendered in the browser), under 70 as claimed"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-length::src/routes/[bookSlug]/prof/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: [bookSlug]/prof/+page.svelte:22 literal <meta name=description content=\"Próf og æfingar til að meta skilning á námsefni\"> (47 chars) in a top-level svelte:head, the route's only description; public OER reader page, under 70 as claimed"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-presence::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src/routes/print/[bookSlug]/bok/+page.svelte, print/+layout.svelte (stylesheet + robots only), root +layout.svelte or app.html (literal claim holds); but /print/* exists only for Playwright PDF output (print/+layout.svelte:1-4), carries literal noindex,nofollow (print/+layout.svelte:26) and is robots-disallowed (static/robots.txt:3 Disallow: /print/), so not a search target"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-presence::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src/routes/print/[bookSlug]/colophon/+page.svelte, print/+layout.svelte (stylesheet + robots only), root +layout.svelte or app.html (literal claim holds); but /print/* exists only for Playwright PDF output (print/+layout.svelte:1-4), carries literal noindex,nofollow (print/+layout.svelte:26) and is robots-disallowed (static/robots.txt:3 Disallow: /print/), so not a search target"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-presence::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte, print/+layout.svelte (stylesheet + robots only), root +layout.svelte or app.html (literal claim holds); but /print/* exists only for Playwright PDF output (print/+layout.svelte:1-4), carries literal noindex,nofollow (print/+layout.svelte:26) and is robots-disallowed (static/robots.txt:3 Disallow: /print/), so not a search target"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-presence::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src/routes/print/[bookSlug]/ordabok/+page.svelte, print/+layout.svelte (stylesheet + robots only), root +layout.svelte or app.html (literal claim holds); but /print/* exists only for Playwright PDF output (print/+layout.svelte:1-4), carries literal noindex,nofollow (print/+layout.svelte:26) and is robots-disallowed (static/robots.txt:3 Disallow: /print/), so not a search target"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/description-presence::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src/routes/print/[bookSlug]/vidauki/+page.svelte, print/+layout.svelte (stylesheet + robots only), root +layout.svelte or app.html (literal claim holds); but /print/* exists only for Playwright PDF output (print/+layout.svelte:1-4), carries literal noindex,nofollow (print/+layout.svelte:26) and is robots-disallowed (static/robots.txt:3 Disallow: /print/), so not a search target"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/heading-level-skip::src/routes/+page.svelte:307::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:290 <h2>OpenStax safnið</h2> is followed by the subject <details> accordions whose <summary> holds only <span>s, then each entry's <h4 class=\"compact-title\"> (:307) — h2 to h4 (visible once an accordion is opened)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/heading-level-skip::src/routes/[bookSlug]/minniskort/+page.svelte:111::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: minniskort/+page.svelte:60 <h1>, then the deck grid's <h3 class=\"deck-card-name\"> (:111); the only <h2> (:75) is in the exclusive {#if allDecks.length === 0} empty-state arm — h1 to h3 whenever decks exist"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/heading-level-skip::src/routes/[bookSlug]/ordabok/+page.svelte:154::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: ordabok/+page.svelte:79 <h1>, then the search box, letter filter and each term's <h3 class=\"glossary-term-title\"> (:154) with no heading between — h1 to h3"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/heading-level-skip::src/routes/for-teachers/+page.svelte:238::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: for-teachers/+page.svelte:228 <h2>Stuðningur</h2> is followed by the contact card's <h4>Tölvupóstur</h4> (:238) with no <h3> between (Icon renders an svg) — h2 to h4"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/indexability::src/routes/print/[bookSlug]/bok/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: print/+layout.svelte:26 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in its top-level svelte:head covers /print/[bookSlug]/bok; noindex as claimed (intentional for the PDF print views)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/indexability::src/routes/print/[bookSlug]/colophon/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: print/+layout.svelte:26 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in its top-level svelte:head covers /print/[bookSlug]/colophon; noindex as claimed (intentional for the PDF print views)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/indexability::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: print/+layout.svelte:26 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in its top-level svelte:head covers /print/[bookSlug]/kafli/[chapterSlug]; noindex as claimed (intentional for the PDF print views)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/indexability::src/routes/print/[bookSlug]/ordabok/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: print/+layout.svelte:26 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in its top-level svelte:head covers /print/[bookSlug]/ordabok; noindex as claimed (intentional for the PDF print views)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/indexability::src/routes/print/[bookSlug]/vidauki/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: print/+layout.svelte:26 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\"> in its top-level svelte:head covers /print/[bookSlug]/vidauki; noindex as claimed (intentional for the PDF print views)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; / has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug] has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/atridiordasskra/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/atridiordasskra has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/bokamerki/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/bokamerki has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/greining/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/greining has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/kafli/[chapterSlug] has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/kafli/[chapterSlug]/[sectionSlug] has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/leyfi/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/leyfi has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/lotukerfi/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/lotukerfi has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/markmid/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/markmid has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/minniskort/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/minniskort has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/nam/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/nam has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/ordabok/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/ordabok has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/prof/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/prof has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/svarlykill/[chapter]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/svarlykill/[chapter] has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/vidauki/[appendixLetter] has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/[bookSlug]/yfirlit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[bookSlug]/yfirlit has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/feedback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /feedback has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/for-teachers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /for-teachers has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/print/[bookSlug]/bok/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /print/[bookSlug]/bok has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /print/[bookSlug]/colophon has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /print/[bookSlug]/kafli/[chapterSlug] has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /print/[bookSlug]/ordabok has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/json-ld::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /print/[bookSlug]/vidauki has none"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-description::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print/[bookSlug]/bok: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-description::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print/[bookSlug]/colophon: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-description::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print/[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-description::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print/[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-description::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /print/[bookSlug]/vidauki: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 43 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/atridiordasskra/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/atridiordasskra: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/bokamerki/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/bokamerki: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/greining/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/greining: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/kafli/[chapterSlug]/[sectionSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 72 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/leyfi/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/leyfi: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 53 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/lotukerfi/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/lotukerfi: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/markmid/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/markmid: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/minniskort/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/minniskort: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/nam/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/nam: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/ordabok/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/prof/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/prof: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/svarlykill/[chapter]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/svarlykill/[chapter]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/vidauki/[appendixLetter]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/[bookSlug]/yfirlit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[bookSlug]/yfirlit: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/feedback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /feedback: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 38 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/for-teachers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /for-teachers: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print/[bookSlug]/bok: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print/[bookSlug]/colophon: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print/[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print/[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-image::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /print/[bookSlug]/vidauki: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-title::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print/[bookSlug]/bok: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-title::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print/[bookSlug]/colophon: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-title::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print/[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-title::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print/[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-title::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /print/[bookSlug]/vidauki: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-url::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print/[bookSlug]/bok: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-url::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print/[bookSlug]/colophon: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-url::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print/[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-url::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print/[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/og-url::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /print/[bookSlug]/vidauki: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/single-h1::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte:367::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the server-rendered (prerendered, ssr on) page has no <h1>: the page's own headings start at <h3> ([sectionSlug]/+page.svelte:367), and the section's <h1 id=\"title\"> lives in the synced content HTML (sister repo namsbokasafn-efni, e.g. chapters/01/1-1-efnafraedi-i-samhengi.html:12 inside <article>), which ContentRenderer.svelte assigns to html only in a client $effect (:36-42) and renders a Skeleton until then — the <h1> appears only after hydration, so the prerendered HTML lacks it (client-only convention)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/single-h1::src/routes/print/[bookSlug]/bok/+page.svelte:66::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two unconditional <h1>s render together on the print book page: the cover title (print/[bookSlug]/bok/+page.svelte:38) and the 'Efnisyfirlit' table-of-contents heading (:66)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "no static/sitemap.xml or sitemap.xml endpoint in the checkout (literal claim holds), but package.json:8 build -> prepare-content (:22) runs scripts/generate-sitemap.js, which writes static/sitemap.xml (:18, :70) before vite build (gitignored, .gitignore:51-52), and static/robots.txt points to it, so the built site ships it (meshcore-ninja precedent)"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/title-length::src/routes/[bookSlug]/prof/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_24_len.js): [bookSlug]/prof/+page.svelte:20 literal <title>Aðlögunarpróf | Námsbókasafn</title> = 28 graphemes in a top-level svelte:head; public OER reader page, under 30 as claimed"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/title-length::src/routes/feedback/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_24_len.js): feedback/+page.svelte:70 literal <title>Endurgjöf - Námsbókasafn</title> = 24 graphemes in a top-level svelte:head; public page, under 30 as claimed"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 43 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/atridiordasskra/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/atridiordasskra: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/bokamerki/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/bokamerki: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/greining/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/greining: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/kafli/[chapterSlug]/[sectionSlug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/kafli/[chapterSlug]/[sectionSlug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 72 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/leyfi/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/leyfi: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 53 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/lotukerfi/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/lotukerfi: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/markmid/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/markmid: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/minniskort/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/minniskort: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/nam/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/nam: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/ordabok/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 50 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/prof/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/prof: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/svarlykill/[chapter]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/svarlykill/[chapter]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/vidauki/[appendixLetter]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/vidauki/[appendixLetter]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/[bookSlug]/yfirlit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[bookSlug]/yfirlit: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/feedback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /feedback: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 38 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/for-teachers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /for-teachers: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/print/[bookSlug]/bok/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print/[bookSlug]/bok: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/print/[bookSlug]/colophon/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print/[bookSlug]/colophon: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/print/[bookSlug]/kafli/[chapterSlug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print/[bookSlug]/kafli/[chapterSlug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/print/[bookSlug]/ordabok/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print/[bookSlug]/ordabok: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  },
+  {
+    "key": "SigurdurVilhelmsson/namsbokasafn-vefur::seo/twitter-card::src/routes/print/[bookSlug]/vidauki/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /print/[bookSlug]/vidauki: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); repo-wide no og:image and no twitter:card emitter (src, app.html, scripts); pages set og:title/description/url + canonical in their own <svelte:head>, root +layout.svelte:34-35 adds og:site_name/og:locale only"
+  }
+]

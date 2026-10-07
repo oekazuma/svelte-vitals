@@ -1,0 +1,967 @@
+[
+  {
+    "key": "kurozenzen/kurosearch::a11y/disallowed-aria-props::src/lib/components/kurosearch/settings-json-view/SettingsJsonView.svelte:67::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/settings-json-view/SettingsJsonView.svelte:67: literal <div aria-label=…> with no role, no spread and no use: action, so its role is generic everywhere and aria-label is prohibited as reported"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/id-duplication::src/lib/components/kurosearch/link-discord/DiscordIcon.svelte:9::Duplicate id \"prefix__clip#\"",
+    "verdict": "tp",
+    "basis": "read: on /test, test/+layout.svelte renders LayoutMobile > MobileHeader > <DiscordLink /> (MobileHeader.svelte:14) and test/+page.svelte:107 renders a second <DiscordLink />; DiscordIcon.svelte:9 <clipPath id=\"prefix__clip0\"> is unconditional, so two copies co-render"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/id-duplication::src/routes/LynxMain.svelte:30::Duplicate id \"happy\"",
+    "verdict": "tp",
+    "basis": "read: on / and /select the page renders <LynxMain /> (+page.svelte:47, select/+page.svelte:16) inside LayoutMobile, which also renders the terms dialog CookieMessage.svelte unconditionally (LayoutMobile.svelte:17) containing another <LynxMain /> (:28); the dialog is only CSS-hidden once cookies are accepted, so <img id=\"happy\"> (LynxMain.svelte:30) is in the DOM twice"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/lib/components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:220::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:220: literal <div> whose nearest enclosing element in the same template is a literal <ol> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <div> is outside <ol>'s content model as reported; the <div>s are the {#await} pending/footer/catch arms rendered directly in <ol class=suggestions> (Searchbar.svelte:142-163 pattern)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/lib/components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:233::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:233: literal <div> whose nearest enclosing element in the same template is a literal <ol> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <div> is outside <ol>'s content model as reported; the <div>s are the {#await} pending/footer/catch arms rendered directly in <ol class=suggestions> (Searchbar.svelte:142-163 pattern)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/lib/components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:235::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:235: literal <div> whose nearest enclosing element in the same template is a literal <ol> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <div> is outside <ol>'s content model as reported; the <div>s are the {#await} pending/footer/catch arms rendered directly in <ol class=suggestions> (Searchbar.svelte:142-163 pattern)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/lib/components/kurosearch/searchbar/Searchbar.svelte:144::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/searchbar/Searchbar.svelte:144: literal <div> whose nearest enclosing element in the same template is a literal <ol> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <div> is outside <ol>'s content model as reported; the <div>s are the {#await} pending/footer/catch arms rendered directly in <ol class=suggestions> (Searchbar.svelte:142-163 pattern)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/lib/components/kurosearch/searchbar/Searchbar.svelte:157::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/searchbar/Searchbar.svelte:157: literal <div> whose nearest enclosing element in the same template is a literal <ol> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <div> is outside <ol>'s content model as reported; the <div>s are the {#await} pending/footer/catch arms rendered directly in <ol class=suggestions> (Searchbar.svelte:142-163 pattern)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/lib/components/kurosearch/searchbar/Searchbar.svelte:159::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): components/kurosearch/searchbar/Searchbar.svelte:159: literal <div> whose nearest enclosing element in the same template is a literal <ol> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <div> is outside <ol>'s content model as reported; the <div>s are the {#await} pending/footer/catch arms rendered directly in <ol class=suggestions> (Searchbar.svelte:142-163 pattern)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/routes/query/+page.svelte:123::`<p>` is not permitted content here — `<code>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): query/+page.svelte:123: literal <p> whose nearest enclosing element in the same template is a literal <code> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <p> is outside <code>'s content model as reported"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/routes/query/+page.svelte:125::`<p>` is not permitted content here — `<code>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): query/+page.svelte:125: literal <p> whose nearest enclosing element in the same template is a literal <code> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <p> is outside <code>'s content model as reported"
+  },
+  {
+    "key": "kurozenzen/kurosearch::a11y/permitted-contents::src/routes/query/+page.svelte:127::`<p>` is not permitted content here — `<code>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): query/+page.svelte:127: literal <p> whose nearest enclosing element in the same template is a literal <code> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <p> is outside <code>'s content model as reported"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/component-size::src/lib/components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte has 374 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/component-size::src/lib/components/kurosearch/searchbar/Searchbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/kurosearch/searchbar/Searchbar.svelte has 225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/component-size::src/routes/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/+page.svelte has 433 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/component-size::src/routes/help/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/+page.svelte has 389 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/component-size::src/routes/preferences/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/preferences/+page.svelte has 289 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/prop-count::src/lib/components/kurosearch/dialog-confirm/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/kurosearch/dialog-confirm/ConfirmDialog.svelte has a single destructured $props() with 7 named props (> 6): dialog, title, warning, labelConfirm, labelCancel, onconfirm, onclose"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/prop-count::src/lib/components/kurosearch/post-fullscreen/Screen.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/kurosearch/post-fullscreen/Screen.svelte has a single destructured $props() with 7 named props (> 6): offset, step, index, startAt, onended, ondetails, onVisible"
+  },
+  {
+    "key": "kurozenzen/kurosearch::architecture/prop-count::src/lib/components/kurosearch/post-overlay/PostOverlay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/kurosearch/post-overlay/PostOverlay.svelte has a single destructured $props() with 10 named props (> 6): onfullscreen, paused, loading, ontoggleplay, currentTime, bufferedTime, duration, ondetails, mediaType, hidden"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/dialog-create-supertag/CreateSupertagDialog.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: CreateSupertagDialog.svelte:46 '{#each tags as tag}' has no key; tags prop, the user's currently active search tags turned into a supertag; runtime data"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/dialog-edit-supertag/EditSupertagDialog.svelte:48::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: EditSupertagDialog.svelte:48 '{#each newSupertag.tags as tag, i}' has no key; newSupertag $state copy (21) whose tags the user removes in the dialog; runtime data, items removed mid-list"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/post-comment/Comments.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Comments.svelte:20 '{#each comments as comment}' has no key; comments of a post fetched from the API ({:then comments}, 17); runtime records"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/post/Sources.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Sources.svelte:43 '{#each links as link}' has no key; links = $derived([...]) of one post (the post URL, its rule34 URL and the URLs split from post.source, 25-30); positional list of one post's links"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/results/ZeroResults.svelte:103::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ZeroResults.svelte:103 '{#each conflictingTags as error}' has no key; conflictingTags = $derived(validateTags($activeTagsStore, …)) (88-90), validation errors that change as the user edits the tags; runtime data"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/searchbar-desktop/SearchbarDesktop.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: SearchbarDesktop.svelte:225 '{#each suggestions as suggestion, index}' has no key; tag suggestions fetched for the typed text; runtime results that change with input"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/searchbar/Searchbar.svelte:149::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Searchbar.svelte:149 '{#each suggestions as suggestion, index}' has no key; tag suggestions fetched for the typed text; runtime results that change with input"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/supertag/Supertag.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: Supertag.svelte:46 '{#each supertag.tags as tag}' has no key; the tags of a user-defined supertag (supertag prop, 13), edited via EditSupertagDialog; runtime data"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/tag-list/ActiveTagList.svelte:19::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ActiveTagList.svelte:19 '{#each tags as tag}' has no key; tags prop, the user's active search tags, added and removed; runtime data"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/kurosearch/tag-list/PostDetailsTagList.svelte:14::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: PostDetailsTagList.svelte:14 '{#each tags as tag}' has no key; tags prop, the tags of a post from the API (runtime records that differ per post)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/pure/radio-group/RadioGroup.svelte:12::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: RadioGroup.svelte:12 '{#each Object.entries(options) as [key, label]}' has no key; every caller passes a constant LABELS_* object (SortFilterDialog.svelte:70, QuickSearch.svelte:90-98); static list of options"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/lib/components/pure/select/Select.svelte:11::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Select.svelte:11 '{#each Object.entries(options) as [value, label]}' has no key; every caller passes a constant options object (LABELS_SORT_PROPERTY, THEME_OPTIONS, RESULT_COLUMNS_OPTIONS, a literal in routes/test); static list of options"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/account/+page.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: account/+page.svelte:225 '{#each $supertags.items as supertag}' has no key; the user's supertags store, which they create and delete; runtime data"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/favourites/+page.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: favourites/+page.svelte:63 '{#each favouriteTags as tag}' has no key; favouriteTags = $derived (33) from the IndexedDB favourite posts, filtered/sorted/limited by user selects; runtime data"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/preferences/+page.svelte:158::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: preferences/+page.svelte:158 '{#each ALL_BLOCKING_GROUPS as groupName}' has no key; ALL_BLOCKING_GROUPS = Object.freeze([ … ]) (lib/logic/blocking-group-data.ts:1), a call rather than an array-literal export, so the docs keep it reported; static list fixed at author time"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/query/+page.svelte:124::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: query/+page.svelte:124 '{#each fixedParams as p}' has no key; fixedParams = $derived filter of one parsed query URL's searchParams (59-64); positional list (parts of one string)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/statistics/+page.svelte:103::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: statistics/+page.svelte:103 '{#each Object.entries(aspectRatios) as [ratio, count]}' has no key; aspectRatios computed once at init from the bundled $lib/assets/posts.json (3, 43, 68); static list"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/statistics/+page.svelte:76::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: statistics/+page.svelte:76 '{#each tagsByType.character.slice(0, 50) as tag}' has no key; tagsByType computed once at init from the bundled $lib/assets/tags.json (2, 7, 16); static list"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/statistics/+page.svelte:85::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: statistics/+page.svelte:85 '{#each tagsByType.copyright.slice(0, 50) as tag}' has no key; tagsByType computed once at init from the bundled $lib/assets/tags.json (2, 7, 16); static list"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/each-key::src/routes/statistics/+page.svelte:94::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: statistics/+page.svelte:94 '{#each artists.slice(0, 50) as artist}' has no key; artists computed once at init from the bundled tags.json/posts.json (19, 41); static list"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/effect-as-derived::src/lib/components/kurosearch/dialog-sort-filter/NumberInput.svelte:23::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: NumberInput.svelte:23-25 the effect only does internalValue = `${value}` (prop); the other write is bind:value (33), the writable-$derived override pattern (svelte 5.56.8)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/effect-as-onmount::src/lib/components/kurosearch/post-fullscreen/FullscreenScroller.svelte:76::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: FullscreenScroller.svelte:76-78 the effect only does outer.scrollLeft = 0, where outer is a plain let bound with bind:this (21, 89); nothing reactive is read, so it runs once after mount (onMount), as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/instance-browser-global::src/lib/components/kurosearch/post-details/PostDetailsTab.svelte:21::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: PostDetailsTab.svelte:21 window.location in a $derived rendered by the template (claim structurally true; routes/+layout.ts prerender = true, ssr = true), but its only render site SingleColumnPost is rendered from search results (+page.svelte {:else if $results.hasPage}, results-store.ts:20 hasPage false until a client fetch) or the IndexedDB favourites list (empty until getAllFavouritePosts resolves in the browser), so it never renders on the server"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/instance-browser-global::src/lib/components/kurosearch/post-fullscreen/Screen.svelte:22::IntersectionObserver is accessed during component initialisation — during SSR this runs on the server, where IntersectionObserver is not defined",
+    "verdict": "design",
+    "basis": "read: Screen.svelte:22 new IntersectionObserver at instance top level (structurally true, SSR on), but Screen is rendered only by FullscreenScroller inside FullscreenPost, which Results.svelte:114 opens from a result the client fetched ($results.hasPage false on the server, results-store.ts:20), so it never runs on the server"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/instance-browser-global::src/lib/components/kurosearch/post/Sources.svelte:26::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: Sources.svelte:26 window.location in a $derived rendered by the template (structurally true, SSR on), but its only render site is PostDetailsTab inside SingleColumnPost, rendered only for client-fetched results or IndexedDB favourites (empty on the server), so it never renders on the server"
+  },
+  {
+    "key": "kurozenzen/kurosearch::correctness/instance-browser-global::src/lib/components/pure/intersection-detector/IntersectionDetector.svelte:10::IntersectionObserver is accessed during component initialisation — during SSR this runs on the server, where IntersectionObserver is not defined",
+    "verdict": "design",
+    "basis": "read: IntersectionDetector.svelte:10 new IntersectionObserver at instance top level (structurally true, SSR on), but every render site (routes/+page.svelte:75, result-wrapper/ResultWrapper.svelte:45, FullscreenScroller:94) sits under {:else if $results.hasPage}, false on the server (results-store.ts:20, filled client-side) or inside the fullscreen view, so it never runs on the server"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/iframe-loading::src/routes/troubleshoot/+page.svelte:63::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "read: <iframe> has no loading attribute and no spread; a 500px frame of the full rule34.xxx listing page in the last section, after the Network Checks list (troubleshoot/+page.svelte:12-60) - can sit offscreen on load"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/image-dimensions::src/routes/about/+page.svelte:39::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: logo with scoped img {width:60px; height:60px} (about/+page.svelte:101-104) - box reserved by CSS"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/image-dimensions::src/routes/test/+page.svelte:113::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: lynx .webp with img {max-width:200px; height:auto} (test/+page.svelte:121-124) - the natural size decides the box"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/image-dimensions::src/routes/test/+page.svelte:115::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: lynx .webp with img {max-width:200px; height:auto} (test/+page.svelte:121-124) - the natural size decides the box"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/image-loading-hint::src/routes/about/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: favicon.svg logo in the first 'Version' block under the page title - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/image-loading-hint::src/routes/test/+page.svelte:113::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: lynx image at the end of the long component test page - offscreen on load"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/image-loading-hint::src/routes/test/+page.svelte:115::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: lynx image at the end of the long component test page - offscreen on load"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/responsive-image::src/routes/test/+page.svelte:113::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: imported $lib/assets/lynxy-chibi*.webp raster - one fixed-size asset"
+  },
+  {
+    "key": "kurozenzen/kurosearch::performance/responsive-image::src/routes/test/+page.svelte:115::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: imported $lib/assets/lynxy-chibi*.webp raster - one fixed-size asset"
+  },
+  {
+    "key": "kurozenzen/kurosearch::security/raw-html::src/lib/components/kurosearch/kurosearch-title/KurosearchTitle.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read KurosearchTitle.svelte:2-24: title is the literal \"kurosearch\" or \"kur🎅search\" from getTitle() - repo constant, reported per docs"
+  },
+  {
+    "key": "kurozenzen/kurosearch::security/raw-html::src/routes/query/+page.svelte:119::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/query/+page.svelte:39-55,119: query is a WHATWG URL object (getQueryUrl -> new URL(SearchBuilder.getQuery())) - its serialization percent-encodes < > \" in path, query and fragment, so no markup can be injected; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /debug (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/favourites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /favourites (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /help (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/post/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /post (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/preferences/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /preferences (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/query/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /query (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/select/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /select (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/share/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /share (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) but not a search target (route renders no content, only a client redirect stub: share/+page.svelte applies URL params to stores then sets location.href = \"/\"), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/statistics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /statistics (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/test/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /test (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/canonical-url::src/routes/troubleshoot/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /troubleshoot (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library) ; publicly reachable, rendered route (static/robots.txt Allow: /, no load gate, no noindex)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/about/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Further information about the website can be found here.\"> at src/routes/about/+page.svelte:32, top-level svelte:head, grapheme count = 56 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/account/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"All of your account data is available on this page.\"> at src/routes/account/+page.svelte:207, top-level svelte:head, grapheme count = 51 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/debug/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Debugging tools for kurosearch.\"> at src/routes/debug/+page.svelte:27, top-level svelte:head, grapheme count = 31 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/favourites/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Your favourite posts.\"> at src/routes/favourites/+page.svelte:40, top-level svelte:head, grapheme count = 21 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/post/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"View a single post.\"> at src/routes/post/+page.svelte:19, top-level svelte:head, grapheme count = 19 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/preferences/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Customize your kurosearch browsing experience however you like.\"> at src/routes/preferences/+page.svelte:82, top-level svelte:head, grapheme count = 63 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/test/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Frontend test layouts.\"> at src/routes/test/+page.svelte:67, top-level svelte:head, grapheme count = 22 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-length::src/routes/troubleshoot/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Diagnose issues while using kurosearch.\"> at src/routes/troubleshoot/+page.svelte:9, top-level svelte:head, grapheme count = 39 as reported, the route's only description): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-presence::src/routes/share/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> in share/+page.svelte or its +layout.svelte/LayoutMobile, none in app.html): /share has no description; it is listed in static/sitemap.xml (the site submits it to search) and prerendered without noindex, so the missing description is what crawlers get"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/description-presence::src/routes/statistics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <svelte:head> in statistics/+page.svelte or its +layout.svelte/LayoutMobile, none in app.html) (literal claim holds); but /statistics is an unlinked page charting the bundled lib/assets tags.json/posts.json (no link to it in src, not in static/sitemap.xml), not a page for search"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:40-41, desktop/+page.svelte:22-23 and select/+page.svelte:11-12 carry the identical literal description \"Simple and powerful Rule34/Hentai browsing site …\" in their top-level svelte:head, duplicate as claimed; all three are public prerendered pages (/ and /desktop in static/sitemap.xml, /select linked from the header LinkSelect and News), no noindex"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/duplicate-description::src/routes/desktop/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:40-41, desktop/+page.svelte:22-23 and select/+page.svelte:11-12 carry the identical literal description \"Simple and powerful Rule34/Hentai browsing site …\" in their top-level svelte:head, duplicate as claimed; all three are public prerendered pages (/ and /desktop in static/sitemap.xml, /select linked from the header LinkSelect and News), no noindex"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/duplicate-description::src/routes/select/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:40-41, desktop/+page.svelte:22-23 and select/+page.svelte:11-12 carry the identical literal description \"Simple and powerful Rule34/Hentai browsing site …\" in their top-level svelte:head, duplicate as claimed; all three are public prerendered pages (/ and /desktop in static/sitemap.xml, /select linked from the header LinkSelect and News), no noindex"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:38 and select/+page.svelte:9 both literal <title>kurosearch - Rule34 Hentai</title>, duplicate as claimed; both public prerendered pages (/ in static/sitemap.xml, /select linked from the header LinkSelect), no noindex, so they compete"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/duplicate-title::src/routes/select/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:38 and select/+page.svelte:9 both literal <title>kurosearch - Rule34 Hentai</title>, duplicate as claimed; both public prerendered pages (/ in static/sitemap.xml, /select linked from the header LinkSelect), no noindex, so they compete"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): / (src/routes/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /about (src/routes/about/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /account (src/routes/account/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /debug (src/routes/debug/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/desktop/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /desktop (src/routes/desktop/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/favourites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /favourites (src/routes/favourites/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /help (src/routes/help/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/post/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /post (src/routes/post/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/preferences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /preferences (src/routes/preferences/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/query/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /query (src/routes/query/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/select/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /select (src/routes/select/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/share/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /share (src/routes/share/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/statistics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /statistics (src/routes/statistics/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/test/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /test (src/routes/test/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/json-ld::src/routes/troubleshoot/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo grep for ld+json/@context/jsonld/schema.org: no hit; no meta-tag library in deps): /troubleshoot (src/routes/troubleshoot/+page.svelte) renders no JSON-LD through its page, its layout/LayoutCommon or app.html"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/debug/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /debug (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/desktop/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /desktop (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/favourites/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /favourites (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/help/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /help (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/post/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /post (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/preferences/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /preferences (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/query/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /query (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/select/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /select (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/share/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /share (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/statistics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /statistics (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/test/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /test (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-description::src/routes/troubleshoot/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /troubleshoot (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /debug (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/desktop/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /desktop (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/favourites/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /favourites (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/help/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /help (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/post/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /post (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/preferences/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /preferences (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/query/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /query (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/select/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /select (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/share/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /share (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/statistics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /statistics (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/test/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /test (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-image::src/routes/troubleshoot/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /troubleshoot (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/debug/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /debug (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/desktop/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /desktop (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/favourites/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /favourites (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/help/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /help (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/post/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /post (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/preferences/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /preferences (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/query/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /query (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/select/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /select (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/share/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /share (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/statistics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /statistics (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/test/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /test (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-title::src/routes/troubleshoot/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /troubleshoot (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/debug/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /debug (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/desktop/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /desktop (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/favourites/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /favourites (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/help/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /help (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/post/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /post (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/preferences/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /preferences (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/query/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /query (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/select/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /select (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/share/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /share (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/statistics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /statistics (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/test/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /test (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/og-url::src/routes/troubleshoot/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /troubleshoot (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/single-h1::/share::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: share/+page.svelte renders no markup (script applies URL params then goto search); share/+layout.svelte renders LayoutMobile, which has no heading; the app's <h1>s are in Heading1/PageGeneric, KurosearchTitle, HeaderDesktop and PostDetailsFull, none on this route"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/single-h1::src/lib/components/kurosearch/post-details/PostDetailsFull.svelte:23::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers / and /desktop: each has one page <h1> (KurosearchTitle via SearchForm on /, HeaderDesktop on /desktop); the counted second is PostDetailsFull's <h1> (:23), rendered only once the user opens a post (Results {#if fullscreenIndex !== undefined} -> FullscreenPost, desktop {#if activePost !== undefined} -> ActivePostDesktop) - closed overlay by default"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/single-h1::src/routes/statistics/+page.svelte:74::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: statistics/+page.svelte has only <h2> sections (:74 Character, Copyright, …) inside LayoutMobile (no heading) -> no <h1>"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/sitemap-in-robots::(site)::robots.txt does not reference your sitemap",
+    "verdict": "tp",
+    "basis": "read: static/robots.txt is \"User-agent: * / Allow: /\" with no Sitemap: line while static/sitemap.xml exists; no robots +server endpoint; public site (kurosearch.com)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Rule34 Hentai\" at src/routes/+page.svelte:38 in a top-level svelte:head, grapheme count = 26 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - About\" at src/routes/about/+page.svelte:31 in a top-level svelte:head, grapheme count = 18 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Account\" at src/routes/account/+page.svelte:206 in a top-level svelte:head, grapheme count = 20 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/debug/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Debugger\" at src/routes/debug/+page.svelte:26 in a top-level svelte:head, grapheme count = 21 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/desktop/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Desktop\" at src/routes/desktop/+page.svelte:20 in a top-level svelte:head, grapheme count = 20 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/favourites/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Favourites\" at src/routes/favourites/+page.svelte:39 in a top-level svelte:head, grapheme count = 23 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/help/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Documentation\" at src/routes/help/+page.svelte:14 in a top-level svelte:head, grapheme count = 26 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/preferences/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Preferences\" at src/routes/preferences/+page.svelte:81 in a top-level svelte:head, grapheme count = 24 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/query/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Query Builder\" at src/routes/query/+page.svelte:74 in a top-level svelte:head, grapheme count = 26 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/select/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Rule34 Hentai\" at src/routes/select/+page.svelte:9 in a top-level svelte:head, grapheme count = 26 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/test/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Component Test\" at src/routes/test/+page.svelte:66 in a top-level svelte:head, grapheme count = 27 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-length::src/routes/troubleshoot/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"kurosearch - Troubleshoot\" at src/routes/troubleshoot/+page.svelte:8 in a top-level svelte:head, grapheme count = 25 as reported; no root +layout.svelte and its route layout/LayoutCommon set no title): public prerendered (root +layout.ts prerender/ssr true) page of kurosearch.com, no noindex, robots.txt Allow: /, and listed in static/sitemap.xml; too short as claimed"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-presence::src/routes/share/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: share/+page.svelte has no svelte:head (script applies URL tags then sets location.href='/' in the browser only), share/+layout.svelte -> LayoutMobile -> LayoutCommon head is an inline theme <script> only, CookieMessage head is a cookies <script>, app.html has no <title>, no document.title write in src, no Svelte npm deps; prerendered (+layout.ts prerender/ssr true) share-link landing that url-parsing.ts:119 generates for visitors, served untitled"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/title-presence::src/routes/statistics/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: statistics/+page.svelte has no svelte:head, statistics/+layout.svelte -> LayoutMobile/LayoutCommon add only inline <script>s, app.html no <title>, no document.title (literal claim holds); but the page is linked from nowhere in src and only charts the 10 MB src/lib/assets/posts.json + tags.json dumps no other file imports (top-50 tag lists, aspect-ratio histogram, no <h1>): a developer data-exploration page, not a page for visitors (motis-project/prima statistics unlinked developer page precedent)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/debug/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /debug (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/desktop/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /desktop (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/favourites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /favourites (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/help/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /help (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/post/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /post (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/preferences/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /preferences (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/query/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /query (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/select/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /select (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/share/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /share (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/statistics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /statistics (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/test/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /test (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  },
+  {
+    "key": "kurozenzen/kurosearch::seo/twitter-card::src/routes/troubleshoot/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /troubleshoot (read + grep: no og:*/twitter:* anywhere in src or app.html (grep; app.html is keywords/icon/viewport/theme-color/manifest/preconnect); the only rel=canonical emitters are routes/+page.svelte:43 and desktop/+page.svelte:25, not this route; per-dir +layout.svelte only wraps LayoutMobile; prerender=true ssr=true (+layout.ts); no meta-tag library)"
+  }
+]

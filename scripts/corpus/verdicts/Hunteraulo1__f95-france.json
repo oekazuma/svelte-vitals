@@ -1,0 +1,1507 @@
+[
+  {
+    "key": "Hunteraulo1/f95-france::a11y/aria-hidden-focus::src/lib/components/dashboard/YoutubeAudioPlayer.svelte:187::<iframe> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read YoutubeAudioPlayer.svelte:185-195: <iframe title=\"Lecteur YouTube\"> (no tabindex) inside <div class=\"yt-audio-player-host\" aria-hidden=\"true\">, which CSS only clips to 1px (:272-280, not display:none/inert), so the embedded player stays in the tab order while hidden from AT"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/disallowed-aria-props::src/lib/components/ExtensionBanner.svelte:43::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at lib/components/ExtensionBanner.svelte:43 carries aria-labelledby with no role attribute, no spread and no use: action, so it resolves to generic, where ARIA 1.3 prohibits naming"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/disallowed-aria-props::src/lib/components/Header.svelte:127::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/Header.svelte:127: <label for aria-label> with no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (all 9 prior <label> verdicts are design)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/disallowed-aria-props::src/lib/components/Header.svelte:134::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/Header.svelte:134: <label aria-label> with no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (all 9 prior <label> verdicts are design)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/disallowed-aria-props::src/lib/components/Header.svelte:62::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/Header.svelte:62: <label for aria-label> with no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (all 9 prior <label> verdicts are design)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/disallowed-aria-props::src/lib/components/InfiniteScrollSentinel.svelte:44::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <span> at lib/components/InfiniteScrollSentinel.svelte:44 carries aria-label with no role attribute, no spread and no use: action, so it resolves to generic, where ARIA 1.3 prohibits naming"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/disallowed-aria-props::src/lib/components/dashboard/Sidebar.svelte:242::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/dashboard/Sidebar.svelte:242: <label for aria-label> with no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (all 9 prior <label> verdicts are design)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/id-duplication::src/lib/components/dashboard/AddTraductorModal.svelte:104::Duplicate id \"newTranslatorName\"",
+    "verdict": "design",
+    "basis": "read: add-translation/+page.svelte:285/:296 render two Datalist instances (translator / proofreader), each with its own AddTraductorModal (formGame/Datalist.svelte:89); input#newTranslatorName is inside DaisyDashboardModal {#if open} (<dialog class=\"modal modal-open\">), each opened by its own button; two modals never open together; documented separate-{#if} co-render model (dialog precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/interactive-nesting::src/lib/components/dashboard/Notifications.svelte:244::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs) + read: interactive element at lib/components/dashboard/Notifications.svelte:244 is a literal descendant of the container <div role=\"button\"> in the same template, no component boundary between"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/lib/components/dashboard/Sidebar.svelte:251::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/dashboard/Sidebar.svelte:251 has nearest literal non-transparent element ancestor <ul> (line 247) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <ul>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/lib/components/dashboard/Sidebar.svelte:267::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/dashboard/Sidebar.svelte:267 has nearest literal non-transparent element ancestor <span> (line 264) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/lib/components/dashboard/Sidebar.svelte:272::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/dashboard/Sidebar.svelte:272 has nearest literal non-transparent element ancestor <span> (line 264) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/lib/components/dashboard/Sidebar.svelte:285::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/dashboard/Sidebar.svelte:285 has nearest literal non-transparent element ancestor <ul> (line 247) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <ul>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/lib/components/games/GamesFilterContent.svelte:386::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/games/GamesFilterContent.svelte:386 has nearest literal non-transparent element ancestor <label> (line 382) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <label>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/routes/dashboard/auto-check/+page.svelte:90::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at routes/dashboard/auto-check/+page.svelte:90 has nearest literal non-transparent element ancestor <button> (line 85) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/routes/dashboard/logs-app/+page.svelte:363::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at routes/dashboard/logs-app/+page.svelte:363 has nearest literal non-transparent element ancestor <label> (line 361) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <label>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/routes/dashboard/logs/+page.svelte:377::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at routes/dashboard/logs/+page.svelte:377 has nearest literal non-transparent element ancestor <label> (line 375) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <label>'s content model as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/routes/updates/+page.svelte:215::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <dd> at routes/updates/+page.svelte:215 has nearest literal non-transparent element ancestor <div> (line 213) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <dd> is outside <div>'s content model as reported; the <div> parent is not itself a <dl> child (its parent is div@212), so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/routes/updates/+page.svelte:251::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <dd> at routes/updates/+page.svelte:251 has nearest literal non-transparent element ancestor <div> (line 212) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <dd> is outside <div>'s content model as reported; the <div> parent is not itself a <dl> child (its parent is li@188), so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/permitted-contents::src/routes/updates/+page.svelte:262::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <dd> at routes/updates/+page.svelte:262 has nearest literal non-transparent element ancestor <div> (line 212) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <dd> is outside <div>'s content model as reported; the <div> parent is not itself a <dl> child (its parent is li@188), so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/dev/DevF95ScrapeCard.svelte:61::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read DevF95ScrapeCard.svelte:61-70: unbound <select required> on the dev page whose first option <option value=\"f95z\" selected> is the only enabled option (the other is disabled \"bientôt\"); a placeholder would add nothing, preselected valid default is intentional (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/game/AddTranslationModal.svelte:117::<select required> is missing a placeholder label option",
+    "verdict": "tp",
+    "basis": "read AddTranslationModal.svelte:117-123: <select required bind:value={newTranslation.tname}> whose first option is <option value=\"no_translation\">; newTranslation is a $bindable prop with no default and the component is imported nowhere in the repo, so no prefilled value is shown; no placeholder label option as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/game/AddTranslationModal.svelte:134::<select required> is missing a placeholder label option",
+    "verdict": "tp",
+    "basis": "read AddTranslationModal.svelte:134-140: <select required bind:value={newTranslation.status}> whose first option is <option value=\"in_progress\">; newTranslation is a $bindable prop with no default and the component is imported nowhere in the repo; no placeholder label option as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/game/AddTranslationModal.svelte:150::<select required> is missing a placeholder label option",
+    "verdict": "tp",
+    "basis": "read AddTranslationModal.svelte:150-157: <select required bind:value={newTranslation.ttype}> whose first option is <option value=\"vf\">; newTranslation is a $bindable prop with no default and the component is imported nowhere in the repo; no placeholder label option as reported"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/submissions/SubmissionModalGameEditFields.svelte:48::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read :48-55: edit-form <select required bind:value={editGameWebsite}>, $bindable('f95z') and bound from SubmissionModal.svelte:46 $state('f95z'), prefilled from the submission (:100); always holds a valid value (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/submissions/SubmissionModalStatusPanel.svelte:37::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read :37-45: <select required bind:value={selectedStatus}>, $bindable('pending') and bound from SubmissionModal.svelte:41 $state('pending'), set to submission.status (:90); always holds the current valid status (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte:107::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read :107-114: edit-form <select required bind:value={editTranslationStatus}>, $bindable('in_progress') (:9), bound from SubmissionModal.svelte:58 and prefilled from the submission (:128); always holds a valid value (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte:123::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read :123-130: edit-form <select required bind:value={editTranslationGameType}>, $bindable('other') (:11), bound from SubmissionModal.svelte and prefilled from the submission; always holds a valid value (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte:144::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read :144-151: edit-form <select required bind:value={editTranslationTtype}>, $bindable('manual') (:10), bound from SubmissionModal.svelte and prefilled from the submission; always holds a valid value (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::a11y/placeholder-label-option::src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte:89::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read :89-97: edit-form <select required bind:value={editTranslationTname}>, $bindable('translation') (:7), bound from SubmissionModal.svelte:56 and prefilled from the submission (:126); always holds a valid value (revel precedent)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Header.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/Notifications.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/Notifications.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/ProfileEdit.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/ProfileEdit.svelte has 462 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/ProfileView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/ProfileView.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/ServicesStatusCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/ServicesStatusCard.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/Sidebar.svelte has 324 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/YoutubeAudioPlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/YoutubeAudioPlayer.svelte has 287 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/formGame/Input.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/formGame/Input.svelte has 225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/game/AddTranslationModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/game/AddTranslationModal.svelte has 386 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/game/EditGameModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/game/EditGameModal.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/game/EditTranslationModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/game/EditTranslationModal.svelte has 447 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/game/GameUpdateHistoryPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/game/GameUpdateHistoryPanel.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/submissions/SubmissionCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/submissions/SubmissionCard.svelte has 350 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/submissions/SubmissionModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/submissions/SubmissionModal.svelte has 500 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/submissions/SubmissionModalDetailsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/submissions/SubmissionModalDetailsPanel.svelte has 442 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte has 231 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/games/GamesFilterContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/games/GamesFilterContent.svelte has 419 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/lib/components/home/HomeHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/home/HomeHero.svelte has 385 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 222 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 362 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/account/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/account/login/+page.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/account/register/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/account/register/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/api-keys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/api-keys/+page.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/api-management/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/api-management/+page.svelte has 258 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/auto-check/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/auto-check/+page.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/become-translator/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/become-translator/+page.svelte has 259 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/logs-app/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/logs-app/+page.svelte has 519 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/logs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/logs/+page.svelte has 597 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/manager/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/manager/+page.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/manager/add-game/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/manager/add-game/+page.svelte has 1209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/manager/game/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/manager/game/[id]/+page.svelte has 796 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/manager/game/[id]/add-translation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/manager/game/[id]/add-translation/+page.svelte has 359 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/manager/game/[id]/edit-game/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/manager/game/[id]/edit-game/+page.svelte has 263 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.svelte has 378 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/my-translations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/my-translations/+page.svelte has 518 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/roles/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/roles/+page.svelte has 591 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/settings/+page.svelte has 745 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/translators/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/translators/+page.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/dashboard/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/users/+page.svelte has 541 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/games/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/+page.svelte has 514 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/games/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[id]/+page.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/translators/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/translators/+page.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/component-size::src/routes/updates/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/updates/+page.svelte has 550 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/DaisyDashboardModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/DaisyDashboardModal.svelte has a single destructured $props() with 8 named props (> 6): open, title, description, maxWidthClass, scrollBody, children, footer, onClose"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/ProfileEdit.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/ProfileEdit.svelte has a single destructured $props() with 9 named props (> 6): username, avatar, publicProfileHref, profileCustomize, customProfile, linkedTranslator, translatorPagesWriteMode, roleEditMode, directMode"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/ProfileTranslations.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/ProfileTranslations.svelte has a single destructured $props() with 7 named props (> 6): translations, totalCount, page, totalPages, translationsApiPath, translationStats, translatorName"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/ProfileView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/ProfileView.svelte has a single destructured $props() with 12 named props (> 6): user, profileStats, customProfile, translatorLinks, linkedTranslator, translations, translationsTotal, translationsPage, translationsTotalPages, translationsApiPath, editProfileHref, musicUrl"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/Sidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/Sidebar.svelte has a single destructured $props() with 8 named props (> 6): pendingSubmissionsCount, pendingTranslatorApplicationsCount, hasLinkedTranslator, canReturnToOwnAccount, devOriginUsername, permissions, userRole, hasUser"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/TranslatorContributorInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/TranslatorContributorInput.svelte has a single destructured $props() with 11 named props (> 6): id, listId, label, placeholder, value, baseTranslators, extraTranslators, addTranslatorMode, pendingNewTranslators, inputClass, onDirectTranslatorCreated"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/formGame/Checkbox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/formGame/Checkbox.svelte has a single destructured $props() with 7 named props (> 6): title, active, step, name, game, invalid, warn"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/formGame/Datalist.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/formGame/Datalist.svelte has a single destructured $props() with 10 named props (> 6): title, className, active, step, name, game, translators, invalid, addTranslatorMode, pendingNewTranslators"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/formGame/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/formGame/Input.svelte has a single destructured $props() with 12 named props (> 6): title, className, active, step, name, type, children, attributes, game, invalid, warn, onBlurCommit"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/formGame/InputImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/formGame/InputImage.svelte has a single destructured $props() with 8 named props (> 6): step, title, active, name, game, invalid, warn, readonly"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/formGame/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/formGame/Select.svelte has a single destructured $props() with 10 named props (> 6): values, selectOptions, title, className, active, step, name, game, invalid, warn"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/formGame/Textarea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/formGame/Textarea.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: title, className, active, step, name, game, invalid, warn"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/game/AddTranslationModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/game/AddTranslationModal.svelte has a single destructured $props() with 15 named props (> 6): open, game, translators, newTranslation, addTranslationSilentMode, extraTranslators, pendingNewTranslators, canManageGameAutoCheck, canUseSilentMode, translationAcUiAllowed, addContributorMode, addTranslationAutoCheckPreview, addTranslationTversionLocked, onClose, onSubmit"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/game/EditGameModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/game/EditGameModal.svelte has a single destructured $props() with 9 named props (> 6): open, gameWebsite, editingGame, showImagePreview, canManageGameAutoCheck, editGameAutoCheckAllowed, requireImage, onClose, onSubmit"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/game/EditTranslationModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/game/EditTranslationModal.svelte has a single destructured $props() with 18 named props (> 6): open, game, translators, editingTranslation, editTranslationSilentMode, extraTranslators, pendingNewTranslators, canShowInternalIds, canManageGameAutoCheck, canUseSilentMode, canManuallyEditTranslationAc, canShowTranslationAcCheckbox, editTranslationLinkNotRequired, editTranslationVersionsLockedByAc, editTranslationReferenceVersionLockedByAc, addContributorMode, onClose, onSubmit"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/game/GameUpdateHistoryPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/game/GameUpdateHistoryPanel.svelte has a single destructured $props() with 8 named props (> 6): gameId, canRevert, history, historyPage, historyTotalPages, historyTotalCount, translators, translations"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/roles/RoleOptionRadios.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/roles/RoleOptionRadios.svelte has a single destructured $props() with 9 named props (> 6): legend, hint, name, options, checkedValue, disabled, compact, vertical, label"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/submissions/SubmissionFilters.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/submissions/SubmissionFilters.svelte has a single destructured $props() with 8 named props (> 6): currentFilter, pendingCount, openedCount, acceptedCount, rejectedCount, toFixCount, disabled, onFilterChange"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/submissions/SubmissionModalGameEditFields.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/submissions/SubmissionModalGameEditFields.svelte has a single destructured $props() with 9 named props (> 6): editGameName, editGameDescription, editGameWebsite, editGameThreadId, editGameTags, editGameLink, editGameImage, editGameGameVersion, requireGameImage"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/submissions/SubmissionModalStatusPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/submissions/SubmissionModalStatusPanel.svelte has a single destructured $props() with 8 named props (> 6): selectedStatus, adminNotesText, statusError, hasNotesError, isStatusRequiringAdminNote, canModerateSubmission, submitting, onClose"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/dashboard/submissions/SubmissionModalTranslationEditFields.svelte has a single destructured $props() with 15 named props (> 6): editTranslationTranslationName, editTranslationVersion, editTranslationTname, editTranslationTversion, editTranslationStatus, editTranslationTtype, editTranslationGameType, editTranslationTlink, editTranslationAc, editTranslationTranslatorId, editTranslationProofreaderId, translators, translationVersionRequired, translationVersionLocked, onEditTranslationTnameChange"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::architecture/prop-count::src/lib/components/games/GamesFilterContent.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/games/GamesFilterContent.svelte has a single destructured $props() with 21 named props (> 6): query, sort, filterGroups, translatorIds, basePath, sortOptions, defaultSort, savedFiltersKey, savedFiltersApiPath, maxSavedFilters, buildSearchParams, createDefaultFilterGroups, cloneGroups, isAuthenticated, initialSavedFilters, disabled, showSort, showTagsExpandToggle, tagsExpanded, showViewModeToggle, viewMode"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:123::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:123 '{#each block.headers ...}' keyed by its index binding; block.headers of a parsed markdown table node; positional list (markdown table header cells)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:129::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:129 '{#each block.rows ...}' keyed by its index binding; block.rows of a parsed markdown table node; positional list (markdown table rows)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:131::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:131 '{#each row ...}' keyed by its index binding; cells of one parsed markdown table row; positional list (table cells)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:48::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:48 '{#each nodes ...}' keyed by its index binding; inline nodes of parsed markdown in the inlines snippet; positional list (text/markdown segments)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:75 '{#each items ...}' keyed by its index binding; markdown list items in the listItems snippet; positional list (markdown blocks of one document)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:83::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:83 '{#each items ...}' keyed by its index binding; markdown list items in the listItems snippet; positional list (markdown blocks of one document)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/MarkdownContent.svelte:93::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MarkdownContent.svelte:93 '{#each nodes ...}' keyed by its index binding; block nodes of parsed markdown; positional list (markdown blocks of one document)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/dashboard/TranslatorPagesEditor.svelte:48::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/dashboard/TranslatorPagesEditor.svelte:48 '{#each pages ...}' keyed by its index binding; pages = $bindable (line 8) of the translator pages editor, reordered by a move handler (lines 24-27) and removed by index (30): the index key makes identity follow position on reorder; runtime list"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/games/GamesFilterContent.svelte:260::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/games/GamesFilterContent.svelte:260 '{#each savedFilters ...}' keyed by its index binding; savedFilters $state of user-saved filter presets (line 84), added/deleted by the user: runtime list"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/home/HomeHeroSheetMockup.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/HomeHeroSheetMockup.svelte:68 '{#each sheetRows ...}' keyed by its index binding; sheetRows = buildRandomSheetRows(createSeededRandom(77)) (line 52): a deterministic decorative mockup fixed at author time, never changes; static list"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/each-index-key::src/lib/components/home/HomeHeroSheetMockup.svelte:72::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/home/HomeHeroSheetMockup.svelte:72 '{#each row ...}' keyed by its index binding; rows of the seeded decorative hero mockup (sheetRows built once, line 33/52): static list fixed at author time"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/effect-as-derived::src/lib/components/dashboard/ProfileEdit.svelte:78::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/dashboard/ProfileEdit.svelte:78 the effect only assigns profileUsername/profileAvatar from props; bind:value at 173/184; later writes are top-level reassignments or binds on the whole value (no deep writes), the writable-$derived override pattern, available in the app's svelte (5.57.0)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/effect-as-derived::src/routes/dashboard/config/+page.svelte:28::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/config/+page.svelte:28 the effect only assigns appName/maintenanceMode from data.config; binds at 108/125; later writes are top-level reassignments or binds on the whole value (no deep writes), the writable-$derived override pattern, available in the app's svelte (5.57.0)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::correctness/effect-as-derived::src/routes/games/+page.svelte:69::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/games/+page.svelte:69 the effect only assigns searchQuery/sortValue/filterGroups from data (query, sort, structuredClone(filterGroups)); the child GamesFilterContent (bind:filterGroups, 448) only reassigns filterGroups wholesale (GamesFilterContent.svelte:147,169,197); later writes are top-level reassignments or binds on the whole value (no deep writes), the writable-$derived override pattern, available in the app's svelte (5.57.0)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/iframe-loading::src/lib/components/dashboard/YoutubeAudioPlayer.svelte:187::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; YouTube player host for profile music, aria-hidden inside the visually-hidden .yt-audio-player-host with the iframe sized 1x1px (YoutubeAudioPlayer.svelte:185-195, :270-286) - a deliberately invisible frame, where the docs say lazy is the wrong fix"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/+page.svelte:184::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (absolute inset-0 h-full w-full in the aspect-4/3 update card :77-83; daisyUI .avatar w-20 sm:w-24 square box at :180-184)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/+page.svelte:80::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (absolute inset-0 h-full w-full in the aspect-4/3 update card :77-83; daisyUI .avatar w-20 sm:w-24 square box at :180-184)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/dashboard/manager/+page.svelte:176::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-12 w-12 - fixed box"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/dashboard/manager/game/[id]/+page.svelte:446::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-64 w-48 object-cover - fixed box"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/dashboard/roles/+page.svelte:205::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside daisyUI .avatar > div.w-7 (square avatar box, img 100%) - box reserved by CSS"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/dashboard/settings/+page.svelte:455::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-48 w-48 - fixed box"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/dashboard/users/+page.svelte:222::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside daisyUI .avatar > div.mask h-10 w-10 / h-12 w-12 - fixed box"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/dashboard/users/+page.svelte:463::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside daisyUI .avatar > div.mask h-10 w-10 / h-12 w-12 - fixed box"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/games/+page.svelte:238::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside a fixed h-20 w-32 box (:230) / the aspect-video card figure (:340) - box reserved by CSS"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/games/+page.svelte:347::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside a fixed h-20 w-32 box (:230) / the aspect-video card figure (:340) - box reserved by CSS"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/games/[id]/+page.svelte:85::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full object-contain in the header <figure> (aspect-video, lg: the grid row height) (games/[id]/+page.svelte:83-88) - box reserved by CSS"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/translators/+page.svelte:163::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class size-8 - fixed box"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/updates/+page.svelte:191::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside a fixed h-20 w-32 box (:189) / the aspect-video card figure (:333) - box reserved by CSS"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-dimensions::src/routes/updates/+page.svelte:340::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside a fixed h-20 w-32 box (:189) / the aspect-video card figure (:333) - box reserved by CSS"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-loading-hint::src/routes/dashboard/roles/+page.svelte:205::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; avatar in each row of the {#each data.staffUsers} menu below the roles list in the left card (roles/+page.svelte:157-205) - rows past the fold are offscreen"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-loading-hint::src/routes/dashboard/settings/+page.svelte:455::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; 2FA QR code shown {#if qrCodeDataUrl} only after the user submits \"Configurer la 2FA\" (settings/+page.svelte:440-455) - visible content when rendered"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-loading-hint::src/routes/dashboard/users/+page.svelte:222::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; avatar in each row of the {#each list.items} users table (users/+page.svelte:215-222) - rows past the first screen are offscreen"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-loading-hint::src/routes/dashboard/users/+page.svelte:463::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; avatar in the password-reset dialog opened for a chosen user (users/+page.svelte:451-463) - visible content when rendered"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/image-loading-hint::src/routes/games/[id]/+page.svelte:85::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; game cover in the page header card at the top of the article (games/[id]/+page.svelte:80-88) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/lcp-image::src/routes/+page.svelte:80::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route templates, but it sits in the \"Derniers changements\" updates grid after HomeHero, a min-h-screen hero with no image (+page.svelte:37-80, HomeHero.svelte:257) - below the fold on load, not the LCP candidate"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/lcp-image::src/routes/dashboard/manager/+page.svelte:176::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the route source, but a 48px thumbnail in the search-results dropdown shown {#if showResults} only after the user types a query (manager/+page.svelte:152-182) - not the LCP candidate"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/lcp-image::src/routes/dashboard/manager/game/[id]/+page.svelte:446::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: the 256x192 game cover at the top of the game detail, left of the <h1> (manager/game/[id]/+page.svelte:434-452) - above the fold, the LCP candidate, yet lazy"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/lcp-image::src/routes/games/+page.svelte:238::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: list-view row thumbnail (gameListRow at its {@render}, games/+page.svelte:490-493) of the first game directly under the \"Jeux\" <h1>; the default grid arm's first card image (:347) is lazy the same way - the first game image is above the fold on desktop and lazy"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/lcp-image::src/routes/translators/+page.svelte:163::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route, but a 32px avatar in the first row of the translators list (translators/+page.svelte:156-168) - not the LCP candidate, so lazy costs no largest paint"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/lcp-image::src/routes/updates/+page.svelte:191::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: thumbnail of the first update row in the default list view (viewMode 'list', updates/+page.svelte:47,497-509) directly under the \"Mises à jour\" <h1> - above the fold and lazy"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/+page.svelte:184::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveDiscordAvatarDisplayUrl() returns a Discord CDN avatar with a fixed ?size (lib/utils/discord-avatar-url.ts:25-33) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/+page.svelte:80::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/dashboard/manager/+page.svelte:176::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/dashboard/manager/game/[id]/+page.svelte:446::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/dashboard/roles/+page.svelte:205::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveDiscordAvatarDisplayUrl() returns a Discord CDN avatar with a fixed ?size (lib/utils/discord-avatar-url.ts:25-33) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/dashboard/settings/+page.svelte:455::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: src is qrCodeDataUrl, a generated data: URL QR code returned by the 2FA action (settings/+page.svelte:440) - no alternate sizes to list"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/dashboard/users/+page.svelte:222::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveDiscordAvatarDisplayUrl() returns a Discord CDN avatar with a fixed ?size (lib/utils/discord-avatar-url.ts:25-33) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/dashboard/users/+page.svelte:463::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveDiscordAvatarDisplayUrl() returns a Discord CDN avatar with a fixed ?size (lib/utils/discord-avatar-url.ts:25-33) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/games/+page.svelte:238::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/games/+page.svelte:347::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/games/[id]/+page.svelte:85::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/translators/+page.svelte:163::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveDiscordAvatarDisplayUrl() returns a Discord CDN avatar with a fixed ?size (lib/utils/discord-avatar-url.ts:25-33) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/updates/+page.svelte:191::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/responsive-image::src/routes/updates/+page.svelte:340::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: resolveGameImageSrc(game image) is a remote f95zone/lewdcorner/image-host URL (lib/utils/game-image-url.ts:74-) - raster, one fixed-size asset"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read dashboard/+page.server.ts:35-36: the user-counters select (mysql2 drizzle) uses only locals.user.id, nothing from the preceding countUserSubmissionStats(userId) (lib/server/dashboard-stats.ts:11, db queries) — independent DB queries serialized; Promise.all would work"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/+page.server.ts:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read dashboard/+page.server.ts:45-48: the linked-translator select uses only locals.user.id, nothing from the preceding submission-stats and user-counters queries — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/api-management/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read api-management/+page.server.ts:18-23: the only preceding await is `await assertPermission(...)` (lib/server/permissions.ts:111, a synchronous 401/403 gate returning void) — auth-before-query ordering (ledger gate convention); there is only one real request here"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/auto-check/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read auto-check/+page.server.ts:15-20: the only preceding await is `await assertPermission(...)` (lib/server/permissions.ts:111, synchronous 401/403 gate) — auth-before-query ordering (ledger gate convention); the flagged await is already a Promise.all"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/become-translator/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read become-translator/+page.server.ts:16-23: the only preceding await is userHasLinkedTranslator() (lib/server/linked-translator.ts:17-21, a per-user 60s TTL cache also filled by dashboard/+layout.server.ts:49) feeding an early return for linked users — cached eligibility gate, not a second request on a warm cache (ledger TTL-cache/gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/config/+page.server.ts:39::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read config/+page.server.ts:33-39: the only preceding await is `await assertPermission(locals,'config.view')` (synchronous 401/403 gate, permissions.ts:111) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/dev/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read dev/+page.server.ts:32-36: the only preceding await is `await assertPermission(locals,'dev.panel')` (synchronous 401/403 gate, permissions.ts:111) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/dev/+page.server.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read dev/+page.server.ts:36-59: the botTranslators select (translators with discordId) uses nothing from the preceding config select / getEffectiveConfig() — independent mysql2 queries serialized; Promise.all would work"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/logs-app/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read logs-app/+page.server.ts:7-10: the only preceding await is `await assertPermission(locals,'logs.view')` (synchronous 401/403 gate, permissions.ts:111) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/logs/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read logs/+page.server.ts:7-10: the only preceding await is `await assertPermission(locals,'logs.view')` (synchronous 401/403 gate, permissions.ts:111) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/add-game/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read add-game/+page.server.ts:30-36: the only preceding awaits are the assertGameManageAccess (sync permission gate) and assertRoleEditMode (lib/server/role-edit-mode.ts:77, 403 when the role has no edit mode) gates — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/add-game/+page.server.ts:44::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read add-game/+page.server.ts:36-44: getRoleEditMode(role) (role-edit-mode.ts:48-52 runs an uncached appRolePermission select via roleHasGamesManage before the 30s mode cache) uses only locals role, nothing from the preceding translators select — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/add-game/+page.server.ts:49::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read add-game/+page.server.ts:44-52: resolveShouldCreateSubmissionForUser (role-edit-mode.ts:85, assertRoleEditMode -> uncached appRolePermission select) takes only locals role/directMode, not roleEditMode or translators — independent DB requests serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:101::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read game/[id]/+page.server.ts:101: hasSubmissionOpenedByUserIdColumn() (lib/server/submission-opened-by-compat.ts:7-22) is memoized in a module variable after the first information_schema probe — no request on a warm process (ledger in-memory-cache convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:141::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read game/[id]/+page.server.ts:141: getRoleEditMode(role) runs an uncached appRolePermission select (role-edit-mode.ts:48-50, roleHasGamesManage) using only locals role, nothing from the preceding game/translation/submission queries — independent mysql2 requests serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:143::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read game/[id]/+page.server.ts:143: resolveShouldCreateSubmissionForUser (role-edit-mode.ts:85, assertRoleEditMode -> uncached appRolePermission select) takes only locals role/directMode — independent of every earlier await"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:162::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read game/[id]/+page.server.ts:161-162: listGameUpdateHistoryPage(gameId, 1) uses only params.id, guarded by a sync hasPermission check — independent of the earlier DB queries, serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read game/[id]/+page.server.ts:20-33: the only preceding awaits are the assertGameManageAccess (sync permission gate) and assertRoleEditMode (403) gates — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:58::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read game/[id]/+page.server.ts:33-77: the translations select uses only params.id; the preceding game select only feeds a 404 (exceptional path) — independent mysql2 queries serialized on the normal path (ledger 404-gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/+page.server.ts:79::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read game/[id]/+page.server.ts:79-88: the translators select takes no input at all, nothing from the preceding game/translations selects — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/add-translation/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read add-translation/+page.server.ts:17-26: the only preceding awaits are the assertGameManageAccess (sync) and assertRoleEditMode (403) gates — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/add-translation/+page.server.ts:41::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read add-translation/+page.server.ts:26-46: the firstTranslation select uses only params.id; the preceding game select only feeds a 404 (exceptional path) — independent mysql2 queries serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/add-translation/+page.server.ts:48::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read add-translation/+page.server.ts:48-57: the translators select takes no input, nothing from the preceding game/firstTranslation selects — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/add-translation/+page.server.ts:62::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read add-translation/+page.server.ts:62: getRoleEditMode(role) (uncached appRolePermission select, role-edit-mode.ts:48-50) uses only locals role — independent of the earlier selects"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/add-translation/+page.server.ts:64::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read add-translation/+page.server.ts:64: resolveShouldCreateSubmissionForUser (assertRoleEditMode -> uncached appRolePermission select) takes only locals role/directMode — independent of every earlier await"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/edit-game/+page.server.ts:21::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read edit-game/+page.server.ts:12-21: the only preceding awaits are the assertGameManageAccess (sync) and assertRoleEditMode (403) gates — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read edit-translation/+page.server.ts:17-26: the only preceding awaits are the assertGameManageAccess (sync) and assertRoleEditMode (403) gates — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.server.ts:41::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read edit-translation/+page.server.ts:26-60: the translation select uses only params ids; the preceding game select only feeds a 404 (exceptional path) — independent mysql2 queries serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.server.ts:64::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read edit-translation/+page.server.ts:64-73: the translators select takes no input, nothing from the preceding game/translation selects — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.server.ts:78::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read edit-translation/+page.server.ts:78: getRoleEditMode(role) (uncached appRolePermission select) uses only locals role — independent of the earlier selects"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.server.ts:80::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read edit-translation/+page.server.ts:80: resolveShouldCreateSubmissionForUser (assertRoleEditMode -> uncached appRolePermission select) takes only locals role/directMode — independent of every earlier await"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/profile/+page.server.ts:52::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read profile/+page.server.ts:40-52: getRoleEditMode(locals.user.role) (uncached appRolePermission select) uses nothing from the preceding user-row select, which only redirects when the row is missing (exceptional path) — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/profile/+page.server.ts:54::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read profile/+page.server.ts:54: loadTranslatorPagesForUser(userId) uses only locals.user.id, nothing from the user-row select or getRoleEditMode — independent DB requests serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/roles/+page.server.ts:115::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read roles/+page.server.ts:111-115: the only preceding await is `await assertPermission(locals,'roles.manage')` (synchronous 401/403 gate, permissions.ts:111) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/roles/+page.server.ts:142::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read roles/+page.server.ts:142 + lib/server/role-management-guard.ts:10-16: getActorPermissionSet returns locals.permissions, attached by hooks.server.ts:218 for every logged-in user (non-empty past the roles.manage gate) — no request on the normal path (ledger no-I/O convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/settings/+page.server.ts:48::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read settings/+page.server.ts:40-48: getRoleEditMode(locals.user.role) (uncached appRolePermission select) uses nothing from the preceding passkeys select — independent mysql2 queries serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/settings/+page.server.ts:49::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read settings/+page.server.ts:49: isExtensionLinked(locals.user.id) (lib/server/extension-link.ts:120, listApiKeysForOwner DB read) uses nothing from passkeys/roleEditMode — independent DB requests serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/submits/+page.server.ts:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read submits/+page.server.ts:26-34: the only preceding await is `await assertPermission(locals,'submissions.review')` (synchronous 401/403 gate) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/dashboard/translator-applications/+page.server.ts:53::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read translator-applications/+page.server.ts:21-53: the only preceding await is `await assertPermission(locals,'translator_applications.review')` (synchronous 401/403 gate) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/sequential-awaits::src/routes/updates/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read updates/+page.server.ts:17-27: listPublicUpdates({...params}) uses only URL-parsed params, nothing from the preceding Promise.all (listTranslatorFilterOptions DB select, lib/server/public-games-translators.ts:5, + saved-filters select) — independent requests serialized"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::performance/state-raw::src/routes/dashboard/settings/+page.svelte:17::\"users\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"users\" in src/routes/dashboard/settings/+page.svelte: whole-binding reassignments at :43, {#each} at :733 whose items are only read (text/attributes/<option>, no bind:, no component prop, no item edit); all other uses are read-only template/expression reads — no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; $state.raw fits"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::security/server-module-state::src/hooks.server.ts:157::module-scope variable \"permissionsCatalogSeedPromise\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:151-163: permissionsCatalogSeedPromise is a run-once promise for seeding the permissions catalog (ensurePermissionsCatalogSeeded), no request data — process-wide init memo (ledger lazy-singleton convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::security/server-module-state::src/hooks.server.ts:158::module-scope variable \"permissionsCatalogSeedPromise\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:157-160: the .catch resets permissionsCatalogSeedPromise to null so the next request retries the one-time catalog seed — process-wide init memo, no request data"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::security/server-module-state::src/hooks.server.ts:180::module-scope variable \"appLogProcessReady\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:179-187: appLogProcessReady is a once-per-process flag so the 'server process ready' log line is written once — no request or user data (ledger process-wide flag convention)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/account/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/account/forgot-password (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (robots.txt/+server.ts:15 Disallow: /dashboard/ (this path is not re-allowed); public per lib/server/dashboard-auth.ts but kept out of search), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/account/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/account/login (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex (robots.txt/+server.ts:16,20 Allow it)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/account/logout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/account/logout (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: logout/+page.server.ts:7-8 redirects guests to login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/account/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/account/register (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex (robots.txt/+server.ts:16,20 Allow it)"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/account/register/discord/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/account/register/discord (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (robots.txt/+server.ts:15 Disallow: /dashboard/ (this path is not re-allowed); public per lib/server/dashboard-auth.ts but kept out of search), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/account/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/account/verify-email (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/api-keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/api-keys (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/api-management/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/api-management (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/auto-check/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/auto-check (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/become-translator/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/become-translator (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/config/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/config (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/dev/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/dev (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/logs-app/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/logs-app (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/logs (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/manager/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/manager (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/manager/add-game/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/manager/add-game (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/manager/game/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/manager/game/[id] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/manager/game/[id]/add-translation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/manager/game/[id]/add-translation (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/manager/game/[id]/edit-game/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/manager/game/[id]/edit-game (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/manager/game/[id]/edit-translation/[translationId] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/my-submits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/my-submits (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/my-translations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/my-translations (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/profile (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/profile/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/profile/[id] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (robots.txt/+server.ts:15 Disallow: /dashboard/ (this path is not re-allowed); public per lib/server/dashboard-auth.ts but kept out of search), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/roles (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/settings (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/settings/extension/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/settings/extension (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/submits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/submits (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/translator-applications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/translator-applications (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/translators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/translators (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/dashboard/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/users (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (auth-gated: dashboard/+layout.server.ts:21-25 redirects guests to /dashboard/account/login; also robots.txt/+server.ts:15 Disallow: /dashboard/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/email/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /email/reset-password (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/email/unsubscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /email/unsubscribe (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/email/verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /email/verify (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/games/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /games (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/games/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /games/[id] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/legals/legal-notice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /legals/legal-notice (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/legals/privacy-policy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /legals/privacy-policy (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/maintenance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /maintenance (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library but not a search target (maintenance/+page.server.ts:28-29 redirects away whenever maintenance is off; when on, hooks.server.ts:262-270 serves it as a 503), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/profile/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profile/[username] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/translators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /translators (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/canonical-url::src/routes/updates/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /updates (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no <link rel=\"canonical\"> anywhere in src incl. app.html/hooks (424 files; \"canonical\" hits are security.txt/YouTube identifiers); root +layout.svelte:110-125 head emits title/description/og:*/twitter:* but no canonical; no +page@/+layout@ resets; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/description-length::src/routes/games/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: games/+page.svelte svelte:head carries an unconditional literal <meta name=\"description\"> of 66 characters, the route's only description; under 70 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/description-length::src/routes/translators/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: translators/+page.svelte svelte:head carries an unconditional literal <meta name=\"description\"> of 68 characters, the route's only description; under 70 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/duplicate-title::src/routes/dashboard/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: dashboard/+layout.svelte:15-17 literal <title>F95 France - Dashboard</title> is the winning title of the 21 dashboard routes that set none, duplicate as claimed; not a search competition: the routes are login-gated (dashboard/+layout.server.ts redirects to /dashboard/account/login unless isPublicDashboardPath) and robots.txt/+server.ts Disallow: /dashboard/"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/duplicate-title::src/routes/dashboard/account/verify-email/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: dashboard/account/verify-email/+page.svelte:17 and email/verify/+page.svelte:10 both literal <title>Vérification email — F95 France</title>, duplicate as claimed; both are transactional email-verification steps and /dashboard/* is Disallowed in robots.txt/+server.ts, so the pair never competes in search"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/duplicate-title::src/routes/email/verify/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: dashboard/account/verify-email/+page.svelte:17 and email/verify/+page.svelte:10 both literal <title>Vérification email — F95 France</title>, duplicate as claimed; both are transactional email-verification steps and /dashboard/* is Disallowed in robots.txt/+server.ts, so the pair never competes in search"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/heading-level-skip::src/routes/dashboard/manager/game/[id]/+page.svelte:748::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: manager/game/[id]/+page.svelte:485 <h1>{game.name}; the flagged \"Aucune traduction\" <h3> (:748) is in the {:else} of {#if translations.length > 0}, whose other arm holds the <h2> (:608) -> in the empty arm h1 to h3"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/indexability::src/routes/maintenance/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: maintenance/+page.svelte:63 literal content=\"noindex, nofollow\" unconditional in the page's svelte:head; noindex as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); / has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/account/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/account/forgot-password has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/account/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/account/login has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/account/logout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/account/logout has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/account/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/account/register has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/account/register/discord/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/account/register/discord has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/account/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/account/verify-email has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/api-keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/api-keys has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/api-management/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/api-management has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/auto-check/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/auto-check has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/become-translator/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/become-translator has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/config/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/config has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/dev/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/dev has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/logs-app/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/logs-app has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/logs has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/manager/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/manager has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/manager/add-game/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/manager/add-game has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/manager/game/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/manager/game/[id] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/manager/game/[id]/add-translation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/manager/game/[id]/add-translation has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/manager/game/[id]/edit-game/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/manager/game/[id]/edit-game has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/manager/game/[id]/edit-translation/[translationId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/manager/game/[id]/edit-translation/[translationId] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/my-submits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/my-submits has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/my-translations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/my-translations has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/profile has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/profile/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/profile/[id] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/roles has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/settings has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/settings/extension/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/settings/extension has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/submits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/submits has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/translator-applications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/translator-applications has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/translators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/translators has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/dashboard/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /dashboard/users has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/email/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /email/reset-password has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/email/unsubscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /email/unsubscribe has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/email/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /email/verify has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/games/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /games has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/games/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /games/[id] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/legals/legal-notice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /legals/legal-notice has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/legals/privacy-policy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /legals/privacy-policy has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/maintenance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /maintenance has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/profile/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /profile/[username] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/translators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /translators has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/json-ld::src/routes/updates/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter anywhere in src or app.html (only a server-side scraper mentions schema.org); /updates has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/single-h1::src/lib/components/MarkdownContent.svelte:96::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read (3 routes, majority legals): LegalDocumentPage renders <h1>{title} (:37) then MarkdownContent of the CDN markdown, whose level-1 block renders <h1> (MarkdownContent.svelte:95-96); the served legal-notice.md / privacy-policy.md start with \"# Mentions Légales\" / \"# Politique de Confidentialité\" (fetched from cdn.f95france.site, not in the clone) -> two <h1>s; /dashboard/profile/[id] adds the dashboard Header <h1> to a user bio that may hold \"# \""
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/single-h1::src/lib/components/dashboard/Header.svelte:31::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read (20 routes): dashboard/+layout.svelte:19 renders the dashboard Header, whose logo link holds <h1>F95 France (Header.svelte:31) on every dashboard route, and each page adds its own <h1> (e.g. dashboard/+page.svelte:19, manager/game/[id]:485, account/login:116) -> two <h1>s"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/single-h1::src/lib/components/dashboard/ProfileEdit.svelte:119::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /dashboard/profile renders the dashboard Header <h1> (Header.svelte:31) and ProfileEdit's <h1>Modifier mon profil (:119) -> at least two <h1>s"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/+layout.svelte carries an unconditional literal <title> of 22 characters in its svelte:head (winning title of the 21 routes that set none of their own), no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/account/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/account/login/+page.svelte carries an unconditional literal <title> of 22 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/account/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/account/register/+page.svelte carries an unconditional literal <title> of 24 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/account/register/discord/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/account/register/discord/+page.svelte carries an unconditional literal <title> of 27 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/api-keys/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/api-keys/+page.svelte carries an unconditional literal <title> of 25 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/api-management/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/api-management/+page.svelte carries an unconditional literal <title> of 24 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/dashboard/auto-check/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: dashboard/auto-check/+page.svelte carries an unconditional literal <title> of 28 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/games/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: games/+page.svelte carries an unconditional literal <title> of 17 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/translators/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: translators/+page.svelte carries an unconditional literal <title> of 24 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  },
+  {
+    "key": "Hunteraulo1/f95-france::seo/title-length::src/routes/updates/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: updates/+page.svelte carries an unconditional literal <title> of 25 characters in its svelte:head, no later component or document.title override; under 30 as claimed"
+  }
+]

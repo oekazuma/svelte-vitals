@@ -1,0 +1,847 @@
+[
+  {
+    "key": "shuji-bonji/e-shiwake::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:232-244 renders <Sidebar.Inset> (sidebar-inset.svelte:13 is a <main>) and inside it a second unconditional <main class=\"min-w-0 flex-1 p-4\"> around {@render children()} (:237), so every route has two main landmarks"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::a11y/duplicate-landmark::src/routes/help/+layout.svelte:128::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: help/+layout.svelte:128 <main> renders at root +layout.svelte:237-238 {@render children()} inside <main>, itself inside Sidebar.Inset's <main> (sidebar-inset.svelte:13): three main landmarks on every /help route"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::a11y/top-level-landmark::src/routes/help/+layout.svelte:128::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: help/+layout.svelte:128 <main> is placed at root +layout.svelte:237-238 {@render children()} inside <main class=\"min-w-0 flex-1 p-4\">, a main nested in main"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::a11y/top-level-landmark::src/routes/help/+layout.svelte:92::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: help/+layout.svelte:92 unlabelled <aside> inside plain divs is placed at root +layout.svelte:237-238 {@render children()} inside <main>; complementary nested in main"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/accounts/AccountEditDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/accounts/AccountEditDialog.svelte has 365 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/blue-return/BlueReturnSettingsDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blue-return/BlueReturnSettingsDialog.svelte has 222 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/data/BackupCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data/BackupCard.svelte has 779 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/data/BusinessInfoCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data/BusinessInfoCard.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/data/CapacityCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data/CapacityCard.svelte has 288 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/data/ExportCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data/ExportCard.svelte has 410 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/data/LlmProviderCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data/LlmProviderCard.svelte has 306 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/data/StorageSettingsCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data/StorageSettingsCard.svelte has 598 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/fixed-assets/FixedAssetFormDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/fixed-assets/FixedAssetFormDialog.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/journal/AttachmentEditDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/journal/AttachmentEditDialog.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/journal/JournalRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/journal/JournalRow.svelte has 835 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/lib/components/journal/JournalRowDialogs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/journal/JournalRowDialogs.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 310 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 605 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/archive/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/archive/+page.svelte has 878 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/balance-sheet/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/balance-sheet/+page.svelte has 351 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/blue-return/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blue-return/+page.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/fixed-assets/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/fixed-assets/+page.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/archive/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/archive/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/evidence/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/evidence/+page.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/glossary/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/glossary/+page.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/invoice/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/invoice/+page.svelte has 321 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/journal/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/journal/+page.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/llm-chat/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/llm-chat/+page.svelte has 335 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/help/webmcp/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/help/webmcp/+page.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/invoice/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/invoice/+page.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/invoice/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/invoice/[id]/+page.svelte has 699 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/ledger/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ledger/+page.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/profit-loss/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profit-loss/+page.svelte has 260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/reports/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reports/+page.svelte has 374 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/tax-summary/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tax-summary/+page.svelte has 445 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/trial-balance/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/trial-balance/+page.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/component-size::src/routes/vendors/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/vendors/+page.svelte has 311 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/data/CapacityCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/data/CapacityCard.svelte has a single destructured $props() with 8 named props (> 6): storageMode, isFileSystemSupported, storageUsage, autoPurgeEnabled, retentionDays, availableYears, unexportedCount, onunexportedcountchange"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/data/StorageSettingsCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/data/StorageSettingsCard.svelte has a single destructured $props() with 7 named props (> 6): directoryHandle, directoryName, isFileSystemSupported, unexportedCount, availableYears, ondirectorychange, onstorageusagechange"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/AttachmentDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/AttachmentDialog.svelte has a single destructured $props() with 10 named props (> 6): open, file, journalDate, vendor, vendors, description, amount, suggestedDocumentType, onconfirm, oncancel"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/JournalLineGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/JournalLineGroup.svelte has a single destructured $props() with 20 named props (> 6): side, lines, accounts, total, isEditing, isValid, locked, businessRatioTarget, isBusinessRatioApplied, appliedBusinessRatio, getlineIndicator, getaccounttype, onaccountchange, onupdateline, onremoveline, onaddline, onsyncblur, onapplyratio, onremoveratio, onkeydown"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/JournalLineItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/JournalLineItem.svelte has a single destructured $props() with 12 named props (> 6): line, accounts, indicator, canRemove, isEditing, isValid, locked, onaccountchange, onupdateline, onremoveline, onsyncblur, onkeydown"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/JournalRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/JournalRow.svelte has a single destructured $props() with 11 named props (> 6): journal, accounts, vendors, directoryHandle, isEditing, isFlashing, invoiceOptions, onupdate, ondelete, onconfirm, oncopy"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/JournalRowDialogs.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/JournalRowDialogs.svelte has a single destructured $props() with 20 named props (> 6): journal, vendors, dialog, mainAmount, suggestedDocType, ondialogclose, onsafaridialogconfirm, onattachmentconfirm, onattachmentcancel, oneditconfirm, oneditcancel, onconfirmstatuschange, oncancelstatuschange, onconfirmremoveattachment, oncancelremoveattachment, onconfirmrename, oncancelrename, onsuppresschange, onconfirmoverwrite, oncanceloverwrite"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/JournalRowHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/JournalRowHeader.svelte has a single destructured $props() with 18 named props (> 6): journal, vendors, localDate, validation, isEditing, locked, onupdatefield, ondatechange, ondateblur, onvendorblur, onsyncblur, oncyclestatus, onconfirm, oncopy, ondelete, onvendorkeydown, dateInputRef, vendorInputRef"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/PdfDropZone.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/PdfDropZone.svelte has a single destructured $props() with 10 named props (> 6): attachments, onattach, onremove, onpreview, onedit, disabled, vendorMissing, vertical, tabindex, onkeydown"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/journal/VendorInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/journal/VendorInput.svelte has a single destructured $props() with 9 named props (> 6): vendors, value, onchange, onblur, onkeydown, placeholder, class, tabindex, disabled"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children (plus rest element ...restProps)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6): open, ref, value, title, description, portalProps, children (plus rest element ...restProps)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6): ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children (plus rest element ...restProps)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps (plus rest element ...restProps)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, side, children, arrowClasses, portalProps (plus rest element ...restProps)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/base-path-navigation::src/lib/components/data/BackupCard.svelte:245::goto('/archive') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/archive')) with resolve from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data/BackupCard.svelte:245 goto('/archive') from $app/navigation (line 2) with a root-relative literal; svelte.config.js:16 sets kit.paths.base = '/e-shiwake' in production, and every other goto in the app prefixes ${base} (ChatPanel.svelte:32, +layout.svelte:168-191), so this one leaves the app"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/lib/components/chat/ChatMessages.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/ChatMessages.svelte:53 keyed by its index binding; chat.messages is the runtime chat history of useChat() (lib/llm/chat.svelte), appended to and edited via resendMessage; runtime data (ledger $state chat messages convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/lib/components/data/BackupCard.svelte:747::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/data/BackupCard.svelte:747 keyed by its index binding; importResult.errors are runtime restore errors (importResult = restoreResult, 304); runtime results (ledger results/validation convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/lib/components/help/HelpTable.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/help/HelpTable.svelte:14 keyed by its index binding (claim literally true); headers of a static help-page table passed as a prop; positional list (table cells): items have no identity beyond position"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/lib/components/help/HelpTable.svelte:20::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/help/HelpTable.svelte:20 keyed by its index binding (claim literally true); rows of a static help-page table passed as a prop; positional list (table rows of static docs content)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/lib/components/help/HelpTable.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/help/HelpTable.svelte:22 keyed by its index binding (claim literally true); cells of one row of a static help table; positional list (table cells)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/lib/components/journal/JournalRowDialogs.svelte:213::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/journal/JournalRowDialogs.svelte:213 keyed by its index binding (claim literally true); pendingRenameInfo.oldNames is paired by index with newNames[i] (214, 217) in a read-only rename confirmation; position is the identity by construction"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/routes/archive/+page.svelte:447::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/archive/+page.svelte:447 keyed by its index binding; archiveProgress.failedAttachments are runtime export failures updated through progress callbacks (123); runtime results"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/routes/archive/+page.svelte:725::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/archive/+page.svelte:725 keyed by its index binding; restoreResult.errors are runtime restore errors (291); runtime results (ledger results/validation convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/each-index-key::src/routes/blue-return/+page.svelte:219::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/blue-return/+page.svelte:219 keyed by its index binding; validationErrors = validateBlueReturnData(...) (141), runtime validation data recomputed from user input (ledger validationErrors convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/effect-as-derived::src/lib/components/journal/JournalRow.svelte:134::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "script-verified (effw.mjs) + read: src/lib/components/journal/JournalRow.svelte:134; the effect only does localDate = journal.date (prop), as the comment at 131-132 says (sync from props, edit locally); the other write is a top-level reassignment (248), the writable-$derived override pattern (svelte ^5.45.6)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::correctness/unmutated-state::src/routes/blue-return/+page.svelte:49::$state \"specialDeduction\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w specialDeduction): src/routes/blue-return/+page.svelte:49; its only other mention copies the number into an options object (136); a primitive copy cannot write the state; never reassigned or bound"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-dimensions::src/routes/help/archive/+page.svelte:172::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SVG diagram with class w-full max-w-2xl only - its aspect is known only after load, the text below shifts"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-dimensions::src/routes/help/archive/+page.svelte:181::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SVG diagram with class w-full max-w-2xl only - its aspect is known only after load, the text below shifts"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-dimensions::src/routes/help/archive/+page.svelte:190::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SVG diagram with class w-full max-w-2xl only - its aspect is known only after load, the text below shifts"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-dimensions::src/routes/help/backup-restore/+page.svelte:171::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SVG diagram with class w-full max-w-2xl only - its aspect is known only after load, the text below shifts"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-dimensions::src/routes/help/backup-restore/+page.svelte:180::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SVG diagram with class w-full max-w-2xl only - its aspect is known only after load, the text below shifts"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-dimensions::src/routes/help/import-export/+page.svelte:101::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SVG diagram with class w-full max-w-2xl only - its aspect is known only after load, the text below shifts"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-loading-hint::src/routes/help/archive/+page.svelte:172::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: use-case diagram in the last section of the help page (after the h1 and the reference sections) - offscreen on load"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-loading-hint::src/routes/help/archive/+page.svelte:181::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: use-case diagram in the last section of the help page (after the h1 and the reference sections) - offscreen on load"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-loading-hint::src/routes/help/archive/+page.svelte:190::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: use-case diagram in the last section of the help page (after the h1 and the reference sections) - offscreen on load"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-loading-hint::src/routes/help/backup-restore/+page.svelte:171::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: use-case diagram in the last section of the help page (after the h1 and the reference sections) - offscreen on load"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-loading-hint::src/routes/help/backup-restore/+page.svelte:180::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: use-case diagram in the last section of the help page (after the h1 and the reference sections) - offscreen on load"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/image-loading-hint::src/routes/help/import-export/+page.svelte:101::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: use-case diagram in the last section of the help page (after the h1 and the reference sections) - offscreen on load"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/state-raw::src/lib/components/data/BackupCard.svelte:191::\"zipImportWarnings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference in src/lib/components/data/BackupCard.svelte: zipImportWarnings: reassigned at :218/:254/:341, read only as .length (:677-679); no member writes, mutating calls, bind:, call-arg or prop escapes — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/state-raw::src/routes/archive/+page.svelte:179::\"restoreWarnings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference in src/routes/archive/+page.svelte: restoreWarnings: reassigned at :214/:250/:324, read only as .length (:658-660); no member writes, mutating calls, bind:, call-arg or prop escapes — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::performance/state-raw::src/routes/blue-return/+page.svelte:35::\"validationErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference in src/routes/blue-return/+page.svelte: validationErrors: reassigned at :141, read by .length and a text-only {#each} (:210-219); no member writes, mutating calls, bind:, call-arg or prop escapes — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::security/raw-html::src/lib/components/chat/ChatMarkdown.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ChatMarkdown.svelte:18-22: renderMarkdown returns '' during SSR and DOMPurify.sanitize(marked output) in the browser — sanitized, reported per docs"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::security/raw-html::src/routes/+layout.svelte:229::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:52,229: webManifest = pwaInfo.webManifest.linkTag, the build-time PWA <link> tag — build constant, reported per docs"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/balance-sheet/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/blue-return/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true)) but not a search target (client redirect stub: export/+page.svelte onMount goto(`${base}/data`)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/fixed-assets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/backup-restore/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/blue-return/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/data-management/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/evidence/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/fixed-assets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/getting-started/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/glossary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/import-export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/invoice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/journal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/ledger/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/llm-chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/pwa/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/shortcuts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/tax-category/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/trial-balance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/help/webmcp/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/invoice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/invoice/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/ledger/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/profit-loss/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/reports/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/tax-summary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/trial-balance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/canonical-url::src/routes/vendors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no <link rel=\"canonical\"> anywhere in src or app.html; root +layout.svelte:195-230 head carries og:*/twitter:* but no canonical; no meta-tag library; prerendered static site (+layout.ts prerender=true, ssr=true); publicly reachable prerendered page with no auth gate or noindex"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/description-length::src/routes/chat/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: chat/+page.svelte:29-32 unconditional literal <meta name=\"description\"> \"ローカル LLM・クラウド LLM で帳簿を自然言語で参照・操作できる AI アシスタント\" (45 graphemes); under 70 as claimed"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:197 literal <title>e-shiwake（電子仕訳）- …</title> is the only title of the 34 routes that set none (only chat, invoice, invoice/[id], vendors set their own); these include the public /help/* documentation pages listed in static/sitemap.xml, so they share one title as claimed"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/heading-level-skip::src/routes/+page.svelte:536::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:479 <h1>仕訳帳, then the search box and SearchHelp (no heading), then the empty-state <h3> (:536) -> h1 to h3"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/heading-level-skip::src/routes/fixed-assets/+page.svelte:196::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: fixed-assets/+page.svelte:136 <h1>, then the state arms (FixedAssetTable renders no heading) and the unconditional reference <h3> (:196) -> h1 to h3"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/heading-level-skip::src/routes/tax-summary/+page.svelte:407::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: tax-summary/+page.svelte:75 <h1>, then in the {:else} arm Card.Titles (Card.Title renders a <div> (ui/card/card-title.svelte)) and tables, then the reference <h3> (:407) -> h1 to h3"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/accounts/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/archive/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/balance-sheet/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/balance-sheet/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/blue-return/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/blue-return/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/chat/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/data/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/export/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/fixed-assets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/fixed-assets/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/accounts/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/archive/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/backup-restore/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/backup-restore/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/blue-return/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/blue-return/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/data-management/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/data-management/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/evidence/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/evidence/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/fixed-assets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/fixed-assets/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/getting-started/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/getting-started/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/glossary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/glossary/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/import-export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/import-export/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/invoice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/invoice/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/journal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/journal/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/ledger/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/ledger/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/llm-chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/llm-chat/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/pwa/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/pwa/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/shortcuts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/shortcuts/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/tax-category/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/tax-category/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/trial-balance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/trial-balance/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/help/webmcp/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/help/webmcp/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/invoice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/invoice/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/invoice/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/invoice/[id]/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/ledger/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/ledger/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/profit-loss/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/profit-loss/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/reports/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/reports/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/settings/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/tax-summary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/tax-summary/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/trial-balance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/trial-balance/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/json-ld::src/routes/vendors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd/jsonld anywhere in src (root +layout.svelte:195-230 head is favicon/title/description/og/twitter, help/+layout.svelte has no head), app.html none; src/routes/vendors/+page.svelte emits none, missing as claimed on this public prerendered PWA"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/single-h1::src/lib/components/invoice/InvoicePrint.svelte:27::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: invoice/[id]/+page.svelte:401 screen <h1>請求書 and the print-only <div class=\"hidden print:block\"> with InvoicePrint's unconditional <h1> (InvoicePrint.svelte:27) -> two <h1> in the DOM (hidden-but-in-DOM counts, ledger print-header convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/single-h1::src/routes/blue-return/+page.svelte:188::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: blue-return/+page.svelte renders a print-only header <h1> (:176, hidden print:block) and the screen header <h1> (:188, print:hidden), both unconditional -> two <h1> in the DOM (ledger print-header convention)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/sitemap-in-robots::(site)::robots.txt does not reference your sitemap",
+    "verdict": "tp",
+    "basis": "read: static/robots.txt is \"User-agent: * / Disallow:\" with no Sitemap: line while static/sitemap.xml exists; no robots +server endpoint; public GitHub Pages app (served under paths.base /e-shiwake, Anki-xiehanzi project-path precedent)"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/title-length::src/routes/chat/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: chat/+page.svelte:28 <title>AI アシスタント | e-shiwake</title> (21) in an unconditional svelte:head, rendered after the root layout's title so it wins; under 30 as claimed"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/title-length::src/routes/invoice/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: invoice/+page.svelte:190 <title>請求書一覧 - e-shiwake</title> (17) in an unconditional svelte:head, rendered after the root layout's title so it wins; under 30 as claimed"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/title-length::src/routes/vendors/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: vendors/+page.svelte:172 <title>取引先管理 - e-shiwake</title> (17) in an unconditional svelte:head, rendered after the root layout's title so it wins; under 30 as claimed"
+  },
+  {
+    "key": "shuji-bonji/e-shiwake::seo/single-h1::/export::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: export/+page.svelte is an onMount goto('/data') stub with no markup (prerendered, ssr=true); root +layout.svelte renders AppSidebar/AppHeader/ChatDock/ChatPanel and closed AlertDialogs, none with an <h1> (src/lib <h1>s are only InvoicePrint.svelte:27 and an HTML-string template, not rendered here) -> no <h1>; onMount-redirect stub = tp per ledger (Django-CRM /bounce, utsuwa /app/settings)"
+  }
+]

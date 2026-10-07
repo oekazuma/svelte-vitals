@@ -1,0 +1,442 @@
+[
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/duplicate-landmark::src/lib/components/content-pages/ContentLayout.svelte:40::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:108 renders {@render children()} inside an unconditional <main> (inside ParaglideJS from @inlang/paraglide-sveltekit 0.16.1, whose dist/runtime/ParaglideJS.svelte renders children in {#key lang}); ContentLayout.svelte:40 renders an unconditional <main> around the page content (used by blog/[slug] and projects/[slug] pages), so the route composes two <main> landmarks (routes /[[lang=lang]]/blog/[slug], /[[lang=lang]]/projects/[slug]); routes render (loads only redirect/404 conditionally)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/duplicate-landmark::src/routes/[[lang=lang]]/+page.svelte:118::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:108 renders {@render children()} inside an unconditional <main> (inside ParaglideJS from @inlang/paraglide-sveltekit 0.16.1, whose dist/runtime/ParaglideJS.svelte renders children in {#key lang}); the page renders its own <main> at [[lang=lang]]/+page.svelte:118, so the route composes two <main> landmarks (route /[[lang=lang]]); routes render (loads only redirect/404 conditionally)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/duplicate-landmark::src/routes/[[lang=lang]]/cv/+page.svelte:74::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:108 renders {@render children()} inside an unconditional <main> (inside ParaglideJS from @inlang/paraglide-sveltekit 0.16.1, whose dist/runtime/ParaglideJS.svelte renders children in {#key lang}); the page renders its own <main> at [[lang=lang]]/cv/+page.svelte:74 (inside <section id=cv><Paper>, and lib/components/cv/Paper.svelte renders {@render children()} unconditionally), so the route composes two <main> landmarks (route /[[lang=lang]]/cv); routes render (loads only redirect/404 conditionally)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/permitted-contents::src/lib/components/AssetImage.svelte:57::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) lib/components/AssetImage.svelte:57: literal <div> whose nearest non-transparent parent is a literal <button> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/permitted-contents::src/lib/components/PageSectionIndicator.svelte:181::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) lib/components/PageSectionIndicator.svelte:181: literal <div> whose nearest non-transparent parent is a literal <button> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/permitted-contents::src/lib/components/navbar/HamburgerButton.svelte:13::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) lib/components/navbar/HamburgerButton.svelte:13: literal <div> whose nearest non-transparent parent is a literal <label> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/permitted-contents::src/lib/components/navbar/LangSwitch.svelte:22::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte AST) lib/components/navbar/LangSwitch.svelte:22: literal <div> whose nearest non-transparent parent is a literal <button> in the same file, no component/snippet/{@render} boundary between; phrasing-only content model, as reported"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/top-level-landmark::src/routes/[[lang=lang]]/+page.svelte:118::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:108 renders {@render children()} inside an unconditional <main> (inside ParaglideJS from @inlang/paraglide-sveltekit 0.16.1, whose dist/runtime/ParaglideJS.svelte renders children in {#key lang}); the page renders its own <main> at [[lang=lang]]/+page.svelte:118, so it is nested inside the layout <main> (route /[[lang=lang]]); routes render (loads only redirect/404 conditionally)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::a11y/top-level-landmark::src/routes/[[lang=lang]]/cv/+page.svelte:74::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:108 renders {@render children()} inside an unconditional <main> (inside ParaglideJS from @inlang/paraglide-sveltekit 0.16.1, whose dist/runtime/ParaglideJS.svelte renders children in {#key lang}); the page renders its own <main> at [[lang=lang]]/cv/+page.svelte:74 (inside <section id=cv><Paper>, and lib/components/cv/Paper.svelte renders {@render children()} unconditionally), so it is nested inside the layout <main> (route /[[lang=lang]]/cv); routes render (loads only redirect/404 conditionally)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/component-size::src/lib/components/ContactForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ContactForm.svelte has 259 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/component-size::src/lib/components/PageSectionIndicator.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PageSectionIndicator.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/component-size::src/lib/components/ProgLang.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProgLang.svelte has 318 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/component-size::src/routes/[[lang=lang]]/aboutme/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=lang]]/aboutme/+page.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/component-size::src/routes/[[lang=lang]]/cv/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[lang=lang]]/cv/+page.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/AnimatedCounter.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AnimatedCounter.svelte has a single destructured $props() with 7 named props (> 6): value, startValue, duration, decimals, prefix, suffix, class"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/AssetImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AssetImage.svelte has a single destructured $props() with 9 named props (> 6): type, slug, name, alt, class, caption, width, height, align"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/EntryAnimation.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/EntryAnimation.svelte has a single destructured $props() with 8 named props (> 6): children, type, duration, delay, distance, once, class, id"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/ImageDivider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ImageDivider.svelte has a single destructured $props() with 10 named props (> 6) plus a ...rest element: id, class, style, imageUrl, paddingY, offset, scaleOnScroll, scaleStart, scaleEnd, children"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/content-pages/ContentHero.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/content-pages/ContentHero.svelte has a single destructured $props() with 11 named props (> 6): title, description, image, status, repo, link, linkTitle, linkOpenInNewTab, languages, labels, type"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/content-pages/ContentLayout.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/content-pages/ContentLayout.svelte has a single destructured $props() with 7 named props (> 6): headers, hasContent, emptyTitle, emptyDescription, emptyIcon, leftSidebar, children"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::correctness/stale-prop-derivation::src/lib/components/ProgLang.svelte:285::\"bgColor\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: computed from the name prop at init (claim structurally true), but every use passes a fixed name: literal names (profile/PLprog.svelte:5-9) or {#each languages as lang (lang)} keyed by that same name (ScrollingLangList.svelte:39, ContentHero.svelte:59), so an instance never sees name change"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::correctness/stale-prop-derivation::src/lib/components/ProgLang.svelte:286::\"color\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: computed from the name prop at init (claim structurally true), but every use passes a fixed name: literal names (profile/PLprog.svelte:5-9) or {#each languages as lang (lang)} keyed by that same name (ScrollingLangList.svelte:39, ContentHero.svelte:59), so an instance never sees name change"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::correctness/stale-prop-derivation::src/lib/components/ProgLang.svelte:287::\"iconName\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: computed from the name prop at init (claim structurally true), but every use passes a fixed name: literal names (profile/PLprog.svelte:5-9) or {#each languages as lang (lang)} keyed by that same name (ScrollingLangList.svelte:39, ContentHero.svelte:59), so an instance never sees name change"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::correctness/stale-prop-derivation::src/lib/components/ProgLang.svelte:288::\"fullName\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: computed from the name prop at init (claim structurally true), but every use passes a fixed name: literal names (profile/PLprog.svelte:5-9) or {#each languages as lang (lang)} keyed by that same name (ScrollingLangList.svelte:39, ContentHero.svelte:59), so an instance never sees name change"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-dimensions::src/routes/[[lang=lang]]/aboutme/+page.svelte:168::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside the aspect-square w-[60%] overflow-hidden wrapper - box reserved by CSS"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-dimensions::src/routes/[[lang=lang]]/aboutme/+page.svelte:44::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-[60%] only (#me-image CSS adds a mask, no height) - the natural aspect decides the hero height"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-dimensions::src/routes/[[lang=lang]]/aboutme/+page.svelte:87::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-[60%] only - the natural aspect decides the height"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-dimensions::src/routes/[[lang=lang]]/cv/+page.svelte:66::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class size-40 - box reserved by CSS"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-loading-hint::src/routes/[[lang=lang]]/aboutme/+page.svelte:168::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: me2.webp in the CV block near the end of the page, before ContactForm - offscreen on load"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-loading-hint::src/routes/[[lang=lang]]/aboutme/+page.svelte:44::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: me.webp portrait in the first hero section beside the h1 - above the fold"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-loading-hint::src/routes/[[lang=lang]]/aboutme/+page.svelte:87::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: digital-innovation.webp in the third block after the hero, AboutMe and the InfoCard grid - offscreen on load"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/image-loading-hint::src/routes/[[lang=lang]]/cv/+page.svelte:66::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile photo in the CV header - above the fold"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/responsive-image::src/routes/[[lang=lang]]/aboutme/+page.svelte:168::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: $lib/assets/me2.webp raster - one fixed-size asset"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/responsive-image::src/routes/[[lang=lang]]/aboutme/+page.svelte:44::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: $lib/assets/me.webp raster - one fixed-size asset"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/responsive-image::src/routes/[[lang=lang]]/aboutme/+page.svelte:87::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: $lib/assets/digital-innovation.webp raster - one fixed-size asset"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/responsive-image::src/routes/[[lang=lang]]/cv/+page.svelte:66::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: $lib/assets/me.webp raster at 160px - one fixed-size asset"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/sequential-awaits::src/routes/[[lang=lang]]/blog/[slug]/+page.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read blog/[slug]/+page.ts:7-13 + lib/blog/index.ts:69-118: getBlogsByLang(lang) uses nothing from getBlogBySlug, whose only role is the 404 gate; both await import.meta.glob lazy loaders, i.e. module-chunk fetches on client navigation (universal load, csr on) — per 404-gate convention they serialize"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::performance/sequential-awaits::src/routes/[[lang=lang]]/projects/[slug]/+page.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read projects/[slug]/+page.ts:8-17 + lib/projects/index.ts:62-121: getProjectsByLang(lang) uses nothing from getProjectBySlug (404 gate); both await import.meta.glob lazy chunk loaders in a universal load — per 404-gate convention they serialize"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::security/raw-html::src/lib/components/Hero.svelte:45::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Hero.svelte:45: hero_title() is a repo paraglide message with no params (messages/en.json:9 literal sr-only span) — repo constant, not a demonstrable XSS"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/description-length::src/routes/[[lang=lang]]/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <meta name=description> of the reported length in the location file, grapheme-counted after whitespace collapse = 200): src/routes/[[lang=lang]]/+page.svelte:86 \"Official portfolio of Sem Van Broekhoven, a software engineer speci...\"; the route's shipped description; too long as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/description-length::src/routes/[[lang=lang]]/projects/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <meta name=description> of the reported length in the location file, grapheme-counted after whitespace collapse = 30): src/routes/[[lang=lang]]/projects/+page.svelte:77 \"Projects of Sem Van Broekhoven\"; the route's shipped description; too short as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/description-presence::src/routes/[[lang=lang]]/404/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "[[lang=lang]]/404/+page.svelte renders only <Error404 /> (no svelte:head), root +layout.svelte head has no description, app.html none (literal claim holds); a 404 placeholder page (same component as +error.svelte), not a search target"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/404/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/404/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/aboutme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/aboutme/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/blog/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/blog/[slug]/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/cookies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/cookies/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/cv/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/cv/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/privacy/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/projects/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/json-ld::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD is the literal ld+json block on the home page ([[lang=lang]]/+page.svelte:90); src/routes/[[lang=lang]]/projects/[slug]/+page.svelte, root layout and app.html have none; no JSON-LD as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 47 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/404/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/404 (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 19 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/aboutme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/aboutme (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 38 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/blog (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 32 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/blog/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/blog/[slug] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 33 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/cookies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/cookies (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 18 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/cv/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/cv (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 26 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/privacy (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 19 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/projects (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 39 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-description::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[lang=lang]]/projects/[slug] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:description in page, 1 ancestor layout(s), 34 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 47 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/404/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/404 (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 19 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/aboutme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/aboutme (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 38 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/blog (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 32 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/blog/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/blog/[slug] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 33 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/cookies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/cookies (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 18 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/cv/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/cv (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 26 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/privacy (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 19 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/projects (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 39 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-image::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[lang=lang]]/projects/[slug] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:image in page, 1 ancestor layout(s), 34 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 47 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/404/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/404 (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 19 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/aboutme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/aboutme (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 38 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/blog (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 32 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/blog/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/blog/[slug] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 33 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/cookies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/cookies (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 18 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/cv/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/cv (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 26 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/privacy (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 19 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/projects (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 39 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/og-title::src/routes/[[lang=lang]]/projects/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[lang=lang]]/projects/[slug] (script-verified (a1a/reach.py, comments stripped; positive control hits dotsem root-layout og:url and habit-runner PublicSeoHead): no og:title in page, 1 ancestor layout(s), 34 transitively reached local files or app.html); repo-wide grep: no og:title/og:description/og:image anywhere in src or app.html; root +layout.svelte:55-100 head emits title, canonical, og:site_name/og:type/og:url, twitter:card only; pages add <title>+description (home also JSON-LD); hooks transformPageChunk only adds a theme class; ParaglideJS from @inlang/paraglide-sveltekit@0.16.1 (pnpm-lock) emits only AlternateLinks <link rel=\"alternate\">; mode-watcher/svelte-sonner/bits-ui emit none; route renders (no always-redirecting load)"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/single-h1::/[[lang=lang]]/blog/[slug]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: blog/[slug]/+page.svelte renders <ContentHero>, which imports ContentHeroTitle from '.' (the content-pages/index.ts barrel) and renders it unconditionally (ContentHero.svelte:50); hero/Title.svelte:34 is an unconditional <h1>{title}"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/single-h1::/[[lang=lang]]/privacy::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: privacy/+page.svelte renders <EnglishDoc/> or <DutchDoc/>, mdsvex modules ($lib/content/privacy/en.svx, nl.svx; svelte.config.js extensions .svx) whose first line \"# Privacy Policy\" / \"# Privacybeleid\" compiles to <h1>"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/single-h1::/[[lang=lang]]/projects/[slug]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: projects/[slug]/+page.svelte renders <ContentHero>, which imports ContentHeroTitle from '.' (the content-pages/index.ts barrel) and renders it unconditionally (ContentHero.svelte:50); hero/Title.svelte:34 is an unconditional <h1>{title}"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 18): src/routes/+layout.svelte:90 \"Sem Van Broekhoven\"; on /[[lang=lang]]/404 the page (Error404) sets no title, so the root layout title is the shipped one; too short as claimed"
+  },
+  {
+    "key": "dotsem/dotsem.be:portfolio::seo/title-length::src/routes/[[lang=lang]]/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: the literal <title> of the reported length in the location file, grapheme-counted after whitespace collapse = 29): src/routes/[[lang=lang]]/projects/+page.svelte:76 \"Projects - Sem Van Broekhoven\"; the route's shipped title; too short as claimed (it renders after the root layout <title>Sem Van Broekhoven</title> and wins)"
+  }
+]

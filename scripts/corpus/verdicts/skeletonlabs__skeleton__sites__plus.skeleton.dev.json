@@ -1,0 +1,1292 @@
+[
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::a11y/disallowed-aria-props::src/routes/(app)/content/blocks/+page.svelte:45::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read: <label for aria-label> with no role/spread; docs state the dataset prohibits a name on <label> unconditionally while the spec only does so when exposed as generic; here it names the icon-only label, not a demonstrable defect"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::a11y/permitted-contents::src/routes/(app)/+page.svelte:82::`<div>` is not permitted content here — `<header>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal parent, no component/snippet/svelte:element boundary; read: this <div> carries a nested <header> (line 83); header model is flow:not(header, footer, :has(header, footer)), so the div is excluded"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::a11y/top-level-landmark::src/routes/(app)/account/+layout.svelte:44::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: bare <aside> in account layout rendered inside (app)/+layout.svelte <main>"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::a11y/top-level-landmark::src/routes/(app)/content/community/[slug]/+page.svelte:60::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/+layout.svelte renders children inside <main>; this <aside> has only <div> ancestors in the page (no sectioning content), so it is a complementary landmark nested in main"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::architecture/component-size::src/routes/(app)/overview/pricing/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/overview/pricing/+page.svelte has 220 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-index-key::src/routes/(app)/content/community/[slug]/+page.svelte:46::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each project.images.screenshots as screenshot, i (i)}' keyed by its index binding; list source resolves to runtime data (derived: project), not shown static; sheet-read"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-index-key::src/routes/(app)/content/templates/[slug]/+page.svelte:77::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each template.images.screenshots as screenshot, i (i)}' keyed by its index binding; list source resolves to runtime data (derived: template), not shown static; sheet-read"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/auth/auth-carousel.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each carousel().pageSnapPoints as _, index}' has no key and is not an inline literal/length-only/itemless shape; item binding unused (indicator dots): rendered nodes depend only on index, a key cannot change the output"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/layout/decor-corners.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each corners as corner}' has no key and is not an inline literal/length-only/itemless shape; static list (all DecorCorners call sites pass inline literal corners arrays): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/layout/header.svelte:102::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each routes.content as anchor}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/navigation/routes): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/layout/header.svelte:147::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each routes.account as anchor}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/navigation/routes): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/layout/header.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each routes.design as anchor}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/navigation/routes): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/layout/header.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each routes.content as anchor}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/navigation/routes): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/layout/header.svelte:84::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each routes.design as anchor}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/navigation/routes): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/marquee/themes-marquee.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each rows as row, i}' has no key and is not an inline literal/length-only/itemless shape; static list (4 rows built once at init from a constant list): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/lib/components/marquee/themes-marquee.svelte:27::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each row as theme}' has no key and is not an inline literal/length-only/itemless shape; static list (row of a list built once at init from a constant list): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/routes/(app)/account/+page.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each supportedOAuthProviders as provider}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/auth/supported-oauth-providers): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/routes/(app)/content/tutorials/+page.svelte:101::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each chapter.lessons as lesson, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: chapter), not shown static; sheet-read"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/routes/(app)/overview/pricing/+page.svelte:204::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each faqs as faq, i}' has no key and is not an inline literal/length-only/itemless shape; static list (const-literal): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::correctness/each-key::src/routes/auth/sign-in/+page.svelte:12::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each supportedOAuthProviders as provider}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/auth/supported-oauth-providers): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/community/+page.svelte:25::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-6), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/community/+page.svelte:31::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-full aspect-video), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/community/[slug]/+page.svelte:16::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-6), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/community/[slug]/+page.svelte:29::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-full aspect-video), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/community/[slug]/+page.svelte:48::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-full aspect-video), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/templates/+page.svelte:32::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-full aspect-video), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/templates/[slug]/+page.svelte:67::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-full aspect-video), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-dimensions::src/routes/(app)/content/templates/[slug]/+page.svelte:78::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-full aspect-video), so no CLS from the missing attributes"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/community/+page.svelte:25::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/community/+page.svelte:31::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/community/[slug]/+page.svelte:16::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attr and no spread; read: author avatar inside PageHeader description — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/community/[slug]/+page.svelte:29::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attr and no spread; read: <!-- Hero --> image directly under PageHeader — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/community/[slug]/+page.svelte:48::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/templates/+page.svelte:32::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/templates/[slug]/+page.svelte:67::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attr and no spread; read: <!-- Hero Screenshot --> directly under PageHeader — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/image-loading-hint::src/routes/(app)/content/templates/[slug]/+page.svelte:78::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/community/+page.svelte:25::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/community/+page.svelte:31::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/community/[slug]/+page.svelte:16::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/community/[slug]/+page.svelte:29::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/community/[slug]/+page.svelte:48::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/templates/+page.svelte:32::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/templates/[slug]/+page.svelte:67::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::performance/responsive-image::src/routes/(app)/content/templates/[slug]/+page.svelte:78::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::security/raw-html::src/lib/components/code/code.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is Shiki codeToHtml output (escapes the code) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 476 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/account/api/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/account/billing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/account/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/account/team/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/blocks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 470 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 473 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/community/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 479 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 479 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/design/mesh/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/design/presets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/design/themes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/templates/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 482 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 483 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/themes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/tutorials/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 487 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/content/ui-kit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/legal/license/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/legal/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/legal/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/overview/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/(app)/overview/pricing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/canonical-url::src/routes/auth/sign-in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 462 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 476 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/account/api/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/account/billing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/account/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/account/team/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/blocks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 470 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 473 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/community/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 479 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 479 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/design/mesh/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/design/presets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/design/themes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/templates/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 482 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 483 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/themes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/tutorials/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 469 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 487 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/content/ui-kit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/legal/license/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/legal/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/legal/terms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/overview/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/(app)/overview/pricing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 467 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/description-presence::src/routes/auth/sign-in/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 462 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "only title source is literal <title> in src/app.html; no <title>/svelte:head title, meta component or transformPageChunk in any route (grep)"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 13 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/account/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 11 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/account/billing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 11 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/account/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 11 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/account/team/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 11 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/blocks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 12 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/community/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/community/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/design/mesh/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/design/presets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/design/themes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/templates/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/themes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/tutorials/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 10 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 27 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/content/ui-kit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/legal/license/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/legal/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/legal/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/overview/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/(app)/overview/pricing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 9 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/json-ld::src/routes/auth/sign-in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 6 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/account/api/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/account/billing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/account/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/account/team/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/blocks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/community/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/design/mesh/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/design/presets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/design/themes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/templates/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/themes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/tutorials/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/content/ui-kit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/legal/license/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/legal/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/legal/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/overview/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/(app)/overview/pricing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-description::src/routes/auth/sign-in/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/account/api/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/account/billing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/account/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/account/team/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/blocks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/community/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/design/mesh/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/design/presets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/design/themes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/templates/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/themes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/tutorials/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/content/ui-kit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/legal/license/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/legal/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/legal/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/overview/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/(app)/overview/pricing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-image::src/routes/auth/sign-in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/account/api/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/account/billing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/account/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/account/team/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/blocks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/community/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/design/mesh/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/design/presets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/design/themes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/templates/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/themes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/tutorials/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/content/ui-kit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/legal/license/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/legal/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/legal/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/overview/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/(app)/overview/pricing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-title::src/routes/auth/sign-in/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/account/api/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/account/billing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/account/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/account/team/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/blocks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/community/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/design/mesh/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/design/presets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/design/themes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/templates/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/themes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/tutorials/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/content/ui-kit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/legal/license/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/legal/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/legal/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/overview/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/(app)/overview/pricing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/og-url::src/routes/auth/sign-in/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/content/design/mesh::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/content/design/presets::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/content/design/themes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/content/themes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/content/ui-kit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/legal/license::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/legal/privacy::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/legal/terms::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/single-h1::/overview/about::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): placeholder page (<p>Now viewing ...</p>) and layouts contain no heading"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "no static/sitemap.xml, no sitemap.xml endpoint, hook or build generator (repo-wide grep); kit.files not overridden"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "only title is literal app.html <title> of 13 chars; no route overrides it (grep)"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/account/api/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/account/billing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/account/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/account/team/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/blocks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/blocks/[category]/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/community/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/community/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/design/mesh/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/design/presets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/design/themes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/templates/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/templates/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/themes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/tutorials/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/tutorials/[tier]/[chapter]/[lesson]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/content/ui-kit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/legal/license/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/legal/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/legal/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/overview/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/(app)/overview/pricing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/twitter-card::src/routes/auth/sign-in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::seo/heading-level-skip::src/routes/(app)/content/tutorials/+page.svelte:88::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "page-header.svelte:72 unconditional <h1>, then tutorials/+page.svelte:88 <h3> inside Accordion.ItemTrigger; skeleton-svelte (workspace) accordion anatomy renders only div/button and SegmentedControl has no heading -> h1 to h3"
+  }
+]

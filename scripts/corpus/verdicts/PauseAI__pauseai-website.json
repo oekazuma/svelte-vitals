@@ -1,0 +1,1277 @@
+[
+  {
+    "key": "PauseAI/pauseai-website::a11y/deprecated-attr::src/lib/components/DonorBoxEmbed.svelte:36::`frameborder`, `scrolling` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/deprecated-attr::src/lib/components/TallyEmbed.svelte:72::`frameborder`, `marginheight`, `marginwidth` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/deprecated-attr::src/routes/communities/+page.svelte:202::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/disallowed-aria-props::src/lib/components/navbar/universal/UniversalNavlink.svelte:44::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (h-a11y/dap.mjs): literal <span> at this line carries the attribute with no role attribute, no spread, not in svg; generic/paragraph prohibit naming in ARIA 1.2/1.3"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/duplicate-landmark::src/routes/chat/+page.svelte:79::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:240 unconditional <main> + page <main>"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/duplicate-landmark::src/routes/sayno/+page.svelte:240::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:240 unconditional <main> + page <main>"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/duplicate-landmark::src/routes/write/+page.svelte:421::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:240 unconditional <main> + page <main>"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/id-duplication::src/lib/components/icons/whatsapp.svelte:1::Duplicate id \"Layer_#\"",
+    "verdict": "tp",
+    "basis": "read: whatsapp.svelte:3 and reddit.svelte:1 both hardcode id=\"Layer_1\"; Socials.svelte renders both (no blocks) inside routes/footer.svelte in the root layout"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/permitted-contents::src/lib/components/Doomers.svelte:264::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <h3> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/permitted-contents::src/lib/components/Doomers.svelte:267::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <h3> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/permitted-contents::src/routes/communities/CommunitiesList.svelte:107::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/permitted-contents::src/routes/communities/CommunitiesList.svelte:128::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/permitted-contents::src/routes/email-builder/concerns/cyber.svelte:51::`<ul>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <ul> at this line has literal parent <ul> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/permitted-contents::src/routes/outcomes/+page.svelte:18::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <h1> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/top-level-landmark::src/routes/chat/+page.svelte:79::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:240 wraps {@render children()} in unconditional <main>; the page also renders <main>, no layout reset"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/top-level-landmark::src/routes/sayno/+page.svelte:240::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:240 wraps {@render children()} in unconditional <main>; the page also renders <main>, no layout reset"
+  },
+  {
+    "key": "PauseAI/pauseai-website::a11y/top-level-landmark::src/routes/write/+page.svelte:421::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:240 wraps {@render children()} in unconditional <main>; the page also renders <main>, no layout reset"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/Banner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Banner.svelte has 337 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/Combobox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Combobox.svelte has 361 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/Doomers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Doomers.svelte has 371 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/Hero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Hero.svelte has 255 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/LanguageSwitcher.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LanguageSwitcher.svelte has 259 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/NationalGroupItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NationalGroupItem.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/PressLogos.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PressLogos.svelte has 227 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/QuotesCarousel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QuotesCarousel.svelte has 207 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/Tabs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Tabs.svelte has 271 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/Toc.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Toc.svelte has 279 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/UKMPEmailForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UKMPEmailForm.svelte has 807 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/UKMPLookup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UKMPLookup.svelte has 369 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/navbar/narrow/NarrowNavbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/navbar/narrow/NarrowNavbar.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/onboarding/OnboardingFlow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/onboarding/OnboardingFlow.svelte has 1765 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/lib/components/onboarding/SubscribeFlow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/onboarding/SubscribeFlow.svelte has 434 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 380 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/chat/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/chat/+page.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/communities/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/communities/+page.svelte has 265 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/communities/CommunitiesList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/communities/CommunitiesList.svelte has 335 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/contact-us/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contact-us/+page.svelte has 644 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/dear-sir-demis-2025/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dear-sir-demis-2025/+page.svelte has 1742 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/dear-sir-demis-2025/QuoteHighlight.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dear-sir-demis-2025/QuoteHighlight.svelte has 238 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/email-builder/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/email-builder/+page.svelte has 370 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/onboarding-email-compare/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding-email-compare/+page.svelte has 274 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/onboarding-email-preview/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding-email-preview/+page.svelte has 690 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/quotes/Quote.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/quotes/Quote.svelte has 213 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/sayno/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sayno/+page.svelte has 364 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/sayno/SelfieUX.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sayno/SelfieUX.svelte has 572 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/component-size::src/routes/write/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/write/+page.svelte has 760 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/Combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): id, name, options, multiple, required, placeholder, value"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/LinkWithoutIcon.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): href, target, class, rel, type, onclick, children"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/Skeleton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): class, width, height, variant, animation, count, loading, random, seed, children"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/TallyEmbed.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): formId, customDomain, alignLeft, hideTitle, transparentBackground, dynamicHeight, extraParams, height"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/images/Image.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): picture, src, alt, title, sizes, aspectRatio, class, loading, fetchpriority"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/images/NetlifyImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): src, alt, widths, sizes, quality, fit, pictureClass, imgClass, style, loading, decoding, onFailed"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/images/Picture.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): picture, alt, title, sizes, class, pictureClass, style, loading, fetchpriority, decoding, onerror"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/navbar/Navlink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): href, c2a, ariaLabel, inverted, first, narrow, active, external, children"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/navbar/narrow/NarrowNavlink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): href, c2a, ariaLabel, inverted, first, narrow, active, external, children"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/navbar/universal/UniversalNavlink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): href, c2a, ariaLabel, inverted, first, narrow, active, external, children"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/navbar/wide/WideNavlink.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): href, c2a, ariaLabel, inverted, first, narrow, active, external, children"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/lib/components/onboarding/OnboardingFlow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): initialEmail, initialCountry, initialCity, initialFullName, initialLanguages, initialRecordId, startStep, initialKeepInformed, initialChapterShare, initialSource, onSignup"
+  },
+  {
+    "key": "PauseAI/pauseai-website::architecture/prop-count::src/routes/quotes/Quote.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): background, text, author, author_description, source, notice, color, padding"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/FundingDonorsList.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each donors as d}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/LanguageSwitcher.svelte:184::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each locales as locale}' has no key; not an exempt shape; static list (paraglide locales): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/LatestNews.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each newsItems as item}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/MessageWithLink.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each parts as part}' has no key; not an exempt shape; positional list (parts of one parsed message): items have no identity beyond position"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/NationalGroupItem.svelte:116::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each nationalGroup.leader.split(', ') as leader}' has no key; not an exempt shape; positional list (leader.split(\", \") of one string): items have no identity beyond position"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/NationalGroupItem.svelte:86::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each linkEntries as [key, Icon]}' has no key; not an exempt shape; static list (typedEntries(iconMap) constant): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/NationalGroupsList.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each nationalGroups as nationalGroup}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/PreloadFonts.svelte:13::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each urls as url}' has no key; not an exempt shape; static list (callers pass inline literal font URLs): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/PressCoveragePanel.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each tabs as tab}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/Tabs.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each tabs as tab, i}' has no key; not an exempt shape; static list (only callers are inline literals in action.md): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/Tabs.svelte:57::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each tabs as tab, i}' has no key; not an exempt shape; static list (only callers are inline literals in action.md): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/about/AboutPeople.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each groupKeys as groupName}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/about/AboutPeople.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each peopleGroups[groupName] as { name, image, title }}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/images/Picture.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each Object.entries(picture.sources) as [format, srcset]}' has no key; not an exempt shape; static list (build-time picture format sources): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/lib/components/simple-toc/Node.svelte:28::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each cutOffHeadings(headings, level) as heading, i}' has no key; not an exempt shape; positional list (TOC nodes computed from headings with index-relative logic): items have no identity beyond position"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/[slug]/+page.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each data.cssUrls ?? [] as href}' has no key; not an exempt shape; static list (per-page CSS URL list): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/chat/+page.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each messages as { role, content }}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — chat messages appended; source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/communities/CommunitiesList.svelte:171::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each localCommunities.sort((a, b) => a.name.localeCompare(b.name)) as localCommunity}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/communities/CommunitiesList.svelte:92::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each sortedNationalities as nationality}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/dear-sir-demis-2025/+page.svelte:298::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each sortedParliamentarians as signatory, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/dear-sir-demis-2025/+page.svelte:309::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each organizations as org}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/onboarding-email-compare/+page.svelte:116::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each data.options.templates as t}' has no key; not an exempt shape; static list (LEGACY_TEMPLATE_OPTIONS server constant): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/onboarding-email-compare/+page.svelte:134::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each intentChoices as option}' has no key; not an exempt shape; static list (constant NON_VOLUNTEER_CHOICES or []): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/onboarding-email-preview/+page.svelte:181::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each options as option}' has no key; not an exempt shape; static list (radioGroup called with constant option lists): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/onboarding-email-preview/+page.svelte:271::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each data.options.countries as c}' has no key; not an exempt shape; static list (server-side chapter country config): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/posts/+page.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each posts as { slug, title, description }}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/quotes/+page.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each quotes as quote}' has no key; not an exempt shape; static list (quotes from bundled data.json): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/quotes/+page.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each quotes as quote}' has no key; not an exempt shape; static list (quotes from bundled data.json): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/statement/+page.svelte:69::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each visibleSignatories as { name, country, bio }}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/write/+page.svelte:487::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each messages as { role, content, complete }, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — chat messages appended; source read"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/write/+page.svelte:515::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each section.subsections as subsection, subsectionIndex}' has no key; not an exempt shape; static list (script-literal form structure): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/write/+page.svelte:523::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each subsection.questions as question, questionIndex}' has no key; not an exempt shape; static list (script-literal form structure): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/iframe-loading::src/lib/components/DonorBoxEmbed.svelte:36::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: third-party DonorBox form embedded in markdown posts after body text — can be offscreen"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/iframe-loading::src/lib/components/TallyEmbed.svelte:72::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: Tally form embedded in posts/statement page after text; the iframe carries data-tally-src and Tally embed.js (appended in onMount) assigns src right after mount, so it loads eagerly even offscreen — Tally's own embed snippet adds loading=\"lazy\" for this"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/iframe-loading::src/routes/communities/+page.svelte:202::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: lu.ma calendar embed below the communities map — offscreen on load"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/iframe-loading::src/routes/onboarding-email-compare/+page.svelte:207::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc preview, no network document"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/iframe-loading::src/routes/onboarding-email-compare/+page.svelte:229::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc preview, no network document"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/iframe-loading::src/routes/onboarding-email-preview/+page.svelte:380::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc preview, no network document"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/image-dimensions::src/routes/dear-sir-demis-2025/+page.svelte:317::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — CSS .organization-logo fixes height 60px (40px mobile); width auto only varies inside its grid cell"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/image-dimensions::src/routes/dear-sir-demis-2025/+page.svelte:350::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .pdf-thumbnail-image width:100% height:auto — natural aspect ratio decides height"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/image-dimensions::src/routes/sayno/+page.svelte:264::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .collage-thumbnail max-width:100% height:auto"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/image-loading-hint::src/routes/dear-sir-demis-2025/+page.svelte:350::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: \"Learn More\" section lower on a long page"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/image-loading-hint::src/routes/sayno/+page.svelte:264::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: below the capture prelude and intro text"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/lcp-image::src/routes/dear-sir-demis-2025/+page.svelte:317::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the page source, but it sits in the signatories section after the hero, quotes and parliamentarian list — far below the fold; lazy is right there, so the first-image heuristic misses the LCP"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/namespace-import::src/routes/communities/+page.svelte:8::Namespace import \"import * as … from 'maplibre-gl'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "tp",
+    "basis": "read: `const { GeolocateControl, Map, Marker, Popup } = maplibregl` destructures the namespace (whole use); verified with rolldown 1.2.7 (Vite 8, app uses vite ^8.3) that destructuring a namespace keeps unused exports while static member access shakes them. Author comment says named imports fail on the server"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/responsive-image::src/routes/dear-sir-demis-2025/+page.svelte:317::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: raster .png logos"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/responsive-image::src/routes/dear-sir-demis-2025/+page.svelte:350::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .jpg"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/responsive-image::src/routes/sayno/+page.svelte:264::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote raster jpg (400px variant; others exist)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::performance/sequential-awaits::src/routes/onboarding-email-compare/+page.server.ts:81::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body: resolveOnboardingEmail(renderParams) is independent of renderOnboardingEmail(renderParams) (both take the same params; I/O via getChapterForOnboardingEmail)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/Banner.svelte:127::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<${'style'}>${selector}{display:flex!important}</}; read: <style> built from developer-set banner ids — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/Home.svelte:35::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.home_risks_title()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/Home.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.home_proposal_title()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/Home.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.home_action_title()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/MessageWithLink.svelte:69::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html part.content}; read: content is static i18n/markdown-authored strings (component documented as static-only) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/PostMeta.svelte:70::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html '<script type=\"application/ld+json\">' + JSON.strin}; read: JSON.stringify(schemaOrgMarkup) of per-post title/description/image props injected into <script type=ld+json> without escaping \"<\" — the docs say this needs script-safe serialization"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/Tabs.svelte:60::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html tab.content}; read: content is static i18n/markdown-authored strings (component documented as static-only) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/UKMPEmailForm.svelte:317::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html htmlPreview}; read: micromark() output with default (HTML-escaping) options — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/ActionCards.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_action_talk_sub}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/ActionCards.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_action_donate_sub}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1048::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_paying_member_description}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1054::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_become_paying_member}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1056::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_paying_member_donate_notice}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1069::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_agree_volunteer}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1075::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_agree_conduct}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1103::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_lead_us_branch}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1106::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_lead_has_chapter(basics.country)}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1109::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_lead_check_chapter}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:1138::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_lead_next_steps}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:493::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_gdpr_consent}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:501::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_next_step_p1}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:503::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_next_step_p2}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:681::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_email_critical_notice}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/lib/components/onboarding/OnboardingFlow.svelte:930::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html msgs.onboarding_helper_discord}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/+layout.svelte:137::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<${'script'}>${sanitizeScript( `var mainBannerRul}; read: inline <script> built from repo constants/functions — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/+layout.svelte:144::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<${'script'}>${sanitizeScript(themeSelection)}</s}; read: inline <script> built from repo constants/functions — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/+layout.svelte:147::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<${'script'}>${sanitizeScript(hydrationAwareClick}; read: inline <script> built from repo constants/functions — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/+layout.svelte:150::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<${'script'}>${sanitizeScript(bannerSelection)}</}; read: inline <script> built from repo constants/functions — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/+layout.svelte:168::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html data.localeAlert.message}; read: dev-only locale mismatch message built from locale-code JSON — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/embed/+layout.svelte:30::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<${'script'}>(function(){var h=document.documentE}; read: inline <script> built from repo constants/functions — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/quotes/Quote.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html text}; read: quote text is escape()d in quotes/+page.ts before bold markup is added — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/write/+page.svelte:490::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html content}; read: progress HTML built server-side from fixed step descriptions and numbers — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "PauseAI/pauseai-website::security/raw-html::src/routes/write/+page.svelte:494::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html content}; read: assistant message content = state.email, LLM output from /api/write, rendered unsanitized"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/close/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/communities/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/contact-us/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/dear-sir-demis-2025/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/email-builder/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/embed/onboarding-form/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/embed/onboarding-form/stub/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/embed/uk-email-mp/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (route carries literal noindex robots meta), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/onboarding-email-compare/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (dev/deploy-preview only: load 404s in production (!dev && !isAllowedHost)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/onboarding-email-preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (dev/deploy-preview only: load 404s in production (!dev && !isAllowedHost)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/outcomes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/posts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/quotes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/sayno/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/sayno/share/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/statement/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/submitted/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/uk-email-mp/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/canonical-url::src/routes/write/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (route carries literal noindex robots meta), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/chat/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/close/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/embed/uk-email-mp/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (route carries literal noindex robots meta), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/onboarding-email-compare/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (dev/deploy-preview only: load 404s in production (!dev && !isAllowedHost)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/onboarding-email-preview/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (dev/deploy-preview only: load 404s in production (!dev && !isAllowedHost)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/sayno/share/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/submitted/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/verify/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/description-presence::src/routes/write/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (route carries literal noindex robots meta), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/indexability::src/routes/embed/uk-email-mp/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal unconditional <meta name=\"robots\" content=\"noindex…\"> in the route's own svelte:head or its layout; route is noindex as claimed"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/indexability::src/routes/write/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal unconditional <meta name=\"robots\" content=\"noindex…\"> in the route's own svelte:head or its layout; route is noindex as claimed"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/close/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/embed/uk-email-mp/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/onboarding-email-compare/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/onboarding-email-preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/sayno/share/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/submitted/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/json-ld::src/routes/write/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: route chain+transitive imports never reach PostMeta.svelte (the only JSON-LD emitter); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/close/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/embed/uk-email-mp/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: embed]"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/onboarding-email-compare/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/onboarding-email-preview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/posts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/sayno/share/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/submitted/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-description::src/routes/verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/chat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/close/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/embed/uk-email-mp/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: embed]"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/onboarding-email-compare/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/onboarding-email-preview/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/sayno/share/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/submitted/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/verify/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-image::src/routes/write/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/close/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/embed/uk-email-mp/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: embed]"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/onboarding-email-compare/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/onboarding-email-preview/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/posts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/sayno/share/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/submitted/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-title::src/routes/verify/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/chat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/close/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/embed/uk-email-mp/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: embed]"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/onboarding-email-compare/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/onboarding-email-preview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/posts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/sayno/share/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/submitted/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/verify/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/og-url::src/routes/write/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/single-h1::src/lib/components/Processing.svelte:10::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "Processing.svelte:9-13 has <h1> in {#if errorMessage}...{:else} (exclusive) and layout Hero only renders on / -> exactly one <h1> rendered"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/single-h1::src/routes/write/+page.svelte:513::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "<h1> at +page.svelte:423 plus one <h1> per form section in {#each formSections} (:513) -> genuinely multiple"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/sitemap-in-robots::(site)::robots.txt does not reference your sitemap",
+    "verdict": "tp",
+    "basis": "read: static/robots.txt has only User-agent/Disallow lines, no Sitemap:, while src/routes/sitemap.xml/+server.ts exists"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/title-length::src/routes/close/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/title-length::src/routes/embed/uk-email-mp/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/title-length::src/routes/onboarding-email-preview/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/title-presence::src/routes/sayno/share/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read page + root layout (head only has {@html} <script>s) + Banner/PreloadFonts/ShareButtons/Processing; app.html and hooks transformPageChunk (%lang% only) add no title; page SSR-renders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/title-presence::src/routes/submitted/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read page + root layout (head only has {@html} <script>s) + Banner/PreloadFonts/ShareButtons/Processing; app.html and hooks transformPageChunk (%lang% only) add no title; page SSR-renders (client redirect in onMount, document still served untitled)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/title-presence::src/routes/verify/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read page + root layout (head only has {@html} <script>s) + Banner/PreloadFonts/ShareButtons/Processing; app.html and hooks transformPageChunk (%lang% only) add no title; page SSR-renders (client redirect in onMount, document still served untitled)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/chat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/close/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/communities/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/contact-us/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/dear-sir-demis-2025/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/email-builder/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/embed/onboarding-form/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/embed/onboarding-form/stub/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/embed/uk-email-mp/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: embed]"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/onboarding-email-compare/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/onboarding-email-preview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/outcomes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/posts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/quotes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/sayno/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/sayno/share/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/statement/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/submitted/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/uk-email-mp/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/PostMeta.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/verify/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/twitter-card::src/routes/write/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og tags exist only in PostMeta.svelte and inline og:title/og:description in chat/write; this route renders neither for this key; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders"
+  },
+  {
+    "key": "PauseAI/pauseai-website::seo/single-h1::src/routes/+layout.svelte:155::Missing <h#>",
+    "verdict": "tp",
+    "basis": "key covers 5 routes (/chat, /embed/onboarding-form, /embed/uk-email-mp, /posts, /sayno; local list equal): the only <h1> in the root layout chain is Hero.svelte:28, rendered in {#if hero} with hero = deLocalizeHref(page.url.pathname) === '/' (+layout.svelte:80,217-224), so never on these paths (analyzer decided the arm correctly); the pages render no <h1> (chat/posts: none; sayno: <h2>/<h3> at :248,:258 plus SelfieUX <h2>s; onboarding-form: OnboardingFlow <h2>/<h3>; uk-email-mp: UKMPLookup none), header/footer (<h2>s)/embed layout none (script-verified: grep of src/ for <h1 lists no file on these chains)"
+  }
+]

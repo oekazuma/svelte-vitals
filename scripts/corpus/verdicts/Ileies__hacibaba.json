@@ -1,0 +1,817 @@
+[
+  {
+    "key": "Ileies/hacibaba::a11y/duplicate-landmark::src/routes/admin/+layout.svelte:64::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:250 wraps {@render children()} in an unconditional <main id=main-content>, and admin/+layout.svelte:64 wraps its children in another <main> (no @ reset), so every /admin route has two main landmarks"
+  },
+  {
+    "key": "Ileies/hacibaba::a11y/permitted-contents::src/routes/account/+page.svelte:203::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/account/+page.svelte:203 has nearest literal non-transparent ancestor <button> (line 199) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "Ileies/hacibaba::a11y/permitted-contents::src/routes/account/+page.svelte:209::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/account/+page.svelte:209 has nearest literal non-transparent ancestor <button> (line 199) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "Ileies/hacibaba::a11y/top-level-landmark::src/routes/account/+page.svelte:125::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: account/+page.svelte:125 <aside> sidebar in plain divs (no sectioning ancestor), rendered inside the root layout's unconditional <main> (+layout.svelte:250); complementary nested in main"
+  },
+  {
+    "key": "Ileies/hacibaba::a11y/top-level-landmark::src/routes/admin/+layout.svelte:26::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:26 unlabelled <aside> with no sectioning ancestor, rendered inside the root layout's unconditional <main> (+layout.svelte:250); an aside scoped to main is a complementary landmark nested in main"
+  },
+  {
+    "key": "Ileies/hacibaba::a11y/top-level-landmark::src/routes/admin/+layout.svelte:64::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:64 <main> renders inside the root layout's unconditional <main> (+layout.svelte:250, no @ reset), a main nested in main on every /admin route"
+  },
+  {
+    "key": "Ileies/hacibaba::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 411 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Ileies/hacibaba::architecture/component-size::src/routes/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/+page.svelte has 735 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Ileies/hacibaba::architecture/component-size::src/routes/admin/products/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/products/[id]/+page.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Ileies/hacibaba::architecture/component-size::src/routes/checkout/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/checkout/+page.svelte has 579 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Ileies/hacibaba::architecture/component-size::src/routes/products/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/products/+page.svelte has 253 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Ileies/hacibaba::architecture/component-size::src/routes/products/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/products/[slug]/+page.svelte has 371 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Ileies/hacibaba::correctness/each-index-key::src/lib/components/Breadcrumb.svelte:13::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Breadcrumb.svelte:13 keyed by its index binding; positional list (breadcrumbs): items have no identity beyond position"
+  },
+  {
+    "key": "Ileies/hacibaba::correctness/each-index-key::src/routes/products/[slug]/+page.svelte:99::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/products/[slug]/+page.svelte:99 keyed by its index binding; list source is runtime data (allImages: the product's images from the [slug] load, replaced on navigation between products)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/+layout.svelte:286::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-8 w-auto only (29 routes, same element) — height fixed, width comes from the image, no box reserved"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/+layout.svelte:99::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-10 w-auto only (key covers 29 routes, same element) — height fixed, width comes from the image, no box reserved"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/admin/products/+page.svelte:50::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-8 w-8)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/cart/+page.svelte:48::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-16 w-16)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/checkout/+page.svelte:549::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-9 w-9)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/products/[slug]/+page.svelte:109::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the h-16 w-16 thumbnail button, :99-109)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-dimensions::src/routes/products/[slug]/+page.svelte:82::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the aspect-square wrapper, products/[slug]/+page.svelte:80)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-loading-hint::src/routes/+layout.svelte:286::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: footer logo in the root layout <footer> after {@render children()} (+layout.svelte:250,277-286) — offscreen on load (29 routes)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-loading-hint::src/routes/+layout.svelte:99::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: site logo in the root layout <header> (+layout.svelte:91-99) — above the fold on every route, where the docs keep the image eager"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-loading-hint::src/routes/admin/products/+page.svelte:50::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: product thumbnail in each row of the {#each paged} admin products table (admin/products/+page.svelte:46-50) — rows below the fold are offscreen"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-loading-hint::src/routes/cart/+page.svelte:48::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: line-item thumbnails in the cart list directly under the page <h1> and the shipping notice (cart/+page.svelte:22-48) — in view on load, where the docs keep the image eager"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/image-loading-hint::src/routes/products/[slug]/+page.svelte:82::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: main product image with fetchpriority=\"high\" at the top of the product page (:80-88) — above the fold (the LCP), where the docs keep the image eager"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/+layout.svelte:286::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /logo.webp — raster, one fixed-size asset (29 routes)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/+layout.svelte:99::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /logo.webp — raster, one fixed-size asset (29 routes)"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/admin/products/+page.svelte:50::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: product.imageUrl, a stored product photo URL (schema image_url text) — raster, one fixed-size asset"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/cart/+page.svelte:48::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: item.imageUrl product photo — raster, one fixed-size asset"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/checkout/+page.svelte:549::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: item.imageUrl product photo in the order summary — raster, one fixed-size asset"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/products/[slug]/+page.svelte:109::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: gallery thumbnail of the product photo — raster, one fixed-size asset"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/responsive-image::src/routes/products/[slug]/+page.svelte:82::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: activeImage, the product photo URL — raster, one fixed-size asset"
+  },
+  {
+    "key": "Ileies/hacibaba::performance/state-raw::src/routes/checkout/+page.svelte:99::\"citySuggestions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"citySuggestions\" in src/routes/checkout/+page.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "Ileies/hacibaba::security/raw-html::src/routes/+layout.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:43-57,77: Organization JSON-LD of literal strings, EMAIL_INFO constant and data.siteOrigin (env.PUBLIC_SITE_URL, +layout.server.ts:5) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "Ileies/hacibaba::security/raw-html::src/routes/products/[slug]/+page.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read products/[slug]/+page.svelte:20-38,65: Product JSON-LD of data.product.name/description/imageUrl from the products DB table — JSON.stringify with no '<' escaping inside <script type=application/ld+json> (ledger JSON-LD tp convention: docs require script-safe serialization for non-literal data)"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: account/+page.server.ts:16 requireCustomer() redirects guests to /auth/login, lib/server/auth.ts:101-104), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/customers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/orders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/orders/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/products/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/products/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/testimonials/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/admin/testimonials/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (auth-gated: hooks.server.ts handleAdminAuth -> lib/server/auth.ts:183-187 redirects every /admin request without a session to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/agb/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (literal noindex robots meta at agb/+page.svelte:12), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/auth/newsletter/confirm/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/auth/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/auth/reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/auth/reset/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/auth/verify-pending/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/cart/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/checkout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/checkout/confirmation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/datenschutz/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (literal noindex robots meta at datenschutz/+page.svelte:13), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/faq/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/impressum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (literal noindex robots meta at impressum/+page.svelte:15), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/kontakt/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/lieferbedingungen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (literal noindex robots meta at lieferbedingungen/+page.svelte:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/products/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/products/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; publicly reachable, rendered route, no noindex or guest redirect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/canonical-url::src/routes/widerruf/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library) but not a search target (literal noindex robots meta at widerruf/+page.svelte:13), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 25 routes, labelled by majority: root +layout.svelte:61-64 literal <meta name=\"description\"> (the shop tagline) is the only description of /, /account, /admin/*, /auth/*, /cart, /checkout(/confirmation) and the five legal pages, duplicate as claimed; but the legal pages are literal noindex (agb/datenschutz/impressum/lieferbedingungen/widerruf svelte:head), admin/account/auth/cart/checkout are session or transaction pages, so among indexable content pages the tagline appears only on / (products, FAQ, Kontakt set their own) and there is no search competition"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/heading-level-skip::src/routes/+layout.svelte:326::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "key covers 11 routes (admin customers/orders/products(/[id])/testimonials(/[id]), cart, checkout/confirmation, faq, products, newsletter confirm): each page's only heading is its <h1> (e.g. cart/+page.svelte:22, admin/customers/+page.svelte:28), and the root layout footer after {@render children()} opens with <h3> legal (+layout.svelte:326); no local component on those pages renders a heading (CardTitle h3 is used only on auth pages) -> h1 to h3"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/heading-level-skip::src/routes/checkout/+page.svelte:309::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "checkout/+page.svelte:266 <h1>, then in the shipping step {#if data.savedAddresses.length} the \"Gespeicherte Adressen\" <h3> (:309) before the first <h2> (:341) -> h1 to h3 for a customer with saved addresses"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/heading-level-skip::src/routes/products/[slug]/+page.svelte:260::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "products/[slug]/+page.svelte:124 <h1>{product.name}, then the allergens section's <h3> (:260) below the two-column grid; no heading between (Breadcrumbs/Badge render none) -> h1 to h3"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/indexability::src/routes/agb/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/agb/+page.svelte:12 unconditional literal <meta name=\"robots\" content=\"noindex\"> in the page's top-level svelte:head; noindex as claimed (deliberate for a German legal page: AGB/Datenschutz/Impressum/Lieferbedingungen/Widerruf)"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/indexability::src/routes/datenschutz/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/datenschutz/+page.svelte:13 unconditional literal <meta name=\"robots\" content=\"noindex\"> in the page's top-level svelte:head; noindex as claimed (deliberate for a German legal page: AGB/Datenschutz/Impressum/Lieferbedingungen/Widerruf)"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/indexability::src/routes/impressum/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/impressum/+page.svelte:15 unconditional literal <meta name=\"robots\" content=\"noindex\"> in the page's top-level svelte:head; noindex as claimed (deliberate for a German legal page: AGB/Datenschutz/Impressum/Lieferbedingungen/Widerruf)"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/indexability::src/routes/lieferbedingungen/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/lieferbedingungen/+page.svelte:7 unconditional literal <meta name=\"robots\" content=\"noindex\"> in the page's top-level svelte:head; noindex as claimed (deliberate for a German legal page: AGB/Datenschutz/Impressum/Lieferbedingungen/Widerruf)"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/indexability::src/routes/widerruf/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: routes/widerruf/+page.svelte:13 unconditional literal <meta name=\"robots\" content=\"noindex\"> in the page's top-level svelte:head; noindex as claimed (deliberate for a German legal page: AGB/Datenschutz/Impressum/Lieferbedingungen/Widerruf)"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/customers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/orders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/orders/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/products/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/products/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/testimonials/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/admin/testimonials/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/agb/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/auth/newsletter/confirm/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/auth/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/auth/reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/auth/reset/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/auth/verify-pending/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/cart/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/checkout/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/checkout/confirmation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/datenschutz/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/faq/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/impressum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/kontakt/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/lieferbedingungen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-description::src/routes/widerruf/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/customers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/orders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/orders/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/products/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/products/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/testimonials/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/admin/testimonials/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/agb/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/auth/newsletter/confirm/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/auth/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/auth/reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/auth/reset/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/auth/verify-pending/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/cart/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/checkout/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/checkout/confirmation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/datenschutz/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/faq/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/impressum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/kontakt/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/lieferbedingungen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-title::src/routes/widerruf/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/customers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/orders/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/products/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/products/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/testimonials/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/admin/testimonials/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/agb/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/auth/newsletter/confirm/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/auth/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/auth/reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/auth/reset/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/auth/verify-pending/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/cart/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/checkout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/checkout/confirmation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/datenschutz/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/faq/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/impressum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/kontakt/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/lieferbedingungen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/products/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/products/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/og-url::src/routes/widerruf/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, root +layout.svelte:60-78 (description, og:site_name/type/image, twitter:card/image, hreflang, JSON-LD only) or app.html; the only og:title/og:description are in products/+page.svelte and products/[slug]/+page.svelte, and there is no og:url or canonical anywhere in src; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/title-length::src/routes/faq/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>FAQ - Hacibaba</title> at routes/faq/+page.svelte:51 in a top-level svelte:head, the route's only title (root layout head has description/og/hreflang/JSON-LD but no <title>); 14 chars, under 30 as claimed"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/title-length::src/routes/impressum/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Impressum - Hacibaba</title> at routes/impressum/+page.svelte:14 in a top-level svelte:head, the route's only title (root layout head has description/og/hreflang/JSON-LD but no <title>); 20 chars, under 30 as claimed"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/title-length::src/routes/kontakt/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Kontakt - Hacibaba</title> at routes/kontakt/+page.svelte:28 in a top-level svelte:head, the route's only title (root layout head has description/og/hreflang/JSON-LD but no <title>); 18 chars, under 30 as claimed"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/title-length::src/routes/lieferbedingungen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Lieferbedingungen - Hacibaba</title> at routes/lieferbedingungen/+page.svelte:6 in a top-level svelte:head, the route's only title (root layout head has description/og/hreflang/JSON-LD but no <title>); 28 chars, under 30 as claimed"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/title-length::src/routes/widerruf/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <title>Widerrufsbelehrung - Hacibaba</title> at routes/widerruf/+page.svelte:12 in a top-level svelte:head, the route's only title (root layout head has description/og/hreflang/JSON-LD but no <title>); 29 chars, under 30 as claimed"
+  },
+  {
+    "key": "Ileies/hacibaba::seo/single-h1::src/routes/+layout.svelte:326::Missing <h#>",
+    "verdict": "tp",
+    "basis": "key covers 7 local routes, all without <h1>: auth/login, auth/register, auth/reset, auth/reset/[token], auth/verify-pending and admin/login title with CardTitle (ui/CardTitle.svelte renders <h3>), /account uses <h2>/<h3>; root layout's first heading is the footer <h3> (:326); bits-ui (npm) renders no <h1>"
+  }
+]

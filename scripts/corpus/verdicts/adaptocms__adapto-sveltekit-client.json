@@ -1,0 +1,822 @@
+[
+  {
+    "key": "adaptocms/adapto-sveltekit-client::performance/image-dimensions::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte:30::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; CMS image field with only style max-width:100% ([item_slug]/+page.svelte:30) — the natural aspect decides the height, the fields below shift"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::performance/lcp-image::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte:30::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "read: <img> has literal loading=\"lazy\"; first <img> of the route (root and [lang] layouts and Navbar render no <img>): the CMS image field, max-width:100% in the 960px content column, rendered in the field list right under the item <h1> ([item_slug]/+page.svelte:12-30) — a large content image near the top of a short page, yet marked lazy"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::performance/responsive-image::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte:30::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; String(value), a CMS-hosted raster image URL shown at up to the 960px column ([item_slug]/+page.svelte:30) — one fixed-size asset"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::security/raw-html::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte:28: rich text from the site owner's own Adapto CMS tenant (README: 'fetched server-side from your Adapto tenant'; hydrateMediaPlacements only embeds media) on a single-site client - first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::security/raw-html::src/routes/[lang]/articles/[slug]/+page.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/articles/[slug]/+page.svelte:29: rich text from the site owner's own Adapto CMS tenant (README: 'fetched server-side from your Adapto tenant'; hydrateMediaPlacements only embeds media) on a single-site client - first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::security/raw-html::src/routes/[lang]/pages/[slug]/+page.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/pages/[slug]/+page.svelte:23: rich text from the site owner's own Adapto CMS tenant (README: 'fetched server-side from your Adapto tenant'; hydrateMediaPlacements only embeds media) on a single-site client - first-party CMS content (ledger site-owner CMS convention), reported per docs"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::security/server-module-state::src/routes/[lang]/+layout.server.ts:13::module-scope variable \"collisionChecked\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/[lang]/+layout.server.ts:6-20: `collisionChecked` is a once-per-process flag for a dev-only (import.meta.env.DEV) reserved-slug warning - no request or user data; deliberate process-wide state, docs name it a suppress case"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/[collection_slug]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/[collection_slug]/[item_slug]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/[collection_slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/[slug]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/categories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/categories: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/categories/[slug]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/categories/[slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/categories/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/articles/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/collections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/collections: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/collections/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/micro-copies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/micro-copies: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/micro-copies/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/pages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/pages: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/pages/[slug]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/canonical-url::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang]/pages/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/[collection_slug]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/[slug]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/categories/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/categories/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/categories/[slug]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/articles/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/collections/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/collections/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/collections/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/micro-copies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/micro-copies/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/pages/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/pages/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/pages/[slug]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/description-presence::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html; root +layout.svelte:7-9 head is the favicon link only and src/routes/[lang]/pages/page/[pageNum]/+page.svelte sets at most a <title>; adapto-client-sdk is an API client, no Svelte components; public CMS content route (README: multi-language client fetching articles/collections/pages server-side), robots.txt allows all"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/heading-level-skip::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte:24::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: [item_slug]/+page.svelte:13 <h1> item title, then each field's label is an <h3> (:24) with no <h2> between (DraftBadge renders only a <span>, the [lang] layout's Navbar no heading) -> h1 to h3"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/[collection_slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/[collection_slug] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/[collection_slug]/[item_slug] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/[collection_slug]/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles/[slug] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/categories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles/categories has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles/categories/[slug] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles/categories/[slug]/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles/categories/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/articles/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/collections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/collections has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/collections/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/micro-copies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/micro-copies has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/micro-copies/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/pages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/pages has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/pages/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/pages/[slug] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/json-ld::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /[lang]/pages/page/[pageNum] has none"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/[collection_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/[collection_slug]/[item_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/[collection_slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/categories/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/categories: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/categories/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/categories/[slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/categories/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/articles/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/collections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/collections: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/collections/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/micro-copies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/micro-copies: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/micro-copies/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/pages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/pages: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/pages/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-description::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang]/pages/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/[collection_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/[collection_slug]/[item_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/[collection_slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/categories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/categories: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/categories/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/categories/[slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/categories/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/articles/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/collections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/collections: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/collections/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/micro-copies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/micro-copies: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/micro-copies/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/pages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/pages: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/pages/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-image::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang]/pages/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/[collection_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/[collection_slug]/[item_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/[collection_slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/categories/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/categories: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/categories/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/categories/[slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/categories/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/articles/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/collections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/collections: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/collections/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/micro-copies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/micro-copies: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/micro-copies/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/pages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/pages: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/pages/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-title::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang]/pages/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/[collection_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/[collection_slug]/[item_slug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/[collection_slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/categories/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/categories: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/categories/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/categories/[slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/categories/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/articles/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/collections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/collections: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/collections/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/micro-copies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/micro-copies: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/micro-copies/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/pages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/pages: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/pages/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/og-url::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang]/pages/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt only (allow all, no Sitemap: line), no sitemap.xml file, route or generator (lib/reserved.ts only mentions one); public multi-language CMS content site with article/collection/page routes to list"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/articles/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/articles/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/articles/categories/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/articles/categories/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/articles/page/[pageNum]/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/collections/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/collections/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/collections/page/[pageNum]/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/micro-copies/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/micro-copies/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/pages/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/pages/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/title-presence::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang]/pages/page/[pageNum]/+page.svelte has no svelte:head and imports only Pagination/DraftBadge (no head); [lang]/+layout.svelte renders Navbar (no head), root +layout.svelte head is a favicon link only, app.html has no <title>, no hooks file, no document.title anywhere in src; the other [lang] routes ([slug], [collection_slug], categories/[slug] and their page/[pageNum]) set <title> but this one does not; a public listing linked from Navbar renders untitled"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/[collection_slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/[collection_slug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/[collection_slug]/[item_slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/[collection_slug]/[item_slug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/[collection_slug]/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/[collection_slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/[slug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/categories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/categories: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/categories/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/categories/[slug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/categories/[slug]/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/categories/[slug]/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/categories/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/categories/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/articles/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/articles/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/collections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/collections: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/collections/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/collections/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/micro-copies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/micro-copies: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/micro-copies/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/micro-copies/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/pages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/pages: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/pages/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/pages/[slug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 7 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  },
+  {
+    "key": "adaptocms/adapto-sveltekit-client::seo/twitter-card::src/routes/[lang]/pages/page/[pageNum]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang]/pages/page/[pageNum]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte head is a favicon link); adapto-client-sdk is imported only for functions (AdaptoSDK, hydrateMediaPlacements), no components; public, ungated CMS client (robots.txt allows all)"
+  }
+]

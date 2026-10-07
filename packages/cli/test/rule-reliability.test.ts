@@ -3,7 +3,14 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { allRules } from '@svelte-vitals/core/internal';
-import { digest, extractBlock, normalizeBlock, renderBlock, reportPath } from '../scripts/rule-reliability.js';
+import {
+  digest,
+  extractBlock,
+  normalizeBlock,
+  readVerdicts,
+  renderBlock,
+  reportPath
+} from '../scripts/rule-reliability.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const corpusDir = join(repoRoot, 'scripts', 'corpus');
@@ -22,7 +29,7 @@ describe('scripts/corpus/README.md matches the committed corpus measurement', ()
 
   it('was measured against the committed targets and verdicts', () => {
     expect(measurement.targets, REGENERATE).toBe(digest(targets));
-    expect(measurement.verdicts, REGENERATE).toBe(digest(readJson('verdicts.json')));
+    expect(measurement.verdicts, REGENERATE).toBe(digest(readVerdicts(join(corpusDir, 'verdicts'))));
   });
 
   it('matches the generator', () => {

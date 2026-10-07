@@ -1,0 +1,1332 @@
+[
+  {
+    "key": "SE-UUlm/snowballr-frontend::a11y/permitted-contents::src/lib/components/composites/list/NamedList.svelte:151::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <div> at lib/components/composites/list/NamedList.svelte:151 has literal parent <ul>@146 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <div> is outside that parent's content model as reported"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::a11y/permitted-contents::src/lib/components/composites/user-avatar/UserAvatar.svelte:108::`<text>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "fp",
+    "basis": "read UserAvatar.svelte:108: <text class=...>?</text> sits in a <div> (:107) outside any <svg>; in HTML that is an unknown element (HTMLUnknownElement), which the docs list as not reported, but the rule's KNOWN_TAGS strips the vendored 'svg:' prefix so svg:text counts as known and is judged against <div>'s flow content (rule contradicts its documented scope; the markup itself is still wrong)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::a11y/top-level-landmark::src/routes/project/[projectId]/papers/+page.svelte:209::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read project/[projectId]/papers/+page.svelte:208-209: <aside> under {#if loadingPaper && selectedPaper} directly in the page's own <main> (:128), no sectioning ancestor; complementary nested in main"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/lib/components/composites/input/ChipsInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/composites/input/ChipsInput.svelte has 341 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/lib/components/composites/input/Input.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/composites/input/Input.svelte has 259 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/lib/components/composites/paper-components/paper-view/PaperDecisionButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/composites/paper-components/paper-view/PaperDecisionButton.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/lib/components/composites/paper-components/paper-view/PaperExternalIds.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/composites/paper-components/paper-view/PaperExternalIds.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/lib/components/composites/paper-components/paper-view/cards/PaperDetailsCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/composites/paper-components/paper-view/cards/PaperDetailsCard.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/lib/components/composites/project-components/AddPaperDialogButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/composites/project-components/AddPaperDialogButton.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/component-size::src/routes/project/[projectId]/papers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/project/[projectId]/papers/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/dialog/AlertDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/dialog/AlertDialog.svelte has a single destructured $props() with 14 named props (> 6): triggerProps, trigger, title, description, cancelProps, cancelButtonText, actionProps, actionButtonText, actionButtonLoadingText, errorText, loading, error, open, actionIcon"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/dialog/Dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/dialog/Dialog.svelte has a single destructured $props() with 8 named props (> 6): triggerProps, trigger, title, description, open, content, footer, onCancelClick"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/input/ChipsInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/input/ChipsInput.svelte has a single destructured $props() with 8 named props (> 6): label, labelPosition, placeholder, items, validate, resolveAlias, displayItem, searchSuggestions"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/input/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/input/Input.svelte has a single destructured $props() with 15 named props (> 6) plus ...rest: inputId, label, placeholder, required, type, link, inputClass, schema, onButtonClick, buttonContent, buttonProps, errorMessagePrefix, validationDisplayMode, value, class"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/list/NamedList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/list/NamedList.svelte has a single destructured $props() with 13 named props (> 6): listName, items, listItemComponent, listItemSkeleton, numberOfSkeletons, showNumberOfListItems, numberOfItems, emptyHint, errorHint, preListContent, keySelector, groupSelector, groupLabels"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/paper-components/paper-view/PaperDecisionButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/paper-components/paper-view/PaperDecisionButton.svelte has a single destructured $props() with 7 named props (> 6): variant, isSubmittingReview, userReview, loadingProjectPaper, loadingProject, paperQueue, nextProjectPaper"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/paper-components/paper-view/PaperView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/paper-components/paper-view/PaperView.svelte has a single destructured $props() with 10 named props (> 6): backwardReferencedPapers, forwardReferencedPapers, backRef, allowEditModeToggle, startInEditMode, creationTarget, loadingPaper, reviewers, criteriaWithReviews, bottomBar"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/paper-components/paper-view/ProjectPaperView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/paper-components/paper-view/ProjectPaperView.svelte has a single destructured $props() with 7 named props (> 6): projectId, backwardReferencedPapers, forwardReferencedPapers, criteriaWithReviews, reviewers, loadingPaper, loadingProject"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/project-components/AddPaperDialogButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/project-components/AddPaperDialogButton.svelte has a single destructured $props() with 7 named props (> 6): projectId, stage, open, includeLocal, includeFetchers, loadingProject, class"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/settings/project-settings/members/ProjectMemberListEntry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/settings/project-settings/members/ProjectMemberListEntry.svelte has a single destructured $props() with 7 named props (> 6): projectId, member, isCurrentUser, isAdminView, onMemberRemoved, onMemberPromoted, disabled"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/settings/project-settings/slr/fetcher/FetcherChangeDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/settings/project-settings/slr/fetcher/FetcherChangeDialog.svelte has a single destructured $props() with 10 named props (> 6): label, loadingLabel, title, triggerVariant, className, trigger, project, fetcher, onProjectChanged, disabled"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/composites/utils/Tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/composites/utils/Tooltip.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: trigger, loadingTrigger, content, triggerVariant, triggerSize, openOnClick, loading, class"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/primitives/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/primitives/button/button.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/primitives/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/primitives/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::architecture/prop-count::src/lib/components/primitives/slider/slider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/primitives/slider/slider.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, value, orientation, tickLabels, thumbLabelVisibility, class, disabled"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/each-index-key::src/lib/components/composites/list/NamedList.svelte:148::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: NamedList.svelte:148 '{#each Object.entries(groupBy(loadedItems, groupSelector)) …, index (index)}' keyed by its index binding; groups of the loaded API items: runtime records"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/each-index-key::src/lib/components/composites/paper-components/paper-view/PaperExternalIds.svelte:108::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: PaperExternalIds.svelte:108 '{#each paper.externalIds as externalId, index (index)}' keyed by its index binding; the paper's external ids (API record, $bindable paper edited in edit mode with add/remove rows): runtime records"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/each-index-key::src/lib/components/composites/paper-components/paper-view/PaperExternalIds.svelte:148::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: PaperExternalIds.svelte:148 '{#each paper.externalIds as externalId, index (index)}' keyed by its index binding; edit-mode rows of the paper's external ids with per-row type selects (availableTypeOptions(index), :42), rows added/removed: input state follows position"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/each-index-key::src/lib/components/composites/settings/SettingsLayout.svelte:59::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SettingsLayout.svelte:59 '{#each tabs as tab, i (i)}' keyed by its index binding; tabs prop is the authored tab list each settings layout passes (UserSettingsLayout.svelte:46, ProjectSettingsLayout.svelte:90): static list fixed at author time"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/each-index-key::src/lib/components/composites/statistics/StageProgressChart.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: StageProgressChart.svelte:68 '{#each pie(segments) as s, i (i)}' keyed by its index binding; d3 pie arcs of the chart segments (:37): positional list (chart segments)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/stale-prop-derivation::src/lib/components/composites/input/ChipsInput.svelte:37::\"SUGGESTIONS_LIST_ID\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: ChipsInput.svelte:37 SUGGESTIONS_LIST_ID from the label prop at init (author svelte-ignore state_referenced_locally at :36); callers pass a literal label (KeywordSettings.svelte:80, InviteUsersInput.svelte:159), so the frozen id never differs"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::correctness/stale-prop-derivation::src/lib/components/composites/settings/SettingsSection.svelte:46::\"hasSeparator\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: SettingsSection.svelte:46 hasSeparator = variant === 'default' at init; the author's comment (:44) says the variant is hardcoded and never changed at runtime (svelte-ignore at :45)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::performance/image-dimensions::src/routes/(auth)/signin/+page.svelte:67::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-35 w-35)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::performance/image-dimensions::src/routes/(auth)/signup/+page.svelte:94::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-35 w-35)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::performance/image-loading-hint::src/routes/(auth)/signin/+page.svelte:67::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the Card.Header at the top of the sign-in card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::performance/image-loading-hint::src/routes/(auth)/signup/+page.svelte:94::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the Card.Header at the top of the sign-up card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::performance/responsive-image::src/routes/(auth)/signin/+page.svelte:67::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: $lib/assets/snowballr-logo_512.png, a 512px raster logo shown at h-35 — one fixed-size asset"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::performance/responsive-image::src/routes/(auth)/signup/+page.svelte:94::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: $lib/assets/snowballr-logo_512.png, a 512px raster logo — one fixed-size asset"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::security/raw-html::src/lib/components/composites/dialog/AlertDialog.svelte:126::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/composites/dialog/AlertDialog.svelte:126 + lib/utils/common-helper.ts:266-277: wrapLongWords only wraps long words in <span> with no escaping; it receives other users' names/emails (getNameOrEmail(member.user), RemoveMemberDialog.svelte:25,72 passes title `Remove ${memberName}…`) — user-controlled text rendered as HTML to project admins"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::security/raw-html::src/lib/components/composites/settings/project-settings/members/PromoteMemberDialog.svelte:106::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/composites/settings/project-settings/members/PromoteMemberDialog.svelte:106 + lib/utils/common-helper.ts:266-277: wrapLongWords only wraps long words in <span> with no escaping; it receives other users' names/emails (getNameOrEmail(member.user), RemoveMemberDialog.svelte:25,72 passes title `Remove ${memberName}…`) — user-controlled text rendered as HTML to project admins"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::security/raw-html::src/lib/components/composites/settings/project-settings/members/RemoveMemberDialog.svelte:85::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/composites/settings/project-settings/members/RemoveMemberDialog.svelte:85 + lib/utils/common-helper.ts:266-277: wrapLongWords only wraps long words in <span> with no escaping; it receives other users' names/emails (getNameOrEmail(member.user), RemoveMemberDialog.svelte:25,72 passes title `Remove ${memberName}…`) — user-controlled text rendered as HTML to project admins"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none; publicly reachable rendered route, no noindex, not Disallowed in robots.txt"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/newpassword/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/resetpassword/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none; publicly reachable rendered route, no noindex, not Disallowed in robots.txt"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/signin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none; publicly reachable rendered route, no noindex, not Disallowed in robots.txt"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/signout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none; publicly reachable rendered route, no noindex, not Disallowed in robots.txt"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/(auth)/verifyemail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none; publicly reachable rendered route, no noindex, not Disallowed in robots.txt"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 63 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/paper/[paperId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 72 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 47 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 81 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 73 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/papers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 84 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 64 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 59 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 54 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 74 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/project/[projectId]/statistics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/readinglist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 44 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/settings/projectsetup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/settings/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 33 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/settings/shortcuts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 32 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/canonical-url::src/routes/theme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b15/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 12 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none) but not a search target (client-gated SPA: routes/+layout.ts:23-83 (ssr=false) sends every visitor without an authenticated session outside PUBLIC_PATHS (:15-21) to /signin via goto), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); /acceptprojectinvitation is a token landing page reached only from an emailed link (load reads ?token), not a page for search"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/newpassword/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/resetpassword/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); /resetpassword is a public auth page (in PUBLIC_PATHS) of a publicly deployed research tool with open sign-up (README production site), no noindex (rule applied in this batch: public auth pages of an app with open signup / public deployment = tp)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/signin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); /signin is a public auth page (in PUBLIC_PATHS) of a publicly deployed research tool with open sign-up (README production site), no noindex (rule applied in this batch: public auth pages of an app with open signup / public deployment = tp)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/signout/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); /signout is a logout action page (onMount logout + goto /signin), not a page for search"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); /signup is a public auth page (in PUBLIC_PATHS) of a publicly deployed research tool with open sign-up (README production site), no noindex (rule applied in this batch: public auth pages of an app with open signup / public deployment = tp)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/(auth)/verifyemail/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); /verifyemail is a token landing page reached only from an emailed link (load reads ?token), not a page for search"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/paper/[paperId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/papers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/project/[projectId]/statistics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/readinglist/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/settings/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/settings/projectsetup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/settings/review/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/settings/shortcuts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/description-presence::src/routes/theme/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (page heads hold only <title>, root/(auth)/settings layouts have no head) (literal claim holds); not a search target: login-gated (root +layout.ts:23-35 load redirects every request outside PUBLIC_PATHS (/signin,/signup,/resetpassword,/verifyemail,/acceptprojectinvitation) to /signin unless the gRPC auth status is AUTHENTICATED (ssr=false SPA))"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /acceptprojectinvitation renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/newpassword/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /newpassword renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/resetpassword/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /resetpassword renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/signin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /signin renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/signout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /signout renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /signup renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/(auth)/verifyemail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /verifyemail renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); / renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/paper/[paperId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /paper/[paperId] renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/dashboard renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/paper/[paperId] renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/paper/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/paper/new renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/papers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/papers renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/settings/general/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/settings/general renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/settings/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/settings/members renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/settings/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/settings/review renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/settings/slr renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/project/[projectId]/statistics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /project/[projectId]/statistics renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/readinglist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /readinglist renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /settings/account renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/settings/projectsetup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /settings/projectsetup renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/settings/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /settings/review renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/settings/shortcuts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /settings/shortcuts renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/json-ld::src/routes/theme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html and lib: no application/ld+json, JsonLd or {@html} JSON-LD anywhere in snowballr-frontend); route renders no JSON-LD (json-ld convention: tp); /theme renders (ssr=false SPA, client-rendered)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/newpassword/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/resetpassword/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/signout/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/(auth)/verifyemail/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 63 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/paper/[paperId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 72 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 47 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 81 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 73 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/papers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 84 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 64 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 59 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 54 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 74 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/project/[projectId]/statistics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/readinglist/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 44 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/settings/projectsetup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/settings/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 33 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/settings/shortcuts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 32 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-description::src/routes/theme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 12 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/newpassword/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/resetpassword/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/signout/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/(auth)/verifyemail/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 63 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/paper/[paperId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 72 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 47 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 81 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 73 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/papers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 84 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 64 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 59 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 54 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 74 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/project/[projectId]/statistics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/readinglist/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 44 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/settings/projectsetup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/settings/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 33 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/settings/shortcuts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 32 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-image::src/routes/theme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 12 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/newpassword/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/resetpassword/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/signout/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/(auth)/verifyemail/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 63 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/paper/[paperId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 72 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 47 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 81 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 73 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/papers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 84 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 64 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 59 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 54 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 74 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/project/[projectId]/statistics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/readinglist/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 44 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/settings/projectsetup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/settings/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 33 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/settings/shortcuts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 32 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-title::src/routes/theme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 12 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/newpassword/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/resetpassword/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/signout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/(auth)/verifyemail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 63 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/paper/[paperId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 72 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 47 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 81 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 73 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/papers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 84 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 64 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 59 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 54 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 74 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/project/[projectId]/statistics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/readinglist/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 44 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/settings/projectsetup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/settings/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 33 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/settings/shortcuts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 32 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/og-url::src/routes/theme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 12 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only favicon.png, no robots.txt route or generator (literal claim holds); login-gated literature-review SPA whose only public pages are sign-in/sign-up/password-reset forms, not a content site for search"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/paper/[paperId]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /paper/[paperId]"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/project/[projectId]/paper/[paperId]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /project/[projectId]/paper/[paperId]"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/project/[projectId]/paper/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /project/[projectId]/paper/new"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/project/[projectId]/papers::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /project/[projectId]/papers"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/project/[projectId]/settings/review::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /project/[projectId]/settings/review"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/project/[projectId]/statistics::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /project/[projectId]/statistics"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/readinglist::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /readinglist"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/settings/account::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /settings/account"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/settings/projectsetup::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /settings/projectsetup"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/settings/review::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /settings/review"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/settings/shortcuts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /settings/shortcuts"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/signin::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /signin"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/signout::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /signout"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::/signup::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /signup"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::src/lib/components/composites/dialog/AlertDialog.svelte:126::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the two counted <h1>s are AlertDialog.svelte:126 (<AlertDialog.Title><h1>…) in LeaveProjectDialog and in DeleteProjectSettingsDialog (via LeaveProjectSettings/DeleteProjectSettings on settings/general); each sits in a bits-ui ^2.14 AlertDialog.Content that renders only while that dialog is open, so the page normally has no <h1> and at most one while a dialog is open — closed-by-default modals counted per documented semantics"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::src/routes/(auth)/newpassword/+page.svelte:4::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /newpassword"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::src/routes/(auth)/resetpassword/+page.svelte:4::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /resetpassword"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/single-h1::src/routes/project/[projectId]/dashboard/+page.svelte:45::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: own import walk of the root (and group) layouts + page (local components, $lib aliases) finds no rendered <h1> (ActionErrorAlert.svelte:39's <h1>Some Title</h1> is inside an HTML comment); titles are <h2> (e.g. SettingsSection.svelte:70, ProjectNavigationBar.svelte:47, (auth)/newpassword/+page.svelte:4) and AlertDialog's <h1> renders only inside a closed bits-ui AlertDialog.Content -> no <h1> on /project/[projectId]/dashboard"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes, no generator (literal claim holds); login-gated literature-review SPA (root +layout.ts redirects to /signin), nothing public to list beyond the auth forms"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/ssr-disabled::src/routes/+layout.ts:13::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:13; deliberate SPA for a login-gated literature-review tool talking gRPC-web to its backend (root load redirects unauthenticated users to /signin), no public content; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/(auth)/newpassword/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/(auth)/resetpassword/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/(auth)/signin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/(auth)/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/readinglist/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/settings/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/settings/projectsetup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/settings/review/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/settings/shortcuts/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-length::src/routes/theme/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (headcheck.js: the only <title>/<meta name=description> literal in the file's <svelte:head>, grapheme-counted after whitespace collapse, equals the reported length; no other head emitter on the route); literal page <title> in the page's top-level svelte:head, root layout/app.html set none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/title-presence::src/routes/(auth)/signout/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (auth)/signout/+page.svelte renders no markup, only an onMount that awaits backendService.logout() before goto('/signin'), so the page is first shown untitled; (auth)/+layout.svelte and root +layout.svelte (svelte-sonner@1.0.7 Toaster, package-lock, read from jsDelivr: no <title>) have no svelte:head, app.html head has only %sveltekit.head%, no document.title in src; root +layout.ts ssr=false and its load sends unauthenticated users to /signin but returns the user for signed-in ones, so the SPA renders /signout untitled (auth/logout, (app)/logout precedent)"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/acceptprojectinvitation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/newpassword/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/resetpassword/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 8 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/signin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/signout/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 29 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/(auth)/verifyemail/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 63 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/paper/[paperId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 72 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 47 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/paper/[paperId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 81 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/paper/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 73 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/papers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 84 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/settings/general/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 64 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/settings/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 59 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/settings/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 54 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/settings/slr/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 74 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/project/[projectId]/statistics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/readinglist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 44 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/settings/projectsetup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 24 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/settings/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 33 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/settings/shortcuts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 32 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  },
+  {
+    "key": "SE-UUlm/snowballr-frontend::seo/twitter-card::src/routes/theme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b15/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 12 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html; ssr=false app-wide (routes/+layout.ts:13), so client-rendered heads count, and none emit it; no hooks, no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, @lucide/svelte) emit none"
+  }
+]

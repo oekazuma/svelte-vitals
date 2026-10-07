@@ -1,0 +1,1612 @@
+[
+  {
+    "key": "halideworks/onelight:packages/web::a11y/no-autofocus::src/routes/login/+page.svelte:137::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; TOTP input under {#if mfaToken} (:133), mfaToken = $state(null) (:61) set after the password step succeeds (:89); focus on user action"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::a11y/no-autofocus::src/routes/projects/[id]/assets/[assetId]/+page.svelte:1815::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; rename input under {#if renaming} (:1812), renaming = $state(false) (:200) set by the rename action; focus on user action"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::a11y/top-level-landmark::src/routes/projects/[id]/+page.svelte:2665::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read projects/[id]/+page.svelte:2665 <aside class=\"pane\" aria-label=\"Folders and shares\"> sits in the page's own <main> (via {:else} > div.body); complementary nested in main"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::a11y/top-level-landmark::src/routes/projects/[id]/assets/[assetId]/+page.svelte:2157::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read projects/[id]/assets/[assetId]/+page.svelte:2157 <aside class=\"rail\"> (notes rail) inside the page's own <main>; complementary nested in main"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::a11y/top-level-landmark::src/routes/projects/[id]/assets/[assetId]/+page.svelte:2531::complementary landmark is nested inside main",
+    "verdict": "design",
+    "basis": "read projects/[id]/assets/[assetId]/+page.svelte:2523-2531: <aside class=\"ghost-rail\"> sits in the loading skeleton <div class=\"content ghost\" aria-hidden=\"true\"> inside <main>; nested as reported, but aria-hidden removes it from the AT tree so no complementary landmark is exposed (aria-hidden aside precedent)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/lib/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/CommandPalette.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/lib/NotificationsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/NotificationsPanel.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/lib/ProjectMembers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ProjectMembers.svelte has 235 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/lib/workbench/AssetInspector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/workbench/AssetInspector.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 426 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 1235 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/+page.svelte has 4016 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/assets/[assetId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/assets/[assetId]/+page.svelte has 2865 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte has 504 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/settings/+page.svelte has 542 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/shares/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/shares/+page.svelte has 578 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/shares/[shareId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/shares/[shareId]/+page.svelte has 1129 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/transfers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/transfers/+page.svelte has 525 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/projects/[id]/transfers/[transferId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/projects/[id]/transfers/[transferId]/+page.svelte has 673 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/s/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/s/[slug]/+page.svelte has 2218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 354 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/settings/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+layout.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/settings/email/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/email/+page.svelte has 426 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/settings/notifications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/notifications/+page.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/settings/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/profile/+page.svelte has 578 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/settings/system/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/system/+page.svelte has 364 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/component-size::src/routes/t/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/t/[slug]/+page.svelte has 522 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/prop-count::src/lib/workbench/LibraryControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/workbench/LibraryControls.svelte has a single destructured $props() with 10 named props (> 6): value, saved, selectedId, onchange, onsave, ondelete, onrename, onapply, railWidth, onrailwidth"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::architecture/prop-count::src/lib/workbench/QuickLook.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/workbench/QuickLook.svelte has a single destructured $props() with 8 named props (> 6): assets, assetId, href, onnavigate, onclose, hasMore, onmore, refreshKey"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::correctness/each-index-key::src/routes/projects/[id]/+page.svelte:3195::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/projects/[id]/+page.svelte:3195 '{#each batch.errors as failure, index (index)}' keyed by its index binding; batch.errors, per-file failures of a running download batch ($state, projects/[id]/+page.svelte:1768-1797); runtime result list (ledger error-list convention)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::correctness/each-index-key::src/routes/projects/[id]/assets/[assetId]/+page.svelte:2318::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/projects/[id]/assets/[assetId]/+page.svelte:2318 '{#each segmentCommentBody(comment.body_text, memberNames) as segment, index (index)}' keyed by its index binding; segmentCommentBody(comment.body_text) text segments of one comment; positional list (text segments)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::correctness/each-index-key::src/routes/projects/[id]/assets/[assetId]/+page.svelte:2455::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/projects/[id]/assets/[assetId]/+page.svelte:2455 '{#each pendingFiles as file, index (index)}' keyed by its index binding; pendingFiles $state the user appends files to and removes by index (onclick filter((_, at) => at !== index)); runtime list whose index key makes chips follow position"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::correctness/each-index-key::src/routes/s/[slug]/+page.svelte:1554::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/s/[slug]/+page.svelte:1554 '{#each segmentCommentBody(comment.body_text) as segment, index (index)}' keyed by its index binding; segmentCommentBody(comment.body_text) text segments of one comment; positional list (text segments)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::correctness/each-index-key::src/routes/s/[slug]/+page.svelte:1607::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/s/[slug]/+page.svelte:1607 '{#each pendingFiles as file, index (index)}' keyed by its index binding; pendingFiles $state the user appends files to and removes by index (onclick filter((_, at) => at !== index)); runtime list whose index key makes chips follow position"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::correctness/each-key::src/lib/workbench/AssetInspector.svelte:165::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/workbench/AssetInspector.svelte:165 '{#each group.rows as [term, value]}' has no key; group.rows: fixed metadata rows built from authored row labels per group (AssetInspector.svelte:103-135); static list of fixed rows"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/+page.svelte:2996::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .qthumb is 52x30 and its img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/+page.svelte:3381::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height attrs; read: .rowthumb is 44x26 and its img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/settings/+page.svelte:260::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .coverpreview has aspect-ratio 16/9, img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/settings/+page.svelte:335::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .pickone has aspect-ratio 16/9, img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/settings/+page.svelte:366::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .pickone has aspect-ratio 16/9, img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/shares/+page.svelte:371::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height attrs; read: .mini sets width:48px; height:27px — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/shares/[shareId]/+page.svelte:705::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: no width/height; read: .logopreview sets only max-height:36px/max-width:140px — no box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/projects/[id]/shares/[shareId]/+page.svelte:871::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .content img has width:100% and aspect-ratio 16/9 — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/s/[slug]/+page.svelte:1154::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: no width/height; read: .sharelogo sets only max-height:56px/max-width:240px (display:block) — no box reserved, the <h1> below moves"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/s/[slug]/+page.svelte:1173::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: no width/height; read: .sharelogo sets only max-height:56px/max-width:240px (display:block) — no box reserved, the <h1> below moves"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/search/+page.svelte:247::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height attrs; read: .thumb is 64x36 and its img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-dimensions::src/routes/search/+page.svelte:288::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height attrs; read: .thumb is 64x36 and its img 100% — box reserved"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-loading-hint::src/routes/projects/[id]/+page.svelte:2996::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: upload-queue preview whose src is URL.createObjectURL(file) (previewFor, :1903-1914) — a local blob, nothing to defer"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-loading-hint::src/routes/projects/[id]/settings/+page.svelte:260::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: coverPreview = URL.createObjectURL(file) (:192) while a new cover uploads — a local blob, nothing to defer"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-loading-hint::src/routes/projects/[id]/shares/[shareId]/+page.svelte:705::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: logo preview in the Appearance panel, below the share link card and the Access and viewing panel — offscreen on load"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-loading-hint::src/routes/s/[slug]/+page.svelte:1154::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: share logo directly above the <h1> at the top of the access gate (name prompt) — above the fold"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/image-loading-hint::src/routes/s/[slug]/+page.svelte:1173::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: share logo directly above the <h1> at the top of the review-room header — above the fold"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/lcp-image::src/routes/projects/[id]/shares/+page.svelte:371::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: literal loading=\"lazy\"; read: the route's first <img> in source is a 48x27 asset thumbnail in the picker of the closed-by-default <dialog aria-label=\"New share\"> (:326) — not the LCP candidate"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/lcp-image::src/routes/search/+page.svelte:247::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: literal loading=\"lazy\"; read: the route's first <img> in source is a 64x36 thumbnail in a search-result row, rendered only after the user searches — not the LCP candidate"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/+page.svelte:2996::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: no srcset; read: src is a client URL.createObjectURL of the file being uploaded — no alternate sizes exist"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/+page.svelte:3381::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: detail.posterUrl, the asset's server poster — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/settings/+page.svelte:260::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: no srcset; read: src is a client URL.createObjectURL of the picked cover — no alternate sizes exist"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/settings/+page.svelte:335::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: upload.url, a previously uploaded cover picture shown as a ~104px tile — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/settings/+page.svelte:366::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: entry.media.posterUrl, the server-generated poster/thumbnail of an asset (lib/asset-media.svelte.ts) — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/shares/+page.svelte:371::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: entry.media.posterUrl, the server-generated poster/thumbnail of an asset (lib/asset-media.svelte.ts) — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/shares/[shareId]/+page.svelte:705::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: no srcset, src not a literal .svg; read: share.logo_url is an uploaded logo accepted as image/png, jpeg, webp or svg+xml (shares/[shareId]/+page.svelte:708) — may be a vector, a dynamic src outside the docs' static SVG detection (ledger convention for uploaded logos)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/projects/[id]/shares/[shareId]/+page.svelte:871::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: entry.media.posterUrl, the server-generated poster/thumbnail of an asset (lib/asset-media.svelte.ts) — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/s/[slug]/+page.svelte:1154::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: no srcset, src not a literal .svg; read: share.logo_url is an uploaded logo accepted as image/png, jpeg, webp or svg+xml (shares/[shareId]/+page.svelte:708) — may be a vector, a dynamic src outside the docs' static SVG detection (ledger convention for uploaded logos)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/s/[slug]/+page.svelte:1173::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: no srcset, src not a literal .svg; read: share.logo_url is an uploaded logo accepted as image/png, jpeg, webp or svg+xml (shares/[shareId]/+page.svelte:708) — may be a vector, a dynamic src outside the docs' static SVG detection (ledger convention for uploaded logos)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/search/+page.svelte:247::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: entry.media.posterUrl, the server-generated poster/thumbnail of an asset (lib/asset-media.svelte.ts) — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/responsive-image::src/routes/search/+page.svelte:288::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: entry.media.posterUrl, the server-generated poster/thumbnail of an asset (lib/asset-media.svelte.ts) — raster, one fixed-size asset"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/state-raw::src/routes/projects/[id]/transfers/+page.svelte:57::\"folders\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to folders: only whole-binding reassignments (:66, :108) and a read-only keyed {#each} rendering folder.id/name into <option> (:419); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::performance/state-raw::src/routes/projects/[id]/transfers/[transferId]/+page.svelte:92::\"folders\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to folders: only a whole-binding reassignment (:211) and a read-only keyed {#each} rendering folder.id/name into <option> (:431); no member writes, mutating calls, bind: or escapes"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 82 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/invite/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 95 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 92 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 78 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 59 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/shares/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/transfers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/reset/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/s/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 89 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/jobs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/sessions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/storage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/system/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/trash/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/settings/webhooks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (auth-gated (client-side): root +layout.svelte:56-61 $effect goto()s every signed-out visitor off a non-public path (lib/public-path.ts lists only /login,/setup,/invite,/reset,/s,/t) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback but not a search target (route renders no content on a set-up instance, only a client redirect stub: setup/+page.svelte:14-18 onMount goto(\"/login\") once the bootstrap reports setup complete), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/canonical-url::src/routes/t/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/invite/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/shares/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/transfers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/reset/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/s/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/jobs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/sessions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/storage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/system/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/trash/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/settings/webhooks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/description-presence::src/routes/t/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in packages/web/src or app.html (literal claim holds); self-hosted post-production review tool (README), login-gated workspace and token share/invite links, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; / has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/invite/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /invite/[token] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /login has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/assets/[assetId] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/assets/[assetId]/compare has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/settings has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/shares/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/shares has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/shares/[shareId] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/transfers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/transfers has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /projects/[id]/transfers/[transferId] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/reset/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /reset/[token] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/s/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /s/[slug] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /search has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/audit has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/email has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/jobs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/jobs has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/members has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/notifications has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/profile has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/sessions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/sessions has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/storage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/storage has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/system/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/system has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/tokens has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/trash/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/trash has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/settings/webhooks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /settings/webhooks has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /setup has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/json-ld::src/routes/t/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in packages/web or the workspace packages; /t/[slug] has none"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 82 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 95 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 92 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 78 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 59 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/shares/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/transfers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/reset/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/s/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit: both production servers inject og:description into the SPA shell for /s/:slug (apps/server/src/index.ts:407-430 reads packages/web/build/index.html and inserts buildShareOgTags before </head>; apps/cf/src/index.ts:85-112 does the same via the ASSETS shell), built by packages/api/src/og.ts:120-125 for every live share; the analyzer cannot see a sibling-package HTTP server rewriting the shell"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/jobs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/sessions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/storage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/system/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/trash/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/settings/webhooks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-description::src/routes/t/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 82 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 95 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 92 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 78 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 59 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/shares/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/transfers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/reset/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/s/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit: both production servers inject og:image into the SPA shell for /s/:slug (apps/server/src/index.ts:407-430 reads packages/web/build/index.html and inserts buildShareOgTags before </head>; apps/cf/src/index.ts:85-112 does the same via the ASSETS shell), built by packages/api/src/og.ts:120-125 for every live share (og:image only when the share has no passphrase and its first asset has a poster, og.ts:125); the analyzer cannot see a sibling-package HTTP server rewriting the shell"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/jobs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/sessions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/storage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/system/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/trash/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/settings/webhooks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-image::src/routes/t/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 82 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 95 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 92 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 78 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 59 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/shares/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/transfers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/reset/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/jobs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/sessions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/storage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/system/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/trash/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/settings/webhooks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-title::src/routes/t/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 82 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 95 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 92 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 78 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 59 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/shares/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/transfers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/reset/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/s/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit: both production servers inject og:url into the SPA shell for /s/:slug (apps/server/src/index.ts:407-430 reads packages/web/build/index.html and inserts buildShareOgTags before </head>; apps/cf/src/index.ts:85-112 does the same via the ASSETS shell), built by packages/api/src/og.ts:120-125 for every live share; the analyzer cannot see a sibling-package HTTP server rewriting the shell"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/jobs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/sessions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/storage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/system/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/trash/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/settings/webhooks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/og-url::src/routes/t/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: packages/web/static has icons, demo and media only, no robots.txt route (literal claim holds); self-hosted media review tool, not a search target"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte only goto()s to /settings/profile in onMount (\"the rail in the layout is the index now\") and renders no heading; settings/+layout.svelte (the rail) and root +layout.svelte (topbar) render none -> the route as served has no <h1> (each settings/* subpage has its own)"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in packages/web/static or routes (literal claim holds); self-hosted, login-gated review tool with nothing to list"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Onelight\" at src/routes/+page.svelte:579, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 8 as reported); src/routes/+page.svelte unconditional literal <title> of 8 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/invite/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Join workspace | Onelight\" at src/routes/invite/[token]/+page.svelte:46, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 25 as reported); src/routes/invite/[token]/+page.svelte unconditional literal <title> of 25 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Sign in | Onelight\" at src/routes/login/+page.svelte:126, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/login/+page.svelte unconditional literal <title> of 18 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/reset/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Reset password | Onelight\" at src/routes/reset/[token]/+page.svelte:31, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 25 as reported); src/routes/reset/[token]/+page.svelte unconditional literal <title> of 25 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Search | Onelight\" at src/routes/search/+page.svelte:175, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 17 as reported); src/routes/search/+page.svelte unconditional literal <title> of 17 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Settings | Onelight\" at src/routes/settings/+page.svelte:12, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/settings/+page.svelte unconditional literal <title> of 19 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Audit log | Onelight\" at src/routes/settings/audit/+page.svelte:75, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 20 as reported); src/routes/settings/audit/+page.svelte unconditional literal <title> of 20 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Email | Onelight\" at src/routes/settings/email/+page.svelte:264, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/settings/email/+page.svelte unconditional literal <title> of 16 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/jobs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Job queue | Onelight\" at src/routes/settings/jobs/+page.svelte:84, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 20 as reported); src/routes/settings/jobs/+page.svelte unconditional literal <title> of 20 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/members/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Members | Onelight\" at src/routes/settings/members/+page.svelte:66, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/settings/members/+page.svelte unconditional literal <title> of 18 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/notifications/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Notifications | Onelight\" at src/routes/settings/notifications/+page.svelte:113, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 24 as reported); src/routes/settings/notifications/+page.svelte unconditional literal <title> of 24 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Profile | Onelight\" at src/routes/settings/profile/+page.svelte:331, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/settings/profile/+page.svelte unconditional literal <title> of 18 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/sessions/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Sessions | Onelight\" at src/routes/settings/sessions/+page.svelte:68, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/settings/sessions/+page.svelte unconditional literal <title> of 19 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/storage/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Storage | Onelight\" at src/routes/settings/storage/+page.svelte:50, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/settings/storage/+page.svelte unconditional literal <title> of 18 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/system/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"System | Onelight\" at src/routes/settings/system/+page.svelte:127, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 17 as reported); src/routes/settings/system/+page.svelte unconditional literal <title> of 17 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/tokens/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"API tokens | Onelight\" at src/routes/settings/tokens/+page.svelte:45, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); src/routes/settings/tokens/+page.svelte unconditional literal <title> of 21 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/trash/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Trash | Onelight\" at src/routes/settings/trash/+page.svelte:54, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/settings/trash/+page.svelte unconditional literal <title> of 16 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/settings/webhooks/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Webhooks | Onelight\" at src/routes/settings/webhooks/+page.svelte:104, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/settings/webhooks/+page.svelte unconditional literal <title> of 19 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/title-length::src/routes/setup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"First run | Onelight\" at src/routes/setup/+page.svelte:40, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 20 as reported); src/routes/setup/+page.svelte unconditional literal <title> of 20 chars, the route's only title; under 30 as claimed, no noindex"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 82 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/invite/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 95 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/assets/[assetId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 92 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/assets/[assetId]/compare/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 78 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 59 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/shares/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/shares/[shareId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 81 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/transfers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/projects/[id]/transfers/[transferId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/reset/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/s/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 89 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback; the API servers inject og:title/description/type/url/image into /s/:slug but never twitter:card"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/jobs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/sessions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/storage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/system/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 56 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/trash/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/settings/webhooks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 55 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 54 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  },
+  {
+    "key": "halideworks/onelight:packages/web::seo/twitter-card::src/routes/t/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 57 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical in packages/web/src or app.html except s/[slug]/+page.svelte:1141 og:title; workspace @onelight/core/@onelight/player followed, no <svelte:head>; adapter-static SPA fallback"
+  }
+]

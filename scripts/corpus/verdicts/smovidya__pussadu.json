@@ -1,0 +1,982 @@
+[
+  {
+    "key": "smovidya/pussadu::a11y/duplicate-landmark::src/stories/shadcnui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (contents)/+layout.svelte:10-12 wraps every page in <Sidebar.Inset>, whose sidebar-inset.svelte:13 is a <main>; the /admin pages render <PageWrapper> (admin-dashboard.svelte:42 etc.), whose page-wrapper.svelte:48 is a second <main> inside it, so the route has two main landmarks"
+  },
+  {
+    "key": "smovidya/pussadu::a11y/permitted-contents::src/routes/(contents)/projects/projects.svelte:63::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/(contents)/projects/projects.svelte:63 has literal <ul> (line 61) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <ul>'s permitted content as reported"
+  },
+  {
+    "key": "smovidya/pussadu::a11y/permitted-contents::src/routes/(contents)/projects/projects.svelte:73::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/(contents)/projects/projects.svelte:73 has literal <ul> (line 71) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <ul>'s permitted content as reported"
+  },
+  {
+    "key": "smovidya/pussadu::a11y/permitted-contents::src/stories/notification/notification-bell.svelte:93::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/stories/notification/notification-bell.svelte:93 has literal <button> (line 85) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/administrators/add-administrator-sheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/administrators/add-administrator-sheet.svelte has 288 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/approval/admin-approval-sidesheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/approval/admin-approval-sidesheet.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/approval/admin-approval.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/approval/admin-approval.svelte has 312 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/borrowers/borrower-form-sheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/borrowers/borrower-form-sheet.svelte has 203 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/people/people-page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/people/people-page.svelte has 453 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/people/person-edit-sheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/people/person-edit-sheet.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/projects/[id]/staff-list.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/projects/[id]/staff-list.svelte has 387 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/projects/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/projects/data-table.svelte has 535 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/admin/users/users-data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/admin/users/users-data-table.svelte has 626 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/my-borrowing/[id]/my-borrowing-detail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/my-borrowing/[id]/my-borrowing-detail.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/routes/(contents)/my-borrowing/my-current-borrowing-list.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(contents)/my-borrowing/my-current-borrowing-list.svelte has 306 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/stories/assets/asset-booking-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/stories/assets/asset-booking-dialog.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/stories/assets/asset-details-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/stories/assets/asset-details-dialog.svelte has 375 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/stories/assets/asset-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/stories/assets/asset-form.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/stories/assets/assets-booking-list.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/stories/assets/assets-booking-list.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/stories/log/log-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/stories/log/log-table.svelte has 346 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/component-size::src/stories/sidebar/app-sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/stories/sidebar/app-sidebar.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/routes/(contents)/admin/approval/combobox-seletor-search.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(contents)/admin/approval/combobox-seletor-search.svelte has a single destructured $props() with 8 named props (> 6): options, empty, trigger, placeholder, type, value, onChange, item"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/button/button.svelte has a single destructured $props() with 9 named props (> 6): class, variant, size, ref, href, type, disabled, static, children; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex; UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6): ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6): ref, opts, plugins, setApi, orientation, class, children; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6): ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6): open, ref, value, title, description, portalProps, children; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, alignOffset, align, side, portalProps; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex; UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6): ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::architecture/prop-count::src/stories/shadcnui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/stories/shadcnui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "smovidya/pussadu::correctness/each-index-key::src/stories/assets/assets-booking-list.svelte:174::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: assets-booking-list.svelte:174 '{#each galleryColumns as column, colIdx (colIdx)}' keyed by its index binding; galleryColumns (:89) is Array.from({ length: columnCount }) of masonry columns; positional list (column i of the layout), columns have no identity beyond position"
+  },
+  {
+    "key": "smovidya/pussadu::correctness/each-index-key::src/stories/log/log-detail.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: log-detail.svelte:75 '{#each items.slice(0, BULK_LIST_CAP) as item, i (i)}' keyed by its index binding; items are the stored bulk-result entries of one audit-log record (immutable once written), rendered as plain text; static list, never reordered"
+  },
+  {
+    "key": "smovidya/pussadu::correctness/each-index-key::src/stories/log/log-detail.svelte:90::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: log-detail.svelte:90 '{#each items.slice(BULK_LIST_CAP) as item, i (i)}' keyed by its index binding; the overflow of one audit-log record's stored bulk results (immutable), plain text; static list, never reordered"
+  },
+  {
+    "key": "smovidya/pussadu::correctness/each-index-key::src/stories/shadcnui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; validation errors that change with input (ledger form-field-errors convention)"
+  },
+  {
+    "key": "smovidya/pussadu::performance/image-dimensions::src/routes/+layout.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: SmoLogo with own class size-7 (28x28), absolutely centered over the spinner - fixed box"
+  },
+  {
+    "key": "smovidya/pussadu::performance/image-loading-hint::src/routes/+layout.svelte:52::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the boundary {#snippet pending()} full-screen loader (+layout.svelte:47-53) - the visible content while it shows, above the fold"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none); admin/+page.svelte renders a static link dashboard (admin-dashboard.svelte) with no load, no data query and no gate; no noindex, robots.txt allows all"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/administrators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/administrators (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (listAdministrators, searchAdministratorCandidates) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/approval/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/approval (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllProjects, listBorrowingRequests) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/departments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/departments (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (route renders no content: admin/departments/+page.svelte is an empty (0-byte) file), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/log/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/log (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllSystemLogs, getUserDirectory) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/log/asset/[assetId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllSystemLogs, getAssetInfo, getUserDirectory) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/log/project/[projectId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (adminGetProjectInfo, getAllSystemLogs, getUserDirectory) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/log/user/[userId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllSystemLogs, getUserDirectory, getUserProfile) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/people/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/people (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllProjects, listDepartment, listPeople) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllProjects) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (adminGetProjectInfo, getBorrowerInfo, listAllStaffsForProject, listDepartment) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/projects/new (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none); renders the new-project form (admin-new-project.svelte) with no load, no gated query and no gate (only submission is guarded); no noindex, robots.txt allows all"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/assets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /assets (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllMyProjects, getAssetAvailability, listAssets, listCategories) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/my-borrowing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /my-borrowing (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (listBorrowed) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /my-borrowing/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getMyBorrowingRequestInfo) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllMyProjects) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/(contents)/projects/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (auth-gated (data-level): every remote query the page renders its content from (getAllMyProjects, getAssetAvailability, getMyProjectMembership, getProjectInfo, listAllStaffsForProject, listAssets, listCategories, listProjectBorrowingRequests, searchProjectMemberCandidates) calls Guard.loggedIn/admin/allows, which throws error(401) without a session (lib/server/helpers/facades/guard.ts:23,54), shown as an Unauthorized alert by stories/boundary/async-http-boundary.svelte:31), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none); public login landing page (routes/+page.svelte), no gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "smovidya/pussadu::seo/canonical-url::src/routes/dev-login/panel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dev-login/panel (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none) but not a search target (dev-only: dev-login/panel/+page.svelte:24 {#if dev}, production renders only a not-found notice (:75)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/administrators/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/approval/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/departments/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/log/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/people/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/assets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/my-borrowing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/(contents)/projects/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts); not a search target"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); / is the sign-in page (+page.svelte renders only LoginOld) of the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/description-presence::src/routes/dev-login/panel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (heads carry only titles and the favicon; the name=\"description\" hit is a Form.Field), no meta library in deps (literal claim holds); /dev-login/panel is the dev-only mock-login panel (its body renders only {#if dev}, the /dev-login endpoint errors unless dev), never a search target (dev-only convention: design)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/administrators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/administrators renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/approval/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/approval renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/departments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/departments renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/log/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/log renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/log/asset/[assetId] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/log/project/[projectId] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/log/user/[userId] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/people/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/people renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/projects renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/projects/[id] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/admin/projects/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /admin/projects/new renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/assets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /assets renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/my-borrowing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /my-borrowing renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /my-borrowing/[id] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /projects renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/(contents)/projects/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /projects/[id] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; / renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/json-ld::src/routes/dev-login/panel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): pussadu has no JSON-LD emitter; /dev-login/panel renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/administrators/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/administrators (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/approval/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/approval (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/departments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/departments (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/log/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/log (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/log/asset/[assetId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/log/project/[projectId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/log/user/[userId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/people/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/people (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/projects/new (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/assets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /assets (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/my-borrowing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /my-borrowing (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /my-borrowing/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/(contents)/projects/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-description::src/routes/dev-login/panel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dev-login/panel (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/administrators/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/administrators (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/approval/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/approval (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/departments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/departments (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/log/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/log (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/log/asset/[assetId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/log/project/[projectId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/log/user/[userId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/people/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/people (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/projects/new (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/assets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /assets (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/my-borrowing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /my-borrowing (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /my-borrowing/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/(contents)/projects/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-image::src/routes/dev-login/panel/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dev-login/panel (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/administrators/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/administrators (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/approval/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/approval (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/departments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/departments (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/log/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/log (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/log/asset/[assetId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/log/project/[projectId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/log/user/[userId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/people/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/people (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/projects/new (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/assets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /assets (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/my-borrowing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /my-borrowing (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /my-borrowing/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/(contents)/projects/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-title::src/routes/dev-login/panel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dev-login/panel (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/administrators/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/administrators (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/approval/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/approval (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/departments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/departments (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/log/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/log (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/log/asset/[assetId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/log/project/[projectId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/log/user/[userId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/people/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/people (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/projects/new (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/assets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /assets (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/my-borrowing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /my-borrowing (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /my-borrowing/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/(contents)/projects/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/og-url::src/routes/dev-login/panel/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dev-login/panel (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/single-h1::/admin/departments::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (contents)/admin/departments/+page.svelte is an empty file (0 bytes), so the route renders only the (contents) layout's AppSidebar shell, which has no heading; root +layout.svelte adds none -> no <h1> (placeholder page)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/single-h1::/dev-login/panel::Missing <h#>",
+    "verdict": "design",
+    "basis": "dev-only route: dev-login/panel/+page.svelte wraps all content in {#if dev} (from $app/environment), so in a production build it renders an empty page; in dev it shows Card.Title sections and no <h1> - claim holds only for an unshipped dev tool (dev-only convention)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ (robots.txt allows all, no Sitemap: line) or routes (literal claim holds); pussadu is the internal supplies-borrowing system of SMO Vidya Chula (README todo; '/' is the Google sign-in page, the (contents) views list the signed-in member's borrowings, projects and admin tables, their data coming from guarded server functions, lib/server/helpers/facades/guard.ts), nothing public to list beyond the sign-in page"
+  },
+  {
+    "key": "smovidya/pussadu::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"ระบบพัสดุ | SMO Vidya Chula\" at src/routes/+page.svelte:7 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 25 as reported); the route's only title (root +layout.svelte head has only the favicon, LoginOld sets none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "smovidya/pussadu::seo/title-length::src/routes/dev-login/panel/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Dev Login\" at src/routes/dev-login/panel/+page.svelte:21 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 9 as reported); length as reported, but /dev-login/panel is the dev-only mock-login panel (body only {#if dev}, dev-login/+server.ts errors unless dev), so the title never ships to search (dev-only convention: design)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/title-presence::src/routes/(contents)/admin/departments/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: src/routes/(contents)/admin/departments/+page.svelte is a 0-byte file (added empty in 22a7f50 2025-08-22), linked from nowhere (no 'admin/departments' in src, app-sidebar.svelte has no entry); (contents)/+layout.svelte renders the sidebar only and root +layout.svelte:39-41 head is a favicon link, app.html none; the app's <title> source $stories/page-wrapper/page-wrapper.svelte:20-22 is imported only by sibling route pages (and stories/assets/assets-select.svelte, used only by projects/[id]), never by the layout chain or app-sidebar (literal claim holds; unfinished placeholder page, gtmun empty-page precedent)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/administrators/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/administrators (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/approval/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/approval (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/departments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/departments (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/log/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/log (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/log/asset/[assetId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/log/asset/[assetId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/log/project/[projectId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/log/project/[projectId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/log/user/[userId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/log/user/[userId] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/people/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/people (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/admin/projects/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/projects/new (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/assets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /assets (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/my-borrowing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /my-borrowing (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/my-borrowing/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /my-borrowing/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/(contents)/projects/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/[id] (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  },
+  {
+    "key": "smovidya/pussadu::seo/twitter-card::src/routes/dev-login/panel/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dev-login/panel (script-verified (a1a_scan.py, comments stripped, 538 files under src incl. app.html/hooks and $stories): no og/twitter/canonical tag anywhere; root +layout.svelte head is favicon only, page heads <title> only; no meta-tag library; npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, layerchart, ...) emit none)"
+  }
+]

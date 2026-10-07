@@ -1,0 +1,542 @@
+[
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::a11y/accessible-name::src/lib/components/ConnectionKeyModal.svelte:21::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read ConnectionKeyModal.svelte:21: empty full-screen backdrop <button class=\"absolute inset-0 bg-black/60\" onclick> with no text, aria-label or title and no aria-hidden/tabindex=-1; a focusable unnamed button"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::a11y/accessible-name::src/lib/components/QrModal.svelte:36::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read QrModal.svelte:36: empty full-screen backdrop <button class=\"absolute inset-0 bg-black/60\" onclick> with no text, aria-label or title and no aria-hidden/tabindex=-1; a focusable unnamed button"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::a11y/accessible-name::src/routes/clients/+page.svelte:205::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read clients/+page.svelte:205: empty full-screen backdrop <button class=\"absolute inset-0 bg-black/60\" onclick> with no text, aria-label or title and no aria-hidden/tabindex=-1; a focusable unnamed button"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::a11y/permitted-contents::src/routes/settings/+page.svelte:259::`<p>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read settings/+page.svelte:258-259: <p> \"No passkeys registered.\" in {#if} directly inside <ul> (:261); <ul> admits only <li>"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/clients/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/clients/+page.svelte has 247 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/clients/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/clients/[id]/+page.svelte has 399 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/config/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/+page.svelte has 435 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 708 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/pool/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/pool/+page.svelte has 336 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 320 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::architecture/prop-count::src/lib/components/ClientTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ClientTable.svelte has a single destructured $props() with 7 named props (> 6): clients, onEdit, onDelete, onRevoke, onRoleChange, onViewKey, onViewQr"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::correctness/each-key::src/lib/components/Sidebar.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Sidebar.svelte:55 '{#each visibleItems as item}' has no key and is not an exempt shape; visibleItems = $derived of the same-file constant navItems literal (:17-26), filtered by the viewer role (:30-32): static list (fixed nav links filtered by a flag), never reorders, a key cannot help (ledger fixed-nav-filtered convention)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::performance/image-dimensions::src/routes/login/+page.svelte:92::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has no width/height and no spread; /aivpn-icon.svg logo with class w-16 h-16 (+page.svelte:92) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::performance/image-loading-hint::src/routes/login/+page.svelte:92::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading and no spread; logo at the top of the centered login card (+page.svelte:90-95) - above the fold"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/backup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /backup (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/clients/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /clients (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/clients/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /clients/[id] (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/config/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /config (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); public login page (root +layout.svelte:21-24 exempts /login from the client gate), no noindex"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /logs (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/masks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /masks (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/pool/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /pool (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library) but not a search target (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/backup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /backup (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/clients/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /clients (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/clients/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /clients/[id] (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/config/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /config (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /dashboard (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /login (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /logs (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/masks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /masks (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/pool/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /pool (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /settings (literal claim holds); but this is the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/backup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /backup ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/clients/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /clients ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/clients/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /clients/[id] ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/config/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /config ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /dashboard ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /login ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /logs ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/masks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /masks ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/pool/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /pool ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /settings ships none (ssr = false SPA; no client-side JSON-LD either)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/backup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /backup (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/clients/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /clients (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/clients/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /clients/[id] (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/config/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /config (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); public login page (root +layout.svelte:21-24 exempts /login from the client gate), no noindex"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /logs (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/masks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /masks (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/pool/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pool (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/backup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /backup (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/clients/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /clients (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/clients/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /clients/[id] (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/config/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /config (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); public login page (root +layout.svelte:21-24 exempts /login from the client gate), no noindex"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /logs (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/masks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /masks (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/pool/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /pool (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/backup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /backup (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/clients/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /clients (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/clients/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /clients/[id] (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/config/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /config (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); public login page (root +layout.svelte:21-24 exempts /login from the client gate), no noindex"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /logs (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/masks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /masks (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/pool/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /pool (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/backup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /backup (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/clients/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /clients (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/clients/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /clients/[id] (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/config/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /config (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); public login page (root +layout.svelte:21-24 exempts /login from the client gate), no noindex"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /logs (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/masks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /masks (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/pool/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /pool (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: client/static has only icons, no robots.txt route and the Hono server serves none (literal claim holds); web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in client/static, routes or the Hono server (literal claim holds); web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target, nothing to list"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (literal claim holds); deliberate client-only rendering in the web management panel of a self-hosted VPN server (aivpn-web README: static SPA served by the Hono backend, root +layout.ts ssr = false), not a search target"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/backup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/backup/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/clients/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/clients/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/clients/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/clients/[id]/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/config/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/config/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/dashboard/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/dashboard/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/login/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/logs/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/logs/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/masks/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/masks/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/pool/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/pool/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of all of client/src for svelte:head/<title/document.title) + read: src/routes/settings/+page.svelte has no svelte:head; root +layout.svelte has no svelte:head (QueryClientProvider/Sidebar/ThemeToggle, no head), app.html has no <title>, the only <title> in src is an SVG tooltip in pool/+page.svelte:252 (not the document title), no document.title; npm deps at aivpn-web/bun.lock versions (lucide-svelte@0.513.0, layerchart@1.0.13, @tanstack/svelte-query@5.90.2, fetched from npm) write no document.title and have no head <title> (layerchart's only <title> is the SVG accessibility title in Svg.svelte:77); +layout.ts ssr=false SPA admin panel, so the page stays untitled in the browser (ssr=false untitled precedent: tp)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/backup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /backup (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/clients/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /clients (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/clients/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /clients/[id] (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/config/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /config (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); public login page (root +layout.svelte:21-24 exempts /login from the client gate), no noindex"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /logs (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/masks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /masks (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/pool/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /pool (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "infosave2007/aivpn:platforms/aivpn-web/client::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep of aivpn-web/client excl. node_modules, incl. app.html): no <svelte:head> anywhere and no og:*/twitter:*/rel=canonical; app.html is charset/icons/viewport; ssr=false app-wide (routes/+layout.ts:1) so client heads would count and none exist; no meta-tag library); rendered route (auth-gated (client-side): root +layout.svelte:23-47 onMount goto()s every visitor outside /login without a refreshable session to /login; a guest gate does not exempt the social-tag claim)"
+  }
+]

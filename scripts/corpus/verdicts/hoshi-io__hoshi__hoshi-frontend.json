@@ -1,0 +1,1152 @@
+[
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/deprecated-attr::src/lib/components/hero/HomeHero.svelte:118::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read lib/components/hero/HomeHero.svelte:118: literal YouTube <iframe> with frameborder=\"0\"; frameborder is an obsolete iframe attribute (CSS border replaces it)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/duplicate-landmark::src/routes/(app)/list/+page.svelte:246::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/list/+page.svelte:246 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset), so the route has two main landmarks"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/duplicate-landmark::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte:51::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/read-novel/[cid]/[extension]/[number]/+page.svelte:51 page <main> (passed as children of layout/Reader.svelte, rendered at :250) renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset), so the route has two main landmarks"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/duplicate-landmark::src/routes/(app)/schedule/+page.svelte:58::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/schedule/+page.svelte:58 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset), so the route has two main landmarks"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/duplicate-landmark::src/routes/(app)/settings/+page.svelte:149::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/settings/+page.svelte:149 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset), so the route has two main landmarks"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/duplicate-landmark::src/routes/(app)/setup/+page.svelte:194::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/setup/+page.svelte:194 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset), so the route has two main landmarks"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/id-duplication::src/lib/components/ResponsiveSelect.svelte:66::Duplicate id \"native-select\"",
+    "verdict": "tp",
+    "basis": "read ResponsiveSelect.svelte:61-67: every instance renders <select id=\"native-select\"> in its non-desktop {:else} arm; routes render several unconditional instances (e.g. settings/Player.svelte:179/219/227/260 on /settings, list/+page.svelte sortSelect/typeSelect/statusSelect rendered together in mobileTopbar :216-224), so a mobile viewport repeats the id; local CLI lists 30 route entries (matching the first-look count; the same 5 route ids /c/[...path], /list, /search, /settings, /setup repeat in its listing), labelled by majority"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/interactive-nesting::src/lib/components/history/HistoryList.svelte:68::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read HistoryList.svelte:40-68: delete <button> inside the history row <div role=\"button\" tabindex=\"0\"> (:40, in {#each}); nested interactive control as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/interactive-nesting::src/routes/ide/+page.svelte:97::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ide/+page.svelte:79-97: delete <button> inside the extension row <div role=\"button\" tabindex=\"0\"> (:79, in {#each}, same template inside ScrollArea's children); nested interactive control as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/label-has-control::src/routes/ide/+page.svelte:230::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_walk.mjs): <label> at routes/ide/+page.svelte:230 has no for attribute or spread and wraps only static text (no input/select/textarea/button/meter/output/progress, expression, component, render/html/slot); the control is a following sibling (read representatives in each file), so the label is associated with nothing"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/label-has-control::src/routes/ide/+page.svelte:272::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_walk.mjs): <label> at routes/ide/+page.svelte:272 has no for attribute or spread and wraps only static text (no input/select/textarea/button/meter/output/progress, expression, component, render/html/slot); the control is a following sibling (read representatives in each file), so the label is associated with nothing"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/modals/ExtensionManager.svelte:210::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/modals/ExtensionManager.svelte:210 has literal <button> (line 205) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/modals/MergeContent.svelte:165::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/modals/MergeContent.svelte:165 has literal <button> (line 157) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/modals/MergeContent.svelte:170::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/modals/MergeContent.svelte:170 has literal <button> (line 157) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/modals/SwitchProfile.svelte:108::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/modals/SwitchProfile.svelte:108 has literal <button> (line 92) as its nearest non-transparent element ancestor in the same template (crossed: {#if user.ha), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/modals/SwitchProfile.svelte:121::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/modals/SwitchProfile.svelte:121 has literal <button> (line 117) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/player/TorrentPickerDialog.svelte:96::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/player/TorrentPickerDialog.svelte:96 has literal <button> (line 92) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/player/TorrentPickerDialog.svelte:97::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/player/TorrentPickerDialog.svelte:97 has literal <button> (line 92) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/settings/Account.svelte:162::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/settings/Account.svelte:162 has literal <button> (line 147) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/settings/Torrent.svelte:586::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/settings/Torrent.svelte:586 has literal <button> (line 575) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/lib/components/settings/UI.svelte:90::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at lib/components/settings/UI.svelte:90 has literal <button> (line 80) as its nearest non-transparent element ancestor in the same template (crossed: {#if themeMa), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/routes/(app)/+page.svelte:109::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at routes/(app)/+page.svelte:109 has literal <button> (line 100) as its nearest non-transparent element ancestor in the same template (crossed: {#if current), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/routes/(app)/settings/+page.svelte:164::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at routes/(app)/settings/+page.svelte:164 has literal <button> (line 154) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/permitted-contents::src/routes/(app)/setup/+page.svelte:263::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at routes/(app)/setup/+page.svelte:263 has literal <button> (line 257) as its nearest non-transparent element ancestor in the same template (crossed: {#if themeMa), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/top-level-landmark::src/routes/(app)/list/+page.svelte:246::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/list/+page.svelte:246 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset); a main nested in main"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/top-level-landmark::src/routes/(app)/list/+page.svelte:248::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/list/+page.svelte:248 unlabelled <aside class=\"hidden lg:flex\"> (shown from lg up) inside the page <main> (:246), itself inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset); a complementary landmark nested in main"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/top-level-landmark::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte:51::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/read-novel/[cid]/[extension]/[number]/+page.svelte:51 page <main> (passed as children of layout/Reader.svelte, rendered at :250) renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset); a main nested in main"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/top-level-landmark::src/routes/(app)/schedule/+page.svelte:58::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/schedule/+page.svelte:58 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset); a main nested in main"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/top-level-landmark::src/routes/(app)/settings/+page.svelte:149::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/settings/+page.svelte:149 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset); a main nested in main"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::a11y/top-level-landmark::src/routes/(app)/setup/+page.svelte:194::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/setup/+page.svelte:194 page <main> renders inside (app)/+layout.svelte:189-201 always renders {@render children()} inside <main> (no {#if} around it; root +layout.svelte renders children bare, no +page@ reset); a main nested in main"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/card/CardPreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/card/CardPreview.svelte has 298 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/content/Chapters.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/content/Chapters.svelte has 277 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/content/Episodes.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/content/Episodes.svelte has 241 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/content/RelationMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/content/RelationMap.svelte has 201 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/hero/ContentHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/hero/ContentHero.svelte has 283 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/hero/HomeHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/hero/HomeHero.svelte has 290 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/layout/Reader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Reader.svelte has 352 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/modals/ExtensionManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/ExtensionManager.svelte has 242 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/modals/ListEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/ListEditor.svelte has 665 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/modals/MergeContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/MergeContent.svelte has 215 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/modals/TrackerManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/modals/TrackerManager.svelte has 221 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/player/settings/SettingsMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/player/settings/SettingsMenu.svelte has 528 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/readers/ReaderImage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/readers/ReaderImage.svelte has 213 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/search/SearchFilters.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/SearchFilters.svelte has 302 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/Account.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/Account.svelte has 293 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/LogsViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/LogsViewer.svelte has 263 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/MangaReader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/MangaReader.svelte has 225 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/NovelReader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/NovelReader.svelte has 244 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/Player.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/Player.svelte has 385 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/Torrent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/Torrent.svelte has 629 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/Tracker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/Tracker.svelte has 471 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/extensions/Card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/extensions/Card.svelte has 233 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/lib/components/settings/extensions/Marketplace.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/extensions/Marketplace.svelte has 515 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 246 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/(app)/list/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/list/+page.svelte has 407 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/(app)/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/search/+page.svelte has 337 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/(app)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/+page.svelte has 417 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/(app)/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/setup/+page.svelte has 397 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/(app)/watch/[cid]/[number]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/watch/[cid]/[number]/+page.svelte has 443 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/component-size::src/routes/ide/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ide/+page.svelte has 305 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ListEditorButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ListEditorButton.svelte has a single destructured $props() with 8 named props (> 6): cid, title, contentType, coverImage, size, variant, headers, class"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/card/CardContainer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/card/CardContainer.svelte has a single destructured $props() with 9 named props (> 6): title, cover, year, score, shouldBlur, contentTypeLabel, overlay, imageHeaders, isStars"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/card/CardPreview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/card/CardPreview.svelte has a single destructured $props() with 14 named props (> 6): cid, title, cover, bannerImage, trailerUrl, score, status, synopsis, episodeCount, contentType, contentTypeLabel, shouldBlur, href, isStar"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/hero/ContentHero.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/hero/ContentHero.svelte has a single destructured $props() with 9 named props (> 6): fullContent, meta, displayTitle, isAnime, showTrackerModal, showExtensionModal, showMergeModal, onWatchNow, headers"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/modals/ExtensionManager.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/modals/ExtensionManager.svelte has a single destructured $props() with 8 named props (> 6): open, cid, metadata, isNsfw, extensions, contentType, headers, onSuccess"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/player/settings/SettingsSliderRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/player/settings/SettingsSliderRow.svelte has a single destructured $props() with 7 named props (> 6): icon, label, value, min, max, step, onInput"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/search/SearchFilters.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/search/SearchFilters.svelte has a single destructured $props() with 10 named props (> 6): searchMode, tracker, status, genre, format, nsfw, extFiltersSchema, extFilterValues, onChange, onClear"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/settings/extensions/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/extensions/Card.svelte has a single destructured $props() with 10 named props (> 6): ext, source, mode, isActionLoading, isMarketplaceInstalled, isSaving, hasUpdate, onAction, onUpdate, onSave"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus ...rest: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/LanguageSelector.svelte:83::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LanguageSelector.svelte:83 '{#each availableLanguages as lang}' has no key; availableLanguages = i18n.getAvailableLanguages() (:23), the app's fixed set of bundled locales; static locale list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/ResponsiveSelect.svelte:54::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ResponsiveSelect.svelte:54 '{#each items as item}' has no key; items prop of ResponsiveSelect; every caller (settings/General, Tracker, UI, Player, LogsViewer) passes a const option literal (e.g. Player.svelte:26 seekSteps, General.svelte:21 metadataProviders); static option list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/ResponsiveSelect.svelte:77::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ResponsiveSelect.svelte:77 '{#each items as item}' has no key; items prop of ResponsiveSelect; every caller passes a const option literal (Player.svelte:26, General.svelte:21, UI.svelte:50); static option list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/carousel/ContinueCarousel.svelte:65::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/carousel/ContinueCarousel.svelte:65 '{#each visibleItems as item}' has no key; visibleItems = $derived(items.filter(...)) (:18) over the continue-watching items prop; runtime data (filtered-list)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/content/CastAndStaff.svelte:36::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/content/CastAndStaff.svelte:36 '{#each visibleCharacters as char}' has no key; visibleCharacters = $derived(characters or characters.slice) (:24), characters of fetched content; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/content/RelationMap.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/content/RelationMap.svelte:193 '{#each presentTypes as type}' has no key; presentTypes = $derived([...new Set(graph.edges.map(...))]) (:17) from the fetched relation graph; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/hero/ContentHero.svelte:188::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/hero/ContentHero.svelte:188 '{#each meta.genres.slice(0, 5) as genre}' has no key; meta.genres of the fetched content metadata prop; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/hero/ContentHero.svelte:230::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/hero/ContentHero.svelte:230 '{#each visibleTrackers as tracker}' has no key; visibleTrackers = $derived(trackers or slice) (:56), the user's tracker entries; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/hero/HomeHero.svelte:229::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/hero/HomeHero.svelte:229 '{#each items as _, i}' has no key; '{#each items as _, i}' renders one slide indicator dot per carousel item (aria-label 'Ir a diapositiva i'), nothing per item but its index; positional indicator dots"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/layout/DesktopSidebar.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/DesktopSidebar.svelte:55 '{#each mainRoutes as route}' has no key; mainRoutes prop; its only caller (routes/(app)/+layout.svelte:37) passes a $derived literal of four fixed nav routes; static nav list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/layout/DesktopSidebar.svelte:82::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/DesktopSidebar.svelte:82 '{#each profileRoutes as route}' has no key; profileRoutes prop; its only caller (routes/(app)/+layout.svelte:44) passes a $derived literal of fixed nav routes; static nav list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/layout/MobileBottom.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/MobileBottom.svelte:41 '{#each routes as route}' has no key; routes prop; the caller (routes/(app)/+layout.svelte mobileRoutes $derived literal) passes fixed nav routes; static nav list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/layout/Reader.svelte:138::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/layout/Reader.svelte:138 '{#each sortedChapters as chap}' has no key; sortedChapters = $derived(...) (:36) of the fetched chapter list; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/modals/ExtensionManager.svelte:204::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/modals/ExtensionManager.svelte:204 '{#each searchResults as result}' has no key; searchResults $state (:40) filled from contentApi.searchExtension (:74); runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/modals/ListEditor.svelte:339::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/modals/ListEditor.svelte:339 '{#each sources as source}' has no key; sources $state (:133) loaded from the list entry (:203) and edited in the dialog; runtime editable list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/modals/ListEditor.svelte:508::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/modals/ListEditor.svelte:508 '{#each sources as source}' has no key; sources $state (:133) loaded from the list entry (:203) and edited in the dialog; runtime editable list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/modals/ListEditor.svelte:533::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/modals/ListEditor.svelte:533 '{#each sources as source}' has no key; sources $state (:133) loaded from the list entry (:203) and edited in the dialog; runtime editable list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/modals/ListEditor.svelte:574::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/modals/ListEditor.svelte:574 '{#each history as change}' has no key; history $state (:134) from the API (r.changes, :207); runtime records"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/modals/SwitchProfile.svelte:91::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/modals/SwitchProfile.svelte:91 '{#each users as user}' has no key; users $state (:18) from usersApi (res.users, :40); runtime records"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/player/TimeBar.svelte:131::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/player/TimeBar.svelte:131 '{#each processedChapters as segment}' has no key; processedChapters = $derived.by(...) (:16) from the playing video's chapters; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/readers/NovelReaderSettings.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/readers/NovelReaderSettings.svelte:25 '{#each Object.entries(NOVEL_THEMES) as [t, colors]}' has no key; Object.entries(NOVEL_THEMES), a const theme object imported from @/app/novel.svelte; static list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/search/SearchFilters.svelte:245::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/search/SearchFilters.svelte:245 '{#each Object.entries(extFiltersSchema) as [key, filterDef]}' has no key; Object.entries(extFiltersSchema), the filter schema prop an extension supplies at runtime; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/search/SearchFilters.svelte:268::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/search/SearchFilters.svelte:268 '{#each filterDef.options || [] as opt}' has no key; filterDef.options of the runtime extension filter schema (outer each :245); nested runtime list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/search/SearchSourceGrid.svelte:121::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/search/SearchSourceGrid.svelte:121 '{#each sortedExtensions as ext}' has no key; sortedExtensions = $derived(...) (:20) of installed extensions; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/LogsViewer.svelte:230::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/LogsViewer.svelte:230 '{#each logFiles as file}' has no key; logFiles $state (:28) from invoke('list_log_files') (:80); runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/MangaReader.svelte:210::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/MangaReader.svelte:210 '{#each readerShortcuts as shortcut}' has no key; readerShortcuts = $derived([...]) (:48), two fixed shortcut literals with translated labels; static list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/NovelReader.svelte:126::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/NovelReader.svelte:126 '{#each Object.entries(themes) as [t, colors]}' has no key; Object.entries(themes), a const object literal (:42) of fixed reader themes; static list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/NovelReader.svelte:227::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/NovelReader.svelte:227 '{#each shortcut.keys as key, i}' has no key; shortcut.keys of the const novelShortcuts literal (:49); static list fixed at author time"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/Player.svelte:280::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/Player.svelte:280 '{#each shortcut.keys as key, i}' has no key; shortcut.keys of the component's const shortcut literal list; static list fixed at author time"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/Tracker.svelte:296::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/Tracker.svelte:296 '{#each trackers as tracker}' has no key; trackers $state (:29) loaded from the integrations API (:101); runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/Tracker.svelte:361::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/Tracker.svelte:361 '{#each tracker.supportedTypes as type}' has no key; tracker.supportedTypes of a fetched tracker record; nested runtime list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/extensions/Form.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/extensions/Form.svelte:26 '{#each ext.setting_definitions as def}' has no key; ext.setting_definitions of the installed extension prop; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/extensions/Form.svelte:78::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/extensions/Form.svelte:78 '{#each def.options as option}' has no key; def.options of an extension's runtime setting definition; nested runtime list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/extensions/Form.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/extensions/Form.svelte:85 '{#each def.options as option}' has no key; def.options of an extension's runtime setting definition; nested runtime list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/lib/components/settings/extensions/Marketplace.svelte:413::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/extensions/Marketplace.svelte:413 '{#each repoUrlsLocal as url, i}' has no key; repoUrlsLocal $state (:33) of user-edited URL inputs, appended (:214) and removed by index (:226); runtime editable list with inputs"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/routes/(app)/list/+page.svelte:135::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/list/+page.svelte:135 '{#each statusOptions as option}' has no key; statusOptions = $derived([...]) (:37), six fixed status options with translated labels; static option list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/routes/(app)/list/+page.svelte:274::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/list/+page.svelte:274 '{#each statusOptions as option}' has no key; statusOptions = $derived([...]) (:37), six fixed status options with translated labels; static option list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte:46 '{#each readerState.groupedImages as group}' has no key; readerState.groupedImages of the MangaReaderState (:12) built from the fetched chapter pages; runtime data"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/each-key::src/routes/ide/+page.svelte:202::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/ide/+page.svelte:202 '{#each ideState.consoleLines as line}' has no key; ideState.consoleLines, console output appended at runtime (@/app/idle-state.svelte); runtime data (log-list)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/effect-as-derived::src/lib/components/content/Episodes.svelte:82::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/content/Episodes.svelte:82 the effect only sets selectedArc = String(resumeArcIndex) ($derived, :74); the other write is the arc select (a primitive), the writable-$derived override pattern (svelte ^5.49.2)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/effect-as-derived::src/lib/components/settings/Account.svelte:24::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/Account.svelte:24 the effect only copies user.username into username; later writes are the input bind/reset (primitive), the writable-$derived override pattern (svelte ^5.49.2)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/effect-as-derived::src/lib/components/settings/Account.svelte:31::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/settings/Account.svelte:31 the effect only copies user.avatar into previewAvatarUrl; later writes are reassignments of the primitive on file pick, the writable-$derived override pattern (svelte ^5.49.2)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/prop-mutation::src/lib/components/layout/Reader.svelte:215::Prop \"readerState\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Reader.svelte:215 readerState.showSettings = ... on the readerState prop, a BaseReaderState class instance whose showSettings is a $state field (lib/app/reader.svelte.ts:38); reactive by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/prop-mutation::src/lib/components/layout/Reader.svelte:295::Prop \"readerState\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Reader.svelte:295 readerState.showSettings toggle on a BaseReaderState class instance ($state field, lib/app/reader.svelte.ts:38); the docs' class-instance limitation"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/prop-mutation::src/lib/components/readers/MangaReaderSettings.svelte:36::Prop \"readerState\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/readers/MangaReaderSettings.svelte:36 readerState.currentGroupIndex = 0 on a MangaReaderState class instance whose currentGroupIndex is a $state field (lib/app/manga.svelte.ts:23); the docs' class-instance limitation"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/prop-mutation::src/lib/components/readers/MangaReaderSettings.svelte:37::Prop \"readerState\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/readers/MangaReaderSettings.svelte:37 readerState.currentGroupIndex = 0 on a MangaReaderState class instance ($state field, lib/app/manga.svelte.ts:23); the docs' class-instance limitation"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/unmutated-state::src/lib/components/content/CastAndStaff.svelte:22::$state \"showAllStaff\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/content/CastAndStaff.svelte:22 showAllStaff = $state(false) is only read (:25 visibleStaff); no write, bind or escape anywhere in the file"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::correctness/unmutated-state::src/routes/(app)/setup/+page.svelte:37::$state \"extConfig\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "fp",
+    "basis": "read: src/routes/(app)/setup/+page.svelte:37 extConfig (a non-primitive $state object) is never written in the file, but it is passed to a function inside an object-literal argument, appConfig.update({ ..., extensions: extConfig }) (:137-156); the docs exempt a $state passed to a function (ledger object-literal-argument convention)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/iframe-loading::src/lib/components/card/CardPreview.svelte:77::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; YouTube trailer rendered only {#if isHovered} && ytId (:68-76), i.e. only under the user's pointer - on-screen by construction"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/iframe-loading::src/lib/components/hero/HomeHero.svelte:118::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; full-viewport background trailer of the home hero carousel (h-[75vh] md:h-[90vh], :98-125) at the top of / - above the fold, where eager is right"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/image-dimensions::src/routes/(app)/settings/+page.svelte:297::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; mascot with max-w-full max-h-full object-scale-down inside the fixed w-25 h-25 box (:295) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/image-dimensions::src/routes/(app)/setup/+page.svelte:207::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover inside the fixed w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden box (:205) - box reserved by CSS"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/image-loading-hint::src/routes/(app)/settings/+page.svelte:297::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; /chibi.png is read from the Tauri app bundle (hoshi-app/tauri.conf.json frontendDist ../hoshi-frontend/build, ssr=false) and pinned md:mt-auto to the bottom of the full-height settings sidebar - in view on a desktop window, no network fetch to defer"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/image-loading-hint::src/routes/(app)/setup/+page.svelte:207::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; avatarPreview = URL.createObjectURL(avatarFile) (:171) of the file the user just picked, shown {#if avatarPreview} at the top of the profile step - no network fetch, in view"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/responsive-image::src/routes/(app)/settings/+page.svelte:297::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; /chibi.png is a bundled static asset of a Tauri desktop app (hoshi-app/tauri.conf.json frontendDist, ssr=false, adapter-static): read from the app bundle, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::performance/responsive-image::src/routes/(app)/setup/+page.svelte:207::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; avatarPreview = URL.createObjectURL(avatarFile) (:171), a client blob: URL of the file the user just picked - no alternate sizes exist"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::security/raw-html::src/lib/components/hero/ContentHero.svelte:264::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/hero/ContentHero.svelte:264: meta.synopsis (tracker metadata) passed through .replace(/<[^>]*>?/gm, \"\") which removes every \"<\" and the text up to the next \">\" — no tag can survive, effectively stripped to text; reported per docs"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::security/raw-html::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte:68::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte:68 + lib/app/novel.svelte.ts:151: contentHtml = playRes.data.html from contentApi.play(), the chapter HTML a user-installed third-party marketplace extension scrapes (README \"BYOC Extensions\"), rendered with no sanitizer anywhere (no dompurify/ammonia in frontend or Rust core) — remote third-party HTML unsanitized"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/c/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /c/[...path] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/list/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /list (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /read-novel/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /read/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/schedule/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /schedule (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /search (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /watch/[cid]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; but not a search target (client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/canonical-url::src/routes/ide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ide (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on / (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/c/[...path]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /c/[...path] (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/list/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /list (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /read-novel/[cid]/[extension]/[number] (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /read/[cid]/[extension]/[number] (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/schedule/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /schedule (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /search (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /setup (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /watch/[cid]/[number] (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/description-presence::src/routes/ide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /ide (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/heading-level-skip::src/routes/(app)/schedule/+page.svelte:85::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: PageHeader (:59) renders an unconditional <h1>{title} (lib/components/PageHeader.svelte:13); the next heading is this <h3> in the {:else if scheduleStore.error} arm (:85), no <h2> between -> h1->h3 skip holds"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/c/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /c/[...path]"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/list/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /list"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /read-novel/[cid]/[extension]/[number]"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /read/[cid]/[extension]/[number]"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/schedule/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /schedule"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /settings"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /setup"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /watch/[cid]/[number]"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/json-ld::src/routes/ide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /ide"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/c/[...path]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /c/[...path] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/list/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /list (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /read-novel/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /read/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/schedule/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /schedule (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /watch/[cid]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-description::src/routes/ide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ide (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/c/[...path]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /c/[...path] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/list/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /list (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /read-novel/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /read/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/schedule/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /schedule (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /watch/[cid]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-image::src/routes/ide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ide (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/c/[...path]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /c/[...path] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/list/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /list (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /read-novel/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /read/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/schedule/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /schedule (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /watch/[cid]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-title::src/routes/ide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ide (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/c/[...path]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /c/[...path] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/list/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /list (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /read-novel/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /read/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/schedule/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /schedule (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /watch/[cid]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/og-url::src/routes/ide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ide (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/ or routes (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/single-h1::/ide::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: ssr=false app (routes/+layout.ts); ide/+layout.svelte renders DesktopTitlebar + children, ide/+page.svelte has only Resizable/Tabs/CodeEditor, no <h1>; the only <h1> in src is PageHeader.svelte:13, used only by schedule/settings; no role=heading/svelte:element headings"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/single-h1::/read-novel/[cid]/[extension]/[number]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: reader page and (app)/+layout.svelte render no <h1>; the only <h1> in src is PageHeader.svelte:13, used only by schedule/settings (ssr=false app, shadcn ui components are local and render none)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/single-h1::/read/[cid]/[extension]/[number]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: reader page and (app)/+layout.svelte render no <h1>; the only <h1> in src is PageHeader.svelte:13, used only by schedule/settings (ssr=false app, shadcn ui components are local and render none)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/single-h1::src/routes/(app)/list/+page.svelte:207::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: list/+page.svelte headings are drawer <h3>s (:207); no PageHeader, no <h1> in page, (app)/+layout.svelte or any component it uses (only <h1> in src is PageHeader.svelte:13, used by schedule/settings)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/single-h1::src/routes/(app)/search/+page.svelte:152::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: search/+page.svelte headings are drawer <h3>/<h4>s (:152); no PageHeader, no <h1> in page, (app)/+layout.svelte or any component it uses (only <h1> in src is PageHeader.svelte:13, used by schedule/settings)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1; deliberate SPA, Hoshi is a Tauri desktop/Android app (hoshi-frontend package.json @tauri-apps/*, adapter-static, root +layout.ts ssr = false), not a website for search; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/title-presence::src/routes/ide/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: ide/+page.svelte and ide/+layout.svelte (DesktopTitlebar renders a body <span>, no svelte:head) have no <title>; root +layout.svelte none, +layout.ts ssr=false, app.html none, no document.title in src (literal claim holds); Tauri-only desktop app (adapter-static fallback, tauri.conf.json frontendDist) and /ide is the extension-developer IDE window DesktopSidebar.svelte:27-33 opens as new WebviewWindow('extension-ide', {url:'/ide', title:'Extension IDE'}), not a page for visitors"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/c/[...path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /c/[...path] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/list/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /list (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/read-novel/[cid]/[extension]/[number]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /read-novel/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/read/[cid]/[extension]/[number]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /read/[cid]/[extension]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/schedule/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /schedule (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/(app)/watch/[cid]/[number]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /watch/[cid]/[number] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells; route context: client-gated: (app)/+layout.svelte:140 handleNavigation -> lib/app/app.ts:26-27 goto('/setup') whenever no profile/session is restored (ssr=false, so a visitor without one never sees this page) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoshi-io/hoshi:hoshi-frontend::seo/twitter-card::src/routes/ide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ide (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere (page heads are <title> only); app.html has charset/viewport/theme-color; ssr=false app-wide (+layout.ts:1) so client heads count and none emit it; npm Svelte deps (bits-ui, paneforge, vaul-svelte, svelte-sonner, embla, lucide) emit no such tag; Tauri shell, labelled per the ledger convention for Tauri shells"
+  }
+]

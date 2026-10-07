@@ -1,0 +1,897 @@
+[
+  {
+    "key": "yethdev/greenmods:ui::a11y/accessible-name::src/components/ui/ContextMenu.svelte:8::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read components/ui/ContextMenu.svelte:8-24: empty full-screen backdrop <button> (no text, aria-label, title, aria-hidden or tabindex=-1; author svelte-ignored a11y_consider_explicit_label) in {#if $contextMenuStore}; focusable and unnamed as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/disallowed-aria-props::src/components/ui/PackageCard.svelte:50::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read src/components/ui/PackageCard.svelte:50: literal <span> with aria-label and no role, spread or use: action (attrs: class=\"bg-[#da8d32] text-black rounded-token my-auto mr-4 flex aspe\" aria-label=\"Nexus Mod); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/disallowed-aria-props::src/components/ui/ScrollingProject.svelte:44::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read src/components/ui/ScrollingProject.svelte:44: literal <span> with aria-label and no role, spread or use: action (attrs: class=\"bg-[#da8d32] text-black rounded-token my-auto mr-1 flex aspe\" aria-label=\"Nexus Mod); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/disallowed-aria-props::src/routes/p/[id]/+layout.svelte:359::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/p/[id]/+layout.svelte:359: literal <span> with aria-label and no role, spread or use: action (attrs: class=\"bg-[#da8d32] text-black rounded-token my-auto mr-4 flex aspe\" aria-label=\"Nexus Mod); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/ContextMenu.svelte:45::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at src/components/ui/ContextMenu.svelte:45 has literal <div> (line 37) as its nearest non-transparent element ancestor in the same template (crossed: {#if item.ty,{#each},{KeyBlock}), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/GalleryImage.svelte:22::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <p> at src/components/ui/GalleryImage.svelte:22 has literal <button> (line 17) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/Popups.svelte:156::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <p> at src/components/ui/Popups.svelte:156 has literal <button> (line 148) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/Popups.svelte:167::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <p> at src/components/ui/Popups.svelte:167 has literal <button> (line 159) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/Popups.svelte:199::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <p> at src/components/ui/Popups.svelte:199 has literal <button> (line 186) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/Popups.svelte:227::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <p> at src/components/ui/Popups.svelte:227 has literal <button> (line 212) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/Version.svelte:76::`<dt>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at src/components/ui/Version.svelte:76 has literal <span> (line 75) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/Version.svelte:77::`<dd>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at src/components/ui/Version.svelte:77 has literal <span> (line 75) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/VersionFile.svelte:125::`<dt>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at src/components/ui/VersionFile.svelte:125 has literal <span> (line 124) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/VersionFile.svelte:126::`<dd>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at src/components/ui/VersionFile.svelte:126 has literal <span> (line 124) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/edit/EditVersion.svelte:90::`<dt>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at src/components/ui/edit/EditVersion.svelte:90 has literal <span> (line 89) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/components/ui/edit/EditVersion.svelte:91::`<dd>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at src/components/ui/edit/EditVersion.svelte:91 has literal <span> (line 89) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/collections/[id]/+page.svelte:123::`<dt>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/collections/[id]/+page.svelte:123 has literal <section> (line 122) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/collections/[id]/+page.svelte:124::`<dd>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/collections/[id]/+page.svelte:124 has literal <section> (line 122) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:239::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+layout.svelte:239 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:243::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+layout.svelte:243 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: {#if loaders,{#if loaders), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:252::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+layout.svelte:252 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: {#if gameVer,{#if loaders), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:270::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+layout.svelte:270 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: {#if loaders), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:280::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+layout.svelte:280 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: {#if tags.le), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:282::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+layout.svelte:282 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: {#if tags.le), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+layout.svelte:349::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+layout.svelte:349 has literal <div> (line 179) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:105::`<dt>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+page.svelte:105 has literal <section> (line 104) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:106::`<dd>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+page.svelte:106 has literal <section> (line 104) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:116::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+page.svelte:116 has literal <div> (line 115) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:22::`<dt>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+page.svelte:22 has literal <section> (line 21) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:23::`<dd>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+page.svelte:23 has literal <section> (line 21) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:36::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+page.svelte:36 has literal <div> (line 35) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:96::`<dt>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/+page.svelte:96 has literal <section> (line 95) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/+page.svelte:97::`<dd>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/+page.svelte:97 has literal <section> (line 95) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:152::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/versions/[ver]/+page.svelte:152 has literal <div> (line 151) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:155::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/versions/[ver]/+page.svelte:155 has literal <div> (line 151) as its nearest non-transparent element ancestor in the same template (crossed: {#if loaders), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:163::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/versions/[ver]/+page.svelte:163 has literal <div> (line 151) as its nearest non-transparent element ancestor in the same template (crossed: {#if loaders), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:171::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/versions/[ver]/+page.svelte:171 has literal <div> (line 170) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:174::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/versions/[ver]/+page.svelte:174 has literal <div> (line 170) as its nearest non-transparent element ancestor in the same template (crossed: {#if gameVer), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:187::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/versions/[ver]/+page.svelte:187 has literal <div> (line 170) as its nearest non-transparent element ancestor in the same template (crossed: {#if gameVer), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:196::`<dt>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/versions/[ver]/+page.svelte:196 has literal <section> (line 195) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:200::`<dd>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/versions/[ver]/+page.svelte:200 has literal <section> (line 195) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:206::`<dt>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dt> at routes/p/[id]/versions/[ver]/+page.svelte:206 has literal <section> (line 205) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/permitted-contents::src/routes/p/[id]/versions/[ver]/+page.svelte:210::`<dd>` is not permitted content here — `<section>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <dd> at routes/p/[id]/versions/[ver]/+page.svelte:210 has literal <section> (line 205) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg (no <dl> ancestor at any level); outside <section>'s permitted content as reported"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/top-level-landmark::src/routes/collections/[id]/+page.svelte:65::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: collections/[id]/+page.svelte:65 unlabelled <aside class=\"card\"> under plain divs, placed in root +layout.svelte:165-181 whose <main> wraps {@render children()} in both arms of the route.id {#if}; a complementary landmark nested in main"
+  },
+  {
+    "key": "yethdev/greenmods:ui::a11y/top-level-landmark::src/routes/collections/new/+page.svelte:134::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: collections/new/+page.svelte:134 unlabelled <aside class=\"card\"> under plain divs, placed in root +layout.svelte:165-181 whose <main> wraps {@render children()} in both arms; a complementary landmark nested in main"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/components/ui/LibrarySearchPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/ui/LibrarySearchPage.svelte has 621 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/components/ui/Popups.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/ui/Popups.svelte has 231 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/components/ui/stepper/BetterStepper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/ui/stepper/BetterStepper.svelte has 224 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 227 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 315 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/p/[id]/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[id]/+layout.svelte has 456 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/p/[id]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[id]/edit/+page.svelte has 364 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/p/[id]/edit/members/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[id]/edit/members/+page.svelte has 229 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/p/[id]/edit/versions/create/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[id]/edit/versions/create/+page.svelte has 353 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/p/[id]/edit/versions/edit/[version]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[id]/edit/versions/edit/[version]/+page.svelte has 313 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/p/[id]/versions/[ver]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/p/[id]/versions/[ver]/+page.svelte has 231 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/component-size::src/routes/u/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/u/[id]/+page.svelte has 222 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/prop-count::src/components/ui/LibrarySearchPage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/LibrarySearchPage.svelte has a single destructured $props() with 9 named props (> 6): routeId, routePath, canonicalPath, pageTitle, pageDescription, defaultFacets, allowedLoaderIds, allowedVersionIds, hiddenTagIds"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/prop-count::src/components/ui/PackageCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/PackageCard.svelte has a single destructured $props() with 7 named props (> 6): pkg, customHeight, compact, showAvatar, showDetails, showName, select"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/prop-count::src/components/ui/PackageList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/PackageList.svelte has a single destructured $props() with 7 named props (> 6): customHeight, compact, showName, showDetails, showAvatar, select, packages"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/prop-count::src/components/ui/stepper/BetterStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/stepper/BetterStep.svelte has a single destructured $props() with 22 named props (> 6) plus ...rest: locked, regionHeader, regionContent, regionNavigation, state, stepTerm, gap, justify, onNext, onBack, onComplete, buttonBack, buttonNext, buttonComplete, transitions, transitionIn, transitionInParams, transitionOut, transitionOutParams, header, children, navigation"
+  },
+  {
+    "key": "yethdev/greenmods:ui::architecture/prop-count::src/components/ui/stepper/BetterStepper.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/ui/stepper/BetterStepper.svelte has a single destructured $props() with 22 named props (> 6) plus ...rest: children, gap, stepTerm, badge, active, border, start, justify, buttonBack, buttonNext, buttonComplete, regionHeader, regionContent, transitions, transitionIn, transitionInParams, transitionOut, transitionOutParams, next, step, back, complete"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/CollectionCard.svelte:71::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/CollectionCard.svelte:71 '{#each featuredProjects as project}' has no key; featuredProjects = $derived(collection.projects.slice(0, 3)) (:16) of a fetched collection; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/CollectionRail.svelte:48::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/CollectionRail.svelte:48 '{#each collections as collection}' has no key; collections $state (:24) set from fetched data (:30); runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/ContextMenu.svelte:39::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/ContextMenu.svelte:39 '{#each $contextMenuStore.items as item, i}' has no key; $contextMenuStore.items, the menu items each caller sets at runtime (lib/ui/contextMenu.ts:33/55/70/92); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/LibrarySearchPage.svelte:309::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/LibrarySearchPage.svelte:309 '{#each visibleLoaders as loader}' has no key; visibleLoaders = $derived($loaders filtered by allowed ids) (:68), loaders fetched from the API by $lib/meta.ts (client.meta().tags()/loaders(), writable store set in updateTags/updateLoaders); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/LibrarySearchPage.svelte:333::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/LibrarySearchPage.svelte:333 '{#each availableSearchedVersions as version}' has no key; availableSearchedVersions = $derived(...) (:83), game versions filtered by the typed versionSearch; runtime data (filtered-list)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/LibrarySearchPage.svelte:363::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/LibrarySearchPage.svelte:363 '{#each searchedTags as tag}' has no key; searchedTags = $derived(...) (:86), tags filtered by the typed tagsSearch; runtime data (filtered-list)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/Popups.svelte:185::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/components/ui/Popups.svelte:185 '{#each $locales as lang}' has no key; $locales of svelte-i18n, the app's fixed set of registered locales; static locale list"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/ProjectScroller.svelte:74::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/ProjectScroller.svelte:74 '{#each renderRows as items, index}' has no key; renderRows = $derived(selected.filter(...)) (:31) of the fetched project rows; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/ProjectScroller.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/components/ui/ProjectScroller.svelte:86 '{#each items as pkg}' has no key; items, one row of fetched projects (outer each :74); nested runtime list"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/components/ui/ProjectTabs.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/components/ui/ProjectTabs.svelte:21 '{#each tabs as tab}' has no key; tabs prop; its only caller (routes/p/[id]/+layout.svelte:401) passes an inline literal of fixed project tabs; static nav list"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/admin/projects/+page.svelte:77::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/projects/+page.svelte:77 '{#each projects as project}' has no key; projects $state (:15) from the API, sorted (:53); runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/admin/users/+page.svelte:73::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/users/+page.svelte:73 '{#each users as user}' has no key; users $state (:13) from the API (:51); runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/collections/+page.svelte:93::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/collections/+page.svelte:93 '{#each collections as collection}' has no key; collections $state (:26) from fetched data (:30); runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/new/Step4.svelte:41::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/new/Step4.svelte:41 '{#each $allTags as tag}' has no key; $allTags, tags fetched from the API by $lib/meta.ts (client.meta().tags()/loaders(), writable store set in updateTags/updateLoaders); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/+layout.svelte:244::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/+layout.svelte:244 '{#each loaders as loader}' has no key; loaders = $derived(getLoaders(versions)) (:47) of the project's fetched versions; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/+layout.svelte:254::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/+layout.svelte:254 '{#each aggVersions.slice(0, maxVersions) as version}' has no key; aggVersions = $derived(tryAggregateVersions(gameVersions)) (:151) of the project's versions; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/+layout.svelte:261::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/+layout.svelte:261 '{#each aggVersions as version}' has no key; aggVersions = $derived(tryAggregateVersions(gameVersions)) (:151) of the project's versions; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/+layout.svelte:283::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/+layout.svelte:283 '{#each tags as tag}' has no key; tags $state (:42) of the current project's tags; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/+layout.svelte:351::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/+layout.svelte:351 '{#each projectCreators as author}' has no key; projectCreators = $derived(getProjectCreators($currentProject)) (:87); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/edit/gallery/+page.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/edit/gallery/+page.svelte:50 '{#each images as img}' has no key; images $state (:15) from client.project(id).gallery().list() (:20), re-fetched after edits (:24); runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/edit/members/+page.svelte:152::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/edit/members/+page.svelte:152 '{#each displayAuthors as author}' has no key; displayAuthors $state (:18), members added (:127) and removed (:88) by the user; runtime editable list"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/edit/tags/+page.svelte:80::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/edit/tags/+page.svelte:80 '{#each $allTags as tag}' has no key; $allTags, tags fetched from the API by $lib/meta.ts (client.meta().tags()/loaders(), writable store set in updateTags/updateLoaders); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/edit/versions/+page.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/edit/versions/+page.svelte:50 '{#each vers as version}' has no key; vers $state (:16) from client.project(id).versions().list() (:25), re-fetched after edits; runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/edit/versions/create/+page.svelte:198::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/edit/versions/create/+page.svelte:198 '{#each $allLoaders ?? [] as loader}' has no key; $allLoaders, loaders fetched from the API by $lib/meta.ts (client.meta().tags()/loaders(), writable store set in updateTags/updateLoaders); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/edit/versions/edit/[version]/+page.svelte:191::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/edit/versions/edit/[version]/+page.svelte:191 '{#each $allLoaders ?? [] as loader}' has no key; $allLoaders, loaders fetched from the API by $lib/meta.ts (client.meta().tags()/loaders(), writable store set in updateTags/updateLoaders); runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/gallery/+page.svelte:29::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/gallery/+page.svelte:29 '{#each sortedImages as img}' has no key; sortedImages = $derived([...images].sort(...)) (:15) of the project's gallery; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/versions/+page.svelte:35::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/versions/+page.svelte:35 '{#each sortedVersions as version}' has no key; sortedVersions = $derived(...) (:16) of the project's versions; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/versions/[ver]/+page.svelte:156::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/versions/[ver]/+page.svelte:156 '{#each loaders as loader}' has no key; loaders = $derived(version?.loaders) (:29) of the fetched version; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/versions/[ver]/+page.svelte:176::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/versions/[ver]/+page.svelte:176 '{#each aggVersions.slice(0, maxVersions) as version}' has no key; aggVersions = $derived(tryAggregateVersions(gameVersions)) (:31) of the fetched version; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/versions/[ver]/+page.svelte:181::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/versions/[ver]/+page.svelte:181 '{#each aggVersions as version}' has no key; aggVersions = $derived(tryAggregateVersions(gameVersions)) (:31) of the fetched version; runtime data"
+  },
+  {
+    "key": "yethdev/greenmods:ui::correctness/each-key::src/routes/p/[id]/versions/[ver]/+page.svelte:213::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/p/[id]/versions/[ver]/+page.svelte:213 '{#each version?.files ?? [] as file}' has no key; version?.files of version $state from the API (:55); runtime records"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/admin/projects/+page.svelte:84::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class h-full inside the fixed h-16 p-4 card row (:79-81) - fixed-height box, the width only varies inline"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/admin/projects/+page.svelte:86::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class h-full inside the fixed h-16 p-4 card row (:79-81) - fixed-height box, the width only varies inline"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/admin/users/+page.svelte:79::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class h-full inside the fixed h-16 p-4 card row (:76-78) - fixed-height box, the width only varies inline"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/collections/[id]/+page.svelte:76::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class h-10 w-10 object-cover - box reserved by CSS"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/collections/[id]/+page.svelte:78::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class h-10 w-10 object-cover - box reserved by CSS"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/+layout.svelte:183::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square w-[40%] object-cover - width and aspect-ratio reserve the box (key covers 4 /p/[id] routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/+layout.svelte:366::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square h-8 - box reserved by CSS (author list in the project sidebar, 4 routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/+layout.svelte:374::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square h-8 - box reserved by CSS (author list in the project sidebar, 4 routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/edit/gallery/+page.svelte:59::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square w-[90%] object-cover - width and aspect-ratio reserve the box"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/edit/gallery/create/+page.svelte:146::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class or CSS size on the preview inside the FileDropzone lead snippet - the picked image's natural size decides the box and the dropzone grows"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/edit/members/+page.svelte:166::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square h-8 - box reserved by CSS"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/p/[id]/edit/members/+page.svelte:172::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square h-8 - box reserved by CSS"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/u/[id]/+page.svelte:79::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square h-16 - box reserved by CSS"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-dimensions::src/routes/u/[id]/+page.svelte:86::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: own class aspect-square h-16 - box reserved by CSS"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/admin/projects/+page.svelte:84::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: /modhost.png fallback avatar in each {#each projects} admin row - later rows offscreen on load"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/admin/projects/+page.svelte:86::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in each {#each projects} admin row - later rows offscreen on load"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/admin/users/+page.svelte:79::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in each {#each users} admin row - later rows offscreen on load"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/collections/[id]/+page.svelte:76::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: owner avatar in the collection header next to the <h1> (:68-76) - above the fold"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/collections/[id]/+page.svelte:78::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: owner avatar in the collection header next to the <h1> (:68-78) - above the fold"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/p/[id]/+layout.svelte:183::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: project preview image at the top of the project sidebar card, the first image of the page (:182-189) - above the fold, where the docs keep it eager (4 routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/p/[id]/edit/gallery/+page.svelte:59::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: thumbnail in each {#each images} card of the gallery editor - later cards offscreen on load"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/p/[id]/edit/gallery/create/+page.svelte:146::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked (imageUrl = URL.createObjectURL, :29-37), rendered only after that choice - no network fetch"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/p/[id]/edit/members/+page.svelte:166::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: fallback avatar in the members list directly under the 'Manage Members' label at the top of the edit pane - above the fold"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/p/[id]/edit/members/+page.svelte:172::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in the members list directly under the 'Manage Members' label at the top of the edit pane - above the fold"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/u/[id]/+page.svelte:79::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile avatar in the page header beside the username (:75-82) - above the fold"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/image-loading-hint::src/routes/u/[id]/+page.svelte:86::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile avatar in the page header beside the username (:75-90) - above the fold"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/admin/projects/+page.svelte:84::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: /modhost.png, a 256x256 PNG - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/admin/projects/+page.svelte:86::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: remote GitHub avatar (avatars.githubusercontent.com/u/<id>) - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/admin/users/+page.svelte:79::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: remote GitHub avatar (avatars.githubusercontent.com/u/<id>) - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/collections/[id]/+page.svelte:76::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: /modhost.png, a 256x256 PNG - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/collections/[id]/+page.svelte:78::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: remote GitHub avatar - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/+layout.svelte:183::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: imageUrl from getProjectPreviewImage (lib/api.ts:43), an uploaded gallery image URL - raster, one fixed-size asset (4 routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/+layout.svelte:366::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: /modhost.png, a 256x256 PNG shown at h-8 - raster, one fixed-size asset (4 routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/+layout.svelte:374::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: remote GitHub avatar - raster, one fixed-size asset (4 routes)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/edit/gallery/+page.svelte:59::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: img.url, an uploaded gallery image - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/edit/gallery/create/+page.svelte:146::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread; read: imageUrl = URL.createObjectURL(new Blob([data])) of the file the user just picked (:33-36) - no alternate sizes exist"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/edit/members/+page.svelte:166::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: /modhost.png, a 256x256 PNG - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/p/[id]/edit/members/+page.svelte:172::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: remote GitHub avatar - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/u/[id]/+page.svelte:79::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: /modhost.png, a 256x256 PNG - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::performance/responsive-image::src/routes/u/[id]/+page.svelte:86::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: remote GitHub avatar - raster, one fixed-size asset"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/components/modals/ImageViewModal.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/components/modals/ImageViewModal.svelte:36 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/components/ui/LibrarySearchPage.svelte:384::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/components/ui/LibrarySearchPage.svelte:384: vsprintf of a svelte-i18n message (src/locales/*.json) with only the numeric $searchResults.total — repo i18n content, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/components/ui/LibrarySearchPage.svelte:387::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/components/ui/LibrarySearchPage.svelte:387: vsprintf of a svelte-i18n message (src/locales/*.json) with only the numeric $searchResults.total — repo i18n content, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/routes/collections/[id]/+page.svelte:125::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/collections/[id]/+page.svelte:125 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/routes/p/[id]/+layout.svelte:225::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/p/[id]/+layout.svelte:225 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/routes/p/[id]/+page.svelte:107::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/p/[id]/+page.svelte:107 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/routes/p/[id]/+page.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/p/[id]/+page.svelte:26 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/routes/p/[id]/+page.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/p/[id]/+page.svelte:98 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::security/raw-html::src/routes/p/[id]/versions/[ver]/+page.svelte:201::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/p/[id]/versions/[ver]/+page.svelte:201 + lib/util/markdown.ts:52-74: markdown()/markdownInline() is markdown-it with html: false (raw HTML escaped, unsafe link schemes rejected by validateLink) — escaped output, reported per docs"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/indexability::src/routes/one/s/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/one/s/+page.svelte:2,15 imports and renders components/ui/LibrarySearchPage.svelte, whose svelte:head carries at :272 a literal <meta name=\"robots\" content=\"noindex,follow,max-image-preview:large\">; noindex as claimed (search results page, also Disallow: /s in static/robots.txt)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/indexability::src/routes/s/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/s/+page.svelte:2,15 imports and renders components/ui/LibrarySearchPage.svelte, whose svelte:head carries at :272 a literal <meta name=\"robots\" content=\"noindex,follow,max-image-preview:large\">; noindex as claimed (search results page, also Disallow: /s in static/robots.txt)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/indexability::src/routes/zero/s/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/zero/s/+page.svelte:2,15 imports and renders components/ui/LibrarySearchPage.svelte, whose svelte:head carries at :272 a literal <meta name=\"robots\" content=\"noindex,follow,max-image-preview:large\">; noindex as claimed (search results page, also Disallow: /s in static/robots.txt)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld-validity::src/routes/+page.svelte::JSON-LD is not valid JSON",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte svelte:head has <script type=\"application/ld+json\">{...JsonLd}</script>; Svelte treats <script> content as raw text, so the literal \"{...}\" is emitted and is not valid JSON (ledger convention)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld-validity::src/routes/collections/+page.svelte::JSON-LD is not valid JSON",
+    "verdict": "tp",
+    "basis": "read: src/routes/collections/+page.svelte svelte:head has <script type=\"application/ld+json\">{...JsonLd}</script>; Svelte treats <script> content as raw text, so the literal \"{...}\" is emitted and is not valid JSON (ledger convention)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld-validity::src/routes/one/+page.svelte::JSON-LD is not valid JSON",
+    "verdict": "tp",
+    "basis": "read: src/routes/one/+page.svelte svelte:head has <script type=\"application/ld+json\">{...JsonLd}</script>; Svelte treats <script> content as raw text, so the literal \"{...}\" is emitted and is not valid JSON (ledger convention)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld-validity::src/routes/zero/+page.svelte::JSON-LD is not valid JSON",
+    "verdict": "tp",
+    "basis": "read: src/routes/zero/+page.svelte svelte:head has <script type=\"application/ld+json\">{...JsonLd}</script>; Svelte treats <script> content as raw text, so the literal \"{...}\" is emitted and is not valid JSON (ledger convention)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /admin has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/admin/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /admin/projects has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /admin/users has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/collections/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /collections/new has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /me has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /new has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/one/s/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /one/s has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/description/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/description has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/gallery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/gallery has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/gallery/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/gallery/create has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/gallery/edit/[image]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/gallery/edit/[image] has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/members has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/tags has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/versions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/versions has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/versions/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/versions/create has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/p/[id]/edit/versions/edit/[version]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /p/[id]/edit/versions/edit/[version] has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/s/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: /s is the one route postbuild-seo.mjs gives its own file (build/s/index.html from the `search` meta, which has no jsonLd), s/+page.svelte and LibrarySearchPage.svelte render none, root layout none; no JSON-LD as claimed"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/u/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /u/[id] has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/json-ld::src/routes/zero/s/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: JSON-LD IS shipped: scripts/postbuild-seo.mjs (run by both `build` and `dist`; release build_ui in crates/modhost-ui/src/lib.rs runs `bun run dist`) rewrites build/index.html with the home SEO block, including <script type=\"application/ld+json\"> WebSite (home.jsonLd, injectSeo/buildSeoBlock), and crates/jsglue/src/embedded.rs serves that index.html for every path with no file of its own (no fallback.html/404.html); /zero/s has no file in build/, so it is served that shell with the WebSite JSON-LD in <head> (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/admin/projects::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/projects/+page.svelte renders a Loading <div> or the {#each projects} card list, no heading; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/admin/users::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/users/+page.svelte renders a Loading <div> or the {#each users} card list, no heading; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/admin::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/+page.svelte renders stats with no heading; admin/+layout.svelte shows a <p>Admin label and the page (or an access-denied <p>); the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: new/+page.svelte renders BetterStepper with Step1-Step5 (no heading in routes/new); the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/p/[id]/gallery::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: p/[id]/+layout.svelte shows the project name as an <a> (:191-193) and the page renders GalleryImage cards, no heading; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/p/[id]/versions/[ver]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: p/[id]/+layout.svelte shows the project name as an <a>; the page renders VersionFile rows and {@html markdown(changelog)} - user-authored changelog markdown, not committed content; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/p/[id]/versions::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: p/[id]/+layout.svelte shows the project name as an <a> (:191-193) and the page renders Version rows, no heading; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::/u/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: u/[id]/+page.svelte shows the username in <div class=\"h2\"> (a styled div, :75), no heading element; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/single-h1::src/routes/p/[id]/+page.svelte:37::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: p/[id]/+layout.svelte shows the project name as an <a> (:191-193); the page's own headings are <h2>s (:37,:117) plus {@html markdown(readme)} - the user-authored project README, not committed content; the root +layout.svelte (HeaderBar, Skeleton Toast/Modal/Drawers) renders no <h1>; the only <h1>s in src are on /, /one, /zero, collections pages, +error, AuthRequired, EditContainer (edit pages) and LibrarySearchPage"
+  },
+  {
+    "key": "yethdev/greenmods:ui::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "literal claim holds for the SvelteKit source, but the build adds it: the build does produce /sitemap.xml: scripts/postbuild-seo.mjs main() writes build/sitemap.xml (buildSitemap over / and every project/version page) after vite build in both `build` and `dist`, the release build_ui runs `bun run dist`, and static/robots.txt advertises Sitemap: https://mods.yeth.dev/sitemap.xml (ledger convention: a sitemap, robots.txt or head tag a build script writes outside SvelteKit is design, as ow-mods post-build.mjs, sstim gen-discovery.mjs)"
+  }
+]

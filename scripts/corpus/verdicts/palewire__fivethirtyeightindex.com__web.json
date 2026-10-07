@@ -1,0 +1,197 @@
+[
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::a11y/disallowed-aria-props::src/lib/components/GraphicsTeaser.svelte:21::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read GraphicsTeaser.svelte:21: literal <div> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::architecture/component-size::src/lib/components/EntryList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntryList.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::architecture/prop-count::src/lib/components/GraphicGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/GraphicGrid.svelte has a single destructured $props() with 7 named props (> 6): graphics, label, showCategory, showItemLabel, imageFit, fallbackLabel, showFallbackThumbLabel"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::architecture/prop-count::src/lib/components/PaginatedGraphicGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PaginatedGraphicGrid.svelte has a single destructured $props() with 8 named props (> 6): graphics, label, showCategory, showItemLabel, imageFit, fallbackLabel, showFallbackThumbLabel, pageSize"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::performance/sequential-awaits::src/routes/+page.server.ts:21::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read web/src/routes/+page.server.ts:21 + lib/server/data.ts:15-19: each load*FromDisk is a readFile of a static/data JSON, in a prerendered adapter-static route (+layout.ts:5 prerender=true) — local disk at build time, no request serialized (ledger local-file-read design convention)"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::performance/sequential-awaits::src/routes/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read web/src/routes/+page.server.ts:22 + lib/server/data.ts:15-19: each load*FromDisk is a readFile of a static/data JSON, in a prerendered adapter-static route (+layout.ts:5 prerender=true) — local disk at build time, no request serialized (ledger local-file-read design convention)"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::performance/sequential-awaits::src/routes/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read web/src/routes/+page.server.ts:23 + lib/server/data.ts:15-19: each load*FromDisk is a readFile of a static/data JSON, in a prerendered adapter-static route (+layout.ts:5 prerender=true) — local disk at build time, no request serialized (ledger local-file-read design convention)"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::performance/sequential-awaits::src/routes/+page.server.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read web/src/routes/+page.server.ts:24 + lib/server/data.ts:15-19: each load*FromDisk is a readFile of a static/data JSON, in a prerendered adapter-static route (+layout.ts:5 prerender=true) — local disk at build time, no request serialized (ledger local-file-read design convention)"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/byline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/byline/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/dataset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/graphics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/graphics/year/[year]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/graphics/year/[year]/[month]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/illustrations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/illustrations/year/[year]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/illustrations/year/[year]/[month]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/podcast/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/podcast/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/year/[year]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/canonical-url::src/routes/year/[year]/[month]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> anywhere in web/src, app.html or the repo (grep); root +layout.svelte:21-38 emits og:*/twitter:* (og:url fixed to site root) but no canonical; page head is <title> only; public prerendered site (robots.txt Allow /, sitemap.xml), no noindex or auth"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/app.html:6-9 literal <meta name=\"description\"> is the only description of all 14 routes (root layout sets og/twitter descriptions only, no page sets one); public index site, duplicate as claimed"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; / has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/byline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /byline has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/byline/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /byline/[slug] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/dataset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /dataset has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/graphics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /graphics has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/graphics/year/[year]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /graphics/year/[year] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/graphics/year/[year]/[month]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /graphics/year/[year]/[month] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/illustrations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /illustrations has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/illustrations/year/[year]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /illustrations/year/[year] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/illustrations/year/[year]/[month]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /illustrations/year/[year]/[month] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/podcast/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /podcast has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/podcast/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /podcast/[slug] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/year/[year]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /year/[year] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/json-ld::src/routes/year/[year]/[month]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /year/[year]/[month] has no JSON-LD"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/single-h1::src/routes/+page.svelte:59::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: home renders SearchBox, EntryList and teasers, first heading the search-results <h2> (:59); root layout SiteHeader is <header><strong><a>, Tagline a <p> — no <h1> (section pages like /dataset have one, home does not)"
+  },
+  {
+    "key": "palewire/fivethirtyeightindex.com:web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:50 unconditional literal <title>fivethirtyeightindex</title> = 20 chars, the only title on /; under 30 as claimed"
+  }
+]

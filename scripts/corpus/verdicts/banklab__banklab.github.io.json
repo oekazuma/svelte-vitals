@@ -1,0 +1,542 @@
+[
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/lib/components/layout/Footer.svelte:20::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Footer.svelte:20 '{#each footerData.sections as section}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/lib/components/layout/Footer.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Footer.svelte:22 '{#each section.links as link}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/+page.svelte:108::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:108 '{#each welcomeCards as card}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/+page.svelte:136::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:136 '{#each data.news.items as item}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/news/+page.svelte:66::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/news/+page.svelte:66 '{#each upcoming as item}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/news/+page.svelte:79::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/news/+page.svelte:79 '{#each past as item}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/people/+page.svelte:133::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/people/+page.svelte:133 '{#each meta.alumni_groups as group}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/people/+page.svelte:137::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/people/+page.svelte:137 '{#each group.members as member}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/people/+page.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/people/+page.svelte:42 '{#each meta.team as member}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/people/+page.svelte:90::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/people/+page.svelte:90 '{#each meta.associated as member}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/each-key::src/routes/research/+page.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/research/+page.svelte:24 '{#each data.testimonials.items as testimonial}' has no key; static list: banklab is prerendered (adapter-static, src/routes/+layout.server.ts prerender = true) and its lists come from bundled markdown parsed at build (parseMarkdown('footer'), data.post, data.news); fixed at build time, never reorders"
+  },
+  {
+    "key": "banklab/banklab.github.io::correctness/stale-prop-derivation::src/routes/people/+page.svelte:6::\"meta\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/people/+page.svelte:6 const meta = data.post at init (structurally true, rendered); banklab is prerendered (adapter-static, prerender = true) and /people has no params, so the page's data never changes for an instance"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-dimensions::src/routes/+page.svelte:154::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: own class w-full h-64 object-cover inside the Modal — height fixed, and the modal is an overlay"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-dimensions::src/routes/+page.svelte:89::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: own class w-full h-80 md:h-96 object-cover — height fixed, box reserved"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-dimensions::src/routes/news/+page.svelte:93::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: own class w-full h-64 object-cover inside the Modal — height fixed, and the modal is an overlay"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-dimensions::src/routes/people/+page.svelte:27::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: no width/height; read: own class w-full h-auto — height comes from the image"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-dimensions::src/routes/people/+page.svelte:46::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: parent aspect-square w-full (:45) reserves the box, img h-full w-full"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-dimensions::src/routes/people/+page.svelte:94::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: parent aspect-square w-full (:93) reserves the box, img h-full w-full"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-loading-hint::src/routes/+page.svelte:154::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: news image in the Modal, rendered {#if selectedNews} after the user opens a news item — visible when rendered"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-loading-hint::src/routes/+page.svelte:89::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: hero image beside the <h1> in the hero section — above the fold"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-loading-hint::src/routes/news/+page.svelte:93::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: news image in the Modal, rendered {#if selectedNews} after the user opens a news item — visible when rendered"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-loading-hint::src/routes/people/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: team photo right under the page <h1> — above the fold"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-loading-hint::src/routes/people/+page.svelte:46::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: member photo in the {#each meta.team} card grid below the team photo — offscreen on load"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/image-loading-hint::src/routes/people/+page.svelte:94::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: member photo in the {#each meta.associated} card grid below the team photo — offscreen on load"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/responsive-image::src/routes/+page.svelte:154::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: news image from content frontmatter (/assets/img/news/default-*.jpg) — raster, one fixed-size asset"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/responsive-image::src/routes/+page.svelte:89::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static /assets/img/misc/bright-forrest-artsy-bg.jpg hero — raster, one fixed-size asset"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/responsive-image::src/routes/news/+page.svelte:93::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: news image from content frontmatter (/assets/img/news/default-*.jpg) — raster, one fixed-size asset"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/responsive-image::src/routes/people/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: meta.main_image /assets/img/team/team_25.jpg — raster, one fixed-size asset"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/responsive-image::src/routes/people/+page.svelte:46::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: member.image /assets/img/team/*.jpg — raster, one fixed-size asset"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/responsive-image::src/routes/people/+page.svelte:94::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: member.image /assets/img/team/*.jpg — raster, one fixed-size asset"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/sequential-awaits::src/routes/+layout.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :14-15: parseMarkdown (lib/markdown.ts:15-28) is a server import() of bundled src/lib/content/*.md?raw plus marked — in-process reads of repo content in a prerendered route (root +layout.server.ts prerender = true), no network request serialized (ledger in-process convention)"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/sequential-awaits::src/routes/+page.server.ts:5::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :4-6: parseMarkdown (lib/markdown.ts:15-28) is a server import() of bundled src/lib/content/*.md?raw plus marked — in-process reads of repo content in a prerendered route (root +layout.server.ts prerender = true), no network request serialized (ledger in-process convention)"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/sequential-awaits::src/routes/+page.server.ts:6::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :4-6: parseMarkdown (lib/markdown.ts:15-28) is a server import() of bundled src/lib/content/*.md?raw plus marked — in-process reads of repo content in a prerendered route (root +layout.server.ts prerender = true), no network request serialized (ledger in-process convention)"
+  },
+  {
+    "key": "banklab/banklab.github.io::performance/sequential-awaits::src/routes/research/+page.server.ts:5::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :4-5: parseMarkdown (lib/markdown.ts:15-28) is a server import() of bundled src/lib/content/*.md?raw plus marked — in-process reads of repo content in a prerendered route (root +layout.server.ts prerender = true), no network request serialized (ledger in-process convention)"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/+page.svelte:102::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:102 + +page.server.ts:4: data.home.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/+page.svelte:112::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:16-40,112: card.icon comes from the literal icons array in the page script — constant SVG markup, reported per docs"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/+page.svelte:138::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:136-138: marked.parse(item.content) of data.news.items, which is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/+page.svelte:157::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:53-55,157: selectedNews is one of data.news.items; its content is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/about/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read about/+page.svelte:11 + about/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/archive/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read archive/+page.svelte:11 + archive/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/contact/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read contact/+page.svelte:11 + contact/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/funding/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read funding/+page.svelte:11 + funding/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/media/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read media/+page.svelte:11 + media/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/news/+page.svelte:68::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read news/+page.svelte:28,68: parseMd (marked) of a news item's content from news.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/news/+page.svelte:81::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read news/+page.svelte:28,81: parseMd (marked) of a news item's content from news.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/news/+page.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read news/+page.svelte:28,96: parseMd (marked) of a news item's content from news.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/people/+page.svelte:105::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read people/+page.svelte:9,105: parseMd (marked) of a team member field from people.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/people/+page.svelte:115::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read people/+page.svelte:9,115: parseMd (marked) of a team member field from people.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/people/+page.svelte:140::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read people/+page.svelte:9,140: parseMd (marked) of a team member field from people.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/people/+page.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read people/+page.svelte:9,74: parseMd (marked) of a team member field from people.md frontmatter — repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/positions/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read positions/+page.svelte:11 + positions/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/publications/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read publications/+page.svelte:11 + publications/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/research/+page.svelte:12::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read research/+page.svelte:12 + research/+page.server.ts:4: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/teaching/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read teaching/+page.svelte:11 + teaching/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::security/raw-html::src/routes/tools/+page.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read tools/+page.svelte:11 + tools/+page.server.ts: data.post.html is repo-authored content from src/lib/content/*.md (parseMarkdown: server import of ?raw + gray-matter + marked, lib/markdown.ts:15-28) on a prerendered static site with no CMS or user input — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /archive (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /contact (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/funding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /funding (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/media/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /media (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/news/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /news (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/people/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /people (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/positions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /positions (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/publications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /publications (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/research/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /research (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/teaching/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /teaching (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/canonical-url::src/routes/tools/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tools (read + repo-wide grep): repo-wide grep of src/** incl. app.html: app.html:14-25 carries og:*/twitter:* but no <link rel=\"canonical\">; root +layout.svelte has no head, pages emit <title> only (e.g. +page.svelte:64-66); no hooks, no dependencies besides build tooling, no meta-tag library; publicly reachable prerendered static site, no robots.txt, no noindex"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Bank Lab - Bern University\" at src/app.html:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 26 as reported); app.html:10 literal description \"Bank Lab - Bern University\" = 26, the only description of all 14 routes; under 70 as claimed, public research-lab site banklab.github.io"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:10 literal description is the only description of all 14 routes (no page sets one), duplicate as claimed; public prerendered research-lab site"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; / has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /about has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /archive has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /contact has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/funding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /funding has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/media/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /media has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/news/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /news has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/people/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /people has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/positions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /positions has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /privacy has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/publications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /publications has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/research/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /research has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/teaching/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /teaching has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/json-ld::src/routes/tools/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in the site; /tools has none"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has assets, favicon and og-image only, no robots.txt route (adapter-static, base ''); public GitHub Pages user site banklab.github.io"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/about::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: about/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('about') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/about.md, prerendered); the body starts with \"# This page is NOW ACTIVE. (body line 2)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/archive::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: archive/+page.svelte renders {@html} of src/lib/content/archive.md, whose body's first heading is \"## Lab News Feed Archive\" (no '# ' line) -> <h2>; root layout Header/Footer render only an <h2> (Footer.svelte:16) -> no <h1>"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/contact::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: contact/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('contact') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/contact.md, prerendered); the body starts with \"# Contact (body line 2)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/funding::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: funding/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('funding') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/funding.md, prerendered); the body starts with \"# Funding (body line 1)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/media::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: media/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('media') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/media.md, prerendered); the body starts with \"# Media (body line 1)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/positions::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: positions/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('positions') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/positions.md, prerendered); the body starts with \"# PhD position in theory of fitness landscapes (body line 2)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/publications::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: publications/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('publications') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/publications.md, prerendered); the body starts with \"# Publications (body line 1)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/teaching::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: teaching/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('teaching') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/teaching.md, prerendered); the body starts with \"# Teaching (body line 1)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::/tools::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: tools/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('tools') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/tools.md, prerendered); the body starts with \"# Tools (body line 1)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/single-h1::src/routes/research/+page.svelte:19::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: research/+page.svelte renders {@html data.post.html} inside ContentCard, where +page.server.ts loads parseMarkdown('research') (lib/markdown.ts: gray-matter + marked.parse of src/lib/content/research.md, prerendered); the body starts with \"# Research (body line 2)\" -> marked emits an <h1>; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, routes or build; public prerendered lab site with people, publications and news pages to list"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"About | Bank Lab\" at src/routes/about/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/about/+page.svelte unconditional svelte:head literal <title> of 16 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/archive/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Archive | Bank Lab\" at src/routes/archive/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/archive/+page.svelte unconditional svelte:head literal <title> of 18 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/contact/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Contact | Bank Lab\" at src/routes/contact/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/contact/+page.svelte unconditional svelte:head literal <title> of 18 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/funding/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Funding | Bank Lab\" at src/routes/funding/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/funding/+page.svelte unconditional svelte:head literal <title> of 18 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/media/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Media | Bank Lab\" at src/routes/media/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/media/+page.svelte unconditional svelte:head literal <title> of 16 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/positions/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Positions | Bank Lab\" at src/routes/positions/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 20 as reported); src/routes/positions/+page.svelte unconditional svelte:head literal <title> of 20 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Privacy Policy\" at src/routes/privacy/+page.svelte:2, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 14 as reported); src/routes/privacy/+page.svelte unconditional svelte:head literal <title> of 14 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/publications/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Publications | Bank Lab\" at src/routes/publications/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 23 as reported); src/routes/publications/+page.svelte unconditional svelte:head literal <title> of 23 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/research/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Research | Bank Lab\" at src/routes/research/+page.svelte:8, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/research/+page.svelte unconditional svelte:head literal <title> of 19 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/teaching/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Teaching | Bank Lab\" at src/routes/teaching/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/teaching/+page.svelte unconditional svelte:head literal <title> of 19 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  },
+  {
+    "key": "banklab/banklab.github.io::seo/title-length::src/routes/tools/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Tools | Bank Lab\" at src/routes/tools/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/tools/+page.svelte unconditional svelte:head literal <title> of 16 chars (e.g. about: \"About | Bank Lab\"), the route's only title; under 30 as claimed, public page"
+  }
+]

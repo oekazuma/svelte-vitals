@@ -1,0 +1,1372 @@
+[
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/disallowed-aria-props::src/lib/components/inventory/TagPill.svelte:38::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read inventory/TagPill.svelte:38-40: <span aria-label={`Tag ${tag}`}> in the non-interactive {:else} arm, no role/spread; generic does not take a name"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/disallowed-aria-props::src/lib/components/wizard/WizardChrome.svelte:93::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read wizard/WizardChrome.svelte:93-100: step-pip <span aria-current aria-label=\"Step N: ...\"> with no role/spread; generic does not take a name"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/disallowed-aria-props::src/routes/setup/+page.svelte:280::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read setup/+page.svelte:280-288: step-pip <span aria-current aria-label=\"Step {s}: ...\"> with no role/spread; generic does not take a name"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/id-duplication::src/lib/components/forms/ConfirmByNameDialog.svelte:131::Duplicate id \"confirm-by-name-hint\"",
+    "verdict": "design",
+    "basis": "script-verified (CLI, 5 findings on /admin/users, /admin/users/[id], /inventory/[cluster]/[vmid]): every copy is ConfirmByNameDialog.svelte:131, a bits-ui AlertDialog (:105) whose content renders only while open; the copies are separate dialogs each with its own bind:open (admin/users/+page.svelte:282/:294 disable/delete, users/[id]/+page.svelte:448/:456, SnapshotsTab.svelte:177/:187, BackupsTab.svelte:249, ActionToolbar.svelte:408), opened one at a time (modal precedent)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/permitted-contents::src/lib/components/lifecycle/SnapshotTree.svelte:158::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lifecycle/SnapshotTree.svelte:139-158: actions <div> inside <span class=\"ml-auto flex\">; <span> admits phrasing content only"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/permitted-contents::src/lib/components/wizard/CatalogBrowser.svelte:213::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read wizard/CatalogBrowser.svelte:213: <div class=\"flex items-center\"> inside the catalog-entry <button>; phrasing content only"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::a11y/permitted-contents::src/lib/components/wizard/CatalogBrowser.svelte:220::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read wizard/CatalogBrowser.svelte:220: <p> description inside the catalog-entry <button>; phrasing content only"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/lifecycle/ActionToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lifecycle/ActionToolbar.svelte has 448 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/lifecycle/BackupsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lifecycle/BackupsTab.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/lifecycle/MigrateDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lifecycle/MigrateDialog.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/lifecycle/ResizeDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lifecycle/ResizeDialog.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/lifecycle/RestoreDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lifecycle/RestoreDialog.svelte has 247 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/networks/NetworksTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/networks/NetworksTab.svelte has 231 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/notifications/NotificationBell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/notifications/NotificationBell.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/quotas/QuotaTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/quotas/QuotaTab.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/CatalogBrowser.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/CatalogBrowser.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/CloudInitEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/CloudInitEditor.svelte has 422 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/IsoLibrary.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/IsoLibrary.svelte has 323 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/LxcResourcesStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/LxcResourcesStep.svelte has 353 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/NetworkPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/NetworkPicker.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/ScriptDetailPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/ScriptDetailPanel.svelte has 263 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/VmResourcesStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/VmResourcesStep.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/lib/components/wizard/VmSourceStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/wizard/VmSourceStep.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/admin/clusters/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/clusters/+page.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/admin/clusters/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/clusters/[id]/+page.svelte has 612 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/admin/clusters/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/clusters/new/+page.svelte has 568 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/admin/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/users/+page.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/admin/users/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/users/[id]/+page.svelte has 464 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/admin/users/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/users/new/+page.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/audit/+page.svelte has 284 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/create/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/create/+page.svelte has 950 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/inventory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/inventory/+page.svelte has 766 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/inventory/[cluster]/[vmid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/inventory/[cluster]/[vmid]/+page.svelte has 422 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 281 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/profile/ssh-keys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/ssh-keys/+page.svelte has 343 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/profile/tokens/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/tokens/+page.svelte has 408 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/component-size::src/routes/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/+page.svelte has 633 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/audit/AuditTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/audit/AuditTable.svelte has a single destructured $props() with 7 named props (> 6): rows, total, page, pageSize, onPageChange, error, loading"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/forms/ConfirmByNameDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/ConfirmByNameDialog.svelte has a single destructured $props() with 9 named props (> 6): open, heading, body, targetName, confirmLabel, cancelLabel, destructive, onConfirm, onCancel"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/forms/PasswordInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/PasswordInput.svelte has a single destructured $props() with 10 named props (> 6): value, name, id, placeholder, disabled, autocomplete, required, aria-invalid, aria-describedby, class"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/inventory/ClusterSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/ClusterSection.svelte has a single destructured $props() with 9 named props (> 6): clusterId, clusterName, clusterStatus, isStale, lastError, matched, total, filterActive, children"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/inventory/Sparkline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/Sparkline.svelte has a single destructured $props() with 7 named props (> 6): points, max, height, class, label, format, times"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/lifecycle/ActionToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/lifecycle/ActionToolbar.svelte has a single destructured $props() with 9 named props (> 6): clusterId, vmid, type, status, vmName, node, clusterUnreachable, backupStorageConfigured, onMoreAction"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/lifecycle/RestoreDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/lifecycle/RestoreDialog.svelte has a single destructured $props() with 7 named props (> 6): open, clusterId, vmid, type, vmName, backupFilename, archiveVolid"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/shared/EmptyState.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/EmptyState.svelte has a single destructured $props() with 7 named props (> 6): icon, heading, body, ctaLabel, ctaHref, fullPage, class"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props plus ...rest (> 6): class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props plus ...rest (> 6): open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props plus ...rest (> 6): ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props plus ...rest (> 6): ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/wizard/IsoLibrary.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/wizard/IsoLibrary.svelte has a single destructured $props() with 8 named props (> 6): clusterId, teamId, node, storage, curated, value, error, onSelect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/wizard/LxcResourcesStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/wizard/LxcResourcesStep.svelte has a single destructured $props() with 8 named props (> 6): nodes, storages, teams, teamId, value, errors, onChange, onTeamChange"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/wizard/NodeSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/wizard/NodeSelect.svelte has a single destructured $props() with 7 named props (> 6): nodes, value, requestedCpu, requestedRamMb, error, onChange, onBlockedChange"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/wizard/VmResourcesStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/wizard/VmResourcesStep.svelte has a single destructured $props() with 11 named props (> 6): isClone, nodes, storages, quotaBudget, teams, teamId, value, errors, onChange, onTeamChange, onGateChange"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/wizard/VmSourceStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/wizard/VmSourceStep.svelte has a single destructured $props() with 9 named props (> 6): sourceKind, clusterId, teamId, node, templates, sourceVms, value, errors, onChange"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::architecture/prop-count::src/lib/components/wizard/WizardChrome.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/wizard/WizardChrome.svelte has a single destructured $props() with 9 named props (> 6): steps, activeStep, body, onBack, onNext, onClose, nextLabel, nextDisabled, wide"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::correctness/each-index-key::src/lib/components/wizard/CloudInitYamlPane.svelte:51::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: CloudInitYamlPane.svelte:51 '{#each lines as line, i (i)}' keyed by its index binding; lines prop is the rendered #cloud-config preview, one <span> per line of one YAML text (:28-34): positional list (lines of one text), items have no identity beyond position"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::correctness/unmutated-state::src/lib/components/wizard/NetworkPicker.svelte:84::$state \"gateway\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w gateway in the file): NetworkPicker.svelte:84 let gateway = $state<string>(initial?.gateway ?? ''); its only other mention is a read passing the primitive into buildNetworkConfig({ …, gateway }) (:130); no input binds it and nothing reassigns it, so it never changes"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::performance/iframe-loading::src/lib/components/console/ConsoleTab.svelte:171::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; noVNC console frame rendered {#if showIframe && iframeSrc} once the user opens the console tab, aspect-[16/10] min-h-[480px] w-full (ConsoleTab.svelte:162-178) - the visible content when created, where eager is right"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::performance/sequential-awaits::src/routes/+layout.server.ts:59::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.server.ts:28-59: the only preceding awaits are the setup-status probe (redirects to /setup) and the /me auth probe (redirects to /login when null); clusters list needs the authenticated user — auth-before-query gate, docs Limitations (ledger gate convention)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::performance/sequential-awaits::src/routes/admin/users/[id]/+page.server.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/admin/users/[id]/+page.server.ts:26-29: api.teams.list uses nothing from the target user fetch (which only 404s on the exceptional path); auth gate is the synchronous locals check — two backend API calls serialize, Promise.all would work"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::performance/sequential-awaits::src/routes/inventory/[cluster]/[vmid]/+page.server.ts:58::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/inventory/[cluster]/[vmid]/+page.server.ts:57-58: probeBackupStorage(clusterId) (api.clusters.get) uses nothing from the VM detail fetch, and the LXC fallback (:65-66) runs the same probe, so it is needed on every success path — two API calls serialize, Promise.all would work"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::security/raw-html::src/lib/components/inventory/MarkdownNotes.svelte:110::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read MarkdownNotes.svelte:77,110 + lib/utils/markdown.ts: renderMarkdown = marked (passes raw HTML) + DOMPurify, but resolvePurify returns an identity passthrough when no window (SSR); the app SSRs (adapter-node, only console/embed sets ssr=false) and inventory/[cluster]/[vmid]/+page.svelte:342 renders MarkdownNotes in the default 'overview' tab, so the PVE VM description (user-editable notes) reaches the server HTML unsanitized (bits-ui 2.18.1 tabs-content.svelte renders children of every tab, only toggling hidden; dompurify 3.4.3 defines sanitize only after its no-window early return) — stored XSS"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/clusters/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/clusters (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/clusters/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/clusters/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/clusters/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/clusters/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/teams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/teams (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/teams/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/teams/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/teams/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/teams/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/admin/users/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /audit (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/backups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /backups (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/console/embed/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /console/embed (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also an iframe-only noVNC client surface (console/embed/+page.ts ssr=false)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /create (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/inventory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inventory (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inventory/[cluster]/[vmid] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inventory/[cluster]/[vmid]/activity (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also only a client redirect stub (activity/+page.svelte onMount goto()s the parent #activity tab)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public login page (exempt from the root +layout.server.ts:42-50 guest gate), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/profile/ssh-keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile/ssh-keys (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/profile/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile/tokens (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)) but not a search target (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public first-run setup wizard (exempt from the root +layout.server.ts guest gate; renders until the first admin exists, setup/+page.server.ts:16-17), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/clusters/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/clusters (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/clusters/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/clusters/[id] (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/clusters/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/clusters/new (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/settings (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/teams/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/teams (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/teams/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/teams/[id] (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/teams/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/teams/new (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/users (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/users/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/users/[id] (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/admin/users/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /admin/users/new (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /audit (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/backups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /backups (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/console/embed/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /console/embed (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /create (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/inventory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /inventory (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /inventory/[cluster]/[vmid] (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /inventory/[cluster]/[vmid]/activity (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /login (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /profile (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/profile/ssh-keys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /profile/ssh-keys (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/profile/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /profile/tokens (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /setup (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/heading-level-skip::src/routes/inventory/[cluster]/[vmid]/+page.svelte:211::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: page <h1> (:143), then ActionToolbar (no heading outside closed dialogs) and Tabs, then the overview \"Specs\" <h3> (:211); Card.Root/Card.Title render plain divs (ui/card/card-title.svelte data-slot div) -> h1 to h3"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/clusters/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/clusters ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/clusters/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/clusters/[id] ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/clusters/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/clusters/new ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/settings ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/teams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/teams ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/teams/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/teams/[id] ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/teams/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/teams/new ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/users ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/users/[id] ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/admin/users/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /admin/users/new ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /audit ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/backups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /backups ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/console/embed/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /console/embed ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /create ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/inventory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /inventory ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /inventory/[cluster]/[vmid] ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /inventory/[cluster]/[vmid]/activity ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /login ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /profile ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/profile/ssh-keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /profile/ssh-keys ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/profile/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /profile/tokens ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /setup ships none"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/clusters/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/clusters (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/clusters/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/clusters/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/clusters/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/clusters/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/teams (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/teams/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/teams/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/teams/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/teams/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/admin/users/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /audit (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/backups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /backups (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/console/embed/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /console/embed (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also an iframe-only noVNC client surface (console/embed/+page.ts ssr=false); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /create (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/inventory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inventory (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inventory/[cluster]/[vmid] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inventory/[cluster]/[vmid]/activity (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also only a client redirect stub (activity/+page.svelte onMount goto()s the parent #activity tab); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public login page (exempt from the root +layout.server.ts:42-50 guest gate), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/profile/ssh-keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile/ssh-keys (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/profile/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile/tokens (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public first-run setup wizard (exempt from the root +layout.server.ts guest gate; renders until the first admin exists, setup/+page.server.ts:16-17), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/clusters/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/clusters (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/clusters/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/clusters/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/clusters/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/clusters/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/teams (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/teams/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/teams/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/teams/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/teams/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/admin/users/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /audit (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/backups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /backups (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/console/embed/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /console/embed (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also an iframe-only noVNC client surface (console/embed/+page.ts ssr=false); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /create (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/inventory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inventory (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inventory/[cluster]/[vmid] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inventory/[cluster]/[vmid]/activity (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also only a client redirect stub (activity/+page.svelte onMount goto()s the parent #activity tab); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public login page (exempt from the root +layout.server.ts:42-50 guest gate), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/profile/ssh-keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/ssh-keys (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/profile/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/tokens (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public first-run setup wizard (exempt from the root +layout.server.ts guest gate; renders until the first admin exists, setup/+page.server.ts:16-17), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/clusters/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/clusters (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/clusters/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/clusters/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/clusters/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/clusters/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/teams (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/teams/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/teams/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/teams/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/teams/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/admin/users/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /audit (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/backups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /backups (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/console/embed/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /console/embed (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also an iframe-only noVNC client surface (console/embed/+page.ts ssr=false); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /create (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/inventory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inventory (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inventory/[cluster]/[vmid] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inventory/[cluster]/[vmid]/activity (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also only a client redirect stub (activity/+page.svelte onMount goto()s the parent #activity tab); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public login page (exempt from the root +layout.server.ts:42-50 guest gate), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/profile/ssh-keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile/ssh-keys (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/profile/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile/tokens (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public first-run setup wizard (exempt from the root +layout.server.ts guest gate; renders until the first admin exists, setup/+page.server.ts:16-17), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/clusters/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/clusters (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/clusters/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/clusters/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/clusters/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/clusters/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/teams (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/teams/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/teams/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/teams/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/teams/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/admin/users/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /audit (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/backups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /backups (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/console/embed/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /console/embed (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also an iframe-only noVNC client surface (console/embed/+page.ts ssr=false); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /create (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/inventory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inventory (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inventory/[cluster]/[vmid] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inventory/[cluster]/[vmid]/activity (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also only a client redirect stub (activity/+page.svelte onMount goto()s the parent #activity tab); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public login page (exempt from the root +layout.server.ts:42-50 guest gate), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/profile/ssh-keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile/ssh-keys (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/profile/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile/tokens (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public first-run setup wizard (exempt from the root +layout.server.ts guest gate; renders until the first admin exists, setup/+page.server.ts:16-17), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: frontend/static is absent/empty and there is no robots.txt route, hook or generator in the repo (literal claim holds); self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/single-h1::/console/embed::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of frontend/src finds <h1> only in other route pages, create/+layout.svelte and WizardChrome; root +layout.svelte (AppShell, SessionExpiredModal) and components render none; console/embed/+page.svelte is the ssr=false noVNC canvas surface loaded inside ConsoleTab's iframe, no heading"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/single-h1::/inventory/[cluster]/[vmid]/activity::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of frontend/src finds <h1> only in other route pages, create/+layout.svelte and WizardChrome; root +layout.svelte (AppShell, SessionExpiredModal) and components render none; activity/+page.svelte is a client-redirect stub (goto in onMount) rendering only a \"Redirecting...\" <p> - redirect-stub convention"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of frontend/src finds <h1> only in other route pages, create/+layout.svelte and WizardChrome; root +layout.svelte (AppShell, SessionExpiredModal) and components render none; login/+page.svelte titles its card with Card.Title (ui/card/card-title.svelte renders a div) and Alert.Title, no <h1>"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/single-h1::src/lib/components/wizard/WizardChrome.svelte:70::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /create renders two <h1>s in the DOM: create/+layout.svelte:21 \"Best on a larger screen\" (md:hidden) and, inside the hidden md:block wrapper, WizardChrome.svelte:70 \"Create\" (rendered unconditionally at create/+page.svelte:700) - both always in the DOM, CSS hides one"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml file, route or generator in the repo (literal claim holds); self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target, nothing to list"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/ssr-disabled::src/routes/console/embed/+page.ts:23::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/console/embed/+page.ts:23 (literal claim holds); deliberate client-only rendering in the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Admin — Proxmox GUI\" at src/routes/admin/+page.svelte:58, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 19 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/admin/clusters/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Clusters — Proxmox GUI\" at src/routes/admin/clusters/+page.svelte:137, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 22 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/admin/teams/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Teams — Proxmox GUI\" at src/routes/admin/teams/+page.svelte:50, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 19 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/admin/teams/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"New team — Proxmox GUI\" at src/routes/admin/teams/new/+page.svelte:68, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 22 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/admin/users/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Users — Proxmox GUI\" at src/routes/admin/users/+page.svelte:153, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 19 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/admin/users/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"New user — Proxmox GUI\" at src/routes/admin/users/new/+page.svelte:147, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 22 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/backups/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Backups — Proxmox GUI\" at src/routes/backups/+page.svelte:55, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 21 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/console/embed/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Console\" at src/routes/console/embed/+page.svelte:110, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 7 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/create/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Create — Proxmox GUI\" at src/routes/create/+page.svelte:695, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 20 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Sign in — Proxmox GUI\" at src/routes/login/+page.svelte:101, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 21 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Profile — Proxmox GUI\" at src/routes/profile/+page.svelte:134, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 21 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/profile/ssh-keys/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"SSH keys — Proxmox GUI\" at src/routes/profile/ssh-keys/+page.svelte:179, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 22 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-length::src/routes/setup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Set up — Proxmox GUI\" at src/routes/setup/+page.svelte:251, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 20 as reported) (literal claim holds); but this is the self-hosted Proxmox VE self-service portal (README: ships as one LXC), every route but /login and /setup behind the +layout.server.ts:31-49 redirect to /login, so not a search target"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-presence::src/routes/admin/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src for svelte:head/<title/document.title: only other route pages carry <title>, none in src/lib) + read: src/routes/admin/settings/+page.svelte has no svelte:head; root +layout.svelte renders AppShell/SessionExpiredModal/IdleCountdownToast with no head, app.html has no <title>, hooks.server.ts resolves normally (only /api/* proxied), load redirects only when unauthenticated/non-admin; npm deps at pnpm-lock versions (bits-ui@2.18.1, formsnap@2.0.1, mode-watcher@1.1.0, svelte-sonner@1.1.1, lucide-svelte@1.0.1, @lucide/svelte@1.16.0, @tanstack/svelte-query@6.1.29, fetched from npm) contain no <title> or document.title write; sibling pages (e.g. admin/teams/+page.svelte:50) do set one"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-presence::src/routes/admin/teams/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src for svelte:head/<title/document.title: only other route pages carry <title>, none in src/lib) + read: src/routes/admin/teams/[id]/+page.svelte has no svelte:head; root +layout.svelte renders AppShell/SessionExpiredModal/IdleCountdownToast with no head, app.html has no <title>, hooks.server.ts resolves normally (only /api/* proxied), load redirects only when unauthenticated/non-admin; npm deps at pnpm-lock versions (bits-ui@2.18.1, formsnap@2.0.1, mode-watcher@1.1.0, svelte-sonner@1.1.1, lucide-svelte@1.0.1, @lucide/svelte@1.16.0, @tanstack/svelte-query@6.1.29, fetched from npm) contain no <title> or document.title write; sibling pages (e.g. admin/teams/+page.svelte:50) do set one"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-presence::src/routes/audit/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src for svelte:head/<title/document.title: only other route pages carry <title>, none in src/lib) + read: src/routes/audit/+page.svelte has no svelte:head; root +layout.svelte renders AppShell/SessionExpiredModal/IdleCountdownToast with no head, app.html has no <title>, hooks.server.ts resolves normally (only /api/* proxied), load redirects only when unauthenticated/non-admin; npm deps at pnpm-lock versions (bits-ui@2.18.1, formsnap@2.0.1, mode-watcher@1.1.0, svelte-sonner@1.1.1, lucide-svelte@1.0.1, @lucide/svelte@1.16.0, @tanstack/svelte-query@6.1.29, fetched from npm) contain no <title> or document.title write; sibling pages (e.g. admin/teams/+page.svelte:50) do set one"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-presence::src/routes/inventory/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src for svelte:head/<title/document.title: only other route pages carry <title>, none in src/lib) + read: src/routes/inventory/+page.svelte has no svelte:head; root +layout.svelte renders AppShell/SessionExpiredModal/IdleCountdownToast with no head, app.html has no <title>, hooks.server.ts resolves normally (only /api/* proxied), load redirects only when unauthenticated/non-admin; npm deps at pnpm-lock versions (bits-ui@2.18.1, formsnap@2.0.1, mode-watcher@1.1.0, svelte-sonner@1.1.1, lucide-svelte@1.0.1, @lucide/svelte@1.16.0, @tanstack/svelte-query@6.1.29, fetched from npm) contain no <title> or document.title write; sibling pages (e.g. admin/teams/+page.svelte:50) do set one"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-presence::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src for svelte:head/<title/document.title: only other route pages carry <title>, none in src/lib) + read: src/routes/inventory/[cluster]/[vmid]/+page.svelte has no svelte:head; root +layout.svelte renders AppShell/SessionExpiredModal/IdleCountdownToast with no head, app.html has no <title>, hooks.server.ts resolves normally (only /api/* proxied), load redirects only when unauthenticated/non-admin; npm deps at pnpm-lock versions (bits-ui@2.18.1, formsnap@2.0.1, mode-watcher@1.1.0, svelte-sonner@1.1.1, lucide-svelte@1.0.1, @lucide/svelte@1.16.0, @tanstack/svelte-query@6.1.29, fetched from npm) contain no <title> or document.title write; sibling pages (e.g. admin/teams/+page.svelte:50) do set one"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/title-presence::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of frontend/src for svelte:head/<title/document.title: only other route pages carry <title>, none in src/lib) + read: src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte has no svelte:head; root +layout.svelte renders AppShell/SessionExpiredModal/IdleCountdownToast with no head, app.html has no <title>, hooks.server.ts resolves normally (only /api/* proxied), load redirects only when unauthenticated/non-admin; npm deps at pnpm-lock versions (bits-ui@2.18.1, formsnap@2.0.1, mode-watcher@1.1.0, svelte-sonner@1.1.1, lucide-svelte@1.0.1, @lucide/svelte@1.16.0, @tanstack/svelte-query@6.1.29, fetched from npm) contain no <title> or document.title write; sibling pages (e.g. admin/teams/+page.svelte:50) do set one; the page is a client redirect stub (goto in onMount to #activity) that SSR-renders \"Redirecting to Activity tab...\" untitled (client-redirect-stub precedent: tp)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/clusters/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/clusters (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/clusters/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/clusters/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/clusters/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/clusters/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/teams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/teams (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/teams/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/teams/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/teams/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/teams/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/users/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users/[id] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/admin/users/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users/new (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /audit (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/backups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /backups (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/console/embed/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /console/embed (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also an iframe-only noVNC client surface (console/embed/+page.ts ssr=false); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /create (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/inventory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inventory (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/inventory/[cluster]/[vmid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inventory/[cluster]/[vmid] (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/inventory/[cluster]/[vmid]/activity/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inventory/[cluster]/[vmid]/activity (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; also only a client redirect stub (activity/+page.svelte onMount goto()s the parent #activity tab); a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public login page (exempt from the root +layout.server.ts:42-50 guest gate), no noindex"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/profile/ssh-keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile/ssh-keys (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/profile/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile/tokens (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); rendered route (auth-gated: root +layout.server.ts:42-50 redirects every guest request outside /login and /setup to /login; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "chloepriceless/proxmox-gui:frontend::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (script-verified (repo-wide grep of frontend excl. node_modules and vendored noVNC, incl. app.html): no og:*/twitter:*/rel=canonical anywhere (\"canonical\" hits are code comments); page heads are <title> only, root +layout.svelte has no <svelte:head>, app.html is charset/viewport/icon/theme script; hooks.server.ts only proxies /api/; no meta-tag library (bits-ui/mode-watcher/svelte-sonner emit none)); public first-run setup wizard (exempt from the root +layout.server.ts guest gate; renders until the first admin exists, setup/+page.server.ts:16-17), no noindex"
+  }
+]

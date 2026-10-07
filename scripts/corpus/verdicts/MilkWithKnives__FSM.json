@@ -1,0 +1,397 @@
+[
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/+layout.svelte:240::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read (photo)/+layout.svelte:240: daisyUI drawer toggle <label for=\"nav-drawer\" aria-label> with no role/spread; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (Cinephage/skeleton/ciso precedent)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/+layout.svelte:247::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read (photo)/+layout.svelte:247: daisyUI drawer toggle <label for=\"nav-drawer\" aria-label> with no role/spread; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (Cinephage/skeleton/ciso precedent)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/+layout.svelte:48::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read (photo)/+layout.svelte:48: daisyUI drawer toggle <label for=\"nav-drawer\" aria-label> with no role/spread; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (Cinephage/skeleton/ciso precedent)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/portfolio/+page.svelte:88::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/routes/(photo)/portfolio/+page.svelte:88 carries aria-label with no role attribute, no spread and no use: action; its implicit role is generic, which prohibits naming"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/portfolio/+page.svelte:88::`aria-roledescription` is prohibited on role `generic`",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): carousel slide <div aria-roledescription=\"slide\" aria-label> at src/routes/(photo)/portfolio/+page.svelte:88 has no role attribute, spread or use: action; implicit role generic prohibits aria-roledescription (APG slides need role=\"group\")"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/portfolio/[slug]/+page.svelte:83::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/routes/(photo)/portfolio/[slug]/+page.svelte:83 carries aria-label with no role attribute, no spread and no use: action; its implicit role is generic, which prohibits naming"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/disallowed-aria-props::src/routes/(photo)/portfolio/[slug]/+page.svelte:83::`aria-roledescription` is prohibited on role `generic`",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): carousel slide <div aria-roledescription=\"slide\" aria-label> at src/routes/(photo)/portfolio/[slug]/+page.svelte:83 has no role attribute, spread or use: action; implicit role generic prohibits aria-roledescription (APG slides need role=\"group\")"
+  },
+  {
+    "key": "MilkWithKnives/FSM::a11y/top-level-landmark::src/routes/(photo)/journal/[slug]/+page.svelte:78::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read journal/[slug]/+page.svelte:78: <aside aria-labelledby=\"related-heading\"> (named, so a complementary landmark inside its <article>) renders inside (photo)/+layout.svelte:113 <main> around children"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/lib/EyeGate.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/EyeGate.svelte has 331 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/routes/(photo)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(photo)/+layout.svelte has 432 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/routes/(photo)/portfolio/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(photo)/portfolio/+page.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/routes/(photo)/real-estate-photography/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(photo)/real-estate-photography/+page.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/routes/(studio)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(studio)/+layout.svelte has 231 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/routes/(studio)/studio/contact/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(studio)/studio/contact/+page.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::architecture/component-size::src/routes/(studio)/studio/web-design/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(studio)/studio/web-design/+page.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/lib/LocationLinks.svelte:9::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/LocationLinks.svelte:9 '{#each nearby as location, i}' has no key; nearby = $derived(locations.filter(l => l.slug !== current)) (LocationLinks.svelte:4) and real-estate-photographer/[city] passes current={location.slug}, so following one of these links to another city reuses the block and removes/inserts an item mid-list"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/lib/Testimonials.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/Testimonials.svelte:11 '{#each items as item}' has no key; items = $derived(publishedTestimonials.filter(by city prop)) (Testimonials.svelte:5), and [city]/+page.svelte:122 passes city={location.city}, so city-to-city navigation swaps items in place"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/contact/+page.svelte:93::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(photo)/contact/+page.svelte:93 '{#each formData.services as s}' has no key; formData.services is $state toggled by toggleService (contact/+page.svelte:26-31, filter/append); runtime list, items removed mid-list"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/drone/+page.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/drone/+page.svelte:35 '{#each service.inclusions as item}' has no key; service = rate('drone') from the static pricing table in $lib/pricing.ts; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/journal/[slug]/+page.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/journal/[slug]/+page.svelte:49 '{#each post.intro as paragraph}' has no key; post comes from getJournalPost(slug) over the static $lib/journal.ts content; positional list of text paragraphs of a static article"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/journal/[slug]/+page.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/journal/[slug]/+page.svelte:64 each over section.paragraphs/items/links of a static journal article ($lib/journal.ts via getJournalPost); positional content list, items have no identity beyond position"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/journal/[slug]/+page.svelte:67::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/journal/[slug]/+page.svelte:67 each over section.paragraphs/items/links of a static journal article ($lib/journal.ts via getJournalPost); positional content list, items have no identity beyond position"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/journal/[slug]/+page.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/journal/[slug]/+page.svelte:72 each over section.paragraphs/items/links of a static journal article ($lib/journal.ts via getJournalPost); positional content list, items have no identity beyond position"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/journal/[slug]/+page.svelte:81::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/journal/[slug]/+page.svelte:81 '{#each post.related as link}' has no key; related links of a static journal article ($lib/journal.ts); static list fixed at author time"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/photos/+page.svelte:80::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/photos/+page.svelte:80 '{#each includes as item}' has no key; const includes = ['...', ...rate('basic').inclusions, ...] (photos/+page.svelte:21) has a spread so it is not an exempt shape per the docs; static list fixed at author time"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/pricing/+page.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/pricing/+page.svelte:18 '{#each service.inclusions as inclusion}' has no key; inclusions of the static serviceRates table ($lib/pricing.ts); static list, never reorders"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/(photo)/real-estate-photographer/[city]/+page.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(photo)/real-estate-photographer/[city]/+page.svelte:63 '{#each location.intro as paragraph}' has no key; intro paragraphs of a static location from $lib/locations.ts (getLocation); positional text list"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/+page.svelte:26::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:26 '{#each serviceRates.filter(...)}' has no key; serviceRates is the static pricing table imported from $lib/pricing.ts, filtered by a constant predicate; static list, never reorders"
+  },
+  {
+    "key": "MilkWithKnives/FSM::correctness/each-key::src/routes/+page.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:35 '{#each local as property}' has no key; local = properties.filter(constant city list) at init (+page.svelte:10) over the static $lib/properties.ts; static list fixed at author time"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/+layout.svelte:122::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: footer logo, class h-12 w-auto - fixed-height box; width only varies inside its row (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/+layout.svelte:244::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo in the off-canvas drawer-side menu, class h-9 w-auto - fixed-height box (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/+layout.svelte:55::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo.svg in the fixed desktop navbar, class h-9 w-auto - fixed-height box; width only varies inside its row (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/+layout.svelte:64::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo.svg in the fixed mobile navbar, class h-8 w-auto - fixed-height box; width only varies inside its row (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/3d-tours/+page.svelte:32::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/about/+page.svelte:25::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[55vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/about/+page.svelte:68::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: founder photo, class w-full h-full object-cover inside an aspect-[4/5] overflow-hidden box - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/contact/+page.svelte:178::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: side photo, w-full h-full object-cover inside an aspect-[4/5] overflow-hidden box - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/drone/+page.svelte:16::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/floor-plans/+page.svelte:33::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/photos/+page.svelte:106::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: masonry gallery photo (columns-1/2/3), class w-full object-cover only - width set, the natural aspect decides the height, tiles below shift"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/photos/+page.svelte:46::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/portfolio/+page.svelte:176::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: project photo, w-full h-full inside an aspect-[4/3] overflow-hidden box - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/portfolio/+page.svelte:97::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: slide photo, absolute inset-0 w-full h-full inside the aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] slider - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/portfolio/[slug]/+page.svelte:146::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: thumbnail strip, class w-20 h-14 sm:w-24 sm:h-16 - fixed box"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/portfolio/[slug]/+page.svelte:92::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: slide photo, absolute inset-0 w-full h-full inside the fixed h-[60vh]/[72vh]/[84vh] slider - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/real-estate-photographer/[city]/+page.svelte:37::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/real-estate-photographer/[city]/+page.svelte:93::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: masonry gallery photo (columns-1/2/3), class w-full object-cover only - width set, the natural aspect decides the height, tiles below shift"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/real-estate-photography/+page.svelte:100::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[100dvh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/real-estate-photography/+page.svelte:151::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: service photo, w-full h-full inside an aspect-[4/3] box - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/real-estate-photography/+page.svelte:176::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: quote backdrop, absolute inset-0 w-full h-full inside the fixed h-[50vh]/[60vh] section - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/real-estate-photography/+page.svelte:214::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: about photo, w-full h-full inside an aspect-[4/5] box - box reserved"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/videos/+page.svelte:39::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-dimensions::src/routes/(photo)/virtual-staging/+page.svelte:32::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: hero photo, class absolute inset-0 w-full h-full inside the fixed-height h-[60vh] overflow-hidden section - box reserved by the parent"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/+layout.svelte:122::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the page <footer> after the page content - offscreen on load (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/+layout.svelte:244::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo inside the closed off-canvas DaisyUI drawer (drawer-side) - not visible on load, lazy would defer it (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/+layout.svelte:55::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: brand logo in the fixed top navbar - above the fold, where the docs keep the image eager (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/+layout.svelte:64::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: brand logo in the fixed top navbar (mobile) - above the fold, where the docs keep the image eager (16 routes)"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/3d-tours/+page.svelte:32::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/about/+page.svelte:25::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/drone/+page.svelte:16::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/floor-plans/+page.svelte:33::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/journal/[slug]/+page.svelte:46::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: article hero figure directly under the <h1> with fetchpriority=\"high\" - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/photos/+page.svelte:46::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/real-estate-photographer/[city]/+page.svelte:37::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/real-estate-photography/+page.svelte:100::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/videos/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/(photo)/virtual-staging/+page.svelte:32::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero photo at the top of the page with fetchpriority=\"high\" (and a srcset) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/image-loading-hint::src/routes/+page.svelte:35::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: property card image in the 'Local properties' grid, the third section of a main that starts with pt-[100dvh] - offscreen on load"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/responsive-image::src/routes/(photo)/floor-plans/+page.svelte:88::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: floorPlanExample.src is the static 2000x1500 /floor-plans/mac-avenue-suite-106.jpg (src/lib/media.ts) - one fixed-size raster"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/responsive-image::src/routes/(photo)/journal/+page.svelte:26::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: post.image.src is an Unsplash URL pinned to w=1200&h=750 (src/lib/journal.ts) - one fixed-size raster per card"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/responsive-image::src/routes/(photo)/journal/[slug]/+page.svelte:46::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: Unsplash URL pinned to w=1200 (src/lib/journal.ts) - one fixed-size raster"
+  },
+  {
+    "key": "MilkWithKnives/FSM::performance/responsive-image::src/routes/(photo)/portfolio/[slug]/+page.svelte:146::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: photoFallback(..., 800) is an 800px JPEG shown in an 80-96px thumbnail - one fixed-size raster asset"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/lib/Breadcrumbs.svelte:20::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/Breadcrumbs.svelte:20: JSON-LD built as JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/lib/ServiceSchema.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/ServiceSchema.svelte:18: JSON-LD built as JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/routes/(photo)/faq/+page.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (photo)/faq/+page.svelte:5-65: FAQPage JSON-LD = JSON.stringify of the in-file literal `faqs` array (constant strings + pricing constants) — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/routes/(photo)/journal/[slug]/+page.svelte:30::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(photo)/journal/[slug]/+page.svelte:30: JSON-LD built as JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/routes/(studio)/studio/faq/+page.svelte:51::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(studio)/studio/faq/+page.svelte:51: JSON-LD built as JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/routes/(studio)/studio/web-design/+page.svelte:61::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(studio)/studio/web-design/+page.svelte:61: JSON-LD built as JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "MilkWithKnives/FSM::security/raw-html::src/routes/+layout.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:26: JSON-LD built as JSON.stringify(...).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  }
+]

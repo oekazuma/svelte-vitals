@@ -1,0 +1,297 @@
+[
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/id-duplication::src/lib/components/common/AddCommentForm.svelte:36::Duplicate id \"content\"",
+    "verdict": "tp",
+    "basis": "read AddCommentForm.svelte:35-37: <label id=\"content\" for=\"content\"> and the <textarea id=\"content\"> are in the same component, both unconditional; one id on two elements on both routes"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/id-duplication::src/lib/components/common/UserInfo.svelte:8::Duplicate id \"user-info\"",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:38-39 and :53-54: two <UserInfo> (mobile and sidebar copies, both unconditional apart from the same {#if user}) each render div#user-info (UserInfo.svelte:8), so a logged-in user gets both in the DOM"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/id-duplication::src/lib/components/events/EventEntryForm.svelte:78::Duplicate id \"description\"",
+    "verdict": "tp",
+    "basis": "read EventEntryForm.svelte:76-86: <label id=\"description\" for=\"description\"> plus the control carrying id=\"description\"; the label id and the control id collide whenever the form renders"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/id-duplication::src/routes/+layout.svelte:47::Duplicate id \"locale\"",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:33 and :47: two unconditional <div id=\"locale\"> (mobile block and sidebar, CSS-toggled only) on every route"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/lib/components/common/AddCommentForm.svelte:14::`<h#>` is not permitted content here — `<strong>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <h3> at AddCommentForm.svelte:14; nearest literal element ancestor is <strong>@14 (direct child), no component/snippet/svelte:element boundary; not permitted content of <strong> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/lib/components/common/Menu.svelte:59::`<audio>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <audio> at Menu.svelte:59; nearest literal element ancestor is <ul>@20 (only IfBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/lib/components/common/RecentComments.svelte:46::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <div> at RecentComments.svelte:46; nearest literal element ancestor is <ul>@14 (only EachBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/lib/components/events/Event.svelte:150::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <p> at Event.svelte:150; nearest literal element ancestor is <span>@149 (direct child), no component/snippet/svelte:element boundary; not permitted content of <span> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/routes/blog/+page.svelte:81::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <hr> at blog/+page.svelte:81; nearest literal element ancestor is <ul>@76 (only EachBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/routes/blog/+page.svelte:83::`<span>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <span> at blog/+page.svelte:83; nearest literal element ancestor is <ul>@76 (only EachBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/routes/blog/[slug]/+page.svelte:22::`<h#>` is not permitted content here — `<strong>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <h2> at [slug]/+page.svelte:22; nearest literal element ancestor is <strong>@22 (direct child), no component/snippet/svelte:element boundary; not permitted content of <strong> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/routes/events/+page.svelte:136::`<span>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <span> at events/+page.svelte:136; nearest literal element ancestor is <ul>@130 (only EachBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/routes/events/[slug]/+page.svelte:29::`<h#>` is not permitted content here — `<strong>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <h2> at [slug]/+page.svelte:29; nearest literal element ancestor is <strong>@29 (direct child), no component/snippet/svelte:element boundary; not permitted content of <strong> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::a11y/permitted-contents::src/routes/events/archive/+page.svelte:50::`<span>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-walk.mjs): literal <span> at archive/+page.svelte:50; nearest literal element ancestor is <ul>@44 (only EachBlock between), no component/snippet/svelte:element boundary; not permitted content of <ul> per the HTML content model"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::architecture/component-size::src/lib/components/events/Event.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/events/Event.svelte has 275 physical lines (> 200), matches reported count 275"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::architecture/component-size::src/routes/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/about/+page.svelte has 222 physical lines (> 200), matches reported count 222"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::architecture/component-size::src/routes/events/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/events/+page.svelte has 203 physical lines (> 200), matches reported count 203"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::correctness/unmutated-state::src/lib/components/common/Header.svelte:4::$state \"description\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/common/Header.svelte:4 `const description: string = $state('Ska funk rasta punk scene, Vilnius, Lithuania')`; every other mention (lines 11, 21) is a template read, no write/bind/escape, so it is a constant as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/image-dimensions::src/routes/events/+page.svelte:117::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .preview is width:12em; height:fit-content (events/+page.svelte:178-181) — the height comes from the uploaded image"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/image-loading-hint::src/routes/events/+page.svelte:117::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: upload preview rendered only in {#if displayImage} after the admin uploads an image in the new-event form — created when shown and then visible"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/responsive-image::src/routes/events/+page.svelte:117::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: uploaded event image served from /images/<file> — raster, one fixed-size asset"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/sequential-awaits::src/routes/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:15-28: the recent-post drizzle query uses nothing from the preceding events db.execute — independent DB queries serialized; Promise.all would work"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/sequential-awaits::src/routes/blog/+page.server.ts:68::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/blog/+page.server.ts:54-68: the count() query on post uses nothing from the preceding posts query — independent DB queries serialized; Promise.all would work"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/sequential-awaits::src/routes/events/+page.server.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/events/+page.server.ts:18-24: the count() query uses only locals/constants, nothing from the preceding loadUpcomingEvents result — independent DB queries serialized; Promise.all would work"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::performance/sequential-awaits::src/routes/events/archive/+page.server.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/events/archive/+page.server.ts:18-24: the count() query uses only locals/constants, nothing from the preceding loadArchivedEvents result — independent DB queries serialized; Promise.all would work"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/contacts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/crew/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: crew/+page.server.ts:13-14 load redirects guests to /crew/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/crew/jail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: crew/jail/+page.server.ts:8-9 load redirects guests to /crew/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/crew/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/crew/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html) but not a search target (auth-gated: crew/users/+page.server.ts:15-16 load redirects guests to /crew/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/events/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 37 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/events/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/canonical-url::src/routes/xi20-guidelines/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files ($lib/relative/barrels) or app.html; no canonical anywhere in the repo; lib/components/common/MetaTags.svelte emits og/twitter tags but no canonical; publicly reachable, no noindex"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/description-length::src/routes/about/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: about/+page.svelte:6-8 unconditional svelte:head renders <MetaTags description=\"Lithuania underground scene\"> (27 chars), which MetaTags.svelte emits as <meta name=\"description\" content={description}>; too short as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/contacts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/crew/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/crew/jail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/crew/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/crew/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/events/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/events/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/json-ld::src/routes/xi20-guidelines/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/@context anywhere in src or app.html; the site's head component lib/components/common/MetaTags.svelte emits title/description/keywords/og/twitter only; no JSON-LD as claimed"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/single-h1::src/routes/+page.svelte:28::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /: +page.svelte headings are <h2> (:28 recent news, :49 upcoming), Post/Event titles are <h2> (blog/Post.svelte:62, events/Event.svelte:99); root +layout.svelte components (Header, Menu, UserInfo, RecentComments <h3>, ThemeToggle, Footer) have no <h1>; the only other headings would be ones inside DB post/event markdown bodies (svelte-exmarkdown), which are content, not the page heading (easyfest SvelteMarkdown convention)"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/single-h1::src/routes/crew/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /crew: page heading is <h2> (src/routes/crew/+page.svelte:17); crew/+layout.svelte renders only CrewMenu, root +layout.svelte only local Header/Menu/UserInfo/RecentComments(<h3>)/ThemeToggle/Footer — no <h1>, svelte:element or {@html} in the chain; load redirects only when logged out"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/single-h1::src/routes/crew/jail/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /crew/jail: page heading is <h2> (src/routes/crew/jail/+page.svelte:17); crew/+layout.svelte renders only CrewMenu, root +layout.svelte only local Header/Menu/UserInfo/RecentComments(<h3>)/ThemeToggle/Footer — no <h1>, svelte:element or {@html} in the chain; load redirects only when logged out"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/single-h1::src/routes/crew/users/+page.svelte:17::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /crew/users: page heading is <h2> (src/routes/crew/users/+page.svelte:17); crew/+layout.svelte renders only CrewMenu, root +layout.svelte only local Header/Menu/UserInfo/RecentComments(<h3>)/ThemeToggle/Footer — no <h1>, svelte:element or {@html} in the chain; load redirects only when logged out"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/single-h1::src/routes/events/[slug]/+page.svelte:29::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /events/[slug]: page renders <Event detailed> whose title is <h2 class=title> (events/Event.svelte:99) and comments <h2> (+page.svelte:29); root layout components have no <h1>; the event description is DB markdown via svelte-exmarkdown (Event.svelte:145), content not a page heading (easyfest SvelteMarkdown convention)"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/single-h1::src/routes/xi20-guidelines/+page.svelte:29::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "the three counted <h1>s sit in three separate {#if getLocale() === \"lt\"|\"en\"|\"fi\"} blocks (xi20-guidelines/+page.svelte:23-39) — exclusive in practice (one locale), not syntactically; the markdown bodies carry no # headings, so one <h1> renders per locale; documented separate-block over-count"
+  },
+  {
+    "key": "execut4ble/vilnius-hardcore::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt (allow all) but no sitemap.xml file, endpoint or generator anywhere in the repo; public events/blog site (hardcore.lt, per MetaTags og:url)"
+  }
+]

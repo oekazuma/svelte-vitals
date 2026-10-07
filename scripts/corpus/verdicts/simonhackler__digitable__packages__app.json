@@ -1,0 +1,1002 @@
+[
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/duplicate-landmark::src/routes/games/[gameName]/decks/[deckName]/data/svg-data-editor.svelte:474::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234, the {:else} arm once the file system is loaded); data/+page.svelte:16 renders <SvgDataEditor> unconditionally and svg-data-editor.svelte:474 is a literal <main>, so two main landmarks"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/duplicate-landmark::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte:430::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234); editor/+page.svelte:430 is a literal top-level <main>, so the route has two main landmarks"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/duplicate-landmark::src/routes/games/[gameName]/play/+page.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234); play/+page.svelte:13 is a literal top-level <main>, so the route has two main landmarks"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/duplicate-landmark::src/routes/games/[gameName]/setup/+page.svelte:1048::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234); setup/+page.svelte:1048 is a literal top-level <main>, so the route has two main landmarks"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/permitted-contents::src/lib/components/ui/file-drop-zone/file-drop-zone.svelte:188::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <label> (line 175) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <label>'s content model does not admit <div>"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/permitted-contents::src/routes/games/[gameName]/image-selector.svelte:249::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 241) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/permitted-contents::src/routes/games/[gameName]/image-selector.svelte:254::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 241) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/top-level-landmark::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte:430::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234); editor/+page.svelte:430 is a literal top-level <main>, so a main nested inside main"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/top-level-landmark::src/routes/games/[gameName]/play/+page.svelte:13::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234); play/+page.svelte:13 is a literal top-level <main>, so a main nested inside main"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::a11y/top-level-landmark::src/routes/games/[gameName]/setup/+page.svelte:1048::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: games/+layout.svelte:186 <main> wraps {@render children()} (:234); setup/+page.svelte:1048 is a literal top-level <main>, so a main nested inside main"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/lib/components/file-browser/browser-ui/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/file-browser/browser-ui/data-table.svelte has 295 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/lib/components/ui/file-drop-zone/file-drop-zone.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/file-drop-zone/file-drop-zone.svelte has 224 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/lib/play/PlaySurface.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/play/PlaySurface.svelte has 1563 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/lib/play/PlaytestNotes.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/play/PlaytestNotes.svelte has 443 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/+layout.svelte has 238 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/+page.svelte has 280 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/decks/[deckName]/data/generate-images-modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/decks/[deckName]/data/generate-images-modal.svelte has 378 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/decks/[deckName]/data/svg-data-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/decks/[deckName]/data/svg-data-editor.svelte has 584 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte has 569 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/export/bulk-export.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/export/bulk-export.svelte has 225 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/export/export-pages.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/export/export-pages.svelte has 340 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/export/tts-export.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/export/tts-export.svelte has 344 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/export/tts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/export/tts/+page.svelte has 208 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/image-selector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/image-selector.svelte has 268 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/playtests/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/playtests/+page.svelte has 344 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/rules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/rules/+page.svelte has 379 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/[gameName]/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/[gameName]/setup/+page.svelte has 1550 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/games/new-deck-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/new-deck-dialog.svelte has 408 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/playtests/[playtestId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playtests/[playtestId]/+page.svelte has 239 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/component-size::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte has 248 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/lib/components/file-browser/browser-ui/data-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/file-browser/browser-ui/data-table.svelte has a single destructured $props() with 7 named props (> 6): data, class, onNodeClicked, display, actionList, showActions, fileActions"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/lib/components/ui/file-drop-zone/file-drop-zone.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/ui/file-drop-zone/file-drop-zone.svelte has a single destructured $props() with 10 named props (> 6) plus ...rest: id, children, maxFiles, maxFileSize, fileCount, disabled, onUpload, onFileRejected, accept, class"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/routes/games/[gameName]/decks/[deckName]/data/toolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/routes/games/[gameName]/decks/[deckName]/data/toolbar.svelte has a single destructured $props() with 13 named props (> 6): deletedSvgColumns, onAddColumn, onHover, onExitHover, flip, selection, showFront, editorPath, spreadsheet, svgTemplate, imagePaths, status, statusError"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::architecture/prop-count::src/routes/games/[gameName]/image-selector.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/routes/games/[gameName]/image-selector.svelte has a single destructured $props() with 12 named props (> 6): open, disabled, showTrigger, title, description, detail, triggerLabel, triggerTitle, triggerVariant, triggerSize, triggerClass, onSelect"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::correctness/base-path-navigation::src/routes/sign-up/+server.ts:5::redirect(…, '/sign-up') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/sign-up') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: packages/app/src/routes/sign-up/+server.ts:5 redirect(308, '/sign-up') under kit.paths.base = '/app'; this deliberately leaves the app for the sibling studio package's /sign-up page (packages/studio/src/routes/sign-up/+page.svelte, no base), which infrastructure/nix/hosts/studio.nix:175-180 serves on the same host (handle /app* -> app, else -> studio), so it does not 404; literal root-relative redirect flagged as documented"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::correctness/each-index-key::src/routes/games/[gameName]/export/export-pages.svelte:223::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/games/[gameName]/export/export-pages.svelte:223 '{#each pages as page, pageIndex (pageIndex)}' keyed by its index binding; pages = $derived.by(...) (line 132) paginates the project's card SVGs into printable sheets; positional list (page slots): items have no identity beyond position"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::correctness/prop-mutation::src/routes/games/create-menu.svelte:28::Prop \"activeGame\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/games/create-menu.svelte:28 activeGame.decks = ... writes into the non-bindable activeGame prop (line 23), an element of the parent's games prop picked by a $derived.by (app-sidebar.svelte:28-32); mutating a non-bindable prop as documented"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::correctness/prop-mutation::src/routes/games/create-menu.svelte:36::Prop \"activeGame\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/games/create-menu.svelte:36 activeGame.decks = [...] writes into the non-bindable activeGame prop (line 23, parent app-sidebar.svelte:28); mutating a non-bindable prop as documented"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::performance/sequential-awaits::src/routes/playtests/[playtestId]/+page.server.ts:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read playtests/[playtestId]/+page.server.ts:32: getPrivateRoomByInviteCode(playtestId) (@svg-table/db, drizzle node-postgres Pool, packages/db/src/client.ts:2-5) takes only the param, nothing from the preceding loadPlaytestProject(playtestId) (S3 loader behind a cache, lib/server/playtest-storage.ts:409), whose result is only compared after both resolve and gates a 404 on the exceptional path — independent network requests serialized; Promise.all would work"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::performance/sequential-awaits::src/routes/playtests/[playtestId]/join/+page.server.ts:58::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read playtests/[playtestId]/join/+page.server.ts:58: getPrivateRoomByInviteCode(playtestId) (@svg-table/db, drizzle node-postgres Pool, packages/db/src/client.ts:2-5) takes only the param, nothing from the preceding loadPlaytestProject(playtestId) (S3 loader behind a cache, lib/server/playtest-storage.ts:409), whose result is only compared after both resolve and gates a 404 on the exceptional path — independent network requests serialized; Promise.all would work"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::performance/sequential-awaits::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read playtests/[playtestId]/rooms/[roomId]/+page.server.ts:36: getPrivateRoomByInviteCode(playtestId) (@svg-table/db, drizzle node-postgres Pool, packages/db/src/client.ts:2-5) takes only the param, nothing from the preceding loadPlaytestProject(playtestId) (S3 loader behind a cache, lib/server/playtest-storage.ts:409), whose result is only compared after both resolve and gates a 404 on the exceptional path — independent network requests serialized; Promise.all would work"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::performance/state-raw::src/routes/games/[gameName]/playtests/+page.svelte:33::\"feedbackByPlaytest\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"feedbackByPlaytest\" in src/routes/games/[gameName]/playtests/+page.svelte: only whole-binding reassignments and read-only template/expression uses (:113 spread-copy reassignment, :265 keyed read); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::performance/state-raw::src/routes/games/[gameName]/playtests/+page.svelte:34::\"feedbackErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"feedbackErrors\" in src/routes/games/[gameName]/playtests/+page.svelte: only whole-binding reassignments and read-only template/expression uses (:97,:106 spread-copy reassignments, :310-311 keyed reads); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::performance/state-raw::src/routes/games/[gameName]/playtests/+page.svelte:35::\"loadingFeedback\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"loadingFeedback\" in src/routes/games/[gameName]/playtests/+page.svelte: only whole-binding reassignments and read-only template/expression uses (:96,:104 spread-copy reassignments, :308 keyed read); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 38 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 40 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/play/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/playtests/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/rules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/games/[gameName]/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 55 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/legal/accept/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library) but not a search target (auth-gated: legal/accept/+page.server.ts:54-55 redirects guests to /sign-in (anonymous access only as a playtest-join handoff)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/playtests/[playtestId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 9 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library) but not a search target (auth-gated: playtests/[playtestId]/+page.server.ts:21-24 redirects guests to the join page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library) but not a search target (auth-gated: rooms/[roomId]/+page.server.ts:25-28 redirects guests to the join page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 6 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; publicly reachable (hooks.server.ts gates only the legal-policy redirect for signed-in users), no noindex"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/export/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/play/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/playtests/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/rules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/games/[gameName]/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/legal/accept/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/playtests/[playtestId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in packages/app/src or app.html (literal claim holds); this is the Digitable editor tool served under paths.base /app (infrastructure/nix/hosts/studio.nix:175 proxies /app* to it, the public site is packages/studio): game views act on a local project folder (games/+layout.svelte:187 PickFolder), playtest rooms redirect guests to /join, settings/legal/join are per-user interstitials; not a search target"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/export/paper/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/export/tts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/play/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/playtests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/rules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/games/[gameName]/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/legal/accept/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/playtests/[playtestId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/playtests/[playtestId]/join/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/app/src or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/decks/[deckName]/data/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/export/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 38 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 40 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/play/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/play/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/playtests/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/rules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/games/[gameName]/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 55 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/setup/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/legal/accept/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/playtests/[playtestId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 9 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 6 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/decks/[deckName]/data/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/export/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 38 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 40 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/play/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/play/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/playtests/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/rules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/games/[gameName]/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 55 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/setup/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/legal/accept/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/playtests/[playtestId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 9 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 6 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/decks/[deckName]/data/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/export/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 38 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 40 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/play/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/play/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/playtests/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/rules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/games/[gameName]/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 55 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/setup/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/legal/accept/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/playtests/[playtestId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 9 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 6 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/decks/[deckName]/data/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/export/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 38 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 40 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/play/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/play/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/playtests/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/rules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/games/[gameName]/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 55 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/setup/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/legal/accept/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/playtests/[playtestId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 9 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 6 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in packages/app static/ or routes (literal claim holds); the app is mounted under paths.base /app behind Caddy (studio.nix:175-180), where /robots.txt is served by the sibling packages/studio (static/robots.txt), and a /app-based app cannot serve the root file"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/single-h1::src/lib/play/PlaySurface.svelte:1405::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "the counted GameTopBar <h1> renders only {#if title} (game-top-bar.svelte:28-29) and play/+page.svelte:14 renders <GameTopBar /> with no title; the other is PlaySurface's error-state <h1> ({#if tableBlockMessage}, PlaySurface.svelte:1399-1405); the games layout's migrate <h1> is in a sibling arm of children — at most one real <h1>, so \"multiple\" is false"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/single-h1::src/routes/games/game-top-bar.svelte:29::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "the anchored GameTopBar <h1> renders only {#if title} (game-top-bar.svelte:28-29) and editor/+page.svelte:431 passes no title (only aria-label and children); the one real <h1> is the no-templates empty state (:488) — \"multiple\" is false"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in packages/app (literal claim holds); the app is the /app editor tool behind Caddy (studio.nix:175-180) whose public site packages/studio serves src/routes/sitemap.xml; nothing in the tool to list"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/ssr-disabled::src/routes/games/[gameName]/decks/[deckName]/data/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at the reported line; canvas/pixi editor, export and playtest-room views of the /app tool (local-folder or signed-in content, playtest loads redirect guests to /join), not content for search"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/ssr-disabled::src/routes/games/[gameName]/export/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at the reported line; canvas/pixi editor, export and playtest-room views of the /app tool (local-folder or signed-in content, playtest loads redirect guests to /join), not content for search"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/ssr-disabled::src/routes/games/[gameName]/play/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at the reported line; canvas/pixi editor, export and playtest-room views of the /app tool (local-folder or signed-in content, playtest loads redirect guests to /join), not content for search"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/ssr-disabled::src/routes/games/[gameName]/setup/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at the reported line; canvas/pixi editor, export and playtest-room views of the /app tool (local-folder or signed-in content, playtest loads redirect guests to /join), not content for search"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/ssr-disabled::src/routes/playtests/[playtestId]/+page.server.ts:12::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at the reported line; canvas/pixi editor, export and playtest-room views of the /app tool (local-folder or signed-in content, playtest loads redirect guests to /join), not content for search"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/ssr-disabled::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts:12::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at the reported line; canvas/pixi editor, export and playtest-room views of the /app tool (local-folder or signed-in content, playtest loads redirect guests to /join), not content for search"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-length::src/routes/legal/accept/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> | Digitable\" <title> in the page's own unconditional svelte:head (e.g. \"User Settings | Digitable\" 25), the route's only title; length as reported"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-length::src/routes/playtests/[playtestId]/join/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> | Digitable\" <title> in the page's own unconditional svelte:head (e.g. \"User Settings | Digitable\" 25), the route's only title; length as reported"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> | Digitable\" <title> in the page's own unconditional svelte:head (e.g. \"User Settings | Digitable\" 25), the route's only title; length as reported"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: games/+page.svelte (card/empty ui, create-game-popover, game-top-bar) and games/+layout.svelte (Sidebar, PickFolder) have no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; renders untitled"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: games/[gameName]/+page.svelte (form/card ui, game-top-bar; name=\"description\" is a form field) has no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; renders untitled"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: data/+page.svelte (svg-context, svg-data-editor) and decks/[deckName]/+layout.svelte have no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; the ssr=false page stays untitled client-side too"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: editor/+page.svelte (dialog ui, image-selector, svg-context, game-top-bar) and decks layout have no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; renders untitled"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/export/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: export/+page.svelte (bulk-export) and export/+layout.svelte have no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; the ssr=false page stays untitled client-side too"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: export/paper/+page.svelte (export-pages, export-context) and export layout have no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; ssr=false page stays untitled client-side too"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: export/tts/+page.svelte (tts-export, tts-preview, export-context) and export layout have no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; ssr=false page stays untitled client-side too"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/play/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: play/+page.svelte (PlaySurface -> PlaytestNotes -> svelte-lexical editor, game-top-bar) has no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; ssr=false page stays untitled client-side too"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/games/[gameName]/playtests/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: playtests/+page.svelte (card ui, create-room-modal) has no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; renders untitled"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/playtests/[playtestId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: playtests/[playtestId]/+page.svelte (dialog ui, create-room-modal) has no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; renders (ssr=false, for signed-in users with access) untitled"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/title-presence::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: rooms/[roomId]/+page.svelte (PlaySurface -> PlaytestNotes/svelte-lexical) has no head; no svelte:head/<title>/document.title anywhere in packages/app/src except settings, playtests/join, legal/accept, rules and setup pages, none in workspace $svgeditor/@svg-table packages, the missing svelte-lexical submodule (read at pinned e1afaf6: only ThemeSelector has a head <script>, no title) or the app npm deps; root +layout.svelte renders only children, app.html has no <title>; renders (ssr=false, signed-in) untitled"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/decks/[deckName]/data/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/decks/[deckName]/data/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/decks/[deckName]/editor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/export/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 38 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/export/paper/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 44 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/export/tts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 40 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/export/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/play/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/play/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/playtests/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/rules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/games/[gameName]/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 55 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/games/[gameName]/setup/+page.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/legal/accept/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/playtests/[playtestId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 9 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/playtests/[playtestId]/join/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 4 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/playtests/[playtestId]/rooms/[roomId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 43 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library; ssr=false (src/routes/playtests/[playtestId]/rooms/[roomId]/+page.server.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 6 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag anywhere in the repo (app, workspace packages, $svgeditor alias target) or app.html; no meta-tag library"
+  },
+  {
+    "key": "simonhackler/digitable:packages/app::correctness/prop-mutation::src/routes/games/create-menu.svelte:50::Prop \"activeGame\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/games/create-menu.svelte:50 activeGame!.decks = … writes into the non-bindable activeGame prop (line 23), the same write as the tp entries at :28 and :36 behind a non-null assertion"
+  }
+]

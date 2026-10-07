@@ -1,0 +1,1702 @@
+[
+  {
+    "key": "primocms/primo::a11y/accessible-name::src/lib/components/CreateSite.svelte:658::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read CreateSite.svelte:658: <button> whose only content is an <svg> (two <line>s, no <title>), no aria-label/title"
+  },
+  {
+    "key": "primocms/primo::a11y/aria-hidden-focus::src/lib/builder/views/editor/LocaleSelector.svelte:77::<button> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read LocaleSelector.svelte:77: <button> inside <div class=\"language-list\" aria-hidden=\"true\"> (line 74), no tabindex=-1/disabled/inert; focusable but hidden from AT"
+  },
+  {
+    "key": "primocms/primo::a11y/aria-hidden-focus::src/lib/builder/views/editor/LocaleSelector.svelte:88::<button> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read LocaleSelector.svelte:88: <button> inside <div class=\"language-list\" aria-hidden=\"true\"> (line 74), no tabindex=-1/disabled/inert; focusable but hidden from AT"
+  },
+  {
+    "key": "primocms/primo::a11y/aria-hidden-focus::src/lib/builder/views/editor/LocaleSelector.svelte:94::<button> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read LocaleSelector.svelte:94: <button> inside <div class=\"language-list\" aria-hidden=\"true\"> (line 74), no tabindex=-1/disabled/inert; focusable but hidden from AT"
+  },
+  {
+    "key": "primocms/primo::a11y/deprecated-attr::src/lib/builder/components/IFrame.svelte:142::`scrolling` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read IFrame.svelte:142: literal <iframe> (not in svg) with static scrolling attribute(s); obsolete iframe presentational attributes"
+  },
+  {
+    "key": "primocms/primo::a11y/deprecated-attr::src/lib/builder/views/editor/Layout/ComponentNode.svelte:1281::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read ComponentNode.svelte:1281: literal <iframe> (not in svg) with static frameborder attribute(s); obsolete iframe presentational attributes"
+  },
+  {
+    "key": "primocms/primo::a11y/deprecated-attr::src/lib/builder/views/modal/VideoModal.svelte:36::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read VideoModal.svelte:36: literal <iframe> (not in svg) with static frameborder attribute(s); obsolete iframe presentational attributes"
+  },
+  {
+    "key": "primocms/primo::a11y/duplicate-landmark::src/lib/builder/views/modal/BlockEditor.svelte:188::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: BlockEditor.svelte:188 <main> sits in Dialog.Content (dashboard/library/+page.svelte:470/507); while that editor dialog is open it co-renders with the dashboard layout Sidebar.Inset <main> (sidebar-inset.svelte:9), two unhidden <main> in the DOM. (The /site copies come via PageType_Sidebar, which renders only when page.params.page_type, never on /site.)"
+  },
+  {
+    "key": "primocms/primo::a11y/duplicate-landmark::src/lib/builder/views/modal/Collaboration.svelte:254::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: Collaboration.svelte:254 <main> is in Toolbar.svelte:231 Dialog.Content; when that dialog opens it co-renders with the editor page <main id=\"Page\"> (views/editor/Page.svelte:832, rendered by site/+page.svelte), two unhidden <main>"
+  },
+  {
+    "key": "primocms/primo::a11y/duplicate-landmark::src/lib/builder/views/modal/PageTypeModal/PageTypeModal.svelte:34::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: PageTypeModal.svelte:34 <main> is in Toolbar.svelte:225 Dialog.Content; when that dialog opens it co-renders with Page.svelte:832 <main id=\"Page\"> on /site, two unhidden <main>"
+  },
+  {
+    "key": "primocms/primo::a11y/duplicate-landmark::src/lib/builder/views/modal/SectionEditor/SectionEditor.svelte:238::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: SectionEditor.svelte:238 <main> is in Page.svelte:746 Dialog.Content; when the section editor opens it co-renders with Page.svelte:832 <main id=\"Page\">, two unhidden <main>"
+  },
+  {
+    "key": "primocms/primo::a11y/duplicate-landmark::src/lib/builder/views/modal/SiteEditor/SiteEditor.svelte:107::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: SiteEditor.svelte:107 <main> is in Toolbar.svelte:211 Dialog.Content; when that dialog opens it co-renders with Page.svelte:832 <main id=\"Page\"> on /site, two unhidden <main>"
+  },
+  {
+    "key": "primocms/primo::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:9::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: dashboard/+layout.svelte renders children inside Sidebar.Inset (sidebar-inset.svelte:9 <main>); dashboard/library/+page.svelte:471/508 BlockEditor adds another <main> (BlockEditor.svelte:188) while its dialog is open"
+  },
+  {
+    "key": "primocms/primo::a11y/interactive-nesting::src/lib/components/DropZone.svelte:86::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse) + read DropZone.svelte:86: <input type=\"file\" class=\"hidden\"> directly inside <div role=\"button\" tabindex=\"0\"> (73); CSS hiding does not change the markup claim (cigale convention)"
+  },
+  {
+    "key": "primocms/primo::a11y/no-autofocus::src/lib/builder/views/editor/LocaleSelector.svelte:106::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; input under {#if showingSelector}{#if !addingLanguage} of the locale dropdown, opened by the user; focus on user action, not page load"
+  },
+  {
+    "key": "primocms/primo::a11y/no-autofocus::src/lib/builder/views/modal/LinkModal.svelte:16::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; URL input is the body of LinkModal, a modal component (no import of it anywhere in src/); it can only appear when a modal is opened, not at page load; docs carve out only <dialog>/popover"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/components/ComponentPreview.svelte:508::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at ComponentPreview.svelte:508 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/components/ComponentPreview.svelte:548::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at ComponentPreview.svelte:548 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/field-types/RepeaterFieldItem.svelte:161::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at RepeaterFieldItem.svelte:161 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/Card.svelte:50::`<header>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <header> at Card.svelte:50 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <header> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/LargeSwitch.svelte:34::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at LargeSwitch.svelte:34 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/LargeSwitch.svelte:42::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at LargeSwitch.svelte:42 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/Select.svelte:127::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at Select.svelte:127 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/Select.svelte:132::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at Select.svelte:132 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/Select.svelte:136::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <p> at Select.svelte:136 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <p> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/Select.svelte:138::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <p> at Select.svelte:138 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <p> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/Switch.svelte:18::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at Switch.svelte:18 has literal parent <label> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <label>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/ui/TextInput.svelte:70::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at TextInput.svelte:70 has literal parent <label> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <label>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/views/editor/ToolbarButton.svelte:70::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at ToolbarButton.svelte:70 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/builder/views/editor/ToolbarButton.svelte:78::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at ToolbarButton.svelte:78 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/BlockPickerPanel.svelte:112::`<button>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <button> at BlockPickerPanel.svelte:112 has literal parent <ul> (crossed: EachBlock), no component/snippet/svelte:element boundary, not in svg; <button> is outside <ul>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/CreateSite.svelte:343::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at CreateSite.svelte:343 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/CreateSite.svelte:365::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at CreateSite.svelte:365 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/CreateSite.svelte:382::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at CreateSite.svelte:382 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/CreateSite.svelte:619::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at CreateSite.svelte:619 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/CreateSite.svelte:628::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at CreateSite.svelte:628 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/Site_Symbol.svelte:81::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at Site_Symbol.svelte:81 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/StarterButton.svelte:22::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at StarterButton.svelte:22 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/lib/components/StarterButton.svelte:27::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at StarterButton.svelte:27 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/routes/auth/AuthForm.svelte:186::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at AuthForm.svelte:186 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/permitted-contents::src/routes/setup/+page.svelte:162::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at +page.svelte:162 has literal parent <button> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "primocms/primo::a11y/placeholder-label-option::src/lib/builder/views/modal/Collaboration.svelte:276::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read Collaboration.svelte:276: <select bind:value={role} required> with role = $state('developer') (line 25) and first option 'developer'; a preselected valid default is intentional (revel precedent)"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/Primo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/Primo.svelte has 340 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/CodeEditor/CodeMirror.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/CodeEditor/CodeMirror.svelte has 893 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/ComponentPreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/ComponentPreview.svelte has 791 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/Fields/FieldItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/Fields/FieldItem.svelte has 782 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/Fields/FieldsContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/Fields/FieldsContent.svelte has 453 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/IFrame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/IFrame.svelte has 201 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/IconPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/IconPicker.svelte has 262 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/Sidebar/PageType_Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/Sidebar/PageType_Sidebar.svelte has 566 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/Sidebar/Page_Outline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/Sidebar/Page_Outline.svelte has 226 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/components/Sidebar/Sidebar_Symbol.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/components/Sidebar/Sidebar_Symbol.svelte has 490 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/field-types/ImageField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/field-types/ImageField.svelte has 380 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/field-types/Link.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/field-types/Link.svelte has 212 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/field-types/RepeaterField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/field-types/RepeaterField.svelte has 212 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/field-types/RepeaterFieldItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/field-types/RepeaterFieldItem.svelte has 318 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/field-types/RichText.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/field-types/RichText.svelte has 716 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/ui/Select.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/ui/Select.svelte has 378 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/ui/TextInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/ui/TextInput.svelte has 231 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/editor/Layout/BlockToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/Layout/BlockToolbar.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/editor/Layout/ComponentNode.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/Layout/ComponentNode.svelte has 1522 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/editor/LocaleSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/LocaleSelector.svelte has 224 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/editor/Page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/Page.svelte has 1115 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/editor/PageType.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/PageType.svelte has 1115 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/editor/Toolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/Toolbar.svelte has 562 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/BlockEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/BlockEditor.svelte has 252 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/Collaboration.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/Collaboration.svelte has 498 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/PageTypeModal/Item.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/PageTypeModal/Item.svelte has 245 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/PageTypeModal/PageTypeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/PageTypeModal/PageTypeForm.svelte has 270 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/SectionEditor/SectionEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/SectionEditor/SectionEditor.svelte has 335 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/SiteEditor/SiteEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/SiteEditor/SiteEditor.svelte has 250 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/SitePages/Item.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/SitePages/Item.svelte has 798 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/builder/views/modal/SitePages/SitePages.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/SitePages/SitePages.svelte has 309 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/components/ConnectDomain.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ConnectDomain.svelte has 496 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/components/CreateSite.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CreateSite.svelte has 667 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/lib/components/app-sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app-sidebar.svelte has 349 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/routes/auth/AuthForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/auth/AuthForm.svelte has 280 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/routes/dashboard/library/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/library/+page.svelte has 647 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/routes/dashboard/marketplace/blocks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/marketplace/blocks/+page.svelte has 265 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/routes/dashboard/sites/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/sites/+page.svelte has 524 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/component-size::src/routes/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/+page.svelte has 510 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/components/CodeEditor/CodeMirror.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): data, completions, prefix, value, mode, style, debounce, selection, disabled"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/components/ComponentPreview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): id, code, view, orientation, loading, hideControls, data, fields, append"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/components/Fields/EntryContent.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): entity, parent, field, fields, entries, level, onchange, ondelete, minimal"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/components/Fields/FieldItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): field, fields, level, top_level, create_field, onchange, onduplicate, ondelete, onmove"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/components/Fields/FieldsContent.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): entity, fields, entries, create_field, oninput, onchange, ondelete, ondelete_entry"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/field-types/GroupField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): entity, field, entry, fields, entries, onchange, ondelete, level"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/field-types/RepeaterField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): entity, field, fields, entries, onchange, ondelete, level, parent"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/field-types/RepeaterFieldItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 14 named props (> 6): entity, field, entry, fields, subfields, entries, index, level, is_visible, autofocus, hovering, hover_position, onchange, ondelete"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): label, onclick, icon, variants, type, children, disabled, loading, arrow"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/ui/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): id, title, minimal, icon, pill, body, children, footer"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/ui/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): icon, label, options, value, fallback_label, dividers, placement, variant, fullwidth, loading, disable_auto_highlight"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/ui/TextInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 19 named props (> 6): id, label, prefix, prefix_icon, value, placeholder, variants, type, autofocus, selection, grow, disabled, options, button, oninput, onblur, onkeydown, onfocus, element"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/ui/Toggle/Toggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6) plus a ...rest element: toggled, label, hideLabel, small, disabled, on, off, switchColor, toggledColor, untoggledColor, children"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/views/editor/Layout/BlockToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): id, i, name, node, layout_zone, immovable, is_last, page_type"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/views/editor/ToolbarButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 14 named props (> 6): id, title, label, key, icon, svg, disabled, onclick, loading, active, buttons, type, style, children"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/builder/views/modal/SectionEditor/FullCodeEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): data, completions, html, css, js, storage_key, onmod_e, onmod_r, oninput"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/components/Masonry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): items, loading, class, columnCount, skeletonCount, getKey, children"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/components/Site_Symbol.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): symbol, site, append, checked, onclick, onmousedown, onmouseup"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/components/StarterButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): site, selected, preview, append, style, src, onclick"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "primocms/primo::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6) plus a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/builder/views/editor/Toolbar.svelte:392::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/LockAlert.svelte:18::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/LockAlert.svelte:18 <a href=\"/\"> with kit.paths.base = '/admin' (svelte.config.js); '/' is the domain root, outside the app's base, and not wrapped in resolve()"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:156::goto('/admin/dashboard/library') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/library')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/library', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:175::goto('/admin/dashboard/marketplace') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/marketplace', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:240::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/+page.svelte:10::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/+page.svelte:8::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/+layout.svelte:35::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/+layout.svelte:41::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:108::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:110::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:58::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:79::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/+layout.svelte:13::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:6::goto('/admin/dashboard/sites') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/sites')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/sites', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/library/+page.svelte:172::goto('/admin/dashboard/library') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/library')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/library', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/library/+page.svelte:419::goto('/admin/dashboard/marketplace/blocks') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace/blocks')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/marketplace/blocks', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/marketplace/+page.svelte:6::goto('/admin/dashboard/marketplace/starters') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace/starters')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/marketplace/starters', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/setup/+page.svelte:81::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/site/+layout.svelte:31::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/site/+layout.svelte:83::goto('/admin/dashboard') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/sites/[site_id]/+layout.svelte:18::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "verdict": "fp",
+    "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
+  },
+  {
+    "key": "primocms/primo::correctness/each-index-key::src/lib/components/ConnectDomain.svelte:435::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ConnectDomain.svelte:435 header '{#each domain_records as record, i (i)}' keyed by its index binding (claim literally true); list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/components/CodeEditor/CodeMirror.svelte:691::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/CodeEditor/CodeMirror.svelte:691 header '{#each tooltip_rules as rule, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/components/Fields/SelectField.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/Fields/SelectField.svelte:75 header '{#each options as option, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: let-$state($props().config.options)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/components/IconPicker.svelte:117::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/IconPicker.svelte:117 header '{#each icons as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/components/IconPicker.svelte:156::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/IconPicker.svelte:156 header '{#each icons as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/components/Sidebar/PageType_Sidebar.svelte:386::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/builder/components/Sidebar/PageType_Sidebar.svelte:386 header '{#each site_symbols as _}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; item binding unused (skeleton placeholders ({#each site_symbols as _})): rendered nodes depend only on index, a key cannot change the output"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/components/Sidebar/Sidebar_Symbol.svelte:347::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/Sidebar/Sidebar_Symbol.svelte:347 header '{#each related_activities as [activity]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (live user activity from getUserActivity()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/ui/Dropdown.svelte:44::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/ui/Dropdown.svelte:44 header '{#each options as option, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/ui/ListItem.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/ui/ListItem.svelte:52 header '{#each icon_buttons as button}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()(legacy export let)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/ui/ListItem.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/ui/ListItem.svelte:63 header '{#each children as subpage}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()(legacy export let)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/ui/Select.svelte:149::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/ui/Select.svelte:149 header '{#each options as option, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/ui/Select.svelte:217::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/ui/Select.svelte:217 header '{#each active_submenu.options as { label, value, onclick }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state assigned at runtime.options), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/ui/TextInput.svelte:73::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/ui/TextInput.svelte:73 header '{#each options as option}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/editor/Layout/ComponentNode.svelte:1267::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/Layout/ComponentNode.svelte:1267 header '{#each related_activities as [{ user, user_avatar }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (live user activity from getUserActivity()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/editor/LocaleSelector.svelte:109::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/LocaleSelector.svelte:109 header '{#each filtered_available_languages as loc}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $derived(call?)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/editor/LocaleSelector.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/LocaleSelector.svelte:75 header '{#each site_languages.sort((l) => (l === \"en\" ? -1 : 1)) as languageID}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $derived(cond(Object.keys(store import:../../stores/data/site:entries)|inline-array)).sort()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/editor/Toolbar.svelte:319::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/Toolbar.svelte:319 header '{#each user_activities as activities}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (live user activity from getUserActivity()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/editor/Toolbar.svelte:343::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/Toolbar.svelte:343 header '{#each activities as { page, page_type_url, page_url, page_type, page_page_type, site_symbol }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (live user activity from getUserActivity()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/Collaboration.svelte:313::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/Collaboration.svelte:313 header '{#each server_members ?? [] as { id, email, avatar, name, serverRole }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/Collaboration.svelte:339::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/Collaboration.svelte:339 header '{#each site_collborators ?? [] as { user, assignment }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $derived($props().role_assignments().map().filter())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/PageTypeModal/Item.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/PageTypeModal/Item.svelte:145 header '{#each pages_to_delete as p}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $derived(cond(import:$lib/pocketbase/collections:Pages.list()|unresolved:undefined))), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/PageTypeModal/Item.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/PageTypeModal/Item.svelte:85 header '{#each related_activities as [{ user, user_avatar }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (live user activity from getUserActivity()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/PageTypeModal/PageTypeModal.svelte:36::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/PageTypeModal/PageTypeModal.svelte:36 header '{#each site?.page_types() || [] as page_type}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/SitePages/Item.svelte:287::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/SitePages/Item.svelte:287 header '{#each related_activities as [{ user, user_avatar }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (live user activity from getUserActivity()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/builder/views/modal/SitePages/Item.svelte:476::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/modal/SitePages/Item.svelte:476 header '{#each pages_to_delete as pageToDelete}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/CreateSite.svelte:512::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CreateSite.svelte:512 header '{#each active_starters_group_sites as site}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $derived(cond(cond($derived(?.list()).filter()|$derived(import:$lib/pocketbase/collections:Sites.list()))|unre), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/MarketplaceSymbolButton.svelte:64::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/MarketplaceSymbolButton.svelte:64 header '{#each LibrarySymbolGroups.list() ?? [] as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/Masonry.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Masonry.svelte:39 header '{#each skeleton_ratios as column_ratios}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Array.from({length}) skeleton ratios): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/Masonry.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Masonry.svelte:41 header '{#each column_ratios as ratio}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Array.from({length}) skeleton ratios): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/Masonry.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Masonry.svelte:49 header '{#each columnized_items as column}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (masonry columns): items have no identity beyond position"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/app-sidebar.svelte:267::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/app-sidebar.svelte:267 header '{#each SiteGroups.list() ?? [] as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/app-sidebar.svelte:300::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/app-sidebar.svelte:300 header '{#each LibrarySymbolGroups.list() ?? [] as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/app-sidebar.svelte:335::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/app-sidebar.svelte:335 header '{#each (browsing_blocks ? LibrarySymbolGroups.from(marketplace).list({ sort: \"index\" }' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/lib/components/ui/Tabs.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/Tabs.svelte:16 header '{#each tabs as tab, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/routes/dashboard/library/+page.svelte:439::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/library/+page.svelte:439 header '{#each symbol_groups ?? [] as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/routes/dashboard/marketplace/blocks/+page.svelte:207::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/marketplace/blocks/+page.svelte:207 header '{#each library_symbol_groups ?? [] as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/routes/dashboard/sites/+page.svelte:229::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/sites/+page.svelte:229 header '{#each sites as site}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/each-key::src/routes/dashboard/sites/+page.svelte:357::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/sites/+page.svelte:357 header '{#each site_groups as group}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (PocketBase collection records (.list())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-derived::src/lib/builder/components/Fields/FieldItem.svelte:128::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/Fields/FieldItem.svelte:128; the effect only assigns $state from reactive sources (field.config?.condition); later writes are top-level reassignments or binds, i.e. the writable-$derived override pattern, available in the app's svelte (^5.55.7)"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-derived::src/lib/builder/components/Fields/FieldItem.svelte:136::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/components/Fields/FieldItem.svelte:136; the effect only assigns $state from reactive sources (visible_field_types/field.type); later writes are top-level reassignments or binds, i.e. the writable-$derived override pattern, available in the app's svelte (^5.55.7)"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-derived::src/lib/builder/views/editor/PageType.svelte:53::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/PageType.svelte:53; the effect only assigns $state from reactive sources (page_type.head/foot, then bind:value on CodeEditor); later writes are top-level reassignments or binds, i.e. the writable-$derived override pattern, available in the app's svelte (^5.55.7)"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-derived::src/lib/builder/views/modal/SitePages/PageForm.svelte:25::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: builder/views/modal/SitePages/PageForm.svelte:25; new_page = {...} is then deeply written (new_page.slug = ... at line 37, bound fields); a $derived value is not deeply proxied, so converting would break those writes (ledger clonePlan/boardLanes convention)"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-onmount::src/lib/builder/components/Fields/FieldItem.svelte:51::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: src/lib/builder/components/Fields/FieldItem.svelte:51; calls site?.page_types() where site comes from site_context.getOr() (a function return) and page_types() is the collection loader that tracks reactive state; the docs-listed function-return limitation"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-onmount::src/lib/builder/views/editor/Toolbar.svelte:179::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/builder/views/editor/Toolbar.svelte:179; only adds/removes a window keydown listener bound to a local function; reads nothing reactive (a <svelte:window onkeydown> or onMount equivalent)"
+  },
+  {
+    "key": "primocms/primo::correctness/effect-as-onmount::src/lib/components/Site_Symbol.svelte:63::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Site_Symbol.svelte:63; reads name_el, a plain `let name_el` (not $state), plus document/window; runs once after mount"
+  },
+  {
+    "key": "primocms/primo::correctness/unmutated-state::src/lib/builder/field-types/ImageField.svelte:139::$state \"image_size\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/field-types/ImageField.svelte:139; every mention of image_size in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
+  },
+  {
+    "key": "primocms/primo::correctness/unmutated-state::src/lib/builder/views/editor/Layout/BlockToolbar.svelte:38::$state \"base_path\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/Layout/BlockToolbar.svelte:38; every mention of base_path in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
+  },
+  {
+    "key": "primocms/primo::correctness/unmutated-state::src/lib/builder/views/editor/Page.svelte:438::$state \"moving\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/editor/Page.svelte:438; every mention of moving in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
+  },
+  {
+    "key": "primocms/primo::correctness/unmutated-state::src/lib/builder/views/modal/SectionEditor/SectionEditor.svelte:67::$state \"initial_code\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/builder/views/modal/SectionEditor/SectionEditor.svelte:67; every mention of initial_code in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
+  },
+  {
+    "key": "primocms/primo::performance/iframe-loading::src/lib/builder/components/ComponentPreview.svelte:529::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc preview (dynamic_iframe_srcdoc) filling the Block/Section editor modal's preview pane (used by modal/BlockEditor.svelte:12, SectionEditor.svelte:12) — no network document, the pane's visible content"
+  },
+  {
+    "key": "primocms/primo::performance/iframe-loading::src/lib/builder/components/IFrame.svelte:142::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc iframe (generated_srcdoc || srcdoc), no network document; used for block thumbnails in SymbolButton/Sidebar_Symbol"
+  },
+  {
+    "key": "primocms/primo::performance/iframe-loading::src/lib/builder/views/editor/Layout/ComponentNode.svelte:1281::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc iframe per editor section (component_iframe_srcdoc with the site head), no network document of its own"
+  },
+  {
+    "key": "primocms/primo::performance/iframe-loading::src/lib/builder/views/modal/VideoModal.svelte:36::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: YouTube preview inside the video field modal (VideoModal.svelte:31-36) — rendered when the modal is opened and then visible"
+  },
+  {
+    "key": "primocms/primo::performance/iframe-loading::src/lib/components/SitePreview.svelte:65::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: live site preview iframe (src=/?_site=<id>) rendered per card of the {#each sites} grid on dashboard/sites (+page.svelte:229-242) — cards past the first row load whole sites offscreen"
+  },
+  {
+    "key": "primocms/primo::performance/namespace-import::src/lib/builder/components/CodeEditor/CodeMirror.svelte:22::Namespace import \"import * as … from 'prettier/plugins/postcss'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/lib/builder/components/CodeEditor/CodeMirror.svelte:22: the namespace is passed whole as a prettier plugin (plugins: [prettierSvelte, prettierPostcss, prettierBabel, prettierEstree], CodeMirror.svelte:634) — prettier's API takes the plugin module object (its own docs import it this way), so named imports cannot replace it and every export is used; unlike the ledger's maplibregl tp, there is no narrower form"
+  },
+  {
+    "key": "primocms/primo::performance/namespace-import::src/lib/builder/components/CodeEditor/CodeMirror.svelte:23::Namespace import \"import * as … from 'prettier/plugins/babel'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/lib/builder/components/CodeEditor/CodeMirror.svelte:23: the namespace is passed whole as a prettier plugin (plugins: [prettierSvelte, prettierPostcss, prettierBabel, prettierEstree], CodeMirror.svelte:634) — prettier's API takes the plugin module object (its own docs import it this way), so named imports cannot replace it and every export is used; unlike the ledger's maplibregl tp, there is no narrower form"
+  },
+  {
+    "key": "primocms/primo::performance/namespace-import::src/lib/builder/components/CodeEditor/CodeMirror.svelte:24::Namespace import \"import * as … from 'prettier/plugins/estree'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/lib/builder/components/CodeEditor/CodeMirror.svelte:24: the namespace is passed whole as a prettier plugin (plugins: [prettierSvelte, prettierPostcss, prettierBabel, prettierEstree], CodeMirror.svelte:634) — prettier's API takes the plugin module object (its own docs import it this way), so named imports cannot replace it and every export is used; unlike the ledger's maplibregl tp, there is no narrower form"
+  },
+  {
+    "key": "primocms/primo::performance/namespace-import::src/lib/builder/components/CodeEditor/CodeMirror.svelte:25::Namespace import \"import * as … from 'prettier-plugin-svelte/browser'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read src/lib/builder/components/CodeEditor/CodeMirror.svelte:25: the namespace is passed whole as a prettier plugin (plugins: [prettierSvelte, prettierPostcss, prettierBabel, prettierEstree], CodeMirror.svelte:634) — prettier's API takes the plugin module object (its own docs import it this way), so named imports cannot replace it and every export is used; unlike the ledger's maplibregl tp, there is no narrower form"
+  },
+  {
+    "key": "primocms/primo::performance/namespace-import::src/lib/builder/components/Sidebar/PageType_Sidebar.svelte:3::Namespace import \"import * as … from 'lodash-es'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "fp",
+    "basis": "read src/lib/builder/components/Sidebar/PageType_Sidebar.svelte:3: `import * as _ from 'lodash-es'` is never used — the only other `_` is the shadowing each-binding `{#each site_symbols as _}` (line 386); namespaceUsedDynamically (component-parse.ts:2364) counts that binding identifier as a whole-namespace use. Docs: a namespace not used as a whole is not flagged"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/components/IconPicker.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/components/IconPicker.svelte:67: svg_preview is the icon field value, an SVG loaded via Iconify loadIcon in IconField.select_icon — builder-authored CMS content"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/field-types/Information.svelte:19::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/field-types/Information.svelte:19: convert_markdown_to_html(field.config.info) — block-developer-authored field help text in the CMS builder"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/field-types/RepeaterFieldItem.svelte:161::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/field-types/RepeaterFieldItem.svelte:161: item_icon is the icon subfield value (Iconify SVG) — builder-authored CMS content"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/views/editor/Layout/ComponentNode.svelte:1298::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/views/editor/Layout/ComponentNode.svelte:1298: `error` is the block compiler/iframe error message for code the builder user wrote themselves — no cross-user path"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/views/editor/Page.svelte:1032::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/views/editor/Page.svelte:1032: site.foot + page_type.foot are the developer-authored custom <head>/<foot> HTML the CMS exists to inject"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/views/editor/ToolbarButton.svelte:71::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/views/editor/ToolbarButton.svelte:71: `svg` prop is never passed: the only importer, Toolbar.svelte, passes icon= and no svg= — dead branch"
+  },
+  {
+    "key": "primocms/primo::security/raw-html::src/lib/builder/views/editor/ToolbarButton.svelte:79::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/builder/views/editor/ToolbarButton.svelte:79: `svg` prop is never passed: the only importer, Toolbar.svelte, passes icon= and no svg= — dead branch"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 74 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (route renders no content, only a client redirect stub (ssr=false SPA: onMount goto /admin/site or /admin/auth)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 76 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (route renders no content, only a client redirect stub (ssr=false SPA: onMount goto /admin/dashboard/sites)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/dashboard/library/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 244 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/dashboard/marketplace/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (route renders no content, only a client redirect stub (ssr=false SPA: onMount goto /admin/dashboard/marketplace/starters)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 210 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 135 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/dashboard/sites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 227 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 73 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/site/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/site/[...page]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/site/page-type--[page_type]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/sites/[site_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/canonical-url::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; publicly reachable entry route of the admin SPA (root splash that client-redirects / login / first-run setup)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; publicly reachable entry route of the admin SPA (root splash that client-redirects / login / first-run setup)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/dashboard/library/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/dashboard/marketplace/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/dashboard/sites/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; publicly reachable entry route of the admin SPA (root splash that client-redirects / login / first-run setup)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/site/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/site/[...page]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/site/page-type--[page_type]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/sites/[site_id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/description-presence::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in the layout chain + transitively imported local files, none in app.html; not a search target (auth-gated: dashboard/site/sites[site_id] +layout.svelte goto(/admin/auth) when check_session() fails)"
+  },
+  {
+    "key": "primocms/primo::seo/heading-level-skip::src/routes/dashboard/library/+page.svelte:435::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "the flagged <h4> \"Move to group\" (library/+page.svelte:435) is in a Dialog opened only from a block's dropdown in the Masonry arm (begin_symbol_move, :388); the <h2> it was paired with (:268) is the separate rename-group Dialog, never open at the same time, and the other page <h2>s (:411, EmptyState) are in exclusive arms where the move dialog cannot be opened — no earlier heading co-renders with it"
+  },
+  {
+    "key": "primocms/primo::seo/heading-level-skip::src/routes/dashboard/sites/+page.svelte:353::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "move-site Dialog <h4> (sites/+page.svelte:353) follows the page header <h1> (:186) with no <h2>/<h3> in between when opened (site cards have no headings); analyzer paired it with the rename-group dialog <h2> (:311), but the skip exists either way — same shape as the dialog-heading convention"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/dashboard/library/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/dashboard/marketplace/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/dashboard/marketplace/starters/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/dashboard/sites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/site/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/site/[...page]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/site/page-type--[page_type]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/sites/[site_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/json-ld::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 74 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 76 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/dashboard/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 244 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/dashboard/marketplace/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 210 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 135 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/dashboard/sites/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 227 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 73 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/site/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/site/[...page]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/site/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/sites/[site_id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-description::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 74 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 76 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/dashboard/library/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 244 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/dashboard/marketplace/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 210 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 135 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/dashboard/sites/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 227 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 73 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/site/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/site/[...page]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/site/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/sites/[site_id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-image::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 74 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 76 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/dashboard/library/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 244 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/dashboard/marketplace/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 210 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 135 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/dashboard/sites/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 227 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 73 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/site/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/site/[...page]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/site/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/sites/[site_id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-title::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 74 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 76 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/dashboard/library/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 244 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/dashboard/marketplace/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 210 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 135 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/dashboard/sites/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 227 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 73 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/site/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/site/[...page]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/site/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/sites/[site_id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/og-url::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt/sitemap.xml in static/, routes or build config (literal claim holds); this SvelteKit app is the self-hosted CMS admin UI under /admin (auth-gated), not the published sites"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: +page.svelte only goto()s to /admin/site or /admin/auth in onMount (+layout.js ssr=false); no <h1> in page or root layout — redirect-stub convention"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::/dashboard/marketplace::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: page only goto()s (dashboard → /admin/dashboard/sites, marketplace → .../starters) in onMount; dashboard layout/app-sidebar render no <h1> (only dialog <h2>s) — redirect-stub convention"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::/dashboard::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: page only goto()s (dashboard → /admin/dashboard/sites, marketplace → .../starters) in onMount; dashboard layout/app-sidebar render no <h1> (only dialog <h2>s) — redirect-stub convention"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::/sites/[site_id]/[...page]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "site editor: page renders PrimoPage/PageType editor chrome with no <h1>; user blocks render inside iframes (ComponentNode.svelte component_iframe_srcdoc), so their headings are separate documents; primo's only <h1>s are CreateSite, setup, AuthForm and dashboard/sites"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::/sites/[site_id]/page-type--[page_type]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "site editor: page renders PrimoPage/PageType editor chrome with no <h1>; user blocks render inside iframes (ComponentNode.svelte component_iframe_srcdoc), so their headings are separate documents; primo's only <h1>s are CreateSite, setup, AuthForm and dashboard/sites"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::/sites/[site_id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "site editor: page renders PrimoPage/PageType editor chrome with no <h1>; user blocks render inside iframes (ComponentNode.svelte component_iframe_srcdoc), so their headings are separate documents; primo's only <h1>s are CreateSite, setup, AuthForm and dashboard/sites"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::src/lib/components/CreateSite.svelte:332::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "second <h1> is CreateSite.svelte:332 inside {#if is_creating_site} full-screen overlay (sites/+page.svelte:415), opened only by the \"create site\" button (:219); page header <h1> (:186) is the single one otherwise"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::src/routes/dashboard/library/+page.svelte:268::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own chain+component walk: page headings are all <h2>-<h4> (dialogs, empty states, MarketplaceStarterButton <h2>); dashboard layout has no <h1>; primo's only <h1>s are in CreateSite, setup, AuthForm and dashboard/sites"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::src/routes/dashboard/marketplace/blocks/+page.svelte:203::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own chain+component walk: page headings are all <h2>-<h4> (dialogs, empty states, MarketplaceStarterButton <h2>); dashboard layout has no <h1>; primo's only <h1>s are in CreateSite, setup, AuthForm and dashboard/sites"
+  },
+  {
+    "key": "primocms/primo::seo/single-h1::src/routes/dashboard/marketplace/starters/+page.svelte:69::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own chain+component walk: page headings are all <h2>-<h4> (dialogs, empty states, MarketplaceStarterButton <h2>); dashboard layout has no <h1>; primo's only <h1>s are in CreateSite, setup, AuthForm and dashboard/sites"
+  },
+  {
+    "key": "primocms/primo::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt/sitemap.xml in static/, routes or build config (literal claim holds); this SvelteKit app is the self-hosted CMS admin UI under /admin (auth-gated), not the published sites"
+  },
+  {
+    "key": "primocms/primo::seo/ssr-disabled::src/routes/+layout.js:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/+layout.js:1; deliberate SPA for the self-hosted CMS editor served under paths.base /admin (adapter-static fallback), auth-gated; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: +page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/auth/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: auth/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/dashboard/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/dashboard/library/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/library/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/dashboard/marketplace/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/marketplace/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/marketplace/blocks/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/marketplace/starters/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/dashboard/sites/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: dashboard/sites/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/setup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: setup/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/site/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: site/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/site/[...page]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: site/[...page]/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/site/page-type--[page_type]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: site/page-type--[page_type]/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/sites/[site_id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: sites/[site_id]/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: sites/[site_id]/[...page]/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/title-presence::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: sites/[site_id]/page-type--[page_type]/+page.svelte and its layouts have no <title>/svelte:head title (root +layout.svelte head has only font links), no document.title anywhere in src, app.html has no <title>; the ssr=false admin SPA renders untitled"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 74 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 76 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/dashboard/library/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 244 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/dashboard/marketplace/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 125 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/dashboard/marketplace/blocks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 210 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/dashboard/marketplace/starters/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 135 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/dashboard/sites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 227 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 73 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/site/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/site/[...page]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/site/page-type--[page_type]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 247 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/sites/[site_id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/sites/[site_id]/[...page]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  },
+  {
+    "key": "primocms/primo::seo/twitter-card::src/routes/sites/[site_id]/page-type--[page_type]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 245 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library in src; user site head code (Primo.svelte compile_component_head) is injected only into builder iframes (PageType.svelte append_to_head is never called)"
+  }
+]

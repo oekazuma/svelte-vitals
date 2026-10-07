@@ -1,0 +1,1402 @@
+[
+  {
+    "key": "shuffle-project/blinddate::a11y/deprecated-attr::src/lib/components/player/PlayerExtended.svelte:51::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/lib/components/player/PlayerExtended.svelte:51: literal frameborder=\"0\" on <iframe> in live markup (not svg); frameborder is deprecated on iframe"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/deprecated-attr::src/routes/iframe/gabriel/+page.svelte:4::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/iframe/gabriel/+page.svelte:4: literal frameborder=\"0\" on <iframe> in live markup (not svg); frameborder is deprecated on iframe"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/deprecated-attr::src/routes/iframe/hannah/+page.svelte:4::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/iframe/hannah/+page.svelte:4: literal frameborder=\"0\" on <iframe> in live markup (not svg); frameborder is deprecated on iframe"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/disallowed-aria-props::src/lib/components/checklist/progessIndicator/ProgressIndicatorDesktop.svelte:31::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/ctx.mjs): literal <div> at this line carries aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role is generic, which prohibits naming (ARIA 1.2/1.3)"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/disallowed-aria-props::src/lib/components/personaContent/PersonaCard.svelte:46::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/ctx.mjs): literal <div> at this line carries aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role is generic, which prohibits naming (ARIA 1.2/1.3)"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/id-duplication::src/lib/components/personaContent/PersonaCard.svelte:79::Duplicate id \"table-of-content\"",
+    "verdict": "design",
+    "basis": "read: on all 8 /personas/* routes PersonaWrapper.svelte:19 and PersonaHeader.svelte:62 each render a PersonaCard; the h2#table-of-content is in each instance's {:else} arm of {#if firstPage} (firstPage = $state(true) per instance, :26, toggled by that card's button), and one of the two cards is CSS display:none at any width; documented component-instance/co-render model (KiteSvg precedent)"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/id-duplication::src/lib/components/player/Player.svelte:212::Duplicate id \"video-controls\"",
+    "verdict": "tp",
+    "basis": "read: first look 2 routes, local 1 (/personas/hannah): hannah/+page.svelte:312 and :374 render PlayerExtended whose first tab is a videoPathMp4 video (Offline/Online configs), so each renders <Player> on load (PlayerExtended.svelte:61); div#video-controls is under {#if !useNativeControls}, false except on iOS (:16/:47), so two copies co-render on page load"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/no-autofocus::src/routes/iframe/+layout.svelte:41::autofocus on <a> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read iframe/+layout.svelte:40-41: <a class=\"back-link\" href autofocus> under {#if link && personaName}, both set in onMount from the pathname on /iframe/gabriel and /iframe/hannah with no user action, so focus jumps to it on page load (page-load precedent)"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/Puzzle.svelte:167::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <p> at this line has nearest non-transparent literal parent <button> (line 158) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <p>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/ShareButton.svelte:69::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 67) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/accordion/AccordionItem.svelte:11::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <summary> (line 9) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <summary>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/bigPicture/BigPictureRoom.svelte:130::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 119) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/mobileCard/MobileCard.svelte:102::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <hr> at this line has nearest non-transparent literal parent <ul> (line 71) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <ul>'s content model does not admit <hr>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/mobileCard/MobileCard.svelte:85::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 76) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/personaContent/BurgerToggleButton.svelte:23::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 17) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/CaptionSettings.svelte:100::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 94) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/CaptionSettings.svelte:112::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 107) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/CaptionSettings.svelte:116::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 107) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/CaptionSettings.svelte:124::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 123) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/CaptionSettings.svelte:96::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 94) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/TempoSettings.svelte:79::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 71) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/TempoSettings.svelte:83::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 71) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/lib/components/player/TempoSettings.svelte:85::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 71) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/routes/(additionalSubpages)/sitemap/+page.svelte:28::`<ul>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <ul> at this line has nearest non-transparent literal parent <ul> (line 13) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <ul>'s content model does not admit <ul>"
+  },
+  {
+    "key": "shuffle-project/blinddate::a11y/permitted-contents::src/routes/(additionalSubpages)/sitemap/+page.svelte:36::`<ul>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <ul> at this line has nearest non-transparent literal parent <ul> (line 13) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <ul>'s content model does not admit <ul>"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/FlipCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FlipCard.svelte has 228 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Footer.svelte has 254 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/Modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Modal.svelte has 280 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/Puzzle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Puzzle.svelte has 446 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/SimulationLink.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SimulationLink.svelte has 231 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/bigPicture/BigPictureMobile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/bigPicture/BigPictureMobile.svelte has 520 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/bigPicture/BigPictureRoom.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/bigPicture/BigPictureRoom.svelte has 491 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/factCarousel/FactCarousel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/factCarousel/FactCarousel.svelte has 285 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/lectureRoom/LectureRoomDesktop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lectureRoom/LectureRoomDesktop.svelte has 413 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/lectureRoom/LectureRoomMobile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/lectureRoom/LectureRoomMobile.svelte has 276 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/mobileCard/MobileCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mobileCard/MobileCard.svelte has 301 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/personaContent/PersonaCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/personaContent/PersonaCard.svelte has 272 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/personaContent/PersonaHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/personaContent/PersonaHeader.svelte has 210 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/personaContent/SpeechBubble.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/personaContent/SpeechBubble.svelte has 269 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/player/CaptionSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/player/CaptionSettings.svelte has 416 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/player/Player.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/player/Player.svelte has 590 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/startpage/InfoGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/startpage/InfoGrid.svelte has 283 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/lib/components/week/Week.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/week/Week.svelte has 426 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/(additionalSubpages)/(legal)/datenschutz/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(additionalSubpages)/(legal)/datenschutz/+page.svelte has 433 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/(additionalSubpages)/fragen/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(additionalSubpages)/fragen/+page.svelte has 422 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(additionalSubpages)/leichte-sprache/+page.svelte has 256 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/(additionalSubpages)/wichtige-begriffe/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(additionalSubpages)/wichtige-begriffe/+page.svelte has 430 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 232 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/games/gabriel/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/gabriel/+page.svelte has 499 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/games/hannah/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/games/hannah/+page.svelte has 410 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/aleksandr/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/aleksandr/+page.svelte has 540 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/faiza/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/faiza/+page.svelte has 390 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/gabriel/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/gabriel/+page.svelte has 437 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/hannah/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/hannah/+page.svelte has 501 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/kilian/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/kilian/+page.svelte has 308 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/maxi/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/maxi/+page.svelte has 441 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/michelle/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/michelle/+page.svelte has 398 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::architecture/component-size::src/routes/personas/oliver/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/personas/oliver/+page.svelte has 378 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/Download.svelte:6::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Download.svelte:6 '{#each download as download}' has no key; the only caller passes the constant DownloadConstant (downloads/+page.svelte:6-8); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/Footer.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Footer.svelte:49 '{#each personas as persona}' has no key; personas = ENVIRONMENT.accessiblePersonas (line 6), an app constant; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/Sources.svelte:14::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Sources.svelte:14 '{#each sources as source}' has no key; every caller passes author-written source literals (ImportantNotice.svelte:73 sources={[...]}, disabilityExplanation/*.svelte, InfoBox pass-through); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/bigPicture/BigPictureRoom.svelte:110::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bigPicture/BigPictureRoom.svelte:110 '{#each students as student, i}' has no key; students is always REVERSED_STUDENTS.map(...) (lines 29, 35), the same constant roster in the same order with only an active flag toggled; static list, never reorders/inserts"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/checklist/progessIndicator/ProgressIndicatorDesktop.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/checklist/progessIndicator/ProgressIndicatorDesktop.svelte:38 '{#each checklist as entry, i}' has no key; checklist comes from Checklist.svelte:14, a persona's constant checklist only re-mapped in place (checked flags, lines 25-38, same order and length); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/factCarousel/FactCarousel.svelte:84::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/factCarousel/FactCarousel.svelte:84 '{#each facts as fact, i}' has no key; callers pass persona.facts of a constant persona (personas/faiza/+page.svelte:22 const persona = FAIZA); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/lectureRoom/LectureRoomDesktop.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/lectureRoom/LectureRoomDesktop.svelte:44 '{#each personas as persona}' has no key; the only caller passes ENVIRONMENT.accessiblePersonas (lectureRoom/index.svelte:6), an app constant; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/lectureRoom/LectureRoomMobile.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/lectureRoom/LectureRoomMobile.svelte:16 '{#each personas as persona}' has no key; the only caller passes ENVIRONMENT.accessiblePersonas (lectureRoom/index.svelte:6); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/mobileCard/MobileCard.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/mobileCard/MobileCard.svelte:91 '{#each headings as heading}' has no key; headings = document.querySelectorAll('h1, h2.main-heading') (line 51), the page's own static headings listed as a table of contents; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/personaContent/PersonaCard.svelte:85::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/personaContent/PersonaCard.svelte:85 '{#each headings as heading}' has no key; headings = document.querySelectorAll('h1, h2.main-heading') (lines 23, 31), the page's static headings; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/personaContent/PersonaHeader.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/personaContent/PersonaHeader.svelte:53 '{#each persona.tags as tag}' has no key; persona is a constant persona object (e.g. personas/faiza/+page.svelte:22 FAIZA via PersonaWrapper); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/player/CaptionSettings.svelte:105::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/player/CaptionSettings.svelte:105 '{#each video.textTracks as track}' has no key; the video element's TextTrackList, fixed by the <track> elements of one constant video; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/player/Player.svelte:199::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/player/Player.svelte:199 '{#each videoData.captionsArray as captionPath}' has no key; captionsArray of a constant video config (callers: PlayerExtended selectedContent from config, dgs/+page.svelte); static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/player/PlayerExtended.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/player/PlayerExtended.svelte:36 '{#each tabs as tab, i}' has no key; tabs = [...config.melvinVideos, ...config.videos, ...config.transcripts] (line 9), a spread of the constant config prop; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/player/TempoSettings.svelte:69::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/player/TempoSettings.svelte:69 '{#each tempoOptions as tempoOption}' has no key; `let tempoOptions = [0.5, 0.75, 1, 1.25, 1.5]` (line 12) never written; static list (not exempt only because it is `let`)"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/week/Week.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/week/Week.svelte:52 '{#each days as day}' has no key; days = $state(persona.week!.days) (line 15), a constant persona's five weekdays, edited only in place (bind:value={days[selectedDay].smiley}); static list, never reorders/inserts"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/week/Week.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/week/Week.svelte:59 '{#each days as day}' has no key; same constant weekday list (line 15), edited only in place; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/lib/components/week/Week.svelte:77::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/week/Week.svelte:77 '{#each days as day, i}' has no key; same constant weekday list (line 15), edited only in place; static list"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/routes/(additionalSubpages)/große-ganze/+page.svelte:37::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(additionalSubpages)/große-ganze/+page.svelte:37 '{#each supportOptions as option, i}' has no key; supportOptions = SUPPORT_OPTIONS.filter(...) (line 8), a filtered constant computed once; static list (the docs keep non-literal exports reported)"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/routes/games/gabriel/+page.svelte:213::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/games/gabriel/+page.svelte:213 '{#each checkmarks as checkmark}' has no key; checkmarks = $state([]) grows as the player answers (lines 129-137); runtime state list (ledger convention for runtime-grown lists)"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/each-key::src/routes/games/hannah/+page.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/games/hannah/+page.svelte:222 '{#each checkmarks as div}' has no key; checkmarks = $state([]) appended per answer (lines 156-158); runtime state list (ledger convention for runtime-grown lists)"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/stale-prop-derivation::src/lib/components/Sources.svelte:5::\"label\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Sources.svelte:5 label from sources.length at init (claim structurally true), but every caller passes an author-written literal (ImportantNotice.svelte:73, disabilityExplanation/*.svelte sources={[...]}), so the prop never changes after mount"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/stale-prop-derivation::src/lib/components/factCarousel/FactEnumeration.svelte:6::\"responsiveTotal\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/factCarousel/FactEnumeration.svelte:6 responsiveTotal = total / 5 at init (structurally true); the only caller passes fact.content.decoration.total of a constant persona's facts (FactCarousel.svelte:88-90), so the prop never changes after mount"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/stale-prop-derivation::src/lib/components/factCarousel/FactEnumeration.svelte:7::\"responsiveAmount\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/factCarousel/FactEnumeration.svelte:7 responsiveAmount = amount / 5 at init (structurally true); the only caller passes constant persona fact data (FactCarousel.svelte:88-90); the prop never changes after mount"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/stale-prop-derivation::src/lib/components/week/Week.svelte:14::\"month\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/week/Week.svelte:14 month = persona.week!.month at init (structurally true); callers pass a constant persona (personas/michelle/+page.svelte:312, personas/hannah/+page.svelte:384), so the prop never changes after mount"
+  },
+  {
+    "key": "shuffle-project/blinddate::correctness/unmutated-state::src/lib/components/player/Player.svelte:40::$state \"ariaLiveContent\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/player/Player.svelte:40 ariaLiveContent = $state(''); every mention is the declaration and template reads (313-314); never reassigned, mutated, bound or passed"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/iframe-loading::src/lib/components/player/PlayerExtended.svelte:51::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: melvin video embed (hannah persona page, +page.svelte:92-95) rendered when the player tab has a url; PlayerExtended sits deep in the persona page (hannah/+page.svelte:310) — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/iframe-loading::src/routes/iframe/gabriel/+page.svelte:4::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: the embedded Gabriel game is the single main content of this iframe wrapper page, where eager is right per docs"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/iframe-loading::src/routes/iframe/hannah/+page.svelte:4::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: the embedded Hannah game is the single main content of this iframe wrapper page, where eager is right per docs"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/+layout.svelte:49::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (global.scss:119-122 .back-to-startpage img 2rem x 2rem), so no CLS from the missing attributes (key covers 13 routes, same element)"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/fragen/+page.svelte:135::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img max-width:100% only (fragen style :16-18) — natural size decides the box, text below shifts"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/fragen/+page.svelte:157::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img max-width:100% only (fragen style :16-18) — natural size decides the box, text below shifts"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:124::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; max-width:10rem; height:auto (leichte-sprache style :9-13) — width set, height comes from the image"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:13::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; max-width:10rem; height:auto (leichte-sprache style :9-13) — width set, height comes from the image"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:169::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; max-width:10rem; height:auto (leichte-sprache style :9-13) — width set, height comes from the image"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:49::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; max-width:10rem; height:auto (leichte-sprache style :9-13) — width set, height comes from the image"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:69::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; max-width:10rem; height:auto (leichte-sprache style :9-13) — width set, height comes from the image"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:11::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: img height fixed by CSS (clamp(13.5rem,23vw+1rem,16.875rem)) inside the fixed-height .persona-progress row (style: height clamp(15.75rem,28vw+1rem,18.75rem)) — the row reserves the vertical box; only widths vary inside it"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:12::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: img height fixed by CSS (clamp(13.5rem,23vw+1rem,16.875rem)) inside the fixed-height .persona-progress row (style: height clamp(15.75rem,28vw+1rem,18.75rem)) — the row reserves the vertical box; only widths vary inside it"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:13::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: img height fixed by CSS (clamp(13.5rem,23vw+1rem,16.875rem)) inside the fixed-height .persona-progress row (style: height clamp(15.75rem,28vw+1rem,18.75rem)) — the row reserves the vertical box; only widths vary inside it"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:14::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: img height fixed by CSS (clamp(13.5rem,23vw+1rem,16.875rem)) inside the fixed-height .persona-progress row (style: height clamp(15.75rem,28vw+1rem,18.75rem)) — the row reserves the vertical box; only widths vary inside it"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:15::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: img height fixed by CSS (clamp(13.5rem,23vw+1rem,16.875rem)) inside the fixed-height .persona-progress row (style: height clamp(15.75rem,28vw+1rem,18.75rem)) — the row reserves the vertical box; only widths vary inside it"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/+page.svelte:51::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by scoped CSS (.logo img 3.125rem x 3.125rem, +page.svelte style :83-86), so no CLS from the missing attributes"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/gabriel/+page.svelte:188::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/gabriel/+page.svelte:193::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/gabriel/+page.svelte:202::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/gabriel/+page.svelte:218::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved: .checkmark row height 1.6vw with img max 1.6vw x 1.6vw, inside the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/gabriel/+page.svelte:220::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved: .checkmark row height 1.6vw with img max 1.6vw x 1.6vw, inside the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/hannah/+page.svelte:214::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/hannah/+page.svelte:219::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/hannah/+page.svelte:228::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inline style width 85% height auto inside the absolutely positioned .playbutton (3% x 5% of the stage); the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/games/hannah/+page.svelte:230::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inline style width 85% height auto inside the absolutely positioned .playbutton (3% x 5% of the stage); the game is a fixed 16:9 .ratio box (overflow hidden) whose layers are absolutely positioned (.slides/.notebook/.persona position:absolute), so the image cannot shift page layout"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-dimensions::src/routes/personas/+layout.svelte:20::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (global.scss:119-122 .back-to-startpage img 2rem x 2rem), so no CLS from the missing attributes (key covers 9 routes, same element)"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/+layout.svelte:49::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: blinddate logo (static/icons/logo.svg) in the back-to-startpage link of the page header — above the fold, where the docs keep the image eager (13 routes)"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/fragen/+page.svelte:135::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: pie chart in FAQ section 2, after the table of contents and section 1 (fragen/+page.svelte:115-135) — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/fragen/+page.svelte:157::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: bar chart in FAQ section 2, after a paragraph and the first chart (fragen/+page.svelte:157) — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:124::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: barrierefrei.png illustration mid-page — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:13::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: studieren.png first element under the page title — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:169::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: beschweren.png illustration near the end of the page — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:49::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: erzaehlen.png illustration after the first text block (five paragraphs) — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:69::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: leute.png illustration in the second section — offscreen on load"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:11::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: persona-progress strip directly under the page title (persona-entwicklung/+page.svelte:7-17) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:12::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: persona-progress strip directly under the page title (persona-entwicklung/+page.svelte:7-17) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:13::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: persona-progress strip directly under the page title (persona-entwicklung/+page.svelte:7-17) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:14::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: persona-progress strip directly under the page title (persona-entwicklung/+page.svelte:7-17) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:15::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: persona-progress strip directly under the page title (persona-entwicklung/+page.svelte:7-17) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/+page.svelte:51::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: site logo in the homepage <header> — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/gabriel/+page.svelte:188::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/gabriel/+page.svelte:193::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/gabriel/+page.svelte:202::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/gabriel/+page.svelte:218::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: checkmark shown after the user answers, inside the visible game stage — created when shown and then visible"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/gabriel/+page.svelte:220::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: checkmark shown after the user answers, inside the visible game stage — created when shown and then visible"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/hannah/+page.svelte:214::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/hannah/+page.svelte:219::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/hannah/+page.svelte:228::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/games/hannah/+page.svelte:230::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: part of the single full-viewport 16:9 game stage — the whole route is this visible game, where the docs keep the image eager"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/image-loading-hint::src/routes/personas/+layout.svelte:20::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: blinddate logo (static/icons/logo.svg) in the back-to-startpage link of the page header — above the fold, where the docs keep the image eager (9 routes)"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/+layout.svelte:49::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src={asset('/icons/logo.svg')} wraps a literal .svg in the base-path helper — a vector, but a call expression outside the docs' static SVG detection (13 routes)"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/fragen/+page.svelte:135::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /media/faq/best3-students-impairment.png (654x853 PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/fragen/+page.svelte:157::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /media/faq/best3-students-impairment-detail.png via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:124::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /leichte-sprache/barrierefrei.png (PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:13::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /leichte-sprache/studieren.png (PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:169::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /leichte-sprache/beschweren.png (PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:49::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /leichte-sprache/erzaehlen.png (PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte:69::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /leichte-sprache/leute.png (PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:11::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /personas/aleksandr/aleksandr-progress-1.png (e.g. 340x1000 PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:12::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /personas/aleksandr/aleksandr-progress-2.png (e.g. 340x1000 PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:13::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /personas/aleksandr/aleksandr-progress-3.png (e.g. 340x1000 PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:14::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /personas/aleksandr/aleksandr-progress-4.png (e.g. 340x1000 PNG) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte:15::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src={asset('/personas/aleksandr/aleksandr-neutral.svg')} — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/+page.svelte:51::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src={asset('/icons/logo.svg')} wraps a literal .svg in the base-path helper — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/gabriel/+page.svelte:188::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: personaImage is '' or an asset('/personas/gabriel/*.svg') mood (+page.svelte:7-80) — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/gabriel/+page.svelte:193::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: interactionSrc is always an asset('/games/gabriel/UI/moodle-*.svg') slide (+page.svelte:7-80) — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/gabriel/+page.svelte:202::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src={asset('/games/gabriel/notepad.svg')} — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/gabriel/+page.svelte:218::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /games/gabriel/UI/check-true.png (1042x1042 PNG shown at max 1.6vw) via asset() — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/gabriel/+page.svelte:220::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: literal /games/gabriel/UI/check-false.png via asset() (sibling of check-true.png, shown at max 1.6vw) — raster, one fixed-size asset"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/hannah/+page.svelte:214::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: personaImage is '' or an asset('/personas/hannah/*.svg') mood (+page.svelte:7-70) — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/games/hannah/+page.svelte:219::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: taskSlideImage is always an asset('/games/hannah/UI/Hannah-*.svg') slide (+page.svelte:7-70) — a vector, but a call expression outside the docs' static SVG detection"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/responsive-image::src/routes/personas/+layout.svelte:20::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src={asset('/icons/logo.svg')} wraps a literal .svg in the base-path helper — a vector, but a call expression outside the docs' static SVG detection (9 routes)"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/state-raw::src/routes/games/gabriel/+page.svelte:75::\"checkmarks\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"checkmarks\" in src/routes/games/gabriel/+page.svelte: only whole-binding reassignments and read-only template/expression uses (:129 spread-append reassignment; {#each} at :213 reads checkmark.*); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "shuffle-project/blinddate::performance/state-raw::src/routes/games/hannah/+page.svelte:115::\"checkmarks\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"checkmarks\" in src/routes/games/hannah/+page.svelte: only whole-binding reassignments and read-only template/expression uses (:156,:158 spread-append reassignments; {#each} at :222 reads the string); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/lib/components/Download.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Download.svelte:17: download.title from lib/constants/download (DownloadConstant, downloads/+page.svelte:6-8) — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/lib/components/Download.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Download.svelte:18: download.description from lib/constants/download (DownloadConstant) — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/lib/components/InfoBox.svelte:51::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/InfoBox.svelte:51: term prop, a literal string at every call site (e.g. personas/gabriel/+page.svelte:98 term=\"Gesichtsfeld\") — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/lib/components/factCarousel/FactCarousel.svelte:135::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/factCarousel/FactCarousel.svelte:135: ariaLiveText built at :43-49 from the same persona.facts constants plus a counter — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/lib/components/factCarousel/FactCarousel.svelte:93::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/factCarousel/FactCarousel.svelte:93: fact.content.text from persona.facts constants — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/lib/components/player/PlayerExtended.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/player/PlayerExtended.svelte:64: selectedContent.body from the extendedPlayerConfig constants (tabs = config.videos/transcripts, :9-13) — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::security/raw-html::src/routes/games/hannah/+page.svelte:223::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/games/hannah/+page.svelte:223: checkmarks entries built from the in-file checkmarkTrue/checkmarkFalse template strings (:110-112,156-158) and a task index — repo-authored copy on a static site with no server loads or fetch (grep), reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/(legal)/datenschutz/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/(legal)/erklaerung-zur-barrierefreiheit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/(legal)/impressum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/barrierefreiheit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 18 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/dgs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 26 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/downloads/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 22 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/fragen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/große-ganze/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 23 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 21 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/sitemap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/so-funktioniert-es/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/(additionalSubpages)/wichtige-begriffe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 21 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 32 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/games/gabriel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/games/hannah/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/iframe/gabriel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/iframe/hannah/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src) but not a search target (route renders no content, only an onMount goto(\"/../\") redirect stub (personas/+page.svelte:5-7)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/aleksandr/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 67 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/faiza/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 66 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/gabriel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 69 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/hannah/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 67 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/kilian/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 60 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/maxi/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 69 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/michelle/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 63 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/canonical-url::src/routes/personas/oliver/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 63 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src; prerendered public page (routes/+layout.ts:5; ENVIRONMENT.redirectToStartpage=false), no noindex"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/description-presence::src/routes/games/gabriel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description>/MetaTags on the page, its layouts or app.html (MetaTags only on /, (additionalSubpages)/+layout and PersonaWrapper persona pages); public prerendered site (adapter-static, barrierefreies-blinddate.de), redirectToStartpage=false"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/description-presence::src/routes/games/hannah/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description>/MetaTags on the page, its layouts or app.html (MetaTags only on /, (additionalSubpages)/+layout and PersonaWrapper persona pages); public prerendered site (adapter-static, barrierefreies-blinddate.de), redirectToStartpage=false"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/description-presence::src/routes/iframe/gabriel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description>/MetaTags on the page, its layouts or app.html (MetaTags only on /, (additionalSubpages)/+layout and PersonaWrapper persona pages); public prerendered site (adapter-static, barrierefreies-blinddate.de), redirectToStartpage=false"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/description-presence::src/routes/iframe/hannah/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description>/MetaTags on the page, its layouts or app.html (MetaTags only on /, (additionalSubpages)/+layout and PersonaWrapper persona pages); public prerendered site (adapter-static, barrierefreies-blinddate.de), redirectToStartpage=false"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/description-presence::src/routes/personas/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description>/MetaTags on the page, its layouts or app.html (MetaTags only on /, (additionalSubpages)/+layout and PersonaWrapper persona pages); public prerendered site (adapter-static, barrierefreies-blinddate.de), redirectToStartpage=false"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/duplicate-description::src/routes/(additionalSubpages)/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: identical literal MetaTags description (\"Persönliche Erfahrungen von Studierenden...\") in +page.svelte:18 and (additionalSubpages)/+layout.svelte:14, no subpage sets its own, so / and all 13 public subpages share it"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: identical literal MetaTags description (\"Persönliche Erfahrungen von Studierenden...\") in +page.svelte:18 and (additionalSubpages)/+layout.svelte:14, no subpage sets its own, so / and all 13 public subpages share it"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/duplicate-title::src/routes/(additionalSubpages)/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: MetaTags title=\"Barrierefreies BlindDate\" literal in +page.svelte:17 (rendered after its own <title>BlindDate</title>, so it wins) and (additionalSubpages)/+layout.svelte:13, which is the only title of /barrierefreiheit and /persona-entwicklung; three public prerendered pages share it"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: MetaTags title=\"Barrierefreies BlindDate\" literal in +page.svelte:17 (rendered after its own <title>BlindDate</title>, so it wins) and (additionalSubpages)/+layout.svelte:13, which is the only title of /barrierefreiheit and /persona-entwicklung; three public prerendered pages share it"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/image-alt::src/routes/games/gabriel/+page.svelte:188::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img> with no alt attribute and no spread, under an explicit <!-- svelte-ignore a11y_missing_attribute --> (games/gabriel/+page.svelte:188)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/image-alt::src/routes/games/gabriel/+page.svelte:193::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img> with no alt attribute and no spread, under an explicit <!-- svelte-ignore a11y_missing_attribute --> (games/gabriel/+page.svelte:193)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/image-alt::src/routes/games/gabriel/+page.svelte:202::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img> with no alt attribute and no spread, under an explicit <!-- svelte-ignore a11y_missing_attribute --> (games/gabriel/+page.svelte:202)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/image-alt::src/routes/games/hannah/+page.svelte:214::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img> with no alt attribute and no spread, under an explicit <!-- svelte-ignore a11y_missing_attribute --> (games/hannah/+page.svelte:214)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/image-alt::src/routes/games/hannah/+page.svelte:219::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img> with no alt attribute and no spread, under an explicit <!-- svelte-ignore a11y_missing_attribute --> (games/hannah/+page.svelte:219)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/(legal)/datenschutz/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/(legal)/erklaerung-zur-barrierefreiheit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/(legal)/impressum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/barrierefreiheit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/dgs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/downloads/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/fragen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/große-ganze/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/persona-entwicklung/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/sitemap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/so-funktioniert-es/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/(additionalSubpages)/wichtige-begriffe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/games/gabriel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/games/hannah/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/iframe/gabriel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/iframe/hannah/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/aleksandr/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/faiza/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/gabriel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/hannah/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/kilian/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/maxi/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/michelle/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/json-ld::src/routes/personas/oliver/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/JsonLd/schema.org anywhere in src or app.html; svelte-meta-tags 4.4.1 MetaTags emits no JSON-LD; route has no JSON-LD"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-description::src/routes/games/gabriel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-description::src/routes/games/hannah/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-description::src/routes/iframe/gabriel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-description::src/routes/iframe/hannah/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-description::src/routes/personas/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-image::src/routes/games/gabriel/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-image::src/routes/games/hannah/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-image::src/routes/iframe/gabriel/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-image::src/routes/iframe/hannah/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-image::src/routes/personas/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-title::src/routes/games/gabriel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-title::src/routes/games/hannah/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-title::src/routes/iframe/gabriel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-title::src/routes/iframe/hannah/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-title::src/routes/personas/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-url::src/routes/games/gabriel/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-url::src/routes/games/hannah/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-url::src/routes/iframe/gabriel/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-url::src/routes/iframe/hannah/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/og-url::src/routes/personas/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/ or routes, no generator; public prerendered site (barrierefreies-blinddate.de)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/single-h1::/barrierefreiheit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "(additionalSubpages)/barrierefreiheit/+page.svelte is empty (0 bytes); the route renders the (additionalSubpages) layout header/footer only (no heading; sibling pages use SubpageTitle for their <h1>); no <h1>"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/single-h1::/games/gabriel::Missing <h#>",
+    "verdict": "tp",
+    "basis": "games/gabriel/+page.svelte is the simulation game stage (images, notebook form, description <p>) with no heading; root layout only renders children; no <h1>"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/single-h1::/games/hannah::Missing <h#>",
+    "verdict": "tp",
+    "basis": "games/hannah/+page.svelte is the simulation game stage (images, notebook form, description <p>) with no heading; root layout only renders children; no <h1>"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/single-h1::/iframe/gabriel::Missing <h#>",
+    "verdict": "tp",
+    "basis": "iframe/gabriel/+page.svelte is a bare <iframe> of the game; iframe/+layout.svelte has only a back link and logo Icon; no <h1>"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/single-h1::/iframe/hannah::Missing <h#>",
+    "verdict": "tp",
+    "basis": "iframe/hannah/+page.svelte is a bare <iframe> of the game; iframe/+layout.svelte has only a back link and logo Icon; no <h1>"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/single-h1::/personas::Missing <h#>",
+    "verdict": "tp",
+    "basis": "personas/+page.svelte SSR-renders an empty <div id=\"content\"> and redirects client-side (goto in onMount); personas layout has no heading; no <h1>"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: only an HTML /sitemap page ((additionalSubpages)/sitemap/+page.svelte), no sitemap.xml in static/ or routes; public prerendered site (LD-Explorer precedent)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/(legal)/impressum/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/downloads/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/fragen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/große-ganze/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/leichte-sprache/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/sitemap/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/so-funktioniert-es/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/(additionalSubpages)/wichtige-begriffe/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - BlindDate\" <title> in the page's unconditional svelte:head (rendered after the (additionalSubpages) layout's MetaTags, so it wins), or the layout/home MetaTags literal title \"Barrierefreies BlindDate\" (24) where the page sets none; length as reported"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-presence::src/routes/games/gabriel/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: games/gabriel/+page.svelte (the game document the /iframe/gabriel page embeds) has no svelte:head and no MetaTags, root +layout.svelte renders only children, app.html has no <title>, no document.title; the prerendered public page is served untitled (atmo-events iframe-embed precedent)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-presence::src/routes/games/hannah/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: games/hannah/+page.svelte has no svelte:head and no MetaTags, root +layout.svelte renders only children, app.html none, no document.title; the prerendered public game document is served untitled"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/title-presence::src/routes/personas/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: personas/+page.svelte is an empty div with onMount goto('/../'), no svelte:head; personas/+layout.svelte has no head (MetaTags only via PersonaWrapper on the child persona pages), root layout none, app.html none; the prerendered page is served untitled before the client redirect (PauseAI/rhpo precedent)"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/twitter-card::src/routes/games/gabriel/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/twitter-card::src/routes/games/hannah/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 3 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/twitter-card::src/routes/iframe/gabriel/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/twitter-card::src/routes/iframe/hannah/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  },
+  {
+    "key": "shuffle-project/blinddate::seo/twitter-card::src/routes/personas/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; svelte-meta-tags 4.4.1 (package-lock) MetaTags in (additionalSubpages)/+layout.svelte, routes/+page.svelte and lib/components/MetaTags.svelte (via PersonaWrapper) never gets a canonical prop (dist/MetaTags.svelte:63 emits <link rel=\"canonical\"> only {#if canonical}); \"canonical\" appears nowhere in src"
+  }
+]

@@ -1,0 +1,432 @@
+[
+  {
+    "key": "wevisdemo/parliament-watch::a11y/disallowed-aria-props::src/components/VoteStackedBar/VoteStackedBar.svelte:46::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read VoteStackedBar.svelte:46: <div aria-label={`${segment.label} …%`}> bar segment; no role, no spread, no use: action on the element (svelte parse); aria-label is prohibited on its generic role as claimed"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/duplicate-landmark::src/components/CrowdfundingBanner/CrowdfundingBanner.svelte:59::Duplicate banner landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+page.svelte renders <CrowdfundingBanner variant=\"compact\"/> (:70) and <CrowdfundingBanner variant=\"full\"/> (:130) unconditionally, each with <div role=\"banner\"> (CrowdfundingBanner.svelte:59), so / has two banner landmarks"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/duplicate-landmark::src/routes/legislative-process/+page.svelte:48::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:49-60 renders {@render children()} inside <main class=\"flex min-h-screen flex-col\"> (no +layout@/+page@ reset in the app); legislative-process/+page.svelte:48 opens a second <main>, two main landmarks on the route"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/id-duplication::src/components/CrowdfundingBanner/CrowdfundingBanner.svelte:76::Duplicate id \"banner-crowdfunding__heading\"",
+    "verdict": "tp",
+    "basis": "read: routes/+page.svelte renders two unconditional CrowdfundingBanner instances (:70, :130), each with <h2 id=\"banner-crowdfunding__heading\"> (:76) outside any {#if}, so the id is duplicated in the DOM of /"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/interactive-nesting::src/components/AffiliationResult/AffiliationResult.svelte:89::<a> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <a> at AffiliationResult.svelte:89 is a literal descendant of the <div role=\"button\"> at :76 in the same template, no component boundary between"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/interactive-nesting::src/components/bills/ModalListCoProposers.svelte:38::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <button> at ModalListCoProposers.svelte:38 is a literal descendant of the <div role=\"button\"> at :25 in the same template, no component boundary between"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/Assemblies/CabinetChanges/TimeItem.svelte:25::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at TimeItem.svelte:25 has <button> (:18) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/Assemblies/CabinetChanges/TimeItem.svelte:31::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at TimeItem.svelte:31 has <button> (:18) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/Assemblies/CabinetChanges/TimeItem.svelte:32::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at TimeItem.svelte:32 has <button> (:18) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/Assemblies/Tooltip.svelte:80::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at Tooltip.svelte:80 has <span> (:52) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <span> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/BackToTopButton/BackToTopButton.svelte:78::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read BackToTopButton.svelte:64-78: <div class=\"btn\"> (:78) is a direct child of <button class=\"back-to-top-button\" aria-label> (:64) in {#if show}; the HTML content model of <button> is phrasing content, so <div> is excluded as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/LegislativeProcess/Collapsible.svelte:111::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at Collapsible.svelte:111 has <button> (:107) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/NavigationBar/Menu.svelte:53::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at Menu.svelte:53 has <button> (:47) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <button> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/NavigationBar/SideMenuList.svelte:26::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <hr> at SideMenuList.svelte:26 has <ul> (:14) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <ul> excludes <hr> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/permitted-contents::src/components/VoteChartTooltip/VoteChartTooltip.svelte:46::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at VoteChartTooltip.svelte:46 has <span> (:30) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <span> excludes <div> as reported"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/top-level-landmark::src/routes/assemblies/[id]/members/[groupby]/+page.svelte:122::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:49-60 renders {@render children()} inside <main class=\"flex min-h-screen flex-col\"> (no +layout@/+page@ reset in the app); assemblies/[id]/members/[groupby]/+page.svelte:122 unlabelled <aside> (under {#if showFilter}) sits in plain <div>s of the page, no sectioning ancestor, so a complementary landmark inside main"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::a11y/top-level-landmark::src/routes/legislative-process/+page.svelte:48::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:49-60 renders {@render children()} inside <main class=\"flex min-h-screen flex-col\"> (no +layout@/+page@ reset in the app); legislative-process/+page.svelte:48 <main> renders inside it"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/components/AffiliationResult/AffiliationResult.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/AffiliationResult/AffiliationResult.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/components/DataPage/DataPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/DataPage/DataPage.svelte has 480 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/components/Index/BillContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/Index/BillContent.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/components/LegislativeProcess/sections/ProcessSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/LegislativeProcess/sections/ProcessSection.svelte has 324 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/about/+page.svelte has 390 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/assemblies/[id]/members/[groupby]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/assemblies/[id]/members/[groupby]/+page.svelte has 319 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/bills/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/bills/[id]/+page.svelte has 222 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/bills/explore/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/bills/explore/+page.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/bills/term/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/bills/term/[id]/+page.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/politicians/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/politicians/[id]/+page.svelte has 266 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/component-size::src/routes/votings/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/votings/[id]/+page.svelte has 492 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/AffiliationResult/AffiliationResult.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/AffiliationResult/AffiliationResult.svelte has a single destructured $props() with 7 named props (> 6): name, count, parties, maxComparableRowVote, isViewPercent, resultColorLookup, getOptionColor"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/Assemblies/CabinetChanges/ChangeModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/Assemblies/CabinetChanges/ChangeModal.svelte has a single destructured $props() with 7 named props (> 6): timeLineData, selectedDate, startedAt, endedAt, handleSelectDate, open, onClose"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/Assemblies/Header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/Assemblies/Header.svelte has a single destructured $props() with 10 named props (> 6): availableAssemblies, id, name, startedAt, endedAt, description, updatedAt, linkPostfix, showStatus, showRemark"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/Assemblies/Tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/Assemblies/Tooltip.svelte has a single destructured $props() with 12 named props (> 6) plus ...rest: tooltipText, open, onopen, onclose, align, direction, id, ref, tooltipStyle, showAllTime, children, tooltip"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/BackToTopButton/BackToTopButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "read: src/components/BackToTopButton/BackToTopButton.svelte:20-29 has a single destructured $props() with 8 named props (> 6): size, padding, color, bgColor, border, borderRadius, margin, showAt (script parse failed on its SCSS <style>, so counted by hand)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/BillCard/BillCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/BillCard/BillCard.svelte has a single destructured $props() with 10 named props (> 6): id, nickname, title, proposedOn, enactedOn, status, proposer, orientation, isFullWidth, class"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/CabinetMembers/CabinetProfile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/CabinetMembers/CabinetProfile.svelte has a single destructured $props() with 7 named props (> 6): id, name, avatar, partyName, partyLogo, imgSize, partySize"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/DataPage/DataPage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/DataPage/DataPage.svelte has a single destructured $props() with 16 named props (> 6): breadcrumbList, searchPlaceholder, comboboxFilterList, checkboxFilterList, filteredData, tableHeader, tablePageSize, searchQuery, selectedComboboxValue, selectedCheckboxValue, queryStateConfig, downloadSize, downloadLinks, unit, …"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/Index/ContentSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/Index/ContentSection.svelte has a single destructured $props() with 8 named props (> 6): id, title, icon, searchPlaceholder, searchCategories, class, description, children"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/Index/StatCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/Index/StatCard.svelte has a single destructured $props() with 12 named props (> 6): class, reason, value, id, name, avatar, label, partyName, partyLogo, year, position, cabinetTerms"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/PoliticianPicture/PoliticianPicture.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/PoliticianPicture/PoliticianPicture.svelte has a single destructured $props() with 7 named props (> 6): class, avatar, size, avatarClass, partyLogo, partySize, partyClass"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/PoliticianProfile/PoliticianProfile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/PoliticianProfile/PoliticianProfile.svelte has a single destructured $props() with 9 named props (> 6): id, name, avatar, partyLogo, partyName, role, isLarge, isActive, showAvatar"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/VoteCard/VoteCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/VoteCard/VoteCard.svelte has a single destructured $props() with 7 named props (> 6): date, title, id, result, votesSummary, isFullWidth, class"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::architecture/prop-count::src/components/bills/Progress.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/components/bills/Progress.svelte has a single destructured $props() with 9 named props (> 6): type, title, description, date, links, mergeDetail, voting, currentBillId, innerWidth"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/Assemblies/HalfDonut.story.svelte:30::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each halfDonuts as halfDonut, i (i)}' keyed by its index binding; halfDonuts is a literal sample list in a story file (let halfDonuts = [ ... ] :7, never reassigned); static demo list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/Assemblies/RoleChanges/RoleChangeGroup.svelte:40::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each changeData as roleChangeData, index (index)}' keyed by its index binding; changeData prop (:12) are role-change records from load data that change with the selected date; runtime records"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/Assemblies/SeatChart.svelte:131::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each points as point, i (i)}' keyed by its index binding; points = $derived (:85), computed seat coordinates of the chart; positional list (one seat per index)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/ComparisonTable/ComparisonTable.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each Object.values(row) as cell, cellIndex (cellIndex)}' keyed by its index binding; Object.values(row), the cells of one table row (rows keyed at :20); positional list (table cells)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/LegislativeProcess/BillStatusCard.svelte:41::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each descriptionList as list, i (i)}' keyed by its index binding; descriptionList comes from the authored literal billStatus entries in LegislativeProcess/data.ts:42-82 (OverviewSection.svelte:143); static list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/LegislativeProcess/sections/DutiesSection.svelte:24::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each representatives as section, i (i)}' keyed by its index binding; representatives come from the literal dutySection object in legislative-process/+page.server.ts:280; static authored list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/LegislativeProcess/sections/DutiesSection.svelte:42::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each senates as section, i (i)}' keyed by its index binding; senates come from the literal dutySection object in legislative-process/+page.server.ts:280; static authored list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/LegislativeProcess/sections/DutiesSection.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each both as section, i (i)}' keyed by its index binding; both comes from the literal dutySection object in legislative-process/+page.server.ts:280; static authored list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/LegislativeProcess/sections/OverviewSection.svelte:123::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each legislations as legislation, i (i)}' keyed by its index binding; legislations is the literal list in legislative-process/+page.server.ts:155, passed via data.legislations (+page.svelte:60); static authored list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/SearchResultGroup/HighlightText.svelte:15::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each textList as text, idx (idx)}' keyed by its index binding; textList prop (:11) is the highlighted/plain segments of one search-result string; positional list (text segments)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/SearchResultGroup/SearchResultGroup.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each items as item, index (index)}' keyed by its index binding; items prop (:12) are search results that change as the user types; runtime list"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/politicians/PartyDetail.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each memberships as { posts: [post], start_date, end_date }' keyed by its index binding; memberships prop (:12) are a politician's party-membership records from load data; runtime records"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/components/politicians/PoliticianVoteSummary.svelte:70::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each voting.latest as latestVoting, idx (idx)}' keyed by its index binding; voting.latest are a politician's latest vote records from load data; runtime records"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/routes/bills/[id]/+page.svelte:209::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each events.slice(0, events.length - 1) as event, i (i)}' keyed by its index binding; events = $derived(data) (:27), the bill's event records from load data that change with the [id] param; runtime records"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/routes/politicians/[id]/+page.svelte:163::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each politician.educations.split('\\n') as education, idx (idx)}' keyed by its index binding; politician.educations.split('\\n'), the lines of one text field; positional list (text segments)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/routes/politicians/[id]/+page.svelte:171::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each politician.previous_occupations.split('\\n') as oldjob, idx (idx)}' keyed by its index binding; politician.previous_occupations.split('\\n'), the lines of one text field; positional list (text segments)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/routes/politicians/[id]/+page.svelte:231::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each assemblyMemberships as { posts: [post], start_date, end_date }' keyed by its index binding; assemblyMemberships = $derived (:58) of the politician's membership records from load data (change with [id]); runtime records"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::correctness/each-index-key::src/routes/politicians/[id]/+page.svelte:96::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each currentAssemblyMemberships as { posts: [post] }' keyed by its index binding; currentAssemblyMemberships = $derived filter (:63) of the politician's membership records; runtime records"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::performance/image-loading-hint::src/routes/assemblies/[id]/members/[groupby]/+page.svelte:179::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> in {#each group.subgroups as { name, members, icon }}{#if icon} (:177), but the load never sets icon: [groupby]/+page.server.ts:62-77 maps each group/subgroup to {name, members} only — the element never renders with the shipped data"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::performance/image-loading-hint::src/routes/assemblies/[id]/members/[groupby]/+page.svelte:215::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> in {#if group.icon} (:213), but the load never sets icon: [groupby]/+page.server.ts:62-77 maps each group to {name, members} only — the element never renders with the shipped data"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::performance/responsive-image::src/routes/assemblies/[id]/members/[groupby]/+page.svelte:179::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> in {#each group.subgroups as { name, members, icon }}{#if icon} (:177), but the load never sets icon: [groupby]/+page.server.ts:62-77 maps each group/subgroup to {name, members} only — the element never renders with the shipped data"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::performance/responsive-image::src/routes/assemblies/[id]/members/[groupby]/+page.svelte:215::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> in {#if group.icon} (:213), but the load never sets icon: [groupby]/+page.server.ts:62-77 maps each group to {name, members} only — the element never renders with the shipped data"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::performance/sequential-awaits::src/routes/+page.server.ts:138::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:138-141: Promise.all of getBillCategoryOptions()/getRepresentativeTermOptions() (bill/overview.ts: argument-less graphql.query calls) uses nothing from the earlier term/people queries — could join the first Promise.all"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::performance/sequential-awaits::src/routes/+page.server.ts:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.server.ts:38-45: the people graphql.query (remote Politigraph GraphQL via $lib/politigraph/client.ts, LRU cache only on hit) uses only the CHUAN_ID/BANYAT_ID constants, nothing from the preceding getLatestTerm Promise.all — independent requests serialized"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::security/raw-html::src/components/Index/StatCard.svelte:147::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read StatCard.svelte:126-138: description = DESC_LOOKUP[reason], a literal Thai string table in the same file — repo-authored, reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; / has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /about has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/assemblies/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /assemblies/[id] has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/assemblies/[id]/changes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /assemblies/[id]/changes has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/assemblies/[id]/members/[groupby]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /assemblies/[id]/members/[groupby] has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/assemblies/[id]/votes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /assemblies/[id]/votes has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/bills/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /bills/[id] has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/bills/explore/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /bills/explore has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/bills/term/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /bills/term/[id] has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/legislative-process/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /legislative-process has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/politicians/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /politicians/[id] has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/politicians/[id]/votes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /politicians/[id]/votes has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/votings/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /votings/[id] has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/json-ld::src/routes/votings/[id]/votes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): none in src or app.html, root +layout.svelte head has only title/description/OG/twitter/canonical, @wevisdemo/ui is used only for cookie-consent; /votings/[id]/votes has no JSON-LD (public civic site parliamentwatch.wevis.info)"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/ or routes, no hook/Caddyfile rule serving one (Caddyfile reverse-proxies everything to the node server); public civic site parliamentwatch.wevis.info"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/single-h1::src/components/LegislativeProcess/sections/OverviewSection.svelte:18::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: legislative-process/+page.svelte renders its own <h1> (:40) and then OverviewSection, ProcessSection, VotingSection and DutiesSection unconditionally (:60-63), each opening with an <h1> (OverviewSection:18, ProcessSection:19, VotingSection:10, DutiesSection:15) — five <h1>s render together"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/single-h1::src/routes/bills/[id]/+page.svelte:126::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: bills/[id] renders <h1>{displayName} (:62) unconditionally plus <h1>รายชื่อผู้เสนอกฎหมาย (:126) {#if proposer && 'assembly' in proposer} and <h1>เส้นทางกฎหมาย (:194) {#if events.length > 0} in separate blocks — several <h1>s co-render on a typical bill"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/single-h1::src/routes/votings/[id]/+page.svelte:283::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: votings/[id] renders the title <h1> (:210/:217, one arm), the results <h1>ผลการลงมติ (:283) unconditionally and <h1>ผลการลงมติรายสังกัด (:374) in the results arm — at least two <h1>s render together"
+  },
+  {
+    "key": "wevisdemo/parliament-watch::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or routes and no generator repo-wide; public civic site with many public bill/politician/voting pages to list"
+  }
+]

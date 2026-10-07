@@ -1,0 +1,927 @@
+[
+  {
+    "key": "karaberke/my-kitchen::a11y/id-duplication::src/lib/components/Sheet.svelte:54::Duplicate id \"sheet-title\"",
+    "verdict": "tp",
+    "basis": "read: Sheet.svelte:34-54 renders an unconditional native <dialog aria-labelledby=\"sheet-title\"> holding <h2 id=\"sheet-title\">; closed dialogs stay in the DOM, and every flagged route renders several <Sheet>s (e.g. grocery/[listId]/+page.svelte:396/471/559/614), so the id repeats and each dialog's aria-labelledby resolves to the first sheet's title"
+  },
+  {
+    "key": "karaberke/my-kitchen::a11y/interactive-nesting::src/lib/components/IngredientAutocomplete.svelte:165::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read src/lib/components/IngredientAutocomplete.svelte:165: literal <button type=button> inside <li role=\"option\"> of the autocomplete listbox; option is children-presentational, so the inner button is hidden/flattened for AT while staying focusable"
+  },
+  {
+    "key": "karaberke/my-kitchen::a11y/interactive-nesting::src/lib/components/IngredientAutocomplete.svelte:192::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read src/lib/components/IngredientAutocomplete.svelte:192: literal <button type=button> inside <li role=\"option\"> of the autocomplete listbox; option is children-presentational, so the inner button is hidden/flattened for AT while staying focusable"
+  },
+  {
+    "key": "karaberke/my-kitchen::a11y/permitted-contents::src/routes/(app)/plan/+page.svelte:153::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/(app)/plan/+page.svelte:153 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "karaberke/my-kitchen::a11y/permitted-contents::src/routes/(app)/plan/+page.svelte:154::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/(app)/plan/+page.svelte:154 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "karaberke/my-kitchen::a11y/permitted-contents::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:392::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:392 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "karaberke/my-kitchen::a11y/permitted-contents::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:395::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:395 is a literal <p> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/lib/components/BarcodeScanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BarcodeScanner.svelte has 379 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/lib/components/IngredientAutocomplete.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/IngredientAutocomplete.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/lib/components/RecipeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RecipeForm.svelte has 730 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/lib/components/ScanConfirm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScanConfirm.svelte has 350 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/grocery/[listId=uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/grocery/[listId=uuid]/+page.svelte has 686 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/household/[id=uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/household/[id=uuid]/+page.svelte has 254 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/pantry/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/pantry/+page.svelte has 557 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/recipes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/recipes/+page.svelte has 301 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/recipes/[id=uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/recipes/[id=uuid]/+page.svelte has 602 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte has 589 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/recipes/import/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/recipes/import/+page.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/component-size::src/routes/(app)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/+page.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/prop-count::src/lib/components/IngredientAutocomplete.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/IngredientAutocomplete.svelte has a single destructured $props() with 10 named props (> 6): name, ingredientId, identityLabel, createIdentity, proposed, propose, inputId, fieldName, placeholder, onenter"
+  },
+  {
+    "key": "karaberke/my-kitchen::architecture/prop-count::src/lib/components/RecipeForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/RecipeForm.svelte has a single destructured $props() with 9 named props (> 6): initial, identityLabels, errors, message, conflict, mode, expectedRevision, image, action"
+  },
+  {
+    "key": "karaberke/my-kitchen::correctness/effect-as-derived::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:77::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte:77 the effect rebuilds items from data.preview, and items is then deeply edited in place (items[i].allocations/ingredientId/mode/loading = ..., 110-129; the comment at 74 says so); a $derived value is not deeply proxied (ledger deep-write convention)"
+  },
+  {
+    "key": "karaberke/my-kitchen::performance/image-loading-hint::src/routes/(app)/recipes/[id=uuid]/+page.svelte:179::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; recipe photo at the top of the detail article in an aspect-ratio 3/2 frame ([id=uuid]/+page.svelte:172-185) — the hero, above the fold and the likely LCP, where the docs keep the image eager"
+  },
+  {
+    "key": "karaberke/my-kitchen::performance/responsive-image::src/routes/(app)/recipes/[id=uuid]/+page.svelte:179::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src is the single /media/{id}/detail variant ([id=uuid]/+page.svelte:180) although the image pipeline stores several sized variants (lib/server/media/image-pipeline.ts IMAGE_VARIANTS) — one fixed-size asset for every viewport"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/grocery/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/grocery/lists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/household/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/pantry/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/pantry/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/recipes/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps — but not a search target (auth-gated: (app)/+layout.server.ts:8 requireUser(event) redirects guests to /login, lib/server/access.ts:47-51), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps; /login is publicly reachable and rendered (no noindex, no robots.txt), per ledger convention for login/register/invite pages"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps; /register is publicly reachable and rendered (no noindex, no robots.txt), per ledger convention for login/register/invite pages"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/canonical-url::src/routes/invite/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no <link rel=\"canonical\"> anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps; /invite/[token] is publicly reachable and rendered (no noindex, no robots.txt), per ledger convention for login/register/invite pages"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/grocery/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /grocery; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /grocery/[listId=uuid]; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/grocery/lists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /grocery/lists; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/household/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /household; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /household/[id=uuid]; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/pantry/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /pantry; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/pantry/history/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /pantry/history; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /plan; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes/[id=uuid]; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes/[id=uuid]/cook; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes/[id=uuid]/edit; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes/add; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes/import; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/recipes/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /recipes/new; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /settings; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /settings/ingredient-links; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose) whose (app) routes are login-gated ((app)/+layout.server.ts:7 requireUser), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /login; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /register; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/description-presence::src/routes/invite/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in src or app.html (the name=\"description\" hits are form fields; literal claim holds) on /invite/[token]; My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose), not a search target"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/grocery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /grocery"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /grocery/[listId=uuid]"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/grocery/lists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /grocery/lists"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/household/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /household"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /household/[id=uuid]"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/pantry/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /pantry"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/pantry/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /pantry/history"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /plan"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes/[id=uuid]"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes/[id=uuid]/cook"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes/[id=uuid]/edit"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes/add"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes/import"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/recipes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /recipes/new"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /settings"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /settings/ingredient-links"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /login"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /register"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/json-ld::src/routes/invite/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): the only ld+json code (lib/shared/recipe-html.ts, client/import-parse.ts) parses JSON-LD out of imported recipe pages, it never emits a block; nothing on /invite/[token]"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/grocery/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/grocery/lists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/pantry/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/recipes/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-description::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:description anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/grocery/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/grocery/lists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/pantry/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/recipes/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-image::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:image anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/grocery/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/grocery/lists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/pantry/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/recipes/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-title::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:title anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/grocery/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/grocery/lists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/pantry/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/recipes/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/og-url::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no og:url anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml file, route or generator anywhere in the repo (literal claim holds); My Kitchen is a self-hosted household app (README: 'Self-hosted recipes, grocery lists and pantry tracking for your household', Docker Compose), nothing public to list"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/grocery/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/grocery/[listId=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/grocery/lists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/household/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/household/[id=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/pantry/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/pantry/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/[id=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/[id=uuid]/cook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/[id=uuid]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/recipes/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(app)/settings/ingredient-links/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  },
+  {
+    "key": "karaberke/my-kitchen::seo/twitter-card::src/routes/invite/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_label.mjs): no twitter:card anywhere in src or app.html (excluding recipe-html.test.ts fixtures of imported third-party pages); the only <svelte:head> is root +layout.svelte:10-12 (<title>); no meta-tag library and no Svelte component packages among deps"
+  }
+]

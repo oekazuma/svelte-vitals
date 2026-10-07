@@ -1,0 +1,992 @@
+[
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/disallowed-aria-props::src/routes/packages/+page.svelte:21::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal <span> with aria-label, no role attribute, no spread, not in SVG; generic role prohibits naming"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/disallowed-aria-props::src/routes/packages/Category.svelte:38::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal <span> with aria-label, no role attribute, no spread, not in SVG; generic role prohibits naming"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/duplicate-landmark::../../packages/site-kit/src/lib/components/Shell.svelte:44::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: site-kit Shell.svelte:44 renders an unconditional <main id=\"main\"> around {@render children()} (root +layout.svelte:52 wraps every route in <Shell>); search/+page.svelte:11 renders its own unconditional <main>, nested inside it -> two main landmarks on /search"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/permitted-contents::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:48::`<h#>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <h3> at this line has nearest literal element ancestor <label> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/(authed)/apps/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/apps/+page.svelte has 314 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/(authed)/playground/[...id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/playground/[...id]/+page.svelte has 277 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/(authed)/playground/[...id]/AppControls.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(authed)/playground/[...id]/AppControls.svelte has 335 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/_home/Supporters/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/_home/Supporters/index.svelte has 763 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/_home/Testimonials.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/_home/Testimonials.svelte has 213 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/_home/Video.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/_home/Video.svelte has 251 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte has 266 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/packages/PackageCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/packages/PackageCard.svelte has 288 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/tutorial/[...slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tutorial/[...slug]/+page.svelte has 488 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/tutorial/[...slug]/Output.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tutorial/[...slug]/Output.svelte has 219 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/component-size::src/routes/tutorial/[...slug]/filetree/Item.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tutorial/[...slug]/filetree/Item.svelte has 213 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/prop-count::src/routes/(authed)/playground/[...id]/AppControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): name, modified, user, repl, gist, examples, forked, saved"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::architecture/prop-count::src/routes/tutorial/[...slug]/filetree/Item.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): basename, icon, depth, selected, can_rename, renaming, actions, onclick, onkeydown, onrename, oncancel, onedit"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/lib/components/RelatedLinks.svelte:13::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each links as link}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: links), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/lib/components/RelatedLinks.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each link.breadcrumbs as breadcrumb}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: link), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/(authed)/apps/+page.svelte:103::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.gists as gist}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/(authed)/playground/[...id]/AppControls.svelte:174::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each examples as section}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: examples), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/(authed)/playground/[...id]/AppControls.svelte:179::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each section.examples as example}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: section), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/_home/Supporters/index.svelte:19::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each contributors as contributor, i}' has no key and is not an inline literal/length-only/itemless shape; static list (contributors.js is a static module written by scripts/get_contributors.js): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/_home/Supporters/index.svelte:30::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each donors as donor, i}' has no key and is not an inline literal/length-only/itemless shape; static list (donors.js is a static module written by scripts/get_donors.js): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/blog/+page.svelte:41::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.posts.slice(1) as post}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/blog/+page.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each whats_new as post}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (const-computed: whats_new), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/blog/Byline.svelte:12::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each post.authors as author, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: post), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/docs/RemovedPage.svelte:39::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each docs.values() as [title, href]}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: docs), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/docs/[topic]/[...path=documentation]/Breadcrumbs.svelte:6::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each breadcrumbs as { title }}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: breadcrumbs), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:59::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each document.sections as section}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: document), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each section.subsections as subsection}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: section), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/packages/+page.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.homepage as category}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/packages/Category.svelte:28::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each packages.slice(0, INITIAL_ITEMS) as pkg}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: packages), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/packages/Category.svelte:47::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each packages.slice(INITIAL_ITEMS) as pkg}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: packages), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/Controls.svelte:23::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each index as part}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: index), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/Controls.svelte:27::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each part.chapters as chapter}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: part), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/Controls.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each chapter.exercises as exercise}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (template-scope: chapter), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/Output.svelte:175::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each adapter_state.logs as log}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (import:./adapter.svelte: adapter_state), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/filetree/ContextMenu.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each menu_items.items as item}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (state: menu_items), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/filetree/Folder.svelte:158::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each child_directories as directory}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (derived: child_directories), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/filetree/Folder.svelte:180::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each child_files as file, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (derived: child_files), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/each-key::src/routes/tutorial/[...slug]/filetree/Item.svelte:105::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each actions as action}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: actions), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::correctness/prop-mutation::src/routes/tutorial/[...slug]/filetree/Filetree.svelte:64::Prop \"workspace\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "workspace.add(file): Workspace (packages/repl Workspace.svelte.ts:101) is a class with $state/$state.raw fields, so the mutation is reactive; documented class-instance limitation"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::performance/iframe-loading::src/routes/tutorial/[...slug]/Output.svelte:157::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attr and no spread; no src at all: bind:this playground output pane whose document is injected by script, the visible main pane — eager is right per docs"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::performance/image-dimensions::src/routes/(authed)/apps/+page.svelte:61::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (.avatar {width:2.4rem;height:2.4rem} in the same file), so no CLS from the missing attributes"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::performance/image-loading-hint::src/routes/(authed)/apps/+page.svelte:61::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attr and no spread; read: avatar inside the page <header> next to the h1 — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::performance/responsive-image::src/routes/(authed)/apps/+page.svelte:61::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/blog/+page.svelte:33::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/blog/+page.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/blog/[slug]/+page.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/blog/[slug]/+page.svelte:31::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/docs/RemovedPage.svelte:41::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/docs/[topic]/[...path=documentation]/+page.svelte:87::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/docs/[topic]/[...path=documentation]/+page.svelte:99::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:73::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/packages/Category.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/tutorial/[...slug]/Output.svelte:176::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/raw-html::src/routes/tutorial/[...slug]/Sidebar.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored content rendered at build/server time (blog/docs markdown, headings, tutorial html, PACKAGES_META descriptions) or escaped (escape_html title; terminal logs escape_html'd before ansi-to-html; RemovedPage escapes <) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::security/server-module-state::src/routes/edge.svg/+server.js:126::module-scope variable \"isDark\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: GET sets module `isDark` from the query then calls the synchronous render() with no await in between, so no other request can interleave; request data does not leak across requests"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/(authed)/apps/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 46 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/(authed)/playground/[...id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 83 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (dom-head:../../packages/repl/src/lib/Output/Viewer.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>); workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 73 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (dom-head:../../packages/repl/src/lib/Output/Viewer.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>); workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 50 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 47 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/[topic]/[...path=documentation]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 53 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/component-directives/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/element-directives/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/kit/modules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/llms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/logic-blocks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/docs/special-elements/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/packages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 53 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/canonical-url::src/routes/tutorial/[...slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 89 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (dom-head:../../packages/repl/src/lib/Output/Viewer.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>); workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-length::src/routes/(authed)/playground/[...id]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Interactive Svelte playground\" = 29 graphemes (<70)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-length::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Interactive Svelte playground\" = 29 graphemes (<70)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-length::src/routes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Web development for the rest of us\" = 34 graphemes (<70)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-length::src/routes/blog/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Articles about Svelte and UI development\" = 40 graphemes (<70)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-length::src/routes/packages/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Packages for your Svelte and SvelteKit apps\" = 43 graphemes (<70)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/(authed)/apps/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 46 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/component-directives/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/element-directives/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/kit/modules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/llms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/logic-blocks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/docs/special-elements/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/description-presence::src/routes/tutorial/[...slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 89 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (dom-head:../../packages/repl/src/lib/Output/Viewer.svelte: <style>/<script>/JSON-LD injection, no <meta name=description>); workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/duplicate-description::src/routes/(authed)/playground/[...id]/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "playground/[...id]/+page.svelte:185 and embed/+page.svelte:62 both literal \"Interactive Svelte playground\""
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/duplicate-description::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "playground/[...id]/+page.svelte:185 and embed/+page.svelte:62 both literal \"Interactive Svelte playground\""
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/indexability::src/routes/docs/component-directives/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "page renders ../RemovedPage.svelte unconditionally; RemovedPage.svelte:27 <svelte:head><meta name=robots content=noindex>"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/indexability::src/routes/docs/element-directives/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "page renders ../RemovedPage.svelte unconditionally; RemovedPage.svelte:27 <svelte:head><meta name=robots content=noindex>"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/indexability::src/routes/docs/kit/modules/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "page renders ../RemovedPage.svelte unconditionally; RemovedPage.svelte:27 <svelte:head><meta name=robots content=noindex>"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/indexability::src/routes/docs/logic-blocks/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "page renders ../RemovedPage.svelte unconditionally; RemovedPage.svelte:27 <svelte:head><meta name=robots content=noindex>"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/indexability::src/routes/docs/special-elements/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "page renders ../RemovedPage.svelte unconditionally; RemovedPage.svelte:27 <svelte:head><meta name=robots content=noindex>"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/(authed)/apps/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/(authed)/playground/[...id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 30 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 32 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 27 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 25 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/[topic]/[...path=documentation]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 31 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/component-directives/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/element-directives/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/kit/modules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/llms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 25 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/logic-blocks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/docs/special-elements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 26 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/packages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 27 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 25 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/json-ld::src/routes/tutorial/[...slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 42 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/(authed)/apps/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/(authed)/playground/[...id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/[topic]/[...path=documentation]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/component-directives/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/element-directives/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/kit/modules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/llms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/logic-blocks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/docs/special-elements/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/packages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-description::src/routes/tutorial/[...slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/(authed)/apps/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/(authed)/playground/[...id]/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/(authed)/playground/[...id]/embed/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/blog/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/blog/[slug]/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/[topic]/[...path=documentation]/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/component-directives/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/element-directives/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/kit/modules/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/llms/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/logic-blocks/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/docs/special-elements/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/packages/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-image::src/routes/search/+page.svelte::<meta name=\"og:image\"> should be <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: only og:image in the route chain is <meta name=\"og:image\">; Open Graph reads property= (message now names the attribute)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/(authed)/apps/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/(authed)/playground/[...id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/[topic]/[...path=documentation]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/component-directives/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/element-directives/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/kit/modules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/llms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/logic-blocks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/docs/special-elements/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/packages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/(authed)/apps/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/(authed)/playground/[...id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/(authed)/playground/[...id]/embed/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/blog/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/[topic]/[...path=documentation]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/component-directives/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/element-directives/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/kit/modules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/llms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/logic-blocks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/docs/special-elements/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/packages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/single-h1::/playground/[...id]/embed::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/single-h1::/playground/[...id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/single-h1::/search::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/single-h1::/tutorial/[...slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in chain/components (#lib, site-kit followed); {@html exercise.html} is site-kit markdown (heading depth->h{depth}, no injected title) and no tutorial index.md has an h1 outside code fences (169 checked)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/single-h1::src/routes/_home/Hero.svelte:11::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "visually-hidden <h1>Svelte</h1> and Hero <h1> both render unconditionally"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "no static/sitemap.xml, no sitemap.xml endpoint, hook or build generator (repo-wide grep); kit.files not overridden"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-length::src/routes/(authed)/apps/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Your apps • Svelte\" = 18 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-length::src/routes/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Blog • Svelte\" = 13 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Docs • Svelte\" = 13 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-length::src/routes/packages/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Packages • Svelte\" = 17 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-length::src/routes/search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Search • Svelte\" = 15 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-presence::src/routes/docs/component-directives/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-presence::src/routes/docs/element-directives/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-presence::src/routes/docs/kit/modules/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-presence::src/routes/docs/llms/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 42 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-presence::src/routes/docs/logic-blocks/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::seo/title-presence::src/routes/docs/special-elements/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 43 transitively imported files, or app.html; no meta-tag library in deps; workspace @sveltejs/site-kit followed; RemovedPage.svelte head read (robots noindex only)"
+  }
+]

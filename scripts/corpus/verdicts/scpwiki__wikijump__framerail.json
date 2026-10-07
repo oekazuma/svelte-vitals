@@ -1,0 +1,1132 @@
+[
+  {
+    "key": "scpwiki/wikijump:framerail::a11y/deprecated-attr::src/lib/sigma-esque/wikidot.svelte:7::`name` on <a> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read wikidot.svelte:7: literal <a name=\"page-top\"> (not in svg); <a name> is obsolete, id is the replacement"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::a11y/disallowed-aria-props::src/lib/component/tabs/Tab.svelte:73::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, ctx.mjs) + read: literal <div> at Tab.svelte:73 carries aria-labelledby, no role attribute, no spread, not in svg; generic role prohibits naming"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::a11y/disallowed-aria-props::src/lib/popup/error.svelte:81::`aria-labelledby` is prohibited on role `presentation`",
+    "verdict": "tp",
+    "basis": "read error.svelte:81: <div role=\"presentation\" aria-labelledby=\"modal-title\" aria-describedby> (no spread); presentation/generic roles prohibit naming, so the label is not exposed"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::a11y/permitted-contents::src/lib/component/Select.svelte:37::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at Select.svelte:37 has literal parent <label> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <label>'s permitted content"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::a11y/permitted-contents::src/lib/component/TextBox.svelte:43::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at TextBox.svelte:43 has literal parent <label> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <label>'s permitted content"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::a11y/permitted-contents::src/lib/component/TextInput.svelte:73::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at TextInput.svelte:73 has literal parent <label> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <label>'s permitted content"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/lib/component/Button.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/lib/component/Button.svelte has 292 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/lib/component/Spinny.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/lib/component/Spinny.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/lib/component/TextInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/lib/component/TextInput.svelte has 261 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/lib/component/Toggle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/lib/component/Toggle.svelte has 207 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/lib/sigma-esque/sigma-esque.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/lib/sigma-esque/sigma-esque.svelte has 262 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/+error.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/+error.svelte has 406 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/+layout.svelte has 231 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[slug]/[...extra]/FilePane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[slug]/[...extra]/FilePane.svelte has 927 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[slug]/[...extra]/HistoryPane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[slug]/[...extra]/HistoryPane.svelte has 361 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[slug]/[...extra]/LockPane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[slug]/[...extra]/LockPane.svelte has 370 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[slug]/[...extra]/VotePane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[slug]/[...extra]/VotePane.svelte has 242 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[slug]/[...extra]/page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[slug]/[...extra]/page.svelte has 551 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[x+2d]/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[x+2d]/admin/+page.svelte has 243 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/component-size::src/routes/[x+2d]/user/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: framerail/src/routes/[x+2d]/user/+page.svelte has 207 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/prop-count::src/lib/component/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 14 named props (> 6) plus a ...rest element: i, disabled, active, tip, size, href, submit, wide, primary, baseline, compact, floating, sharp, children (parsed with <style> removed: it uses a preprocessor)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/prop-count::src/lib/component/Spinny.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6) plus a ...rest element: inline, top, left, size, wait, status, loud, description (parsed with <style> removed: it uses a preprocessor)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/prop-count::src/lib/component/TextInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6) plus a ...rest element: name, label, value, required, clearable, info, icon, input, noborder, novalidate, wide"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::architecture/prop-count::src/lib/component/Toggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6) plus a ...rest element: name, type, toggled, size, wide, flipped, children"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::correctness/effect-as-onmount::src/lib/popup/error.svelte:26::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/popup/error.svelte:26; only adds/removes a window keydown listener for a local handler; nothing reactive read"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::correctness/instance-browser-global::src/lib/component/IntersectionPoint.svelte:32::IntersectionObserver is accessed during component initialisation — during SSR this runs on the server, where IntersectionObserver is not defined",
+    "verdict": "tp",
+    "basis": "read: src/lib/component/IntersectionPoint.svelte:32 `new IntersectionObserver(...)` at instance top level (outside onMount); framerail's routes export no ssr, so SSR is on; the component currently has no importer, but any SSR render of it throws ReferenceError as claimed"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::correctness/prop-mutation::src/lib/component/TextInput.svelte:110::Prop \"input\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/component/TextInput.svelte:110; input is an HTMLInputElement ref and input.type = 'text'/'password' toggles password visibility, an intended DOM side effect, not state; member write matched as the docs describe, no type info to exempt it (ledger listEl convention)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::correctness/prop-mutation::src/lib/component/TextInput.svelte:111::Prop \"input\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/component/TextInput.svelte:111; input is an HTMLInputElement ref and input.type = 'text'/'password' toggles password visibility, an intended DOM side effect, not state; member write matched as the docs describe, no type info to exempt it (ledger listEl convention)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::performance/state-raw::src/routes/+error.svelte:18::\"deletedPages\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/+error.svelte: only whole-binding reassignments and template/read-only uses; no member writes, method calls, bind:, call-arg or prop escapes; each-items only read — $state.raw fits per docs"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/lib/popup/error.svelte:69::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/lib/popup/error.svelte:69: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/+error.svelte:214::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/+error.svelte:214: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/FilePane.svelte:392::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/FilePane.svelte:392: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/FilePane.svelte:404::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/FilePane.svelte:404: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/FilePane.svelte:415::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/FilePane.svelte:415: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/FilePane.svelte:426::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/FilePane.svelte:426: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/FilePane.svelte:437::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/FilePane.svelte:437: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/FilePane.svelte:829::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/FilePane.svelte:829: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/HistoryPane.svelte:183::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/HistoryPane.svelte:183: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/HistoryPane.svelte:198::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/HistoryPane.svelte:198: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/HistoryPane.svelte:213::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/HistoryPane.svelte:213: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/VotePane.svelte:139::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/VotePane.svelte:139: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/VotePane.svelte:142::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/VotePane.svelte:142: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/VotePane.svelte:145::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/VotePane.svelte:145: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/VotePane.svelte:152::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/VotePane.svelte:152: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:168::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:168: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:178::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:178: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:191::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:191: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:204::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:204: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:218::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:218: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:233::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:233: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:243::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:243: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:256::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:256: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:269::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:269: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:282::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:282: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:295::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:295: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/javascript-url::src/routes/[slug]/[...extra]/page.svelte:312::javascript: URL in an attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:312: literal author-written href=\"javascript:;\"/\"javascript:void(0);\" on an <a> used as a button stand-in (onclick/metisMenu toggle) — the docs' shape; a <button type=button> fixes it (no CSP configured in the app today, so the breakage is latent)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/lib/component/Icon.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/component/Icon.svelte:55: icon.body from the local Iconify icon set — repo data"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+error.svelte:204::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+error.svelte:204: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+error.svelte:372::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+error.svelte:372: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+layout.svelte:113::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:113: Fluent i18n message from the backend localization (license name param) — not user input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+layout.svelte:121::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:121: wjBanner is a repo SVG imported with ?raw"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+layout.svelte:126::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:126: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+layout.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:39: `ui` is a repo SVG sprite imported with ?raw"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+layout.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:72: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/+layout.svelte:76::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:76: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/[slug]/[...extra]/page.svelte:115::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:115: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/[slug]/[...extra]/page.svelte:117::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:117: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/[slug]/[...extra]/page.svelte:365::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:365: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/[slug]/[...extra]/page.svelte:367::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[slug]/[...extra]/page.svelte:367: compiled_*_html is DEEPWELL/FTML-compiled wikitext output (the wiki renderer escapes user text) — server-rendered, not raw input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::security/raw-html::src/routes/[x+2d]/admin/+error.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[x+2d]/admin/+error.svelte:15: page.error.html is the DEEPWELL admin_permissions view HTML generated by the backend — not user input"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[...fallback]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (route renders no content, only a client redirect stub (renders only $lib/redirect.svelte, whose $effect goto()s to the normalised path)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[slug]/[...extra]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (route renders no content, only a client redirect stub (renders only $lib/redirect.svelte, whose $effect goto()s to \"/\")), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (auth-gated: loadAdminPage (src/lib/server/load/admin.ts:51,95) throws error(401) unless the session has admin permissions), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/logout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/user/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks) but not a search target (auth-gated: slug-less /-/user shows the session user; for guests loadUser (src/lib/server/load/user.ts) gets user_missing and throws error(404) with the user-not-logged-in string), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/[x+2e]well-known/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/forum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/forum/[...fallback]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/canonical-url::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[...fallback]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[slug]/[...extra]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check): no <meta name=description> in page/layout/imports or app.html; not a search target (site admin panel; lib/server/load/admin.ts:95 throws the backend error status for users without admin rights)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/logout/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/user/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/[x+2e]well-known/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/forum/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/forum/[...fallback]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/description-presence::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check): no <meta name=description> anywhere in framerail (root +layout.svelte head has only <title>{site.name}</title>, page.svelte heads only titles), none in app.html/hooks; publicly reachable wiki/forum/auth route"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[...fallback]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[slug]/[...extra]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/logout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/user/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/[x+2e]well-known/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/forum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/forum/[...fallback]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/json-ld::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source outside node_modules (incl. app.html, hooks)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[...fallback]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/logout/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/user/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/[x+2e]well-known/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/forum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/forum/[...fallback]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-description::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[...fallback]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/logout/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/user/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/[x+2e]well-known/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/forum/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/forum/[...fallback]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-image::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[...fallback]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/logout/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/user/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/[x+2e]well-known/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/forum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/forum/[...fallback]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-title::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[...fallback]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/logout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/user/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/[x+2e]well-known/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/forum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/forum/[...fallback]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/og-url::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "no robots.txt in framerail static/ or routes (literal claim holds), but the deployment routes /robots.txt away from framerail: deepwell caddyfile.j2:135 proxies it to wws, whose handle_robots_txt (wws/src/handler/robots.rs) is a TODO returning 501; a file in framerail would never be served"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/lib/popup/error.svelte:54::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "one key for two findings (/ count 3, /[...fallback] count 2), both design. Counted: ErrorPopup <h1> (error.svelte:54) in {#if errorPopupState.current.state}, a modal closed by default, plus the root +layout.svelte Wikidot-arm header <h1> (site name, only when site layout is Wikidot). On /, [slug]/[...extra]/page.svelte adds only <h1>s in panes/source view opened by buttons (pagePaneState/showSource, exclusive arms). /[...fallback] is a client Redirect stub with no <h1>. The extras beyond the header <h1> are closed-modal or user-opened"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/[x+2d]/admin/+page.svelte:54::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "root +layout.svelte counts: ErrorPopup (lib/popup/error.svelte:54 <h1>) in {#if errorPopupState.current.state} (closed by default) + Wikidot-arm header snippet <h1> (site name) + page <h1>: setLayout forces Layout.WIKIJUMP for route ids starting \"/[x+2d]/\" (and the store starts WIKIJUMP), so the Wikidot header <h1> never renders here; what remains is the page <h1> plus the error popup <h1>, a modal closed by default"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/[x+2d]/settings/+page.svelte:1::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "root +layout.svelte counts: ErrorPopup (lib/popup/error.svelte:54 <h1>) in {#if errorPopupState.current.state} (closed by default) + Wikidot-arm header snippet <h1> (site name) + page <h1>: setLayout forces Layout.WIKIJUMP for route ids starting \"/[x+2d]/\" (and the store starts WIKIJUMP), so the Wikidot header <h1> never renders here; what remains is the page <h1> plus the error popup <h1>, a modal closed by default"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/[x+2d]/user/+page.svelte:85::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "root +layout.svelte counts: ErrorPopup (lib/popup/error.svelte:54 <h1>) in {#if errorPopupState.current.state} (closed by default) + Wikidot-arm header snippet <h1> (site name) + page <h1>: setLayout forces Layout.WIKIJUMP for route ids starting \"/[x+2d]/\" (and the store starts WIKIJUMP), so the Wikidot header <h1> never renders here; what remains is the page <h1> plus the error popup <h1>, a modal closed by default"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/[x+2e]well-known/+page.svelte:1::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "counted: page <h1> + ErrorPopup <h1> (lib/popup/error.svelte:54, in {#if errorPopupState.current.state}, closed by default) + the site-name <h1> in the root +layout.svelte:54-63 {#if pageLayoutState.current === Layout.WIKIDOT} header snippet. pageLayoutState starts as Layout.WIKIJUMP (lib/stores.svelte.ts:12) and setLayout() runs only in $effect (+layout.svelte:33), so SSR always renders the SigmaEsque arm (no <h1>, :117-123) and unset site layouts fall back to WIKIJUMP; only on a site configured 'wikidot' (e.g. seeded 'test' site) does the header <h1> co-render client-side after hydration -> one <h1> in the default render; separate blocks counted per documented semantics"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/about/+page.svelte:7::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "counted: page <h1> + ErrorPopup <h1> (lib/popup/error.svelte:54, in {#if errorPopupState.current.state}, closed by default) + the site-name <h1> in the root +layout.svelte:54-63 {#if pageLayoutState.current === Layout.WIKIDOT} header snippet. pageLayoutState starts as Layout.WIKIJUMP (lib/stores.svelte.ts:12) and setLayout() runs only in $effect (+layout.svelte:33), so SSR always renders the SigmaEsque arm (no <h1>, :117-123) and unset site layouts fall back to WIKIJUMP; only on a site configured 'wikidot' (e.g. seeded 'test' site) does the header <h1> co-render client-side after hydration -> one <h1> in the default render; separate blocks counted per documented semantics"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/forum/+page.svelte:1::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "counted: page <h1> + ErrorPopup <h1> (lib/popup/error.svelte:54, in {#if errorPopupState.current.state}, closed by default) + the site-name <h1> in the root +layout.svelte:54-63 {#if pageLayoutState.current === Layout.WIKIDOT} header snippet. pageLayoutState starts as Layout.WIKIJUMP (lib/stores.svelte.ts:12) and setLayout() runs only in $effect (+layout.svelte:33), so SSR always renders the SigmaEsque arm (no <h1>, :117-123) and unset site layouts fall back to WIKIJUMP; only on a site configured 'wikidot' (e.g. seeded 'test' site) does the header <h1> co-render client-side after hydration -> one <h1> in the default render; separate blocks counted per documented semantics"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/forum/[...fallback]/+page.svelte:1::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "counted: page <h1> + ErrorPopup <h1> (lib/popup/error.svelte:54, in {#if errorPopupState.current.state}, closed by default) + the site-name <h1> in the root +layout.svelte:54-63 {#if pageLayoutState.current === Layout.WIKIDOT} header snippet. pageLayoutState starts as Layout.WIKIJUMP (lib/stores.svelte.ts:12) and setLayout() runs only in $effect (+layout.svelte:33), so SSR always renders the SigmaEsque arm (no <h1>, :117-123) and unset site layouts fall back to WIKIJUMP; only on a site configured 'wikidot' (e.g. seeded 'test' site) does the header <h1> co-render client-side after hydration -> one <h1> in the default render; separate blocks counted per documented semantics"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/forum/c-[category=id]/[...name]/+page.svelte:11::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "counted: page <h1> + ErrorPopup <h1> (lib/popup/error.svelte:54, in {#if errorPopupState.current.state}, closed by default) + the site-name <h1> in the root +layout.svelte:54-63 {#if pageLayoutState.current === Layout.WIKIDOT} header snippet. pageLayoutState starts as Layout.WIKIJUMP (lib/stores.svelte.ts:12) and setLayout() runs only in $effect (+layout.svelte:33), so SSR always renders the SigmaEsque arm (no <h1>, :117-123) and unset site layouts fall back to WIKIJUMP; only on a site configured 'wikidot' (e.g. seeded 'test' site) does the header <h1> co-render client-side after hydration -> one <h1> in the default render; separate blocks counted per documented semantics"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/single-h1::src/routes/forum/t-[thread=id]/[...name]/+page.svelte:11::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "counted: page <h1> + ErrorPopup <h1> (lib/popup/error.svelte:54, in {#if errorPopupState.current.state}, closed by default) + the site-name <h1> in the root +layout.svelte:54-63 {#if pageLayoutState.current === Layout.WIKIDOT} header snippet. pageLayoutState starts as Layout.WIKIJUMP (lib/stores.svelte.ts:12) and setLayout() runs only in $effect (+layout.svelte:33), so SSR always renders the SigmaEsque arm (no <h1>, :117-123) and unset site layouts fall back to WIKIJUMP; only on a site configured 'wikidot' (e.g. seeded 'test' site) does the header <h1> co-render client-side after hydration -> one <h1> in the default render; separate blocks counted per documented semantics"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml file/endpoint/generator in framerail, and none in wws/deepwell routing; public multi-site wiki (page/forum routes are public content)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[...fallback]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[slug]/[...extra]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 35 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/[slug]/[...extra]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/logout/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/user/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2d]/user/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 29 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/[x+2e]well-known/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/forum/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/forum/[...fallback]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/forum/c-[category=id]/[...name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  },
+  {
+    "key": "scpwiki/wikijump:framerail::seo/twitter-card::src/routes/forum/t-[thread=id]/[...name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 18 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in framerail; heads set only <title> (+layout.svelte, page.svelte, user page.svelte)"
+  }
+]

@@ -1,0 +1,1342 @@
+[
+  {
+    "key": "ut-code/cms.utcode.net::a11y/disallowed-aria-props::src/routes/(admin)/+layout.svelte:71::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read (admin)/+layout.svelte:71: daisyUI drawer overlay <label for=\"admin-drawer\" aria-label=\"close sidebar\"> with no role/spread; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (Cinephage/skeleton/ciso precedent)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/duplicate-landmark::src/lib/components/article-form/ArticleEditor.svelte:180::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: ArticleForm.svelte:110 renders ArticleEditor unconditionally, whose root is <main> (:180); (admin)/+layout.svelte:62-66 wraps {@render children()} in <main>, so /admin/articles/new and /edit/[id] have two main landmarks"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/duplicate-landmark::src/lib/components/member-form/MemberEditor.svelte:58::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: MemberForm.svelte:73 renders MemberEditor unconditionally, whose root is <main> (:58); (admin)/+layout.svelte:62-66 wraps {@render children()} in <main>, so both member routes have two main landmarks"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/duplicate-landmark::src/lib/components/project-form/ProjectEditor.svelte:59::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: ProjectForm.svelte:94 renders ProjectEditor unconditionally, whose root is <main> (:59); (admin)/+layout.svelte:62-66 wraps {@render children()} in <main>, so both project routes have two main landmarks"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/interactive-nesting::src/lib/components/confirm-modal.svelte:146::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <button> at confirm-modal.svelte:146 has the literal interactive container <div role=\"button\"> as an ancestor in the same template, no component boundary between; the backdrop <div role=\"button\" tabindex=\"-1\"> wraps the whole role=\"dialog\", making its controls children-presentational"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/interactive-nesting::src/lib/components/confirm-modal.svelte:154::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <button> at confirm-modal.svelte:154 has the literal interactive container <div role=\"button\"> as an ancestor in the same template, no component boundary between; the backdrop <div role=\"button\" tabindex=\"-1\"> wraps the whole role=\"dialog\", making its controls children-presentational"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/interactive-nesting::src/lib/components/search-modal-base.svelte:190::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <input> at search-modal-base.svelte:190 has the literal interactive container <div role=\"button\"> as an ancestor in the same template, no component boundary between; the backdrop <div role=\"button\" tabindex=\"-1\"> wraps the whole role=\"dialog\", making its controls children-presentational"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/interactive-nesting::src/lib/components/search-modal-base.svelte:234::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <button> at search-modal-base.svelte:234 has the literal interactive container <div role=\"button\"> as an ancestor in the same template, no component boundary between; the backdrop <div role=\"button\" tabindex=\"-1\"> wraps the whole role=\"dialog\", making its controls children-presentational"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/permitted-contents::src/lib/components/article-form/ArticleEditor.svelte:232::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/pc.mjs): literal <div> at ArticleEditor.svelte:232 has literal <label>@226 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/permitted-contents::src/lib/components/search-modal-base.svelte:241::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/pc.mjs): literal <div> at search-modal-base.svelte:241 has literal <button>@234 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::a11y/permitted-contents::src/lib/components/search-modal-base.svelte:255::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/pc.mjs): literal <div> at search-modal-base.svelte:255 has literal <button>@234 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/lib/components/article-form/ArticleEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/article-form/ArticleEditor.svelte has 341 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/lib/components/article-form/ArticleFormHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/article-form/ArticleFormHeader.svelte has 262 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/lib/components/image-upload.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/image-upload.svelte has 277 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/lib/components/member-form/MemberEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/member-form/MemberEditor.svelte has 201 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/lib/components/project-form/ProjectEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/project-form/ProjectEditor.svelte has 233 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/lib/components/search-modal-base.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search-modal-base.svelte has 309 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(admin)/admin/articles/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/admin/articles/+page.svelte has 270 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(admin)/admin/migrate/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/admin/migrate/+page.svelte has 326 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(admin)/admin/projects/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/admin/projects/+page.svelte has 238 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(admin)/admin/projects/edit/[id]/+page.svelte has 250 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(site)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/+layout.svelte has 269 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(site)/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/about/+page.svelte has 321 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/component-size::src/routes/(site)/activities/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(site)/activities/+page.svelte has 253 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/ArticleForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ArticleForm.svelte has a single destructured $props() with 7 named props (> 6): initialData, authors, onSubmit, onDelete, submitLabel, isSubmitting, articleId"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/ProjectForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ProjectForm.svelte has a single destructured $props() with 7 named props (> 6): initialData, members, onSubmit, onDelete, submitLabel, isSubmitting, isNew"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/admin-dashboard/StatCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin-dashboard/StatCard.svelte has a single destructured $props() with 8 named props (> 6): label, value, sublabel, href, icon, iconColor, accentColor, stagger"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/article-form/ArticleEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/article-form/ArticleEditor.svelte has a single destructured $props() with 10 named props (> 6): title, content, slug, coverUrl, initialSlug, createRedirect, titleError, contentError, slugError, onTitleChange"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/article-form/ArticleFormHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/article-form/ArticleFormHeader.svelte has a single destructured $props() with 9 named props (> 6): published, authorId, authors, isSubmitting, saveSuccess, submitLabel, articleId, onPreview, onDelete"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/member-form/MemberEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/member-form/MemberEditor.svelte has a single destructured $props() with 11 named props (> 6): name, slug, bio, imageUrl, githubUrl, twitterUrl, websiteUrl, pageContent, nameError, slugError, onNameChange"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/project-form/ProjectEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/project-form/ProjectEditor.svelte has a single destructured $props() with 11 named props (> 6): name, description, content, slug, coverUrl, category, repoUrl, demoUrl, createdAt, errors, onNameChange"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::architecture/prop-count::src/lib/components/search-modal-base.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/search-modal-base.svelte has a single destructured $props() with 13 named props (> 6): searchFn, getResultId, getResultIcon, getResultName, getResultHref, resultMeta, placeholder, emptyStateText, noResultsText, footerNavigateText, footerSelectText, footerSearchText, theme"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::correctness/each-key::src/routes/(admin)/admin/settings/+page.svelte:59::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(admin)/admin/settings/+page.svelte:59 '{#each members as member}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (members = $derived(data.members), load returns getMembers() from the DB, src/routes/(admin)/admin/settings/+page.server.ts:6)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/iframe-loading::src/routes/(site)/about/+page.svelte:248::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: YouTube intro video in the last section after the overview, activities and FAQ sections (:32-248) — offscreen on load"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/+layout.svelte:153::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside the fixed aspect-square w-10 avatar frame (:150-153) — box reserved by CSS (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/+layout.svelte:55::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: fixed-height box (own class h-7, imported logo.svg, sticky mobile header); width auto only varies inside its row (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/+layout.svelte:80::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: fixed-height box (own class h-8, imported logo.svg, sidebar h-16 logo row); width auto only varies inside its row (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/articles/+page.svelte:192::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside the <figure class=\"aspect-[5/3] w-full sm:h-24 sm:w-36\"> (:191) — box reserved by CSS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/articles/+page.svelte:248::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside the fixed aspect-square w-5 avatar frame (:247) — box reserved by CSS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte:34::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte:50::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class aspect-square h-6 w-6), so no CLS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/members/+page.svelte:127::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside the fixed aspect-square w-14 avatar frame (:124-127) — box reserved by CSS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/projects/+page.svelte:130::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside <figure class=\"relative aspect-[5/3] overflow-hidden\"> (:129) — box reserved by CSS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(admin)/admin/projects/+page.svelte:183::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full inside the fixed aspect-square w-6 avatar frame (:182) — box reserved by CSS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/+layout.svelte:188::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: fixed-height box (own class mb-6 h-8, imported logo.svg) in the off-canvas drawer-side menu; width auto only varies inside its row (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/+layout.svelte:53::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: fixed-height box (own class h-8, imported logo.svg) in the h-16 header bar; width auto only varies inside its row (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/+layout.svelte:91::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: fixed-height box (own class h-8, imported logo.svg) in the footer; width auto only varies inside its row (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/activities/+page.svelte:14::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-72 w-full md:h-96 object-cover — fixed-height box, width from the column"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/activities/+page.svelte:230::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class w-full max-w-xl xl:max-h-96 xl:w-auto — width set below xl, natural aspect decides the height"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/articles/+page.svelte:55::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/articles/[slug]/+page.svelte:114::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/articles/[slug]/+page.svelte:67::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/articles/[slug]/+page.svelte:84::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class aspect-square h-6 w-6), so no CLS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/join/welcome-events/+page.svelte:25::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class mt-8 w-full rounded-lg only — width set, natural aspect decides the height"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/members/+page.svelte:49::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class aspect-square h-24 w-24), so no CLS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/members/[slug]/+page.svelte:129::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-10 w-16 object-cover), so no CLS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/members/[slug]/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class aspect-square h-16 w-16 sm:h-20 sm:w-20), so no CLS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/projects/+page.svelte:106::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/projects/[slug]/+page.svelte:38::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class mb-6 w-full rounded-xl only — width set, natural aspect decides the height"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/projects/[slug]/+page.svelte:95::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class aspect-square h-10 w-10), so no CLS"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/search/+page.svelte:127::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-dimensions::src/routes/(site)/search/+page.svelte:81::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class aspect-[5/3] w-full — width plus aspect-ratio reserve the box"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/+layout.svelte:153::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: signed-in user avatar in the admin sidebar user block, always on screen in the full-height drawer nav (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/+layout.svelte:55::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo (imported logo.svg) in the sticky mobile header — above the fold, where the docs keep the image eager (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/+layout.svelte:80::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo (imported logo.svg) at the top of the admin sidebar — above the fold (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/admin/articles/+page.svelte:248::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in each row of the {#each} article list — later rows are offscreen"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte:34::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: cover at the top of the preview article, right under the back link (:26-34) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte:50::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in the byline under the cover and title — above the fold"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/admin/members/+page.svelte:127::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: member avatar in each card of the {#each} members grid — later rows are offscreen"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(admin)/admin/projects/+page.svelte:183::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: member avatars in the avatar group of each {#each} project card — later rows are offscreen"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(site)/+layout.svelte:188::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the off-canvas drawer menu, the same imported logo.svg the header (:53) already loads eagerly — lazy would save nothing (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(site)/+layout.svelte:53::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo (imported logo.svg) in the site header — above the fold, where the docs keep the image eager (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(site)/+layout.svelte:91::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: footer logo, the same imported logo.svg the header (:53) already loads eagerly — lazy would save nothing (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(site)/activities/+page.svelte:14::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: cover photo at the top of the activities page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(site)/activities/+page.svelte:230::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: lab-cafe photo in a later section of the activities page (:230) — offscreen on load"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/image-loading-hint::src/routes/(site)/join/welcome-events/+page.svelte:25::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the page's main content, the event calendar image directly under the header section (:7-25) — above the fold"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/+layout.svelte:153::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: session.user.image, the OAuth profile picture URL shown at 40px — raster, one fixed-size asset (14 routes)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/articles/+page.svelte:192::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: article.coverUrl, an uploaded cover (ACCEPTED_IMAGE_TYPES rasters) shown at 144px — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/articles/+page.svelte:248::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: article.author.imageUrl, an uploaded member photo shown at 20px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte:34::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: article.coverUrl, an uploaded cover raster at full column width — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte:50::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: article.author.imageUrl, an uploaded member photo shown at 24px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/members/+page.svelte:127::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: member.imageUrl, an uploaded member photo shown at 56px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/projects/+page.svelte:130::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: project.coverUrl, an uploaded cover raster at card width — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(admin)/admin/projects/+page.svelte:183::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: pm.member.imageUrl, an uploaded member photo shown at 24px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/activities/+page.svelte:14::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/activity/learn/cover.jpg at full width — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/activities/+page.svelte:230::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/lab-cafe.jpg — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/articles/+page.svelte:55::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: resolveCoverUrl(article.coverUrl): the uploaded cover raster (no-image.svg only when missing, lib/shared/logic/image.ts:82-96) — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/articles/[slug]/+page.svelte:114::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: resolveCoverUrl(relatedArticle.coverUrl): the uploaded cover raster (no-image.svg only when missing) — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/articles/[slug]/+page.svelte:67::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: coverUrl = resolveCoverUrl(article.coverUrl): the uploaded cover raster at full column width (no-image.svg only when missing) — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/articles/[slug]/+page.svelte:84::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.article.author.imageUrl, an uploaded member photo shown at 24px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/join/welcome-events/+page.svelte:25::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/welcome/calendar.jpg at full width — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/members/+page.svelte:49::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: member.imageUrl, an uploaded member photo shown at 96px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/members/[slug]/+page.svelte:129::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: pm.project.coverUrl, an uploaded cover raster shown at 64px — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/members/[slug]/+page.svelte:52::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.member.imageUrl, an uploaded member photo shown at 64-80px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/projects/+page.svelte:106::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: project.coverUrl, an uploaded cover raster at card width — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/projects/[slug]/+page.svelte:38::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.project.coverUrl, an uploaded cover raster at full column width — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/projects/[slug]/+page.svelte:95::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: pm.member.imageUrl, an uploaded member photo shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/search/+page.svelte:127::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: project.coverUrl, an uploaded cover raster at card width — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::performance/responsive-image::src/routes/(site)/search/+page.svelte:81::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: resolveCoverUrl(article.coverUrl), the uploaded cover raster (no-image.svg only when missing) at card width — one fixed-size asset"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::security/raw-html::src/lib/components/Markdown.svelte:19::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/Markdown.svelte:11-14: html = DOMPurify.sanitize(marked.parse(content)) (isomorphic-dompurify) — sanitized, reported per docs"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::security/raw-html::src/routes/(site)/+page.svelte:25::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/+page.svelte:25 + lib/shared/logic/json-ld.ts:2-5: safeJsonLd = JSON.stringify(obj).replaceAll('<','\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::security/raw-html::src/routes/(site)/about/faq/+page.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/about/faq/+page.svelte:77 + lib/shared/logic/json-ld.ts:2-5: safeJsonLd = JSON.stringify(obj).replaceAll('<','\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::security/raw-html::src/routes/(site)/articles/[slug]/+page.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/articles/[slug]/+page.svelte:32 + lib/shared/logic/json-ld.ts:2-5: safeJsonLd = JSON.stringify(obj).replaceAll('<','\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::security/raw-html::src/routes/(site)/members/[slug]/+page.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/members/[slug]/+page.svelte:28 + lib/shared/logic/json-ld.ts:2-5: safeJsonLd = JSON.stringify(obj).replaceAll('<','\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::security/server-module-state::src/hooks.server.ts:156::module-scope variable \"lastDbLookup\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:48,150-156: lastDbLookup is the timestamp of a process-wide 2-lookups/second limiter on legacy-slug DB lookups — non-personal, shared by design (ledger process-wide rate-limiter convention)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/analytics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/articles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/members/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/migrate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/(admin)/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none) but not a search target (auth-gated: (admin)/+layout.server.ts:5-17 redirects non-members/guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 3 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/+layout.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/+layout.svelte:19 unconditional literal description \"東京大学のソフトウェアエンジニアリングサークル ut.code();\" (34) is the only description of /search (its page sets none); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/+page.svelte:23 literal description \"ut.code();は東京大学のソフトウェアエンジニアリングサークルです。学習・交流・開発を通じてプログラミングの魅力を届けます。\" (65) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/about/faq/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/about/faq/+page.svelte:72 literal description \"ut.code(); についてよくある質問とその回答をまとめました。入部方法、活動内容、参加条件などについてご確認いただけます。\" (64) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/activities/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/activities/+page.svelte:9 literal description \"ut.code(); の活動内容を紹介します。学習・交流・開発の三軸で活動しています。\" (43) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/articles/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/articles/+page.svelte:27 literal description \"ut.code(); メンバーが執筆した記事やニュースをお届けします。\" (35) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/donation/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/donation/+page.svelte:8 literal description \"ut.code();への寄付・協賛をお願いしております。皆様のご支援により、より多くの方にソフトウェア開発の魅力を届けることができます。\" (68) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/join/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/join/+page.svelte:11 literal description \"ut.code();への参加方法をご案内します。プログラミングに興味がある学生を広く歓迎しています。\" (50) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/join/welcome-events/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/join/welcome-events/+page.svelte:4 literal description \"ut.code(); 2026年春新歓イベントの日程と詳細\" (29) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/members/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/members/+page.svelte:21 literal description \"ut.code(); で活動する仲間たちを紹介します。\" (27) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-length::src/routes/(site)/projects/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/projects/+page.svelte:56 literal description \"ut.code(); が手がける様々なソフトウェアプロジェクト。\" (32) in the page's top-level svelte:head (the head also carries (site)/+layout.svelte:19's 34-char one); under 70 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/analytics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/articles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/members/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/migrate/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/(admin)/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the admin page (its svelte:head has only <title>), (admin)/+layout.svelte, root +layout.svelte or app.html (literal claim holds); not a search target: (admin)/+layout.server.ts redirects every non-member (requireUtCodeMember 401/403) to /login, and static/robots.txt Disallows /admin"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: login/+page.svelte has no svelte:head, root +layout.svelte only a favicon link, app.html none (literal claim holds); not a search target: GitHub sign-in to the CMS admin panel ('Sign in to access the admin panel'), Disallowed in static/robots.txt"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/heading-level-skip::src/routes/(admin)/admin/articles/+page.svelte:150::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:61) then the empty-state <h3> (:150, {#if articles.length === 0}{#if searchQuery}); (admin)/+layout.svelte renders no heading before {@render children()} (its ConfirmModal <h3> is after, in a closed modal) -> <h1> to <h3>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/heading-level-skip::src/routes/(admin)/admin/members/+page.svelte:91::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:39) then the empty-state <h3> (:91, {#if members.length === 0}{#if searchQuery}); (admin)/+layout.svelte renders no heading before {@render children()} (its ConfirmModal <h3> is after, in a closed modal) -> <h1> to <h3>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/heading-level-skip::src/routes/(admin)/admin/projects/+page.svelte:103::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:51) then the empty-state <h3> (:103, {#if projects.length === 0}{#if searchQuery}); (admin)/+layout.svelte renders no heading before {@render children()} (its ConfirmModal <h3> is after, in a closed modal) -> <h1> to <h3>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/analytics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/articles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/articles/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/members/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/migrate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/projects/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(admin)/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/activities/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/articles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/donation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/join/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/join/welcome-events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/projects/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/(site)/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): JSON-LD ({@html safeJsonLd(...)}) exists only in (site)/+page.svelte, articles/[slug], about/faq and members/[slug]; this route's page, (site)|(admin) layout, root layout and app.html have none, no meta/JSON-LD package in deps; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/analytics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/articles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/members/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/migrate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/(admin)/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 3 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/analytics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/articles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/members/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/migrate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/(admin)/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 3 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/analytics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/articles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/members/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/migrate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/(admin)/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 3 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/analytics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/articles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/members/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/migrate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/(admin)/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 3 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/+page.svelte:33 literal <title>Dashboard - ut.code(); CMS</title> (26) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/analytics/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/analytics/+page.svelte:12 literal <title>Analytics - ut.code(); CMS</title> (26) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/articles/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/articles/+page.svelte:45 literal <title>Articles - ut.code(); CMS</title> (25) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/articles/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/articles/new/+page.svelte:47 literal <title>New Article - ut.code(); CMS</title> (28) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/members/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/members/+page.svelte:24 literal <title>Members - ut.code(); CMS</title> (24) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/members/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/members/new/+page.svelte:46 literal <title>New Member - ut.code(); CMS</title> (27) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/projects/+page.svelte:33 literal <title>Projects - ut.code(); CMS</title> (25) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(admin)/admin/projects/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (admin)/admin/projects/new/+page.svelte:58 literal <title>New Project - ut.code(); CMS</title> (28) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/about/+page.svelte:22 literal <title>団体概要 | ut.code();</title> (17) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/about/faq/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/about/faq/+page.svelte:70 literal <title>よくある質問 (FAQ) | ut.code();</title> (25) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/activities/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/activities/+page.svelte:7 literal <title>活動内容 | ut.code();</title> (17) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/articles/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/articles/+page.svelte:25 literal <title>記事一覧 | ut.code();</title> (17) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/donation/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/donation/+page.svelte:6 literal <title>ご寄付・ご協賛のお願い | ut.code();</title> (24) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/join/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/join/+page.svelte:9 literal <title>入部案内 | ut.code();</title> (17) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/join/welcome-events/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/join/welcome-events/+page.svelte:2 literal <title>2026 年春新歓 イベント一覧 | ut.code();</title> (29) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/members/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/members/+page.svelte:19 literal <title>メンバー一覧 | ut.code();</title> (19) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-length::src/routes/(site)/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (site)/projects/+page.svelte:54 literal <title>プロジェクト一覧 | ut.code();</title> (21) in the page's top-level svelte:head, the route's only title (layouts, src/lib and app.html set none); under 30 as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte (GitHub sign-in card, lucide Github icon) has no svelte:head, no load; root +layout.svelte:8-10 svelte:head is only a favicon link; app.html has no <title>; no document.title, no transformPageChunk/ssr exports; hooks.server.ts redirects only legacy paths, not /login; /login renders untitled"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/analytics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/articles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/articles/[id]/preview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/articles/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/members/edit/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/members/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/migrate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/projects/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 43 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/(admin)/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 1 layout(s), 3 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; the og/twitter/canonical tags live in (site)/+layout.svelte:18-32 and (site) pages, outside this route's chain (root +layout.svelte head is favicon only); app.html has none; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/single-h1::/admin/articles/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; the form editor renders no <h1>; the Markdown {@html} preview is behind ArticleEditor.svelte:39/:314 showPreview = $state(false), never on load; (admin) layout has no <h1> (ConfirmModal <h3> closed); npm bits-ui@2.14.4 and lucide-svelte@0.562.0 (Icon svelte:element over SVG children) (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/single-h1::/admin/members/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; the form editor renders no <h1>; the Markdown {@html} preview is behind MemberEditor.svelte:33 showPageContentPreview = $state(false), never on load; (admin) layout has no <h1> (ConfirmModal <h3> closed); npm bits-ui@2.14.4 and lucide-svelte@0.562.0 (Icon svelte:element over SVG children) (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/single-h1::/admin/projects/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; the form editor renders no <h1>; the Markdown {@html} preview is behind ProjectEditor.svelte:37/:180 showPreview = $state(false), never on load; (admin) layout has no <h1> (ConfirmModal <h3> closed); npm bits-ui@2.14.4 and lucide-svelte@0.562.0 (Icon svelte:element over SVG children) (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/single-h1::src/routes/(admin)/admin/articles/edit/[id]/+page.svelte:99::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; <h2> only in the not-found arm (:99); the form editor renders no <h1>; the Markdown {@html} preview is behind ArticleEditor.svelte:39/:314 showPreview = $state(false), never on load; (admin) layout has no <h1> (ConfirmModal <h3> closed); npm bits-ui@2.14.4 and lucide-svelte@0.562.0 (Icon svelte:element over SVG children) (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/single-h1::src/routes/(admin)/admin/members/edit/[id]/+page.svelte:96::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; <h2> only in the not-found arm (:96); the form editor renders no <h1>; the Markdown {@html} preview is behind MemberEditor.svelte:33 showPageContentPreview = $state(false), never on load; (admin) layout has no <h1> (ConfirmModal <h3> closed); npm bits-ui@2.14.4 and lucide-svelte@0.562.0 (Icon svelte:element over SVG children) (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "ut-code/cms.utcode.net::seo/single-h1::src/routes/(admin)/admin/projects/edit/[id]/+page.svelte:181::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; <h2> only in the not-found arm (:181); the form editor renders no <h1>; the Markdown {@html} preview is behind ProjectEditor.svelte:37/:180 showPreview = $state(false), never on load; (admin) layout has no <h1> (ConfirmModal <h3> closed); npm bits-ui@2.14.4 and lucide-svelte@0.562.0 (Icon svelte:element over SVG children) (jsDelivr) render no <h1>"
+  }
+]

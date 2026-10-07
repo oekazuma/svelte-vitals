@@ -1,0 +1,992 @@
+[
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/deprecated-attr::src/routes/action-logement/+page.svelte:25::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/action-logement/+page.svelte:25: <iframe> carries literal frameborder, deprecated iframe attributes (CSS border/margin replace them)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/deprecated-attr::src/routes/groupe-csf/+page.svelte:26::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/groupe-csf/+page.svelte:26: <iframe> carries literal frameborder, deprecated iframe attributes (CSS border/margin replace them)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/deprecated-attr::src/routes/groupe-la-poste/+page.svelte:28::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/routes/groupe-la-poste/+page.svelte:28: <iframe> carries literal frameborder, deprecated iframe attributes (CSS border/margin replace them)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/deprecated-attr::src/routes/questionnaire/+page.svelte:9::`frameborder`, `marginheight`, `marginwidth` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read src/routes/questionnaire/+page.svelte:9: <iframe> carries literal frameborder , marginheight and marginwidth, deprecated iframe attributes (CSS border/margin replace them)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/disallowed-aria-props::src/lib/components/layout/Header.svelte:78::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read Header.svelte:77-80: DSFR <div class='fr-header__menu fr-modal' id=menu-mobile aria-labelledby=menu-mobile>, no role/spread/use:; generic while closed (desktop inline menu), but @gouvfr/dsfr 1.14.2 (lockfile) Modal.disclose() calls decorateDialog() which sets role=dialog when opened (dist/dsfr.module.js:4640-4680), so the name serves the dialog it becomes; DSFR's prescribed markup, not a demonstrable defect"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/id-duplication::src/lib/components/common/Table.svelte:40::Duplicate id \"table\"",
+    "verdict": "tp",
+    "basis": "read: Table.svelte:40 hardcodes <table id=\"table\">; /statistiques/+page.svelte:52-55 renders ConversionFunnel and AcquisitionSimulationsConversionFunnel unconditionally, each rendering <Table> (ConversionFunnel.svelte:20, AcquisitionSimulationsConversionFunnel.svelte:19), so two table#table co-render"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/lib/components/common/Input.svelte:91::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/common/Input.svelte:91 has literal <label> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <label>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/lib/components/common/RadioFieldset.svelte:37::`<div>` is not permitted content here — `<legend>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/common/RadioFieldset.svelte:37 has literal <legend> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <legend>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/lib/components/common/Simulator/Action.svelte:31::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/common/Simulator/Action.svelte:31 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/lib/components/common/Simulator/Action.svelte:60::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <p> at src/lib/components/common/Simulator/Action.svelte:60 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:138::`<h#>` is not permitted content here — `<th>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <h3> at src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:138 has literal <th> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <th>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:176::`<h#>` is not permitted content here — `<th>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <h3> at src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:176 has literal <th> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <th>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::a11y/permitted-contents::src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:206::`<h#>` is not permitted content here — `<th>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <h3> at src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:206 has literal <th> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <th>'s permitted content"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/common/Autocomplete.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/Autocomplete.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/common/Pagination.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/Pagination.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/layout/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Header.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/annuaire/MapView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/annuaire/MapView.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/revendre-mon-bien-en-brs/FindMyOfs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/revendre-mon-bien-en-brs/FindMyOfs.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/revendre-mon-bien-en-brs/ResaleFaq.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/revendre-mon-bien-en-brs/ResaleFaq.svelte has 581 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/simulateur-acquisition/Step1.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/simulateur-acquisition/Step1.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/simulateur-acquisition/Step5.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/simulateur-acquisition/Step5.svelte has 264 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/simulateur-acquisition/Step7.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/simulateur-acquisition/Step7.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityDefinition/FiscalRevenues.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/simulateur-eligibilite/steps/EligibilityDefinition/FiscalRevenues.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityDefinition/HouseholdComposition.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/simulateur-eligibilite/steps/EligibilityDefinition/HouseholdComposition.svelte has 312 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/lib/components/pages/simulateur-eligibilite/steps/SearchInformations/AdditionalInformations.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/simulateur-eligibilite/steps/SearchInformations/AdditionalInformations.svelte has 536 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/blog/acheter-son-logement-sans-se-ruiner-3-solutions-a-connaitre-absolument/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/acheter-son-logement-sans-se-ruiner-3-solutions-a-connaitre-absolument/+page.svelte has 383 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/blog/la-succession-en-bail-reel-solidaire-brs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/la-succession-en-bail-reel-solidaire-brs/+page.svelte has 278 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/blog/le-bail-reel-solidaire-brs-cest-quoi-exactement/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/le-bail-reel-solidaire-brs-cest-quoi-exactement/+page.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/blog/les-inconvenients-ou-contreparties-du-bail-reel-solidaire-brs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/les-inconvenients-ou-contreparties-du-bail-reel-solidaire-brs/+page.svelte has 241 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/blog/plafonds-de-revenus-brs-2026-tableau-complet-par-zone-et-composition-de-menage/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/plafonds-de-revenus-brs-2026-tableau-complet-par-zone-et-composition-de-menage/+page.svelte has 486 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/matrice-impact/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/matrice-impact/+page.svelte has 981 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/statistiques-eligibilite/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/statistiques-eligibilite/+page.svelte has 512 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/component-size::src/routes/tout-savoir-sur-le-bail-reel-solidaire-brs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tout-savoir-sur-le-bail-reel-solidaire-brs/+page.svelte has 337 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Autocomplete.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Autocomplete.svelte has a single destructured $props() with 9 named props (> 6): value, label, placeholder, hint, disabled, error, onSelect, dataTestId, errorDataTestId"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Highlight.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Highlight.svelte has a single destructured $props() with 7 named props (> 6): text, id, accent, size, icon, fontWeight, href"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/HorizontalCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/HorizontalCard.svelte has a single destructured $props() with 8 named props (> 6): title, content, imgSrc, photograph, linkLabel, href, reversed, id"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Input.svelte has a single destructured $props() with 27 named props (> 6): id, placeholder, type, currency, value, label, rawLabel, hint, labelTooltip, required, skipHTML5Required, icon, role, ariaAttributes, autocomplete, min, max, maxlength, step, forceNoMarginBottom, error, dataTestId, errorDataTestId, disabled, onChange, onKeydown, onBlur"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Notice.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Notice.svelte has a single destructured $props() with 11 named props (> 6): content, type, hasDescription, desc, hasLink, linkLabel, linkHref, linkTitle, blank, dismissible, buttonLabel"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Pagination.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Pagination.svelte has a single destructured $props() with 7 named props (> 6): page, pageSize, pagesCount, hasPreviousPage, hasNextPage, baseUrl, scrollToElementId"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Radio.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Radio.svelte has a single destructured $props() with 7 named props (> 6): id, name, label, disabled, hint, checked, oninput"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Select.svelte has a single destructured $props() with 8 named props (> 6): id, label, options, disabled, onChange, error, required, errorDataTestId"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/SideNavPage/Page.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/SideNavPage/Page.svelte has a single destructured $props() with 8 named props (> 6): title, sections, titleElement, previousStep, nextStep, showAdilSnippet, children, footerSections"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/common/Tile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/Tile.svelte has a single destructured $props() with 9 named props (> 6): title, description, detail, badge, pictogram, horizontal, enlarge, href, children"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::architecture/prop-count::src/lib/components/pages/annuaire/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pages/annuaire/Card.svelte has a single destructured $props() with 15 named props (> 6): departement, city, address, programName, ofsName, distributorName, ofs, distributor, deliveryMonth, housingType, source, cardTitleElement, narrow, selected, handleClose"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Autocomplete.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/common/Autocomplete.svelte:193 '{#each suggestions …}' has no key; suggestions is $state filled from the geocoding API as the user types; runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Pagination.svelte:142::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Pagination.svelte:142 '{#each mobilePageNumbers …}' has no key; mobilePageNumbers = $derived(generatePageNumbers(1)); positional list (pagination slots)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Pagination.svelte:163::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Pagination.svelte:163 '{#each desktopPageNumbers …}' has no key; desktopPageNumbers = $derived(generatePageNumbers(2)); positional list (pagination slots)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Select.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Select.svelte:46 '{#each options …}' has no key; options prop; both callers (Pagination.svelte:72, annuaire/Radius.svelte:32) pass a derived fixed option set built by generateSelecOptions(); static list"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Seo.svelte:95::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Seo.svelte:95 '{#each schemas …}' has no key; schemas = $derived list of JSON-LD objects for the page, rendered as <script> blobs; static per-page list with no element state"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/SideNavPage/Nav.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/SideNavPage/Nav.svelte:22 '{#each sections …}' has no key; sections prop; the page passes a fixed content config (routes/tout-savoir-sur-le-bail-reel-solidaire-brs/[slug]/content.ts:53 sections: [...]); static list"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/SideNavPage/Page.svelte:113::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/SideNavPage/Page.svelte:113 '{#each sections …}' has no key; sections prop from the static content.ts config (sections: [...] at 53/170/259); static list"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Simulator/NextSteps.svelte:58::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Simulator/NextSteps.svelte:58 '{#each links …}' has no key; links = $derived(isEligible ? eligibleLinks : ineligibleLinks) (45), two same-file const literals (14, 29); static list, not the exempt shape (a conditional)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Steppers/VerticalStepper.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Steppers/VerticalStepper.svelte:36 '{#each steps …}' has no key; steps prop; its only caller (tout-savoir…/+page.svelte:136) passes the page's fixed steps content; static list"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Table.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Table.svelte:46 '{#each theads …}' has no key; theads prop; every caller passes a literal header array (ConversionFunnel.svelte:21, Synthesis.svelte:12); positional list (column headers)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Table.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Table.svelte:52 '{#each tbodies …}' has no key; tbodies prop; callers pass computed stats rows (conversionFunnel.map, ConversionFunnel.svelte:29) or a literal (Synthesis.svelte:13); positional list (rows of one computed table)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/common/Table.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/common/Table.svelte:56 '{#each row …}' has no key; cells of one tbodies row; positional list (table cells)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/annuaire/ListView.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/annuaire/ListView.svelte:30 '{#each payload.items …}' has no key; payload.items, the directory search results (filtered/paginated); runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/annuaire/MapView.svelte:211::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/annuaire/MapView.svelte:211 '{#each brsDiffusionWebsitesInBounds …}' has no key; brsDiffusionWebsitesInBounds is $state re-filtered by the map bounds as the user pans; runtime data with insertions/removals"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/organismes-de-foncier-solidaire/OfsList.svelte:69::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/organismes-de-foncier-solidaire/OfsList.svelte:69 '{#each regions …}' has no key; regions prop, the OFS directory records from the page data; runtime data (ledger prop-list convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/organismes-de-foncier-solidaire/OfsList.svelte:80::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/organismes-de-foncier-solidaire/OfsList.svelte:80 '{#each region.ofss …}' has no key; region.ofss, directory records of one region; runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/revendre-mon-bien-en-brs/FindMyOfs.svelte:130::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/revendre-mon-bien-en-brs/FindMyOfs.svelte:130 '{#each results …}' has no key; results is $state set by the search; runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/revendre-mon-bien-en-brs/FindMyOfs.svelte:141::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/revendre-mon-bien-en-brs/FindMyOfs.svelte:141 '{#each result.programs …}' has no key; result.programs of one search result; runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/simulateur-acquisition/LissageSynthesis.svelte:87::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/simulateur-acquisition/LissageSynthesis.svelte:87 '{#each pretLisse?.phasesRemboursement …}' has no key; pretLisse.phasesRemboursement, the repayment phases of one computed loan simulation, numbered by index; positional list (rows of one computed result)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/simulateur-eligibilite/steps/SearchInformations/HousingInformations.svelte:108::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/pages/simulateur-eligibilite/steps/SearchInformations/HousingInformations.svelte:108 '{#each selectedLocations …}' has no key; selectedLocations, locations the user adds via onSelect and removes from the badge list; runtime data with mid-list removal"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/statistiques-eligibilite/DistributionCard.svelte:65::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/statistiques-eligibilite/DistributionCard.svelte:65 '{#each items …}' has no key; items prop; callers pass aggregate statistics rows (statistics.regions etc., statistiques-eligibilite/+page.svelte:308-399); positional list (rows of one aggregate result, label/count only)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/lib/components/pages/statistiques/Stats.svelte:132::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pages/statistiques/Stats.svelte:132 '{#each householdsData.totalsRealEstateSituation …}' has no key; householdsData.totalsRealEstateSituation, aggregate stats rows; positional list (rows of one aggregate result)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/routes/statistiques-eligibilite/+page.svelte:115::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/statistiques-eligibilite/+page.svelte:115 '{#each statistics.filters.departements …}' has no key; statistics.filters.departements from the page load, filter options that depend on the data; runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/routes/statistiques-eligibilite/+page.svelte:143::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/statistiques-eligibilite/+page.svelte:143 '{#each statistics.filters.postalCodes …}' has no key; statistics.filters.postalCodes from the page load, filter options that depend on the data; runtime data"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/each-key::src/routes/statistiques-eligibilite/+page.svelte:341::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/statistiques-eligibilite/+page.svelte:341 '{#each statistics.topDepartements …}' has no key; statistics.topDepartements, aggregate ranking rows of one statistics result; positional list (rows of one aggregate result)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::correctness/effect-as-derived::src/lib/components/layout/Header.svelte:29::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/layout/Header.svelte:29 the effect only does pathname = $page.url.pathname and pathname is never written elsewhere; a plain $derived as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/iframe-loading::src/routes/action-logement/+page.svelte:25::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the page's YouTube video directly under the <h1> Section title and one intro paragraph (action-logement/+page.svelte:12-34) — main content, in view on load, eager is right per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/iframe-loading::src/routes/groupe-csf/+page.svelte:26::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the page's YouTube video directly under the <h1> Section title and one intro paragraph (groupe-csf/+page.svelte:12-35) — main content, in view on load, eager is right per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/image-dimensions::src/routes/blog/plafonds-de-revenus-brs-2026-tableau-complet-par-zone-et-composition-de-menage/+page.svelte:58::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and/or height, no spread; class fr-mt-4w fr-mb-0 rounded-lg border only — natural size of brs-6.png decides the height, the article text below shifts"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/image-loading-hint::src/routes/blog/plafonds-de-revenus-brs-2026-tableau-complet-par-zone-et-composition-de-menage/+page.svelte:58::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; tax-notice illustration inside the article after the ArticlePage header, two intro paragraphs, an <h2> and three paragraphs (:14-58) — below the fold"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/responsive-image::src/routes/blog/plafonds-de-revenus-brs-2026-tableau-complet-par-zone-et-composition-de-menage/+page.svelte:58::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a static .svg; imported $assets/images/brs-6.png — raster, one fixed-size asset"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/notre-mission/+page.server.ts:80::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read notre-mission/+page.server.ts:80 + src/routes/+layout.ts:1 (export const prerender = true, not overridden on this route): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/notre-mission/+page.server.ts:88::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read notre-mission/+page.server.ts:88 + src/routes/+layout.ts:1 (export const prerender = true, not overridden on this route): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/notre-mission/+page.server.ts:93::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read notre-mission/+page.server.ts:93 + src/routes/+layout.ts:1 (export const prerender = true, not overridden on this route): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:109::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:109 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:56 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:64::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:64 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:71::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:71 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:77::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:77 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:83::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:83 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:91::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:91 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::performance/sequential-awaits::src/routes/statistiques/+page.server.ts:96::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read statistiques/+page.server.ts:96 + src/routes/+layout.ts:1 (export const prerender = true; only statistiques-eligibilite opts out): the independent api fetches run once at build time during prerender, not per visit (ledger prerendered-load convention)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Disclaimer.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Disclaimer.svelte:13: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/EligibilityTresholds.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityTresholds.svelte:72: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/HorizontalCard.svelte:47::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read HorizontalCard.svelte:47: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/HorizontalCard.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read HorizontalCard.svelte:50: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Input.svelte:103::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Input.svelte:103: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Input.svelte:94::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Input.svelte:94: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/PageCta.svelte:14::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PageCta.svelte:14: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Panels/CalloutPanel.svelte:31::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read CalloutPanel.svelte:31: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/RadioFieldset.svelte:41::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read RadioFieldset.svelte:41: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Seo.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read common/Seo.svelte:62-69: serializeJsonLd = JSON.stringify(schema).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/SideNavPage/Step.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Step.svelte:15: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Steppers/VerticalStepper.svelte:104::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VerticalStepper.svelte:104: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Steppers/VerticalStepper.svelte:105::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VerticalStepper.svelte:105: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Steppers/VerticalStepper.svelte:113::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VerticalStepper.svelte:113: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Steppers/VerticalStepper.svelte:33::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VerticalStepper.svelte:33: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Steppers/VerticalStepper.svelte:41::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VerticalStepper.svelte:41: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Steppers/VerticalStepper.svelte:99::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VerticalStepper.svelte:99: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Table.svelte:47::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read common/Table.svelte:47,57 and its callers (organismes-de-foncier-solidaire/Synthesis.svelte, two blog pages, statistiques/ConversionFunnel.svelte:20-50): cells are literal French copy or `${index}. ${row.title}` with literal step titles (statistiques/+page.server.ts:258-332) and toFixed/number values — repo constants, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/common/Table.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read common/Table.svelte:47,57 and its callers (organismes-de-foncier-solidaire/Synthesis.svelte, two blog pages, statistiques/ConversionFunnel.svelte:20-50): cells are literal French copy or `${index}. ${row.title}` with literal step titles (statistiques/+page.server.ts:258-332) and toFixed/number values — repo constants, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/layout/Header.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Header.svelte:49: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/accueil/Hero.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Hero.svelte:49: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/accueil/Infos.svelte:19::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Infos.svelte:19: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/accueil/Infos.svelte:47::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Infos.svelte:47: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/accueil/Infos.svelte:82::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Infos.svelte:82: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/accueil/Infos.svelte:84::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Infos.svelte:84: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/organismes-de-foncier-solidaire/TitleWithMascotte.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read TitleWithMascotte.svelte:17: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-acquisition/GlobalSynthesis.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read GlobalSynthesis.svelte:23: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-acquisition/synthesis/Row.svelte:22::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Row.svelte:22: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/SimulationCta.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SimulationCta.svelte:11: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:27: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:29: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:37::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:37: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:39: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:40::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:40: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:48: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:50: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:51::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:51: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:55: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/EligibilityDetail.svelte:68::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EligibilityDetail.svelte:68: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/EligibilityResult/UserDetails.svelte:79::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read UserDetails.svelte:79: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:103::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:103: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:106::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:106: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:114::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:114: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:120::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:120: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:125::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:125: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:137::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:137: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:145::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:145: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:149::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:149: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:157::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:157: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:161::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:161: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:170::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:170: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:173::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:173: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:183::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:183: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:185::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:185: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:187::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:187: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:189::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:189: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::security/raw-html::src/lib/components/pages/simulateur-eligibilite/steps/Synthesis/SynthesisContent.svelte:191::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SynthesisContent.svelte:191: the value is repo-authored copy (script-verified: no html-rendering prop at any call site of these components is an expression over data./page./params./url.) — literal SVG imports, literal props at the call sites (Infos.svelte, FeesSynthesis.svelte, Step*.svelte, organismes-de-foncier-solidaire/*), the steps/sections constants in tout-savoir-sur-le-bail-reel-solidaire-brs/content.ts, or $lib/utils/eligibility-simulator stepsContent strings interpolating only numbers/formatted amounts — no DB or user HTML, reported per docs"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/description-length::src/routes/conditions-generales-d-utilisation/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/conditions-generales-d-utilisation/+page.svelte svelte:head has an unconditional literal <meta name=description> of the stated length (174 chars); root layout Seo.svelte emits og:description only, so this is the route's description"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/description-length::src/routes/mentions-legales/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/mentions-legales/+page.svelte svelte:head has an unconditional literal <meta name=description> of the stated length (174 chars); root layout Seo.svelte emits og:description only, so this is the route's description"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/description-length::src/routes/notre-mission/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/notre-mission/+page.svelte svelte:head has an unconditional literal <meta name=description> of the stated length (179 chars); root layout Seo.svelte emits og:description only, so this is the route's description"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/description-length::src/routes/politique-de-confidentialite/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/politique-de-confidentialite/+page.svelte svelte:head has an unconditional literal <meta name=description> of the stated length (204 chars); root layout Seo.svelte emits og:description only, so this is the route's description"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/description-length::src/routes/statistiques/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/statistiques/+page.svelte svelte:head has an unconditional literal <meta name=description> of the stated length (61 chars); root layout Seo.svelte emits og:description only, so this is the route's description"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/description-presence::src/routes/questionnaire/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: questionnaire/+page.svelte:1-6 head has only <title> and robots; root layout Seo.svelte emits no description meta, app.html none (literal claim holds); not a search target (literal noindex, nofollow at questionnaire/+page.svelte:3-5; the page only embeds a Tally survey iframe)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/indexability::src/routes/questionnaire/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: questionnaire/+page.svelte:3-5 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\">; noindex as claimed (feedback survey embed)"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/indexability::src/routes/statistiques-eligibilite/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: statistiques-eligibilite/+page.svelte:66-68 unconditional literal <meta name=\"robots\" content=\"noindex…\"> in its svelte:head; noindex as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/single-h1::/questionnaire::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: questionnaire/+page.svelte renders only a Tally <iframe> and its loader script (noindex page); root +layout.svelte components (Header, Footer, SkipLinks, Consent, Seo) contain no <h1> -> no <h1>"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/ssr-disabled::src/routes/logements-brs-disponibles/+page.ts:20::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at logements-brs-disponibles/+page.ts:20 on the public \"Trouver un logement en Bail Réel Solidaire\" listing (its head at +page.svelte:14-19 carries a search title/description, root +layout.ts prerender = true), so its listing ships as an empty shell invisible to non-JS crawlers as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/(accueil)/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(accueil)/+page.svelte svelte:head has an unconditional literal <title> of the stated length (61 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/accessibilite/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/accessibilite/+page.svelte svelte:head has an unconditional literal <title> of the stated length (21 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/action-logement/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/action-logement/+page.svelte svelte:head has an unconditional literal <title> of the stated length (23 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/espace-presse/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/espace-presse/+page.svelte svelte:head has an unconditional literal <title> of the stated length (21 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/groupe-csf/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/groupe-csf/+page.svelte svelte:head has an unconditional literal <title> of the stated length (18 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/mentions-legales/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/mentions-legales/+page.svelte svelte:head has an unconditional literal <title> of the stated length (24 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/notre-mission/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/notre-mission/+page.svelte svelte:head has an unconditional literal <title> of the stated length (21 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/nous-contacter/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/nous-contacter/+page.svelte svelte:head has an unconditional literal <title> of the stated length (22 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/questionnaire/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/questionnaire/+page.svelte svelte:head has an unconditional literal <title> of the stated length (21 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/title-length::src/routes/statistiques/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/statistiques/+page.svelte svelte:head has an unconditional literal <title> of the stated length (20 chars); the root layout's Seo.svelte (lib/components/common/Seo.svelte) emits only canonical/og:*/JSON-LD, no <title>, so this is the route's title"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/(accueil)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 34 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/accessibilite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/action-logement/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 24 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/5-idees-recues-sur-le-bail-reel-solidaire-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/achat-logement-social-bail-reel-solidaire-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/acheter-son-logement-sans-se-ruiner-3-solutions-a-connaitre-absolument/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/comment-savoir-si-je-suis-eligible-au-bail-reel-solidaire-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/la-succession-en-bail-reel-solidaire-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 27 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/le-bail-reel-solidaire-brs-cest-quoi-exactement/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/les-inconvenients-ou-contreparties-du-bail-reel-solidaire-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 27 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/plafonds-de-revenus-brs-2026-tableau-complet-par-zone-et-composition-de-menage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 27 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/puis-je-acheter-un-logement-en-brs-si-je-suis-deja-proprietaire/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/blog/un-exemple-pour-vous-projeter-dans-votre-achat-en-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/conditions-generales-d-utilisation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/espace-presse/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/groupe-csf/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 24 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/groupe-la-poste/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 24 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/logements-brs-disponibles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 44 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/matrice-impact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 23 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/mentions-legales/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/notre-mission/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/nous-contacter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/organismes-de-foncier-solidaire/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 44 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/politique-de-confidentialite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 26 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/questionnaire/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 23 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/revendre-mon-bien-en-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 38 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/simulateur-acquisition/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 57 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/simulateur-eligibilite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 33 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/simulateur-eligibilite/steps/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 55 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/statistiques-eligibilite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 27 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/statistiques/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 43 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/tout-savoir-sur-le-bail-reel-solidaire-brs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 40 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  },
+  {
+    "key": "MTES-MCT/boris:apps/frontend::seo/twitter-card::src/routes/tout-savoir-sur-le-bail-reel-solidaire-brs/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 30 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only head emitter lib/components/common/Seo.svelte (rendered by root +layout.svelte:42) emits canonical and og:* but no twitter:card; none elsewhere in src or app.html; no meta-tag library); missing as claimed"
+  }
+]

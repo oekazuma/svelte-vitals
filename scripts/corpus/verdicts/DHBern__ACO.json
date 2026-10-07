@@ -1,0 +1,1037 @@
+[
+  {
+    "key": "DHBern/ACO::a11y/permitted-contents::src/routes/dokumente/[vol]/[doc]/[unit]/MultiMarkPopup.svelte:38::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): dokumente/[vol]/[doc]/[unit]/MultiMarkPopup.svelte:38: literal <p> whose nearest enclosing element in the same template is a literal <button> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <p> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "DHBern/ACO::a11y/permitted-contents::src/routes/ueber/+page.svelte:24::`<figure>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST of the file, e_ctx.mjs): ueber/+page.svelte:24: literal <figure> whose nearest enclosing element in the same template is a literal <button> (no component, snippet, {@render} or <svelte:element> boundary between them, control-flow blocks only); <figure> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "DHBern/ACO::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 254 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DHBern/ACO::architecture/component-size::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte has 468 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DHBern/ACO::architecture/component-size::src/routes/suche/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/suche/+page.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DHBern/ACO::architecture/component-size::src/routes/ueber/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ueber/+page.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/dokumente/TOC.svelte:139::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TOC.svelte:139 '{#each volumes as volume}' has no key; volumes = a same-file let array literal (11) of the edition's volumes (let, so not the exempt const shape); static list fixed at author time"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/dokumente/[vol]/[doc]/DocumentMetadata.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DocumentMetadata.svelte:21 '{#each data.docMetadata?.content?.footnotes_head as footnote}' has no key; footnotes of one edition document from prerendered load data (routes/+layout.ts prerender = true); static content of one document"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/dokumente/[vol]/einleitung/+page.svelte:11::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: einleitung/+page.svelte:11 '{#each data.intro?.footnotes as footnote}' has no key; footnotes of one prerendered introduction text (routes/+layout.ts prerender = true); static content"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/register/+page.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: register/+page.svelte:21 '{#each dataObject.map((el) => el.label) as label, idx}' has no key; entries of the edition's place/person register from prerendered load data (routes/+layout.ts prerender = true); static list"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/register/+page.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: register/+page.svelte:31 '{#each Object.keys(dataObject[idx]['loc-s']) as docKey}' has no key; document keys of one prerendered register entry; static list"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/register/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: register/+page.svelte:34 '{#each dataObject[idx]['loc-s'][docKey] as unit}' has no key; unit references of one prerendered register entry; static list"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/suche/+page.svelte:150::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: suche/+page.svelte:150 '{#each data.schwartzSlugs as slug}' has no key; slugs built from the edition metadata in a prerendered server load (suche/+page.server.ts:1, 8-12); static option list"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/suche/+page.svelte:159::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: suche/+page.svelte:159 '{#each data.docNums as num}' has no key; document numbers from the edition metadata in a prerendered server load (suche/+page.server.ts:1, 15-24); static option list"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/suche/+page.svelte:227::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: suche/+page.svelte:227 '{#each docs as doc}' has no key; docs $state (13) set from each search response (84) and cleared (93); runtime search results"
+  },
+  {
+    "key": "DHBern/ACO::correctness/each-key::src/routes/suche/+page.svelte:259::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: suche/+page.svelte:259 '{#each highlighting[doc.id].aco_text_bare as hl, idx}' has no key; the highlight snippets of one search hit; positional list (text segments of one result)"
+  },
+  {
+    "key": "DHBern/ACO::correctness/stale-prop-derivation::src/routes/dokumente/[vol]/[doc]/[unit]/Note.svelte:24::\"unit\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: Note.svelte:24 const unit = unitSlug is structurally a frozen copy of a prop, but the comment on the same line says it is deliberate ('copy to prevent it from updating with URL'): the one-time snapshot is the intended behaviour, not a stale-UI defect"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/+layout.svelte:100::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: header logo class h-auto w-auto max-w-30 (+layout.svelte:100) - the PNG's natural size decides the box in the AppBar; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/+layout.svelte:229::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: footer DFG logo (max-h-[200px] max-w-[400px]) - only max sizes, natural size decides the box; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/+layout.svelte:236::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: footer Uni Bonn logo (max-h/max-w only) - only max sizes, natural size decides the box; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/+layout.svelte:243::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: footer Uni Bern logo (max-h/max-w only) - only max sizes, natural size decides the box; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/ueber/+page.svelte:29::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: the figure snippet's image (ueber/+page.svelte:17-36), rendered at four {@render figure(...)} calls (:114,:171,:177,:243) down the long page, class h-auto w-full - the natural aspect decides the height"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/ueber/+page.svelte:31::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: cc-license.svg icon class h-4 w-4 - box reserved by CSS"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/ueber/+page.svelte:60::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: lightbox image in the skeleton Dialog (ueber/+page.svelte:57-69), class h-auto w-full max-h-[calc(60vh-3rem)] - the natural size decides the box and the figcaption below shifts as each image loads"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-dimensions::src/routes/ueber/+page.svelte:66::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: cc-license.svg icon class h-6 w-6 in the lightbox caption - box reserved by CSS"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/+layout.svelte:100::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: ACO logo in the header AppBar (+layout.svelte:100) - above the fold, where the docs keep the image eager; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/+layout.svelte:229::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: footer partner DFG logo at the bottom of every page - offscreen on load; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/+layout.svelte:236::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: footer partner Uni Bonn logo at the bottom of every page - offscreen on load; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/+layout.svelte:243::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: footer partner Uni Bern logo at the bottom of every page - offscreen on load; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/ueber/+page.svelte:29::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the figure snippet's image (ueber/+page.svelte:17-36), rendered at four {@render figure(...)} calls (:114,:171,:177,:243) down the long page - the later figures are offscreen on load"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/ueber/+page.svelte:31::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: cc-license icon in each figcaption of the figure snippet's image (ueber/+page.svelte:17-36), rendered at four {@render figure(...)} calls (:114,:171,:177,:243) down the long page - the later ones are offscreen on load"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/ueber/+page.svelte:60::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: lightbox image rendered in the Dialog only once the user opens a figure (modalVisible, :38-74) - the visible content when created, where eager is right"
+  },
+  {
+    "key": "DHBern/ACO::performance/image-loading-hint::src/routes/ueber/+page.svelte:66::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: cc-license icon in the lightbox caption, rendered only once the user opens the Dialog - visible content when created"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/+layout.svelte:100::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: static {base}/logos/logo-aco.png raster - one fixed-size asset; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/+layout.svelte:229::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: static raster footer DFG logo (.png/.jpg) - one fixed-size asset; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/+layout.svelte:236::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: static raster footer Uni Bonn logo (.png/.jpg) - one fixed-size asset; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/+layout.svelte:243::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: static raster footer Uni Bern logo (.png/.jpg) - one fixed-size asset; key covers all 15 routes (root +layout.svelte)"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/ueber/+page.svelte:29::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: the figure snippet's image (ueber/+page.svelte:17-36), rendered at four {@render figure(...)} calls (:114,:171,:177,:243) down the long page: static .jpg photos - one fixed-size asset"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/ueber/+page.svelte:60::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: modalInfo.path is one of the static .jpg photos, shown at up to 75vw - one fixed-size asset"
+  },
+  {
+    "key": "DHBern/ACO::performance/responsive-image::src/routes/ueber/+page.svelte:66::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: src={`${base}/icons/cc-license.svg`} is a vector, but a template literal is outside the docs' static .svg detection (same as the ledger's dynamic-SVG convention); note the same path written as src=\"{base}/icons/cc-license.svg\" at :31 is exempted"
+  },
+  {
+    "key": "DHBern/ACO::performance/state-raw::src/routes/suche/+page.svelte:14::\"highlighting\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to highlighting in suche/+page.svelte: only whole-binding reassignments (:85,:94) and read-only template reads (:258-259 member reads and a read-only {#each}); no member writes, mutating calls, bind:, escapes or aliasing"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/+layout.svelte:119::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/+layout.svelte:33-40,119: link.name comes from the in-file literal links array (e.g. \"Über&nbsp;das&nbsp;Projekt\") - repo constant, reported per docs"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/+layout.svelte:180::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/+layout.svelte:33-40,180: link.name comes from the in-file literal links array - repo constant, reported per docs"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/Abbreviations.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Abbreviations.svelte:23 + routes/+layout.ts:2-7: abbData is metaDocs.Abkürzungsverzeichnis.text from repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/TOC.svelte:102::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read dokumente/TOC.svelte:102: doc.title from the edition metadata, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/TOC.svelte:125::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read dokumente/TOC.svelte:125: doc.title from the edition metadata, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/+layout.svelte:14::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [doc]/+layout.svelte:14 + [doc]/+layout.ts: slug_doc is params.doc and acoDocLabel comes from aco-metadata.json; the route is prerendered only for the entries [doc]/+page.ts generates from the metadata, and an unknown path on the static host cannot reach this layout ([vol]/+layout.server.ts needs a prerendered __data.json) - repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/+layout.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [doc]/+layout.svelte:15: docMetadata.toc_title from aco-metadata.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/+layout.svelte:20::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [doc]/+layout.svelte:20: docMetadata.content.inhalt from aco-metadata.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/DocumentMetadata.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read DocumentMetadata.svelte:18: generateFootnoteSuperscripts over docMetadata.content.head from aco-metadata.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/DocumentMetadata.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read DocumentMetadata.svelte:23: footnote note_id/note_content from aco-metadata.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte:339::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [unit]/+page.svelte:338-339: generatePageNumbers(unit.text, path) over unit text served by [doc]/data/[unit]/+server.ts from aco-text.json (path built from prerendered slugs), repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte:347::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [unit]/+page.svelte:346-347: generateLineNumbers(unit.text, path) over unit text from aco-text.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/MultiMarkPopup.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read MultiMarkPopup.svelte:39: createNoteReferenceString over note fields from aco-notes.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/Note.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Note.svelte:24,56 + [unit]/+page.svelte:380-382: unit is data.slug_unit = params.unit ([unit]/+page.ts:13), prerendered only for the edition's unit slugs; an unknown path on the static host cannot reach this page ([vol]/+layout.server.ts needs a prerendered __data.json and the load fetches a prerendered data/[unit] endpoint) - repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/Note.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Note.svelte:57: createNoteReferenceString over note line/refstring fields from aco-notes.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/Note.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Note.svelte:72: noteData.note_content from aco-notes.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/[doc]/[unit]/TextUnit.svelte:78::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read TextUnit.svelte:78: generateMainText(text) over unit text from aco-text.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/einleitung/+page.svelte:14::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read einleitung/+page.svelte:14 + einleitung/+page.server.ts: footnote numbers from aco-meta-docs.json (transformFootnotesIntroduction), repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/einleitung/+page.svelte:26::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read einleitung/+page.svelte:26: footnote text from aco-meta-docs.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/einleitung/+page.svelte:7::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read einleitung/+page.svelte:7: intro text from aco-meta-docs.json (linkifyFootnoteSuperscripts), repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/literatur/+page.svelte:5::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read literatur/+page.svelte:5 + literatur/+page.ts: litData from aco-meta-docs.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/dokumente/[vol]/vorwort/+page.svelte:5::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read vorwort/+page.svelte:5 + vorwort/+page.ts: preface from aco-meta-docs.json, repo-authored critical-edition data: src/lib/data/*.json (generated from the project TEI corpus by data_processing/run.xsl), imported by the loads and prerendered (root +layout.ts prerender=true, adapter-static) - no user input; reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "DHBern/ACO::security/raw-html::src/routes/suche/+page.svelte:269::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read suche/+page.svelte:6,26-99,269: hl is a Solr highlight snippet of aco_text_bare from the project's own index (solr.dsl.unibe.ch/solr/aco-dev) of the same edition corpus, wrapped in <mark>; the snippet text is corpus text, not the visitor's query - repo-authored content, reported per docs"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/bibelstellen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /bibelstellen (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/[vol]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente/[vol] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente/[vol]/[doc] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente/[vol]/[doc]/[unit] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente/[vol]/einleitung (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente/[vol]/literatur (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dokumente/[vol]/vorwort (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/impressum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /impressum (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/imprint/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /imprint (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/karte/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /karte (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/suche/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /suche (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/canonical-url::src/routes/ueber/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ueber (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true)) ; publicly reachable, rendered route (prerendered public static edition, no hooks, no noindex)"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): / (src/routes/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/bibelstellen/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /bibelstellen (src/routes/bibelstellen/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente (src/routes/dokumente/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/[vol]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente/[vol] (src/routes/dokumente/[vol]/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente/[vol]/[doc] (src/routes/dokumente/[vol]/[doc]/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente/[vol]/[doc]/[unit] (src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente/[vol]/einleitung (src/routes/dokumente/[vol]/einleitung/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente/[vol]/literatur (src/routes/dokumente/[vol]/literatur/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /dokumente/[vol]/vorwort (src/routes/dokumente/[vol]/vorwort/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/impressum/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /impressum (src/routes/impressum/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/imprint/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /imprint (src/routes/imprint/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/karte/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /karte (src/routes/karte/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /register (src/routes/register/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/suche/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /suche (src/routes/suche/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/description-presence::src/routes/ueber/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps): /ueber (src/routes/ueber/+page.svelte) has no <meta name=\"description\"> through its page, layouts or app.html; public prerendered digital edition (adapter-static, deployed to GitHub Pages by .github/workflows/main.yml), no noindex"
+  },
+  {
+    "key": "DHBern/ACO::seo/heading-level-skip::src/routes/suche/+page.svelte:192::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: suche/+page.svelte:128 <h1>Suche, then the info box's <h3>Anleitung für die Suche (:192; hidden by a class until toggled but in the DOM) with no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: / (src/routes/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/bibelstellen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /bibelstellen (src/routes/bibelstellen/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente (src/routes/dokumente/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/[vol]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente/[vol] (src/routes/dokumente/[vol]/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente/[vol]/[doc] (src/routes/dokumente/[vol]/[doc]/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente/[vol]/[doc]/[unit] (src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente/[vol]/einleitung (src/routes/dokumente/[vol]/einleitung/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente/[vol]/literatur (src/routes/dokumente/[vol]/literatur/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /dokumente/[vol]/vorwort (src/routes/dokumente/[vol]/vorwort/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/impressum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /impressum (src/routes/impressum/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/imprint/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /imprint (src/routes/imprint/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/karte/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /karte (src/routes/karte/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /register (src/routes/register/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/suche/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /suche (src/routes/suche/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/json-ld::src/routes/ueber/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <svelte:head> and no <meta> anywhere in src; app.html head has only charset, favicon, viewport; no meta-tag library in deps); repo grep for ld+json/@context/jsonld/schema.org: no hit: /ueber (src/routes/ueber/+page.svelte) renders no JSON-LD"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/bibelstellen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /bibelstellen (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/[vol]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente/[vol] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente/[vol]/[doc] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente/[vol]/[doc]/[unit] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente/[vol]/einleitung (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente/[vol]/literatur (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dokumente/[vol]/vorwort (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/impressum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /impressum (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/imprint/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /imprint (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/karte/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /karte (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/suche/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /suche (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-description::src/routes/ueber/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ueber (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/bibelstellen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /bibelstellen (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/[vol]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente/[vol] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente/[vol]/[doc] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente/[vol]/[doc]/[unit] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente/[vol]/einleitung (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente/[vol]/literatur (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dokumente/[vol]/vorwort (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/impressum/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /impressum (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/imprint/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /imprint (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/karte/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /karte (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/suche/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /suche (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-image::src/routes/ueber/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ueber (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/bibelstellen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /bibelstellen (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/[vol]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente/[vol] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente/[vol]/[doc] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente/[vol]/[doc]/[unit] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente/[vol]/einleitung (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente/[vol]/literatur (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dokumente/[vol]/vorwort (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/impressum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /impressum (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/imprint/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /imprint (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/karte/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /karte (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/suche/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /suche (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-title::src/routes/ueber/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ueber (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/bibelstellen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /bibelstellen (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/[vol]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente/[vol] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente/[vol]/[doc] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente/[vol]/[doc]/[unit] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente/[vol]/einleitung (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente/[vol]/literatur (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dokumente/[vol]/vorwort (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/impressum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /impressum (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/imprint/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /imprint (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/karte/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /karte (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/suche/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /suche (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/og-url::src/routes/ueber/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ueber (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon/fonts/icons/images/logos/search only, no robots.txt file, route or generator in the repo; public prerendered digital edition deployed to GitHub Pages under BASE_PATH /<repo> (.github/workflows/main.yml:26; GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "DHBern/ACO::seo/single-h1::/dokumente/[vol]/literatur::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: the page renders {@html data.litData} (literatur/+page.svelte:5, +page.ts), loaded from the committed src/lib/data/aco-meta-docs.json, whose metaDocs.Literaturverzeichnis.text opens with <article><div><h1 class='h1'>Literaturverzeichnis</h1>"
+  },
+  {
+    "key": "DHBern/ACO::seo/single-h1::/dokumente/[vol]/vorwort::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: the page renders {@html data.preface} (vorwort/+page.svelte:5, +page.ts), loaded from the committed src/lib/data/aco-meta-docs.json, whose metaDocs.Vorwort.text opens with <article><div><h1 class='h1'>Vorwort</h1>"
+  },
+  {
+    "key": "DHBern/ACO::seo/single-h1::/imprint::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: imprint/+page.svelte is an empty file (0 bytes); the root +layout.svelte renders no <h1> itself, and its @skeletonlabs/skeleton-svelte 4.15.2 parts render none either (jsDelivr dist/components/app-bar/anatomy/{root,headline,lead,trail}.svelte -> <header>/<div>; dialog/anatomy/title.svelte -> <div>) -> no <h1> on /imprint"
+  },
+  {
+    "key": "DHBern/ACO::seo/single-h1::src/routes/dokumente/[vol]/einleitung/+page.svelte:10::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: the page renders {@html data.intro?.text} (einleitung/+page.svelte:7, +page.server.ts), loaded from the committed src/lib/data/aco-meta-docs.json, whose metaDocs.Einleitung.text opens with <article><div><h1 class='h1'>…Eine vorläufige Einleitung</h1> (the flagged line :10 is the footnotes <h2>)"
+  },
+  {
+    "key": "DHBern/ACO::seo/single-h1::src/routes/ueber/+page.svelte:126::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: ueber/+page.svelte renders three unconditional <h1 class=\"h1\">s (Einleitung :78, Über dieses Projekt :126, Ansprechpersonen :191) -> 3 <h1>"
+  },
+  {
+    "key": "DHBern/ACO::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml file, route or generator in the repo; public prerendered digital edition (volumes, documents, register, map) deployed to GitHub Pages, with many document pages to list"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/bibelstellen/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/bibelstellen/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/[vol]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/[vol]/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/[vol]/[doc]/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/[vol]/einleitung/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/[vol]/literatur/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/dokumente/[vol]/vorwort/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/impressum/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/impressum/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/imprint/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/imprint/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/karte/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/karte/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/register/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/register/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/suche/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/suche/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/title-presence::src/routes/ueber/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/ueber/+page.svelte: no svelte:head. script-verified: no .svelte/.ts/.js file in src has svelte:head, <title> or document.title (the only <title> hits are TEI <title> elements in src/lib/data/aco-teicorpus.xml, data, not markup); root +layout.svelte renders skeleton-svelte AppBar/Dialog/Switch + @lucide/svelte icons, @skeletonlabs/skeleton-svelte@4.15.2 (package-lock; all 292 .svelte files on jsDelivr scanned) has no svelte:head/<title>; app.html has no <title>; prerendered (+layout.ts prerender=true, ssr on), no redirect/error in load, no hooks; public page of the edition renders untitled"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/bibelstellen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /bibelstellen (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/[vol]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente/[vol] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/[vol]/[doc]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente/[vol]/[doc] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/[vol]/[doc]/[unit]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente/[vol]/[doc]/[unit] (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/[vol]/einleitung/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente/[vol]/einleitung (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/[vol]/literatur/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente/[vol]/literatur (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/dokumente/[vol]/vorwort/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dokumente/[vol]/vorwort (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/impressum/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /impressum (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/imprint/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /imprint (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/karte/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /karte (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/suche/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /suche (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  },
+  {
+    "key": "DHBern/ACO::seo/twitter-card::src/routes/ueber/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ueber (read + grep: no <svelte:head>, og:*, twitter:* or canonical anywhere in src (grep: only <title> hits are TEI XML data) and app.html is charset/icon/viewport only; no hooks; no meta-tag library (skeleton-svelte/lucide/runed emit none); prerendered public static edition (+layout.ts prerender=true))"
+  }
+]

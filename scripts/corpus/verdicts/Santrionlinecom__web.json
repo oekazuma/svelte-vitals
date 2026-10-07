@@ -1,0 +1,502 @@
+[
+  {
+    "key": "Santrionlinecom/web::a11y/disallowed-aria-props::src/lib/components/etalase/Bintang.svelte:16::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/dap.mjs): <span> at src/lib/components/etalase/Bintang.svelte:16 carries aria-label with no role, no spread and no use: action, so its role is generic everywhere and the name is prohibited (not exposed) as reported"
+  },
+  {
+    "key": "Santrionlinecom/web::a11y/permitted-contents::src/routes/+page.svelte:671::`<h#>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <h3> at src/routes/+page.svelte:671 has literal parent <span> (line 670) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <span>'s content model"
+  },
+  {
+    "key": "Santrionlinecom/web::a11y/permitted-contents::src/routes/+page.svelte:672::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <p> at src/routes/+page.svelte:672 has literal parent <span> (line 670) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <span>'s content model"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/lib/components/ArtikelLiterasi.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ArtikelLiterasi.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/lib/components/HalamanFitur.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HalamanFitur.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/lib/components/etalase/BukuBolakBalik.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/etalase/BukuBolakBalik.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 813 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/routes/invoice/[kode]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/invoice/[kode]/+page.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/routes/invoice/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/invoice/admin/+page.svelte has 621 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/component-size::src/routes/lembaga/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/lembaga/+page.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Santrionlinecom/web::architecture/prop-count::src/lib/components/ArtikelLiterasi.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ArtikelLiterasi.svelte has a single destructured $props() with 11 named props (> 6): judul, title, description, path, label, terbit, diperbarui, peninjau, faq, terkait, children"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/ArtikelLiterasi.svelte:133::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ArtikelLiterasi.svelte:133 '{#each faq as q}' has no key and is not an exempt shape; static list (author-time constant): faq prop, which every literasi page passes as a same-file literal"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/ArtikelLiterasi.svelte:156::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ArtikelLiterasi.svelte:156 '{#each terkait as t}' has no key and is not an exempt shape; static list (author-time constant): terkait prop, a literal list of related links from each literasi page"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/HalamanFitur.svelte:113::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HalamanFitur.svelte:113 '{#each f.masalah as m}' has no key and is not an exempt shape; static list (author-time constant): f.masalah of the authored feature-page content ($lib/fitur-lembaga.ts / $lib/halaman-aplikasi)"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/HalamanFitur.svelte:131::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HalamanFitur.svelte:131 '{#each f.yangAda as y}' has no key and is not an exempt shape; static list (author-time constant): f.yangAda of the authored feature-page content"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/HalamanFitur.svelte:147::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HalamanFitur.svelte:147 '{#each f.belumAda as b}' has no key and is not an exempt shape; static list (author-time constant): f.belumAda of the authored feature-page content"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/HalamanFitur.svelte:160::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HalamanFitur.svelte:160 '{#each f.langkah as l, i}' has no key and is not an exempt shape; static list (author-time constant): f.langkah of the authored feature-page content"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/HalamanFitur.svelte:175::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HalamanFitur.svelte:175 '{#each f.faq as q}' has no key and is not an exempt shape; static list (author-time constant): f.faq of the authored feature-page content"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/HalamanFitur.svelte:190::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HalamanFitur.svelte:190 '{#each terkait as t}' has no key and is not an exempt shape; static list (author-time constant): terkait, related links built from the authored feature-page content"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/ui/ChatSection.svelte:74::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/ChatSection.svelte:74 '{#each examples as example}' has no key and is not an exempt shape; static list (author-time constant): examples prop, the same-file const examples literal of routes/+page.svelte (line 278)"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/lib/components/ui/ChatSection.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/ChatSection.svelte:96 '{#each chatMessages as message}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/+page.svelte:488::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:488 '{#each tabRak as t, i}' has no key and is not an exempt shape; static list (author-time constant): tabRak = $derived([...six fixed tabs].filter(t => t.ada)) (line 27), included or excluded by flags"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/+page.svelte:642::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:642 '{#each audience.links as link, linkIndex}' has no key and is not an exempt shape; static list (author-time constant): audience.links, a nested list of the same-file const audiences literal (line 128)"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/invoice/[kode]/+page.svelte:182::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/invoice/[kode]/+page.svelte:182 '{#each invoice.items as item}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/invoice/admin/+page.svelte:405::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/invoice/admin/+page.svelte:405 '{#each filteredInvoices as invoice}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/invoice/admin/+page.svelte:524::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/invoice/admin/+page.svelte:524 '{#each items as item, index}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/katalog/[jenis]/[slug]/+page.svelte:102::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/katalog/[jenis]/[slug]/+page.svelte:102 '{#each item.meta as m}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/katalog/[jenis]/[slug]/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/katalog/[jenis]/[slug]/+page.svelte:118 '{#each paragraf as p}<p class=\"mt-2\">{p}</p>{/each}' has no key and is not an exempt shape; positional list (items have no identity beyond position): paragraphs split from one description string"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/katalog/[jenis]/[slug]/+page.svelte:126::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/katalog/[jenis]/[slug]/+page.svelte:126 '{#each item.daftar.slice(0, 30) as d}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/each-key::src/routes/lembaga/+page.svelte:214::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/lembaga/+page.svelte:214 '{#each p.isi as i}' has no key and is not an exempt shape; static list (author-time constant): p.isi, a nested list of the same-file const paket literal (line 40)"
+  },
+  {
+    "key": "Santrionlinecom/web::correctness/effect-as-derived::src/lib/components/etalase/NilaiBintang.svelte:21::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: NilaiBintang.svelte:21-25 the $effect.pre only copies rata/jumlah/sebaran from the awal prop; their other writes are top-level reassignments in terapkan (30-32), the writable-$derived override pattern"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/iframe-loading::src/routes/opener-perpustakaan/+page.svelte:12::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: the 16:9 motion-graphic player that is the whole content of this noindex page, centred in a min-height:100dvh grid (:8-16,23-30) — above the fold, where eager is right"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-dimensions::src/routes/+page.svelte:412::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-10 = 40x40)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-dimensions::src/routes/+page.svelte:730::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-10 = 40x40)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-dimensions::src/routes/invoice/[kode]/+page.svelte:130::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-10 = 40x40)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-dimensions::src/routes/invoice/admin/+page.svelte:298::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-10 = 40x40)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-dimensions::src/routes/lembaga/+page.svelte:133::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-10 = 40x40)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-dimensions::src/routes/literasi/apa-itu-santri-online/+page.svelte:61::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class size-10 = 40x40)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/+page.svelte:412::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the sticky top header nav (:408-412) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/+page.svelte:730::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the page <footer> after </main> of the 813-line landing page (:725-730) — offscreen on load"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/invoice/[kode]/+page.svelte:130::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo link at the top of <main>, before the invoice section (:128-131) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/invoice/admin/+page.svelte:298::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the page <header> at the top of <main> (:294-298) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/katalog/[jenis]/[slug]/+page.svelte:87::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: catalog cover with fetchpriority=\"high\" in the first figure of the article right under the breadcrumb (:83-87) — the above-the-fold hero, where the docs keep the image eager"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/lembaga/+page.svelte:133::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the sticky top header (:130-133) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/image-loading-hint::src/routes/literasi/apa-itu-santri-online/+page.svelte:61::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the top page <header> (:58-61) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/+page.svelte:412::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: logo imported from $lib/assets/logo.png (:3), a 192x192 36KB PNG (not inlined) shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/+page.svelte:730::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: logo imported from $lib/assets/logo.png (:3), a 192x192 36KB PNG shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/invoice/[kode]/+page.svelte:130::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: logo imported from $lib/assets/logo.png (:3), a 192x192 36KB PNG shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/invoice/admin/+page.svelte:298::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: logo imported from $lib/assets/logo.png (:3), a 192x192 36KB PNG shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/katalog/[jenis]/[slug]/+page.svelte:87::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: item.sampul is a /katalog/*.webp or a course cover_url (lib/server/katalog.ts:73-174) shown at up to 17rem — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/lembaga/+page.svelte:133::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: logo imported from $lib/assets/logo.png (:5), a 192x192 36KB PNG shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/responsive-image::src/routes/literasi/apa-itu-santri-online/+page.svelte:61::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: logo imported from $lib/assets/logo.png (:3), a 192x192 36KB PNG shown at 40px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/sequential-awaits::src/routes/katalog/[jenis]/[slug]/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read katalog/[jenis]/[slug]/+page.server.ts:12-17: the Promise.all(muatKatalog(db,24), muatRatingItem(db, params...)) uses nothing from the preceding muatDetail D1 lookup, whose result only feeds the 404 here - D1 round trips serialized on the normal path (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::performance/state-raw::src/lib/components/ui/ChatSection.svelte:25::\"chatMessages\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"chatMessages\" in src/lib/components/ui/ChatSection.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/lib/components/ArtikelLiterasi.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/ArtikelLiterasi.svelte:96: JSON.stringify(...).replace(/</g, '\\\\u003c') - script-safe JSON-LD serialization per docs, reported per docs"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/lib/components/HalamanFitur.svelte:76::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/HalamanFitur.svelte:28-55,76: structuredData is built only from repo constants (f from $lib/fitur-lembaga.ts / $lib/halaman-aplikasi.ts, canonicalUrl from literal origin + their slug/path; fitur/[slug] is prerendered) - a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/routes/+page.svelte:401::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:401: JSON.stringify(...).replace(/</g, '\\\\u003c') - script-safe JSON-LD serialization per docs, reported per docs"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/routes/katalog/[jenis]/[slug]/+page.svelte:70::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/katalog/[jenis]/[slug]/+page.svelte:70: jsonLd (:22-40) is JSON.stringify of the D1 catalog item (item.judul/deskripsi via muatDetail, +page.server.ts:12) injected into <script type=application/ld+json> with no '<' escaping - docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/routes/katalog/[jenis]/[slug]/+page.svelte:71::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/katalog/[jenis]/[slug]/+page.svelte:71: remah BreadcrumbList (:41-50) is JSON.stringify of the D1 catalog item (item.judul/deskripsi via muatDetail, +page.server.ts:12) injected into <script type=application/ld+json> with no '<' escaping - docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/routes/lembaga/+page.svelte:126::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/lembaga/+page.svelte:126: JSON.stringify(...).replace(/</g, '\\\\u003c') - script-safe JSON-LD serialization per docs, reported per docs"
+  },
+  {
+    "key": "Santrionlinecom/web::security/raw-html::src/routes/literasi/apa-itu-santri-online/+page.svelte:54::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/literasi/apa-itu-santri-online/+page.svelte:54: JSON.stringify(...).replace(/</g, '\\\\u003c') - script-safe JSON-LD serialization per docs, reported per docs"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/canonical-url::src/routes/invoice/[kode]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invoice/[kode] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps) but not a search target (literal noindex robots meta at invoice/[kode]/+page.svelte:123), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/canonical-url::src/routes/invoice/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invoice/admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps) but not a search target (literal noindex robots meta at invoice/admin/+page.svelte:291), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/canonical-url::src/routes/opener-perpustakaan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /opener-perpustakaan (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 4 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps) but not a search target (literal noindex robots meta at opener-perpustakaan/+page.svelte:4), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/description-length::src/routes/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 233): src/routes/+page.svelte:369 \"Aplikasi pondok pesantren, TPQ, dan rumah tahfidz gratis berbasis w...\"; the route's only description (root layout/app.html none); too long as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/description-length::src/routes/invoice/[kode]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 29): src/routes/invoice/[kode]/+page.svelte:122 \"Tagihan digital SantriOnline.\"; the route's only description (root layout/app.html none); too short as claimed (route is noindex at invoice/[kode]/+page.svelte:123; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/description-length::src/routes/lembaga/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 256): src/routes/lembaga/+page.svelte:107 \"Aplikasi manajemen pondok pesantren gratis berbasis web: keuangan, ...\"; the route's only description (root layout/app.html none); too long as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/description-length::src/routes/opener-perpustakaan/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 49): src/routes/opener-perpustakaan/+page.svelte:3 \"Motion graphic perpustakaan digital SantriOnline.\"; the route's only description (root layout/app.html none); too short as claimed (route is noindex at opener-perpustakaan/+page.svelte:4; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/description-presence::src/routes/invoice/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: invoice/admin/+page.svelte:289-292 head has only a <title> and robots noindex, root layout/app.html none (literal claim holds); not a search target (admin invoice tool, literal noindex,nofollow)"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/indexability::src/routes/invoice/[kode]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: invoice/[kode]/+page.svelte:123 \"noindex, nofollow, noarchive\" unconditional literal robots meta in the page svelte:head; noindex as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/indexability::src/routes/invoice/admin/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: invoice/admin/+page.svelte:291 \"noindex, nofollow\" unconditional literal robots meta in the page svelte:head; noindex as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/indexability::src/routes/opener-perpustakaan/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: opener-perpustakaan/+page.svelte:4 \"noindex\" unconditional literal robots meta in the page svelte:head; noindex as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/json-ld::src/routes/invoice/[kode]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the site's JSON-LD comes from the home page, lembaga, HalamanFitur/ArtikelLiterasi and katalog/[jenis]/[slug]; src/routes/invoice/[kode]/+page.svelte and the root layout render none, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/json-ld::src/routes/invoice/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the site's JSON-LD comes from the home page, lembaga, HalamanFitur/ArtikelLiterasi and katalog/[jenis]/[slug]; src/routes/invoice/admin/+page.svelte and the root layout render none, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/json-ld::src/routes/katalog/[jenis]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the site's JSON-LD comes from the home page, lembaga, HalamanFitur/ArtikelLiterasi and katalog/[jenis]/[slug]; src/routes/katalog/[jenis]/+page.svelte and the root layout render none, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/json-ld::src/routes/opener-perpustakaan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the site's JSON-LD comes from the home page, lembaga, HalamanFitur/ArtikelLiterasi and katalog/[jenis]/[slug]; src/routes/opener-perpustakaan/+page.svelte and the root layout render none, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-description::src/routes/invoice/[kode]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invoice/[kode] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-description::src/routes/invoice/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invoice/admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-description::src/routes/katalog/[jenis]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /katalog/[jenis] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 8 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-description::src/routes/opener-perpustakaan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /opener-perpustakaan (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 4 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-image::src/routes/invoice/[kode]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invoice/[kode] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-image::src/routes/invoice/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invoice/admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-image::src/routes/katalog/[jenis]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /katalog/[jenis] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 8 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-image::src/routes/opener-perpustakaan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /opener-perpustakaan (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 4 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-title::src/routes/invoice/[kode]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invoice/[kode] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-title::src/routes/invoice/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invoice/admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-title::src/routes/katalog/[jenis]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /katalog/[jenis] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 8 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-title::src/routes/opener-perpustakaan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /opener-perpustakaan (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 4 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-url::src/routes/invoice/[kode]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invoice/[kode] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-url::src/routes/invoice/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invoice/admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-url::src/routes/katalog/[jenis]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /katalog/[jenis] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 8 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/og-url::src/routes/opener-perpustakaan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /opener-perpustakaan (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 4 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/single-h1::/opener-perpustakaan::Missing <h#>",
+    "verdict": "tp",
+    "basis": "opener-perpustakaan/+page.svelte renders only a back link, the motion <iframe> and a <p> (noindex page), no heading or component; root +layout.svelte only renders children — no <h1> (stub pages without <h1> are tp by convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/title-length::src/routes/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 74): src/routes/+page.svelte:368 \"SantriOnline | Aplikasi Pesantren & TPQ Gratis, Belajar Agama Islam...\"; the route's only title; too long as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/title-length::src/routes/invoice/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 28): src/routes/invoice/admin/+page.svelte:290 \"Admin Invoice | SantriOnline\"; the route's only title; too short as claimed (route is noindex at invoice/admin/+page.svelte:291; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/title-length::src/routes/lembaga/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 75): src/routes/lembaga/+page.svelte:106 \"Aplikasi Pondok Pesantren, TPQ & Tahfidz Gratis Berbasis Web | Sant...\"; the route's only title; too long as claimed"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/twitter-card::src/routes/invoice/[kode]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invoice/[kode] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/twitter-card::src/routes/invoice/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invoice/admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 5 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/twitter-card::src/routes/katalog/[jenis]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /katalog/[jenis] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 8 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "Santrionlinecom/web::seo/twitter-card::src/routes/opener-perpustakaan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /opener-perpustakaan (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 4 transitively imported local files or app.html; no such tag in page, root +layout.svelte:25-28 (icons only) or app.html; the app's og/twitter/canonical emitters (lib/components/HalamanFitur.svelte, ArtikelLiterasi.svelte) are not imported on this route; no npm Svelte deps); route renders; og/twitter rules carry no search-target exemption"
+  }
+]

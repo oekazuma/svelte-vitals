@@ -1,0 +1,387 @@
+[
+  {
+    "key": "openstate/jodal:frontend::a11y/permitted-contents::src/lib/components/navigation/top-bar.svelte:31::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read navigation/top-bar.svelte:27-31: literal <div class=\"absolute transition\"> inside the menu <button>; phrasing content only"
+  },
+  {
+    "key": "openstate/jodal:frontend::a11y/permitted-contents::src/lib/components/navigation/top-bar.svelte:34::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read navigation/top-bar.svelte:27-34: literal <div class=\"absolute transition\"> inside the menu <button>; phrasing content only"
+  },
+  {
+    "key": "openstate/jodal:frontend::a11y/permitted-contents::src/routes/(app)/zoeken/filters/source.svelte:50::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read zoeken/filters/source.svelte:49-50: <div>{source.label}</div> inside <label for>; <label> admits phrasing content only"
+  },
+  {
+    "key": "openstate/jodal:frontend::a11y/permitted-contents::src/routes/(app)/zoeken/filters/source.svelte:53::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read zoeken/filters/source.svelte:49-53: count badge <div> inside <label for> (in {#await}/{#if}); <label> admits phrasing content only"
+  },
+  {
+    "key": "openstate/jodal:frontend::a11y/permitted-contents::src/routes/(app)/zoeken/make-feed.svelte:55::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read zoeken/make-feed.svelte:53-55: <p> inside <label>; <label> admits phrasing content only"
+  },
+  {
+    "key": "openstate/jodal:frontend::a11y/top-level-landmark::src/routes/(app)/zoeken/+page.svelte:215::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: (app)/+layout.svelte:20-25 renders {@render children()} inside <article id=\"scroll\"> within <main>, so the unlabelled <aside> at zoeken/+page.svelte:215 (no aria-label/labelledby) is scoped by sectioning content and is not a complementary landmark; the docs say exactly this, the analyzer missed the layout <article>"
+  },
+  {
+    "key": "openstate/jodal:frontend::architecture/component-size::src/routes/(app)/zoeken/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/zoeken/+page.svelte has 264 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/lib/components/landing/explanation.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: landing/explanation.svelte:35 '{#each steps as step}' has no key; steps is a same-file `let steps = [ …three literal steps… ]` (:4-23), never written (only mention besides the each), but declared with let, not the exempt const: static list fixed at author time, a key cannot help"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/lib/components/landing/explore.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: landing/explore.svelte:18 '{#each articles as article}' has no key; articles prop = getRandomArticles() from the committed $lib/articles/*.md in the landing page server load ((site)/+page.server.ts:5): static list fixed per render, never reordered client-side (ledger build-time markdown convention)"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/lib/components/landing/hero.svelte:48::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: landing/hero.svelte:48 '{#each examples as example}' has no key; examples prop = getRandomExamples() of the constant examples list in lib/examples.ts, picked in the landing server load ((site)/+page.server.ts:5): static list fixed per render, never reordered client-side"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/lib/components/navigation/items.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: navigation/items.svelte:42 '{#each page.data.articles?.slice(0, maxArticles) as article}' has no key; page.data.articles = getArticles() of the committed $lib/articles/*.md ((app)/+layout.ts:6): static list fixed at build time (ledger build-time markdown convention)"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/lib/components/navigation/items.svelte:67::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: navigation/items.svelte:67 '{#each page.data.feeds?.slice(0, maxFeeds) as feed}' has no key; page.data.feeds = fetchFeeds(event) of the signed-in user's saved feeds ((app)/+layout.ts:10): runtime records the user creates and deletes"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(app)/feeds/+page.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: feeds/+page.svelte:58 '{#each data.feeds ?? [] as feed}' has no key; data.feeds are the user's saved feeds fetched from the API ((app)/+layout.ts:10): runtime records"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(app)/feeds/[id]/+page.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: feeds/[id]/+page.svelte:85 '{#each documents?.hits.hits ?? [] as document}' has no key; documents are the feed's search hits fetched from the API: runtime data (ledger search-results convention)"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(app)/gids/+page.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: gids/+page.svelte:18 '{#each data.articles as article}' has no key; data.articles = getArticles() of the committed $lib/articles/*.md (gids/+page.ts:4): static list fixed at build time (ledger build-time markdown convention)"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(app)/gids/[slug]/+page.svelte:67::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: gids/[slug]/+page.svelte:67 '{#each data.attributes.feeds as feed}' has no key; feeds is the front-matter list of the committed article markdown (lib/articles.ts getArticle), rendered as plain links: static list fixed at build time"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(app)/zoeken/filters/organisations.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: zoeken/filters/organisations.svelte:58 '{#each shownItems as item}' has no key; shownItems = $derived of the API locations filtered by a live Fuse search plus the selected items (:15-33), rendered with checkboxes: runtime list that changes as the user types"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(site)/data/+page.svelte:65::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: data/+page.svelte:65 '{#each locationItems as location}' has no key; locationItems = getLocationItems(data.locations), the cached API catalog of organisations (lib/loaders.ts:14-18) rendered once as <option>s and never edited: static reference catalog (ledger fixed-option-catalog convention)"
+  },
+  {
+    "key": "openstate/jodal:frontend::correctness/each-key::src/routes/(site)/over/+page.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: over/+page.svelte:46 '{#each data.headings as heading}' has no key; data.headings are the h2s parsed from the committed about.md in the server load (over/+page.server.ts): static list fixed at build time"
+  },
+  {
+    "key": "openstate/jodal:frontend::performance/image-dimensions::src/routes/(app)/gids/[slug]/+page.svelte:14::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has no width/height and no spread; hero image absolute inset-0 h-full w-full object-cover inside a relative h-80 box (gids/[slug]/+page.svelte:13-19) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "openstate/jodal:frontend::performance/image-loading-hint::src/routes/(app)/gids/[slug]/+page.svelte:14::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading and no spread; hero image with fetchpriority=\"high\" at the top of the page (+page.svelte:13-19) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "openstate/jodal:frontend::performance/responsive-image::src/routes/(app)/gids/[slug]/+page.svelte:14::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; data.attributes.image is an Unsplash URL with w=500 from the article frontmatter (lib/articles/*.md:4) shown full width - raster, one fixed-size asset"
+  },
+  {
+    "key": "openstate/jodal:frontend::performance/sequential-awaits::src/routes/(app)/+layout.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/+layout.ts:5-10: the only non-exempt preceding await is getArticles() (lib/articles.ts:24-34), import.meta.glob of bundled ?raw markdown modules — in-process on the server, and fetchFeeds is gated on identity from the exempt parent(); no request is serialized before the feeds fetch (ledger in-process-await convention)"
+  },
+  {
+    "key": "openstate/jodal:frontend::security/raw-html::src/lib/components/document.svelte:44::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read lib/components/document.svelte:41-46 + backend/config.yaml.example:15-18: Elasticsearch highlight of scraped third-party document descriptions (no encoder: html) rendered with only a regex that strips tags other than <em>; `(?!\\/?em\\b)` keeps <em …> with any attributes, so <em onmouseover=…> in a source document survives — bypassable filter over external content"
+  },
+  {
+    "key": "openstate/jodal:frontend::security/raw-html::src/routes/(app)/gids/[slug]/+page.svelte:43::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(app)/gids/[slug]/+page.ts + lib/articles.ts:17-22: body = marked.parse of committed src/lib/articles/*.md — repo content, reported per docs"
+  },
+  {
+    "key": "openstate/jodal:frontend::security/raw-html::src/routes/(site)/+layout.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/+layout.svelte:2,15: BronLogo is $lib/assets/bron-logo.svg?raw, a committed SVG asset — constant, reported per docs"
+  },
+  {
+    "key": "openstate/jodal:frontend::security/raw-html::src/routes/(site)/+layout.svelte:52::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/+layout.svelte:2,52: BronLogo is $lib/assets/bron-logo.svg?raw, a committed SVG asset — constant, reported per docs"
+  },
+  {
+    "key": "openstate/jodal:frontend::security/raw-html::src/routes/(site)/over/+page.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(site)/over/+page.server.ts: markdown = marked.parse of the committed about.md?raw with heading ids added — repo content, reported per docs"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(app)/feeds/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /feeds (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library) but not a search target (auth-gated: (app)/feeds/+page.ts:6 redirects guests to /registreren), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(app)/feeds/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /feeds/[id] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library) but not a search target (auth-gated: (app)/feeds/[id]/+page.ts:6 redirects guests to /inloggen), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(app)/gids/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /gids (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(app)/gids/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /gids/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(app)/zoeken/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /zoeken (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(auth)/inloggen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /inloggen (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(auth)/registratie-bevestigen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /registratie-bevestigen (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(auth)/registreren/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /registreren (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(auth)/uitschrijven/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /uitschrijven (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(auth)/wachtwoord-veranderen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /wachtwoord-veranderen (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(auth)/wachtwoord-vergeten/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /wachtwoord-vergeten (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/(legacy)/u/[userId]/[feedId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /u/[userId]/[feedId] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/canonical-url::src/routes/(site)/over/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /over (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no rel=canonical anywhere; app.html:11-33 carries og:url/type/title/description/image and twitter:* but no canonical; route heads are <title>/og:title ((app)/+layout.svelte:15-18) and matomo.svelte script only; hooks.server.ts only loads the identity; no meta-tag library); publicly reachable, rendered route, no guest gate or noindex"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/description-length::src/app.html::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal app.html <meta name=\"description\"> at src/app.html:6-9, grapheme count = 259 as reported); no svelte:head in src sets a description, so it is the description of all 15 routes; public site bron.live, too long as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:6-9 literal description is the only description of all 15 routes (no svelte:head in src sets one; local CLI list), duplicate as claimed; public site bron.live (the gated /feeds pages are the minority), so the shared description gives search engines no per-page summary"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/duplicate-title::src/routes/(site)/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (site)/+page.svelte:13 literal <title>Bron – Superkrachten voor journalisten</title> equals the root +layout.svelte:9 title, which is the only title of /u/[userId]/[feedId], duplicate as claimed; but that other route is a legacy per-user mail-unsubscribe link (its load issues a DELETE to binoas, (legacy)/u/[userId]/[feedId]/+page.server.ts:1-14), not a page that competes in search"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:9 literal <title>Bron – Superkrachten voor journalisten</title> is the only title of /u/[userId]/[feedId] and equals the home page title ((site)/+page.svelte:13), duplicate as claimed; but this route is a legacy per-user mail-unsubscribe link (its load issues a DELETE to binoas), not a page that competes in search"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(app)/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /feeds ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(app)/feeds/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /feeds/[id] ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(app)/gids/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /gids ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(app)/gids/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /gids/[slug] ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(app)/zoeken/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /zoeken ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(auth)/inloggen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /inloggen ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(auth)/registratie-bevestigen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /registratie-bevestigen ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(auth)/registreren/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /registreren ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(auth)/uitschrijven/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /uitschrijven ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(auth)/wachtwoord-veranderen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /wachtwoord-veranderen ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(auth)/wachtwoord-vergeten/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /wachtwoord-vergeten ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/(legacy)/u/[userId]/[feedId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /u/[userId]/[feedId] ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so / ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /data ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/json-ld::src/routes/(site)/over/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /over ships none"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: frontend/static has fonts and images only, no robots.txt route, hook, docker/backend rule or generator repo-wide; public search engine for journalists (app.html og:url https://bron.live)"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/single-h1::/u/[userId]/[feedId]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of frontend/src finds <h1> only in other pages and lib/components/landing/hero.svelte (landing only); root, (app) and (site) layouts render none; (legacy) u/[userId]/[feedId]/+page.svelte is an unsubscribe confirmation card with a <p> and a link, no heading"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/single-h1::/zoeken::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of frontend/src finds <h1> only in other pages and lib/components/landing/hero.svelte (landing only); root, (app) and (site) layouts render none; (app)/zoeken/+page.svelte is the search UI (search box, Document list, filters), no <h1>"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml file, route, docker/backend rule or generator repo-wide; public site (bron.live) with /over, /data, /gids/[slug] guide articles to list"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(app)/feeds/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Feeds – Bron\" at src/routes/(app)/feeds/+page.svelte:29, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 12 as reported); it is the later title on the route (root +layout.svelte and (app)/+layout.svelte titles render first) (literal claim holds); but (app)/feeds/+page.ts:6 redirects every guest to /registreren, so the page is only seen signed in, not a search target"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(app)/gids/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Gids – Bron\" at src/routes/(app)/gids/+page.svelte:8, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 11 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(app)/zoeken/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Zoeken – Bron\" at src/routes/(app)/zoeken/+page.svelte:114, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 13 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/(auth)/inloggen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Inloggen – Bron\" at src/routes/(site)/(auth)/inloggen/+page.svelte:17, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 15 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/(auth)/registratie-bevestigen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Registratie bevestigen – Bron\" at src/routes/(site)/(auth)/registratie-bevestigen/+page.svelte:6, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 29 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/(auth)/registreren/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Registreren – Bron\" at src/routes/(site)/(auth)/registreren/+page.svelte:11, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 18 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/(auth)/uitschrijven/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Uitschrijven – Bron\" at src/routes/(site)/(auth)/uitschrijven/+page.svelte:6, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 19 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/(auth)/wachtwoord-veranderen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Wachtwoord veranderen – Bron\" at src/routes/(site)/(auth)/wachtwoord-veranderen/+page.svelte:11, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 28 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/(auth)/wachtwoord-vergeten/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Wachtwoord vergeten – Bron\" at src/routes/(site)/(auth)/wachtwoord-vergeten/+page.svelte:8, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 26 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/data/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Datakwaliteit – Bron\" at src/routes/(site)/data/+page.svelte:28, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 20 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  },
+  {
+    "key": "openstate/jodal:frontend::seo/title-length::src/routes/(site)/over/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Over – Bron\" at src/routes/(site)/over/+page.svelte:8, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 11 as reported); it is the later title on the route (root +layout.svelte:9 and app.html titles come first, Svelte's head title keeps the later one); public page of bron.live, too short as claimed"
+  }
+]

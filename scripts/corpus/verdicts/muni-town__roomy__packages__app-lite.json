@@ -1,0 +1,787 @@
+[
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/id-duplication::../design/src/components/modals/RoomPickerModal.svelte:182::Duplicate id \"forward-composer\"",
+    "verdict": "design",
+    "basis": "read: two RoomPickerModal instances on [space]/[room]/+page.svelte (:413 forward, {#if forwardMessages}; :422 move, {#if moveTargets}), each a dialog bound to its own open state; div#forward-composer (design RoomPickerModal.svelte:182) is under {#if composer && !isMove}, so the move instance never renders it; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/auth/LoginModal.svelte:171::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/auth/LoginModal.svelte:171 literal <div> whose nearest literal element ancestor is <span> (span; only control-flow blocks between, no component/snippet boundary), outside <span>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/auth/LoginModal.svelte:172::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/auth/LoginModal.svelte:172 literal <div> whose nearest literal element ancestor is <span> (span; only control-flow blocks between, no component/snippet boundary), outside <span>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/chat/ChatArea.svelte:493::`<div>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/chat/ChatArea.svelte:493 literal <div> whose nearest literal element ancestor is <ol> (ol; only control-flow blocks between, no component/snippet boundary), outside <ol>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/chat/ChatArea.svelte:499::`<p>` is not permitted content here — `<ol>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/chat/ChatArea.svelte:499 literal <p> whose nearest literal element ancestor is <ol> (ol; only control-flow blocks between, no component/snippet boundary), outside <ol>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/chat/MessageContext.svelte:44::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/chat/MessageContext.svelte:44 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/sidebar/RoomyHomeCard.svelte:64::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/sidebar/RoomyHomeCard.svelte:64 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/sidebar/ServerBar.svelte:286::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/sidebar/ServerBar.svelte:286 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/sidebar/ServerBar.svelte:302::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/sidebar/ServerBar.svelte:302 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/lib/components/sidebar/ServerBar.svelte:332::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/lib/components/sidebar/ServerBar.svelte:332 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/routes/[space]/settings/+page.svelte:222::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/[space]/settings/+page.svelte:222 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/routes/new/+page.svelte:115::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/new/+page.svelte:115 literal <div> whose nearest literal element ancestor is <label> (label; only control-flow blocks between, no component/snippet boundary), outside <label>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/routes/new/+page.svelte:141::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/new/+page.svelte:141 literal <div> whose nearest literal element ancestor is <label> (label; only control-flow blocks between, no component/snippet boundary), outside <label>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/routes/user/[user]/+page.svelte:305::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/user/[user]/+page.svelte:305 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/routes/user/[user]/+page.svelte:307::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/user/[user]/+page.svelte:307 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::a11y/permitted-contents::src/routes/user/[user]/+page.svelte:339::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/user/[user]/+page.svelte:339 literal <div> whose nearest literal element ancestor is <button> (button; only control-flow blocks between, no component/snippet boundary), outside <button>'s content model"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/auth/HandleTypeahead.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/HandleTypeahead.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/auth/LoginModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/LoginModal.svelte has 344 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/chat/BlocksRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/BlocksRenderer.svelte has 262 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/chat/ChatArea.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatArea.svelte has 551 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/chat/ChatInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatInput.svelte has 384 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/chat/ChatInputArea.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatInputArea.svelte has 553 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/chat/ChatMessage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatMessage.svelte has 671 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/chat/RoomPickerModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/RoomPickerModal.svelte has 229 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/feed/ActivityFeed.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/feed/ActivityFeed.svelte has 283 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/layout/MainLayout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/MainLayout.svelte has 352 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/layout/SearchBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/SearchBar.svelte has 212 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/search/SearchResultsList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/SearchResultsList.svelte has 518 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/sidebar/EditRoomModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/EditRoomModal.svelte has 319 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/sidebar/ServerBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/ServerBar.svelte has 393 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/lib/components/sidebar/SpaceSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/SpaceSidebar.svelte has 864 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 237 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/[space]/[room]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[space]/[room]/+page.svelte has 442 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/[space]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[space]/settings/+page.svelte has 384 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/[space]/settings/discord-bridge/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[space]/settings/discord-bridge/+page.svelte has 614 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/[space]/settings/federations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[space]/settings/federations/+page.svelte has 391 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/[space]/settings/handle/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[space]/settings/handle/+page.svelte has 305 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/[space]/settings/permissions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[space]/settings/permissions/+page.svelte has 384 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/new/+page.svelte has 219 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/user/[user]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/[user]/+page.svelte has 406 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/component-size::src/routes/user/settings/subscription/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/settings/subscription/+page.svelte has 286 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/chat/ChatArea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/chat/ChatArea.svelte with 7 named props (> 6): spaceId, roomId, onSeen, highlightMessage, onForward, onMove, onRequestDelete"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/chat/ChatInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/chat/ChatInput.svelte with 13 named props (> 6): content, blocks, mentions, initialBlocks, mentionSearch, context, onEnter, placeholder, setFocus, disabled, ..."
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/chat/ChatInputArea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/chat/ChatInputArea.svelte with 8 named props (> 6): spaceId, roomId, canWrite, disableUploads, autoFocus, onForwardSelection, onMoveSelection, onDeleteSelection"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/chat/ChatMessage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/chat/ChatMessage.svelte with 14 named props (> 6): spaceId, roomId, message, currentUserDid, isAdmin, canCreateSpaceCard, editingMessageId, onStartEdit, onCancelEdit, onRequestDelete, ..."
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/chat/ForwardContext.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/chat/ForwardContext.svelte with 8 named props (> 6): name, handle, did, avatar, timestamp, spaceId, roomId, messageId"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/chat/MessageToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/chat/MessageToolbar.svelte with 13 named props (> 6): spaceId, roomId, message, mergeWithPrevious, canEdit, canDelete, canMove, keepToolbarOpen, onForward, onStartEdit, ..."
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::architecture/prop-count::src/lib/components/search/SearchResultsList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/search/SearchResultsList.svelte with 8 named props (> 6): query, scopeLabel, showSpaceInfo, spaceId, roomId, hrefFor, disableRoomsSearch, expandScope"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/each-key::src/lib/components/auth/HandleTypeahead.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/auth/HandleTypeahead.svelte:200 '{#each suggestions as suggestion, i}' has no key and is not an exempt shape; list source is runtime data ($state search suggestions / $derived channel and role data from queries), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/each-key::src/routes/[space]/settings/federations/+page.svelte:369::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[space]/settings/federations/+page.svelte:369 '{#each ownChannels as ch}' has no key and is not an exempt shape; list source is runtime data ($state search suggestions / $derived channel and role data from queries), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/each-key::src/routes/[space]/settings/permissions/+page.svelte:233::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[space]/settings/permissions/+page.svelte:233 '{#each selectedRole.memberDids as did}' has no key and is not an exempt shape; list source is runtime data ($state search suggestions / $derived channel and role data from queries), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/each-key::src/routes/[space]/settings/permissions/+page.svelte:287::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/[space]/settings/permissions/+page.svelte:287 '{#each selectedRole.rooms as room}' has no key and is not an exempt shape; list source is runtime data ($state search suggestions / $derived channel and role data from queries), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/effect-as-derived::src/lib/components/chat/ChatInputArea.svelte:87::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/ChatInputArea.svelte:87; the effect only does blocks = messagingState.blocks (imported runes state); later writes come only through bind:blocks (522), the writable-$derived override pattern the ledger labels tp (svelte ^5.40); the sibling push-back effect is unaffected"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/effect-as-derived::src/lib/components/sidebar/EditRoomModal.svelte:63::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/sidebar/EditRoomModal.svelte:63; the effect only assigns name from the room query / id prop; later writes are bind:name (294), the writable-$derived override pattern (svelte ^5.40)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::correctness/nonreactive-builtin-state::src/lib/components/chat/MessageReactions.svelte:52::\"fetchedEmojis\" is a plain Set in $state — its mutations are not tracked, so the UI silently stops updating when it changes. Use SvelteSet from 'svelte/reactivity'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/MessageReactions.svelte:52 fetchedEmojis = $state(new Set()) mutated with .add (60) in a function, never reassigned, so the mutation is untracked as claimed; it is read only as a dedupe guard (59), so no visible staleness (same convention as the ledger's loadedImages Set)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::performance/image-dimensions::src/routes/user/[user]/+page.svelte:299::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class aspect-[3/1] w-full)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::performance/image-loading-hint::src/routes/user/[user]/+page.svelte:299::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: banner preview, first field of the profile edit form shown in {#if editing} — visible when rendered, where the docs keep the image eager"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::performance/responsive-image::src/routes/user/[user]/+page.svelte:299::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: bannerSrc = bannerPreview ?? resolveBlobUrl(profile.banner) (:217) — remote raster banner blob, one fixed-size asset"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::performance/state-raw::src/routes/[space]/settings/discord-bridge/+page.svelte:142::\"backfillChannels\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"backfillChannels\" in src/routes/[space]/settings/discord-bridge/+page.svelte: only whole-binding reassignments and read-only template/{@const} uses; no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:210::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:210: text is escaped, but a link facet is rendered as href=\"${escapeAttr(uri)}\" (BlocksRenderer.svelte:113-118) with no scheme check, and LinkFeature.uri is any string (sdk/src/schema/richtext/index.ts:62-65) — another user's message can carry a javascript: link; no CSP; ingest does not validate it either (appserver only normalizes embed URLs, sdk richtext has no scheme check)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:213::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:213: text is escaped, but a link facet is rendered as href=\"${escapeAttr(uri)}\" (BlocksRenderer.svelte:113-118) with no scheme check, and LinkFeature.uri is any string (sdk/src/schema/richtext/index.ts:62-65) — another user's message can carry a javascript: link; no CSP; ingest does not validate it either (appserver only normalizes embed URLs, sdk richtext has no scheme check)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:219::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:219: text is escaped, but a link facet is rendered as href=\"${escapeAttr(uri)}\" (BlocksRenderer.svelte:113-118) with no scheme check, and LinkFeature.uri is any string (sdk/src/schema/richtext/index.ts:62-65) — another user's message can carry a javascript: link; no CSP; ingest does not validate it either (appserver only normalizes embed URLs, sdk richtext has no scheme check)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:222::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:222: text is escaped, but a link facet is rendered as href=\"${escapeAttr(uri)}\" (BlocksRenderer.svelte:113-118) with no scheme check, and LinkFeature.uri is any string (sdk/src/schema/richtext/index.ts:62-65) — another user's message can carry a javascript: link; no CSP; ingest does not validate it either (appserver only normalizes embed URLs, sdk richtext has no scheme check)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:225::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:225: escapeHtml(blockText(block)) escapes &, <, > — escaped, reported per docs"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:228::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:228: text is escaped, but a link facet is rendered as href=\"${escapeAttr(uri)}\" (BlocksRenderer.svelte:113-118) with no scheme check, and LinkFeature.uri is any string (sdk/src/schema/richtext/index.ts:62-65) — another user's message can carry a javascript: link; no CSP; ingest does not validate it either (appserver only normalizes embed URLs, sdk richtext has no scheme check)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/BlocksRenderer.svelte:231::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/BlocksRenderer.svelte:231: text is escaped, but a link facet is rendered as href=\"${escapeAttr(uri)}\" (BlocksRenderer.svelte:113-118) with no scheme check, and LinkFeature.uri is any string (sdk/src/schema/richtext/index.ts:62-65) — another user's message can carry a javascript: link; no CSP; ingest does not validate it either (appserver only normalizes embed URLs, sdk richtext has no scheme check)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/MessageContent.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/chat/MessageContent.svelte:32: renderMarkdownSanitized = DOMPurify.sanitize(marked.parse(...)) (packages/design/src/utils/markdown.ts:87) — sanitized, reported per docs"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/MessageContext.svelte:45::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/MessageContext.svelte:45: messageContentToPlaintext returns raw text (richtext: sdk blocksToPlaintext, unescaped; markdown: DOMPurify output's textContent, which decodes &lt; back to <) and it is injected with {@html} — another user's message text becomes live HTML"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/chat/MessageContextReply.svelte:85::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/chat/MessageContextReply.svelte:85: messageContentToPlaintext returns raw text (richtext: sdk blocksToPlaintext, unescaped; markdown: DOMPurify output's textContent, which decodes &lt; back to <) and it is injected with {@html} — another user's message text becomes live HTML"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::security/raw-html::src/lib/components/search/SearchResultsList.svelte:410::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/search/SearchResultsList.svelte:410: messageContentToPlaintext returns raw text (richtext: sdk blocksToPlaintext, unescaped; markdown: DOMPurify output's textContent, which decodes &lt; back to <) and it is injected with {@html} — another user's message text becomes live HTML"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 263 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 258 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/[room]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 315 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/[room]/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 272 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 272 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 258 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/discord-bridge/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 260 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/federations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 256 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/handle/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 255 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/integrations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 256 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/invites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 254 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 257 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 255 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/[space]/settings/permissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 264 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/join/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 221 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 217 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 263 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/user/[user]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 246 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); no canonical in SeoMeta or elsewhere) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/user/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/user/settings/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/canonical-url::src/routes/user/settings/subscription/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 219 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta) but not a search target (auth-gated by modal, not redirect: auth-guard.svelte.ts:15 requireAuth defaults true and no route opts out, root +layout.svelte:233-235 shows a blocking LoginModal to guests and data queries throw \"Not authenticated\" (:164-167)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: app.html:7-10 literal description \"A community platform integrated with the AT Protocol\" (52) is the only description of these 5 ssr=false routes; length matches"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html literal description is the only description of the 5 routes (/join, /new, /user/settings, /user/settings/notifications, /user/settings/subscription), all ssr=false account views of the chat SPA (join dialog, create space, settings), so no search competition"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html literal <title>Roomy</title> is the only title of the 5 routes (/join, /new, /user/settings, /user/settings/notifications, /user/settings/subscription), all ssr=false account views of the chat SPA (join dialog, create space, settings), so no search competition"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/[room]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/[room]/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/discord-bridge/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/federations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/handle/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/integrations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/invites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/[space]/settings/permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/join/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/user/[user]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/user/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/user/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/json-ld::src/routes/user/settings/subscription/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld in app-lite, its workspace packages or app.html; SeoMeta.svelte emits title/description/og/twitter only"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-description::src/routes/join/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 221 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-description::src/routes/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 217 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-description::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-description::src/routes/user/settings/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-description::src/routes/user/settings/subscription/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 219 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-image::src/routes/join/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 221 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-image::src/routes/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 217 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-image::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-image::src/routes/user/settings/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-image::src/routes/user/settings/subscription/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 219 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-title::src/routes/join/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 221 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-title::src/routes/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 217 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-title::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-title::src/routes/user/settings/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-title::src/routes/user/settings/subscription/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 219 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-url::src/routes/join/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 221 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-url::src/routes/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 217 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-url::src/routes/user/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-url::src/routes/user/settings/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/og-url::src/routes/user/settings/subscription/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 219 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt/sitemap.xml in app-lite static/, routes or build config; public web app (space/room pages carry SeoMeta share tags)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/single-h1::../design/src/components/modals/RoomEditForm.svelte:58::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers 16 routes (local run); the anchored <h1> \"Edit {kind}\" (and the archive-confirm <h1> at :118) sit inside @roomy/design RoomEditForm's foxui <Modal bind:open> (open=$bindable(false)), rendered via SpaceSidebar's EditRoomModal only when the user edits a room; outside modals the 13 /[space]/* routes and /search render one <h1> (the SpaceSidebar header via SpaceHeaderShell {#if}/{:else} or SpaceSidebar.svelte:586) -> closed-by-default modals, design; mixed: on / (WelcomeContent.svelte:70 <h1>) and /user/[user] (UserProfile.svelte:96 <h1>) a second non-modal <h1> co-renders with the sidebar one (tp there)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/single-h1::../design/src/components/user/UserProfile.svelte:96::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1> co-render on /user/[user] (ssr=false SPA): the page's snippet userSidebar renders <SpaceSidebar /> with no spaceId, whose $effect setSidebarHeader(spaceHeader) makes MainLayout.svelte:164-165 render the {:else} arm of {#if spaceId && !inaccessible} — the 'Roomy' <h1> (SpaceSidebar.svelte:586) — while the profile view renders @roomy/design UserProfile's unconditional <h1> (UserProfile.svelte:96); the modals holding RoomEditForm's <h1>s sit in {#if spaceId} (SpaceSidebar.svelte:795), correctly dropped by the new gate for the absent spaceId, and the header {#if spaceId && !inaccessible} (not a single-prop gate) folds its arms to one <h1> by max, so the count of 2 matches what renders"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/single-h1::src/lib/components/welcome/WelcomeContent.svelte:70::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1> co-render on / (ssr=false, +page.ts): +page.svelte's homeSidebar snippet renders <SpaceSidebar /> without spaceId, so MainLayout's sidebar header shows the {:else} 'Roomy' <h1> (SpaceSidebar.svelte:586), and homeContent renders WelcomeContent's unconditional <h1>{heading}</h1> (WelcomeContent.svelte:70); the {#if spaceId} modals (RoomEditForm <h1>s, SpaceSidebar.svelte:795) are correctly dropped by the new gate, and the header {#if spaceId && !inaccessible} (not a single-prop gate) folds its arms to one <h1> by max, so the count of 2 matches what renders"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/single-h1::src/routes/new/+page.svelte:85::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: new/+page.svelte's heading is <h2> \"Create your space\" (:85); it sets only a Back-button navbar snippet and clears the sidebar, so no SpaceSidebar/settings sidebarHeader <h1> is set; MainLayout/Navbar/BigSidebar render none, and LoginModal (unauthenticated arm) uses @foxui/core@0.9.1 Subheading without level (=h2, Subheading.svelte:9); ssr=false SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/single-h1::src/routes/user/settings/subscription/+page.svelte:186::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: user/settings/+layout.svelte onMount sets its settingsSidebarHeader snippet (<h1>Roomy</h1>, :75) into MainLayout's sidebar header, and the page renders the hero <h1> (subscription/+page.svelte:186) in the {:else} (pro-subscription flag on) arm; SPA (adapter-static fallback), so after mount both co-render -> two <h1>"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt/sitemap.xml in app-lite static/, routes or build config; public web app (space/room pages carry SeoMeta share tags)"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/[space]/+layout.ts:5::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/[space]/+layout.ts:5; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/join/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/join/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/new/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/new/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/search/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/search/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/user/[user]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/user/[user]/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/user/settings/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/user/settings/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/user/settings/notifications/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/user/settings/notifications/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/ssr-disabled::src/routes/user/settings/subscription/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/user/settings/subscription/+page.ts:1; every route of the chat app is ssr=false with adapter-static fallback (deliberate SPA, also shipped in a Tauri shell), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: app.html literal <title>Roomy</title> (5) is the only title of these 5 ssr=false routes (they render no SeoMeta); length matches"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/twitter-card::src/routes/join/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 221 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/twitter-card::src/routes/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 217 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/twitter-card::src/routes/user/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/twitter-card::src/routes/user/settings/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 220 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  },
+  {
+    "key": "muni-town/roomy:packages/app-lite::seo/twitter-card::src/routes/user/settings/subscription/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 219 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only emitter is lib/components/seo/SeoMeta.svelte (og:title/description/image, og:url when url is passed, twitter:card; never a canonical); this route renders no SeoMeta"
+  }
+]

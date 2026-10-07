@@ -1,0 +1,1857 @@
+[
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/disallowed-aria-props::src/lib/components/GroupStars.svelte:22::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read GroupStars.svelte:22: literal <span> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/disallowed-aria-props::src/lib/components/MaintenanceScreen.svelte:84::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read MaintenanceScreen.svelte:84: literal <div> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/disallowed-aria-props::src/lib/components/forum/BoardRow.svelte:80::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read BoardRow.svelte:80: literal <span> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/disallowed-aria-props::src/lib/components/forum/TopicRow.svelte:79::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read TopicRow.svelte:79: literal <span> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/disallowed-aria-props::src/lib/components/layout/UserMenu.svelte:65::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read UserMenu.svelte:65: literal <span> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/disallowed-aria-props::src/routes/messages/+page.svelte:86::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs) + read +page.svelte:86: literal <span> carrying aria-label with no role attribute, no spread and no use: action; it resolves to generic, where ARIA prohibits naming, so the label is not reliably exposed"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/duplicate-landmark::src/lib/components/AuthCard.svelte:119::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: AuthCard.svelte:90-150 renders <main> only in the showcase arms ({#if showcase && layout === 'centered'}/{:else if showcase && layout === 'cover'} :119/{:else if showcase} :130); /banned, /change-password, /confirm-email/[token], /policies/accept, /verify-email/[token] pass no showcase, so the {:else} card arm (no main) renders; /reset-password/[token] passes showcase but root +layout.svelte:189/:234 renders it bare (isAuthArea regex matches reset-password), so every route has one main (all 6 routes)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/duplicate-landmark::src/lib/components/MaintenanceScreen.svelte:145::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: admin/maintenance/page/+page.svelte:262-269 renders <MaintenanceScreen preview> whose root is an unconditional <main data-part=maintenance> (MaintenanceScreen.svelte:145) inside admin/+layout.svelte:323 <main> (root layout renders /admin children bare), so the editor route has two main landmarks"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/duplicate-landmark::src/routes/install/+page.svelte:245::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: install/+page.ts:5 returns { bare: true } and root +layout.svelte:191/:234 renders {@render children()} bare in the {:else if isAuthArea || isBare} arm (isBare = page.data.bare === true) and inside <main> (:270) only in the final {:else}, so on /install the page's <main> (:245) is the only main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/duplicate-landmark::src/routes/oauth/authorize/+page.svelte:57::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: oauth/authorize/+page.ts:11/:13 return bare: true on every rendering path and root +layout.svelte:191/:234 renders {@render children()} bare in the {:else if isAuthArea || isBare} arm (isBare = page.data.bare === true) and inside <main> (:270) only in the final {:else}, so on /oauth/authorize the page's <main> (:57) is the only main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/id-duplication::src/lib/components/UserAvatar.svelte:43::Duplicate id \"av-bg\"",
+    "verdict": "tp",
+    "basis": "read: UserAvatar.svelte:31-51 renders an <svg> with <linearGradient id=\"av-bg\"> whenever the user has no avatar URL and no default avatar is set; the root header's UserMenu renders two literal copies for the signed-in user (trigger :64, plus :74 when the menu opens), so the id repeats in the DOM (svg-id co-render precedent, filterIcon); 129 routes share the root layout"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/no-autofocus::src/lib/components/ConfirmDialog.svelte:60::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; prompt input inside bits-ui AlertDialog.Content (ConfirmDialog.svelte:30-36) under {#if o.input}, shown only when a confirm() call opens the dialog; focus on user action inside an opened modal, docs only carve out <dialog>/popover"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/no-autofocus::src/lib/components/EmojiPicker.svelte:182::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; EmojiPicker's search input is mounted only inside bits-ui Popover.Content opened by the emoji trigger (editor/Editor.svelte:664-670, admin/reactions/+page.svelte:107-112); focus on user action, not page load"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/no-autofocus::src/lib/components/layout/SearchDialog.svelte:139::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; search input inside bits-ui Dialog.Content (SearchDialog.svelte:133-139, bind:open) opened by the user; focus on user action inside an opened modal, docs only carve out <dialog>/popover"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/lib/components/forum/PostCard.svelte:197::`<b>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read PostCard.svelte:197: literal <b> directly inside a <div> that is a direct child of <dl> (:196/:232); a dl>div wrapper admits only <dt>/<dd> (+script-supporting), so the <b> is outside its content model"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/lib/components/forum/PostCard.svelte:198::`<b>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read PostCard.svelte:198: literal <b> directly inside a <div> that is a direct child of <dl> (:196/:232); a dl>div wrapper admits only <dt>/<dd> (+script-supporting), so the <b> is outside its content model"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/lib/components/forum/PostCard.svelte:234::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read PostCard.svelte:234: literal <span> directly inside a <div> that is a direct child of <dl> (:196/:232); a dl>div wrapper admits only <dt>/<dd> (+script-supporting), so the <span> is outside its content model"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/lib/components/forum/PostCard.svelte:237::`<span>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read PostCard.svelte:237: literal <span> directly inside a <div> that is a direct child of <dl> (:196/:232); a dl>div wrapper admits only <dt>/<dd> (+script-supporting), so the <span> is outside its content model"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/admin/appearance/+page.svelte:440::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +page.svelte:440 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/admin/home/+page.svelte:307::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <p> at +page.svelte:307 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/admin/home/+page.svelte:313::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <p> at +page.svelte:313 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/admin/import/+page.svelte:495::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +page.svelte:495 has literal <label> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <label>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/admin/logs/+page.svelte:71::`<p>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <p> at +page.svelte:71 has literal <summary> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <summary>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/admin/maintenance/+page.svelte:324::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +page.svelte:324 has literal <label> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <label>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/permitted-contents::src/routes/settings/achievements/+page.svelte:51::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +page.svelte:51 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/admin/applications/[id]/+page.svelte:178::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/applications/[id]/+page.svelte:178 bare <aside> at the page's top level (no sectioning ancestor in the file); root +layout.svelte:232-233 renders /admin children bare (isAdminArea) and admin/+layout.svelte:323-329 wraps them in an unconditional <main>, so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/admin/forum/boards/[id]/+page.svelte:382::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/forum/boards/[id]/+page.svelte:382 bare <aside> at the page's top level (no sectioning ancestor in the file); root +layout.svelte:232-233 renders /admin children bare (isAdminArea) and admin/+layout.svelte:323-329 wraps them in an unconditional <main>, so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/admin/settings/[section]/+page.svelte:122::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/settings/[section]/+page.svelte:122 bare <aside> at the page's top level (no sectioning ancestor in the file); root +layout.svelte:232-233 renders /admin children bare (isAdminArea) and admin/+layout.svelte:323-329 wraps them in an unconditional <main>, so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/admin/themes/[id]/+page.svelte:270::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/themes/[id]/+page.svelte:270 bare <aside> at the page's top level (no sectioning ancestor in the file); root +layout.svelte:232-233 renders /admin children bare (isAdminArea) and admin/+layout.svelte:323-329 wraps them in an unconditional <main>, so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/applications/[slug]/+page.svelte:107::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: applications/[slug]/+page.svelte:107 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/applications/view/[id]/+page.svelte:145::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: applications/view/[id]/+page.svelte:145 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/f/[id]/new/+page.svelte:269::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: f/[id]/new/+page.svelte:269 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/install/+page.svelte:205::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: install/+page.ts:5 returns { bare: true } and root +layout.svelte:191/:234 renders {@render children()} bare in the {:else if isAuthArea || isBare} arm (isBare = page.data.bare === true) and inside <main> (:270) only in the final {:else}; on /install the page's <aside> (:205) is a sibling before its own <main> (:245), at the top level, not nested in any landmark"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/install/+page.svelte:245::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: install/+page.ts:5 returns { bare: true } and root +layout.svelte:191/:234 renders {@render children()} bare in the {:else if isAuthArea || isBare} arm (isBare = page.data.bare === true) and inside <main> (:270) only in the final {:else}; on /install the page's <main> (:245) is not nested in any main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/messages/new/+page.svelte:163::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: messages/new/+page.svelte:163 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/oauth/authorize/+page.svelte:57::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: oauth/authorize/+page.ts:11/:13 return bare: true on every rendering path and root +layout.svelte:191/:234 renders {@render children()} bare in the {:else if isAuthArea || isBare} arm (isBare = page.data.bare === true) and inside <main> (:270) only in the final {:else}; the page's <main> (:57) is not nested in any main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/policies/[key]/+page.svelte:143::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: policies/[key]/+page.svelte:143 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/policies/[key]/+page.svelte:40::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: policies/[key]/+page.svelte:40 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/search/+page.svelte:137::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: search/+page.svelte:137 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/settings/+layout.svelte:54::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte:54 bare <aside> (no sectioning ancestor) wrapping the settings nav; root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so it is a complementary nested in main on all 13 /settings routes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/tickets/[id]/+page.svelte:141::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: tickets/[id]/+page.svelte:141 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/u/[id]/[[slug]]/+page.svelte:181::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: u/[id]/[[slug]]/+page.svelte:181 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/wiki/[...path]/+page.svelte:163::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: wiki/[...path]/+page.svelte:163 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::a11y/top-level-landmark::src/routes/wiki/[...path]/+page.svelte:80::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: wiki/[...path]/+page.svelte:80 <aside> at the page's top level (no sectioning ancestor in the file, landmark per HTML-AAM); root +layout.svelte renders non-admin, non-auth, non-bare pages inside <main> (:270-279, final {:else}); no flagged route's load returns bare (grep: only /, /install, /oauth/authorize, /embed and blank custom pages do), so the complementary is nested in main"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/Combobox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Combobox.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/EmojiPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EmojiPicker.svelte has 265 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/builder/BlockView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/builder/BlockView.svelte has 431 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/editor/Editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/editor/Editor.svelte has 748 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/forum/BoardRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forum/BoardRow.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/forum/PostCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forum/PostCard.svelte has 351 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/lib/components/layout/SearchDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/SearchDialog.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+layout.svelte has 333 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/achievements/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/achievements/+page.svelte has 351 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/appearance/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/appearance/+page.svelte has 616 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/applications/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/applications/[id]/+page.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/bans/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/bans/+page.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/custom/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/custom/+page.svelte has 534 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/developers/AppsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/developers/AppsTab.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/developers/WebhooksTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/developers/WebhooksTab.svelte has 241 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/embeds/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/embeds/+page.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/emojis/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/emojis/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/forum/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/forum/+page.svelte has 455 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/forum/boards/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/forum/boards/[id]/+page.svelte has 424 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/groups/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/groups/[id]/+page.svelte has 372 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/home/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/home/+page.svelte has 498 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/import/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/import/+page.svelte has 568 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/mail/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/mail/+page.svelte has 284 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/maintenance/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/maintenance/+page.svelte has 470 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/maintenance/page/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/maintenance/page/+page.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/og-card/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/og-card/+page.svelte has 231 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/pages/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/pages/[id]/+page.svelte has 499 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/pages/docs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/pages/docs/+page.svelte has 424 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/security/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/security/+page.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/settings/[section]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/settings/[section]/+page.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/system/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/system/+page.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/themes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/themes/+page.svelte has 300 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/themes/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/themes/[id]/+page.svelte has 821 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/tickets/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/tickets/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/updates/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/updates/+page.svelte has 436 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/users/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/users/[id]/+page.svelte has 565 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/admin/warnings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/warnings/+page.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/developers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/developers/+page.svelte has 316 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/f/[id]/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/f/[id]/new/+page.svelte has 298 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/install/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/install/+page.svelte has 579 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/messages/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/messages/[id]/+page.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/messages/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/messages/new/+page.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/t/[id]/[[slug]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/t/[id]/[[slug]]/+page.svelte has 784 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/component-size::src/routes/u/[id]/[[slug]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/u/[id]/[[slug]]/+page.svelte has 376 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/CodeEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CodeEditor.svelte has a single destructured $props() with 7 named props (> 6): value, language, minHeight, maxLength, placeholder, id, class"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/Combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Combobox.svelte has a single destructured $props() with 20 named props (> 6): options, load, selected, value, multiple, placeholder, searchPlaceholder, emptyText, clearable, creatable, searchable, disabled, invalid, id, name, ariaLabel, maxSelected, class, onchange, item"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/Field.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Field.svelte has a single destructured $props() with 7 named props (> 6): label, for, error, hint, required, class, children"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/IconPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/IconPicker.svelte has a single destructured $props() with 7 named props (> 6): name, color, nodes, withColor, onchange, class, searchUrl"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/ImageUpload.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ImageUpload.svelte has a single destructured $props() with 9 named props (> 6): current, squareSize, maxBytes, rounded, previewSize, previewWidth, label, onupload, onremove"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/MaintenanceScreen.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MaintenanceScreen.svelte has a single destructured $props() with 7 named props (> 6): cfg, forumName, message, logoUrl, social, loggedIn, preview"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/NativeSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NativeSelect.svelte has a single destructured $props() with 10 named props (> 6): value, options, placeholder, id, name, class, disabled, onchange, aria-label, aria-invalid"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/Widget.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Widget.svelte has a single destructured $props() with 7 named props (> 6): title, icon, href, hrefLabel, class, flush, children"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/admin/KpiCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/KpiCard.svelte has a single destructured $props() with 8 named props (> 6): label, value, icon, series, hint, href, tone, index"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/admin/SettingRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/SettingRow.svelte has a single destructured $props() with 8 named props (> 6): label, description, for, error, modified, onreset, inline, children"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/editor/Editor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/editor/Editor.svelte has a single destructured $props() with 15 named props (> 6): value, id, placeholder, boardId, uploadUrl, maxLength, compact, minHeight, draftKey, mentions, invalid, disabled, previewKind, onsubmit, class"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/forum/PostCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forum/PostCard.svelte has a single destructured $props() with 14 named props (> 6): post, boardId, topicTitle, prefixes, canReply, multiQuoted, postMaxLength, onquote, ontogglemulti, onchanged, onhistory, reactionDefs, loggedIn, layout"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) beside a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/MaintenanceScreen.svelte:107::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each cfg.buttons as b, i (i)}' keyed by its index binding; the admin maintenance editor renders this component live with cfg={form.page} (admin/maintenance/page/+page.svelte:262) while buttons are pushed and spliced mid-list (:215, :219); runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/MaintenanceScreen.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each parts as p, i (i)}' keyed by its index binding; parts = $derived([days, hours, minutes, seconds]) countdown units (:52); positional fixed slots"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/NodeIcon.svelte:25::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each nodes ?? [] as [tag, attrs], i (i)}' keyed by its index binding; the SVG element nodes of one icon definition (nodes prop); static icon geometry, positional"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/Pagination.svelte:46::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each items as item, i (i)}' keyed by its index binding; items = $derived.by page numbers with '…' gaps (:26); positional list (pagination page slots), ledger convention"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/admin/BanForm.svelte:91::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each triggers as trigger, i (i)}' keyed by its index binding; triggers = $state with add (:114) and mid-list removal triggers.filter((_, j) => j !== i) (:108), rows hold bound selects/inputs; runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/admin/TopicTemplateEditor.svelte:95::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each value.fields as f, i (i)}' keyed by its index binding; fields are added, removed by index and moved (:42, :44-45, :47); runtime editable list with inputs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:144::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.items as it, i (i)}' keyed by its index binding; authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:182::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each imgs as g, i (i)}' keyed by its index binding; imgs = b.images with a url (:177); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:191::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each imgs as g, i (i)}' keyed by its index binding; imgs = b.images with a url (:177); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:216::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.items as it, i (i)}' keyed by its index binding (testimonial figures); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:232::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.plans as pl, i (i)}' keyed by its index binding (pricing plans); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:248::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each pl.features.filter(Boolean) as f, k (k)}' keyed by its index binding (feature lines of one pricing plan); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:257::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.items as it, i (i)}' keyed by its index binding (timeline items); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:269::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.links as l, i (i)}' keyed by its index binding (link list); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:278::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.items.filter((x) => x.image) as lg, i (i)}' keyed by its index binding (logo strip); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:397::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.items as it, i (i)}' keyed by its index binding (FAQ <details>); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/BlockView.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each list as btn, i (i)}' keyed by its index binding (a block's buttons); authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/FooterBlock.svelte:42::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.columns as c, i (i)}' keyed by its index binding; footer columns of an authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/FooterBlock.svelte:46::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each c.links as l, k (k)}' keyed by its index binding; links of one footer column; authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/GalleryCarousel.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each images as g, i (i)}' keyed by its index binding; images of a gallery block passed from BlockView; authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/GalleryCarousel.svelte:43::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each images as _, i (i)}' keyed by its index binding; one carousel indicator dot per image (i === index); positional indicator dots of authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/NavbarBlock.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.links as l, i (i)}' keyed by its index binding; navbar links of an authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/NavbarBlock.svelte:58::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.buttons as btn, i (i)}' keyed by its index binding; navbar buttons of an authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/builder/NavbarBlock.svelte:83::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each b.links as l, i (i)}' keyed by its index binding; mobile navbar links of an authored site-builder content (block prop from the page's stored blocks, rendered by BuilderPage keyed by block id; the admin editor never renders it live, admin/pages/[id] only mounts it offscreen for legacy migration :297); static per page view, never reordered while mounted (ledger CMS-authored-list convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/forum/PageJump.svelte:62::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each items as item, i (i)}' keyed by its index binding; items = $derived.by page numbers with '…' gaps (:34); positional list (pagination page slots), ledger convention"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/home/TilesBlock.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each block.items as t, i (i)}' keyed by its index binding; the tiles of an admin-authored home block (block prop from stored home blocks, rendered on the forum index); static per page view (the admin editor at admin/home edits a separate list), ledger CMS-authored-list convention"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/lib/components/layout/SeoHead.svelte:87::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each ld as item, i (i)}' keyed by its index binding; ld = $derived JSON-LD objects (:54) rendered only as {@html} script tags in <svelte:head>; no element state (ledger JSON-LD-in-head convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/appearance/+page.svelte:531::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each social as l, i (i)}' keyed by its index binding; social = $state with add (:539) and mid-list removal (:536), rows hold Combobox/Input state; runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/appearance/+page.svelte:549::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each footerLinks as l, i (i)}' keyed by its index binding; footerLinks = $state with add (:559) and mid-list removal (:555), rows hold bound inputs; runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/developers/AppsTab.svelte:166::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each form.redirectUris as _, i (i)}' keyed by its index binding; redirect URIs with add (:174) and mid-list removal (:169), bound inputs; runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/emojis/+page.svelte:141::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each queue as q, i (i)}' keyed by its index binding; queue is built once per upload batch from the chosen files (:40) and only updated in place by index (queue[i].status, :48-50), never reordered/inserted/removed; fixed rows, only status changes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/home/+page.svelte:416::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each edit.config.items as tile, i (i)}' keyed by its index binding; tiles are added (:446), removed by index (:434) and moved (moveTile, :433); runtime editable list with inputs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/import/+page.svelte:348::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each samples as s, i (i)}' keyed by its index binding; samples = $state([]) (:169) filled from the probed import source; runtime data"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/import/+page.svelte:416::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each current.log as line, i (i)}' keyed by its index binding; the running import job's log lines, appended as the job progresses; runtime data (ledger appended-log convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/mail/+page.svelte:267::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each data.outbox.items as m, i (i)}' keyed by its index binding; outbox mail records from load data rendered as <details> (open state sticks to positions on refresh); runtime records"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/maintenance/page/+page.svelte:211::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each form.page.buttons as b, i (i)}' keyed by its index binding; buttons pushed (:219) and spliced mid-list (:215), rows hold bound inputs; runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/pages/[id]/+page.svelte:440::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each form.secrets as s, i (i)}' keyed by its index binding; secrets pushed (:192) and spliced mid-list (:444), rows hold bound inputs; runtime editable list"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/security/+page.svelte:187::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each w.events as e, i (i)}' keyed by its index binding; w = $derived(data.waf) (:28), WAF event records; runtime data"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/each-index-key::src/routes/admin/updates/+page.svelte:255::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each job.log as l, i (i)}' keyed by its index binding; the update job's log lines, appended as the job runs (job = $state refreshed from the API, :84); runtime data (ledger appended-log convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/effect-as-derived::src/routes/admin/wiki/+page.svelte:25::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: admin/wiki/+page.svelte:25 $effect.pre re-copies tree = toOrder(data.wiki.tree), and tree is then deep-written by nested drag-and-drop zones (WikiOrderZone.svelte recurses with bind:items={n.children}); a $derived value is not deeply proxied, so converting would break those writes (ledger deep-write convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/prop-mutation::src/routes/admin/wiki/WikiOrderZone.svelte:29::Prop \"drag\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: WikiOrderZone.svelte:29 'drag.active = true' writes into the non-bindable drag prop, which admin/wiki/+page.svelte:24 creates as $state({ active: false }) and passes without bind (:60); a non-owner write to the parent's proxy (ownership_invalid_mutation)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::correctness/prop-mutation::src/routes/admin/wiki/WikiOrderZone.svelte:33::Prop \"drag\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: WikiOrderZone.svelte:33 'drag.active = false' writes into the parent's $state drag object (admin/wiki/+page.svelte:24, passed without bind :60); non-owner proxy mutation"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/iframe-loading::src/routes/admin/mail/+page.svelte:236::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "<iframe> has no loading attribute and no spread; read: srcdoc={preview.html} email preview with sandbox=\"\" in the selected-template editor (:201-236) — srcdoc preview, no network document"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/iframe-loading::src/routes/admin/themes/[id]/+page.svelte:809::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "<iframe> has no loading attribute and no spread; read: live theme preview frame filling the editor's main panel (flex-1 h-full, :808-815) — the visible main content, where eager is right per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/+layout.svelte:276::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: product icon with class size-4 in the sidebar version link (50 routes) — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/appearance/+page.svelte:413::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: max-h-full max-w-full object-contain inside the fixed size-16 preview box (:412) — box reserved by CSS"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/emojis/+page.svelte:166::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: emoji with class size-10 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/emojis/+page.svelte:183::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: emoji in the edit dialog title with class size-9 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/forum/boards/[id]/+page.svelte:317::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: cover preview with class h-40 w-full object-cover — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/og-card/+page.svelte:224::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: preview with class size-full inside the aspect-[1200/630] box (:223) — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/system/+page.svelte:92::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: product icon with class size-11 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/admin/updates/+page.svelte:201::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: product icon with class size-16 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/embed/t/[id]/+page.svelte:17::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: forum icon with class size-6 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/embed/t/[id]/+page.svelte:28::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: author avatar with class size-5 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/f/[id]/[[slug]]/+page.svelte:84::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: absolute inset-0 size-full object-cover inside the fixed h-44 sm:h-56 header box (:83) — box reserved by CSS"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/install/+page.svelte:207::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: icon with class size-11 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/install/+page.svelte:208::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: wordmark with class h-8 w-auto — fixed-height box; width only varies inside its row"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/oauth/authorize/+page.svelte:77::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: client logo with class size-14 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/register/social/+page.svelte:51::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: avatar with class size-11 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-dimensions::src/routes/settings/connections/+page.svelte:97::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: app logo with class size-10 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/+layout.svelte:276::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the \"InkForum vX\" link placed after the ~46-entry admin nav inside the sidebar's overflow-y-auto list (:271-277) — below the visible part of the sidebar on load (50 routes)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/appearance/+page.svelte:413::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: asset previews in {#each Object.entries(a.assets)} (8 asset rows) of the Görseller card, beside the banner card under the theme section — rows past the first screen are offscreen"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/emojis/+page.svelte:183::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: emoji in <Dialog.Root open={edit !== null}> (:179-183), rendered when the user opens an emoji — visible when rendered"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/forum/boards/[id]/+page.svelte:317::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: cover preview in the third card (\"Bölüm sayfası\", :308) after the \"Temel bilgiler\" form and \"İkon\" cards — offscreen on load"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/og-card/+page.svelte:224::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: OG preview in the xl:sticky preview column beside the editor cards (:202-224) — above the fold, the page's main visual"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/system/+page.svelte:92::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the first summary tile directly under the PageHeader — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/admin/updates/+page.svelte:201::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the update-hero section, first content under the PageHeader — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/embed/t/[id]/+page.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: forum icon in the header row of the small oEmbed topic card — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/embed/t/[id]/+page.svelte:28::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in the footer of the short oEmbed card (title, excerpt, footer) — the whole card is in view"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/f/[id]/[[slug]]/+page.svelte:84::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: board cover photo at the top of the board page header — above the fold, the page's hero image"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/install/+page.svelte:207::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: brand icon at the top of the install aside — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/install/+page.svelte:208::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: wordmark at the top of the install aside — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/oauth/authorize/+page.svelte:77::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: client logo at the top of the consent card — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/register/social/+page.svelte:51::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: provider avatar in the first row of the registration form card — above the fold"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/settings/connections/+page.svelte:97::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: app logos in {#each data.apps} of the second section, after the social-accounts list (:64-95) — rows past the first screen are offscreen"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/image-loading-hint::src/routes/settings/security/+page.svelte:125::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: TOTP QR code rendered only after the user starts setup ({:else} once setup is set, :22-37,123-125) — visible when rendered"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/load-waterfall::src/routes/admin/policies/[id]/+page.ts:28::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read admin/policies/[id]/+page.ts:22-28: the policy-version fetch uses latestId from the preceding /api/admin/policies response (itself after parent() -> admin/+layout.ts /api/admin/access) — a dependent browser round trip chain in a csr-on universal load"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/load-waterfall::src/routes/admin/warnings/+page.ts:35::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read admin/warnings/+page.ts:32-40 + admin/+layout.ts:8-16: the Promise.all uses access from await parent(), which waits on admin/+layout.ts's /api/admin/access browser fetch; that layout reruns on every navigation because it calls parent() and the root +layout.ts reads url.pathname (:37) — a dependent browser hop in a csr-on universal load"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/load-waterfall::src/routes/applications/+page.ts:8::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read applications/+page.ts:7-11: the Promise.all uses viewer from await parent(), its only upstream; the root server load (+layout.server.ts) reads url only inside `if (active && ...)` (:22), and appearance.theme defaults to null (packages/shared/src/settings.ts:343-346), so by default it does not rerun; the root universal +layout.ts reruns but only awaits loadCatalog (an already-loaded catalog chunk) — parent() starts no browser round trip on the default config (ledger static-parent design convention; it becomes a hop only when a studio theme is active)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/load-waterfall::src/routes/policies/accept/+page.ts:10::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read policies/accept/+page.ts:7-10: the per-policy fetches use viewer.flags.pendingPolicies from await parent(), its only upstream; the root server load (+layout.server.ts) reads url only inside `if (active && ...)` (:22), and appearance.theme defaults to null (packages/shared/src/settings.ts:343-346), so by default it does not rerun; the root universal +layout.ts reruns but only awaits loadCatalog (an already-loaded catalog chunk) — parent() starts no browser round trip on the default config (ledger static-parent design convention; it becomes a hop only when a studio theme is active)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/load-waterfall::src/routes/wiki/history/[id]/+page.ts:8::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read wiki/history/[id]/+page.ts:6-8: without ?rev, revId = items[0]?.id from the preceding revisions fetch, then the revision detail fetch — a dependent browser round trip in a csr-on universal load"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/+layout.svelte:276::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /brand/inkforum-icon-192.png is a 192x192 raster shown at 16px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/appearance/+page.svelte:413::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset.url, uploaded logo/banner/background images (raster) shown at 64px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/emojis/+page.svelte:166::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: e.url, uploaded custom emoji image (raster) at 40px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/emojis/+page.svelte:183::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: edit.url, uploaded emoji image (raster) — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/forum/boards/[id]/+page.svelte:317::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: cover, the uploaded board cover (png/jpeg/webp raster) — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/og-card/+page.svelte:224::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: preview is a client object URL from URL.createObjectURL of the /api/admin/seo/og-preview response (:44-49) — no alternate sizes exist"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/system/+page.svelte:92::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /brand/inkforum-icon-192.png (192x192 raster) at 44px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/admin/updates/+page.svelte:201::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /brand/inkforum-icon-192.png (192x192 raster) at 64px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/embed/t/[id]/+page.svelte:17::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: c.forum.icon, the forum's uploaded icon (raster) at 24px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/embed/t/[id]/+page.svelte:28::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: c.author.avatarUrl (raster) at 20px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/f/[id]/[[slug]]/+page.svelte:84::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: b.board.cover, uploaded cover photo (raster) shown full width — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/install/+page.svelte:207::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /brand/inkforum-icon-192.png (192x192 raster) at 44px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/install/+page.svelte:208::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /brand/inkforum-wordmark-light.png (raster) — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/oauth/authorize/+page.svelte:77::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: info.client.logoUrl, the OAuth client logo URL (raster) at 56px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/register/social/+page.svelte:51::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: p.avatarUrl, the social provider avatar (raster) at 44px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/settings/connections/+page.svelte:97::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: app.logoUrl, OAuth client logo (raster) at 40px — one fixed-size asset"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/responsive-image::src/routes/settings/security/+page.svelte:125::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: setup.qr is an inline data: URL from QRCode.toDataURL(…, {width: 200}) (:36) — no alternate sizes exist"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/sequential-awaits::src/routes/admin/groups/[id]/+page.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/groups/[id]/+page.ts:16-26: the Promise.all of /api/admin/groups/:id and its members uses only params/url, nothing from the preceding /api/admin/groups list fetch (await parent() is exempt) — two browser/API round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/sequential-awaits::src/routes/groups/[id]/manage/+page.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read groups/[id]/manage/+page.ts:15-21: the requests/members Promise.all uses only params, not the preceding /api/groups/:id result, whose canManage check is a 403 gate on the exceptional path — serialized on the normal path (ledger 403-gate-on-exceptional-path tp convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/sequential-awaits::src/routes/register/social/+page.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read register/social/+page.ts:7-10: /api/auth/register is independent of the preceding /api/auth/social/pending fetch (neither uses the other) — two round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::performance/sequential-awaits::src/routes/wiki/edit/[id]/+page.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read wiki/edit/[id]/+page.ts:19-22: with ?rev the revision fetch uses only params/url, not the preceding /edit page fetch — serialized; Promise.all would work"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/CustomHtml.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read lib/components/CustomHtml.svelte:12-17 + custom-code.ts:16-32: prepared = deferScripts(fillTemplate(html)) — only the {{vars}} are escaped; html is admin custom-code HTML (snippets/pages/home html blocks/theme slots/maintenance, gated by the 'admin.customCode' permission, home.service.ts:197-205, custom.service.ts:455) rendered raw on purpose — ledger admin-configured raw HTML setting tp convention (TurfBuilder header_content)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/CustomPageContent.svelte:100::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read CustomPageContent.svelte:100: the non-html, non-builder page format's p.html = render.post(body).html (custom.service.ts:416) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/CustomPageContent.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read CustomPageContent.svelte:31,72: css = `<style>` around p.css with '</style' neutralized — escaped against breaking out of <style>, reported per docs (ledger custom-CSS design convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/MaintenanceScreen.svelte:150::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read MaintenanceScreen.svelte:150: cfg.css wrapped in <style> with '</style' neutralized — escaped against breaking out of <style>, reported per docs (ledger custom-CSS design convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/PolicyCheckList.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read PolicyCheckList.svelte:48 + server policies.service.ts:116,339: bodyHtml = renderRichText(bodyMd) (common/rich-text.ts -> renderBBCode) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/builder/BlockView.svelte:140::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read builder/BlockView.svelte:140 + server custom/builder.service.ts:84-96: b.html = render.post(b.body).html (text/split) or a [media] embed render (video) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/builder/BlockView.svelte:209::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read builder/BlockView.svelte:209 + server custom/builder.service.ts:84-96: b.html = render.post(b.body).html (text/split) or a [media] embed render (video) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/builder/BlockView.svelte:288::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read builder/BlockView.svelte:288 + server custom/builder.service.ts:84-96: b.html = render.post(b.body).html (text/split) or a [media] embed render (video) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/builder/BlockView.svelte:402::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read builder/BlockView.svelte:402 + custom/builder.service.ts:91-92: faqHtml = items.map(i => render.post(i.a).html) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/editor/Editor.svelte:721::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read editor/Editor.svelte:320-322,721: previewHtml is the server BBCode preview (forum.controller.ts:216 render.post/short) or a fixed/error <p> — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/forum/PostCard.svelte:313::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read forum/PostCard.svelte:78-112,313: html = post.html / PUT response html, i.e. posts.body_html from render.post (posts.service.ts:106-114) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/forum/PostCard.svelte:319::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read forum/PostCard.svelte:319 + forum.service.ts:582: signatureHtml = render.short(signature) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/home/AnnouncementBlock.svelte:58::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read home/AnnouncementBlock.svelte:58 + home.service.ts:102,118: announcement html = renderBBCode(text, {media:false,images:false}) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/home/HomeBlock.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read home/HomeBlock.svelte:42 (kind 'text') + home.service.ts:102,134: html = render.post(body).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/home/HomeBlock.svelte:47::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read home/HomeBlock.svelte:47 (kind 'text', unboxed) + home.service.ts:102,134: html = render.post(body).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/lib/components/layout/SeoHead.svelte:88::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read layout/SeoHead.svelte:41-43,88: ldTag = JSON.stringify(item).replace(/</g,'\\u003c') (also > and &) — script-safe serialization per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/+layout.svelte:202::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:139-149,202: accentCss is built from a FONT_OPTIONS constant, a numeric tint, cssString()-escaped i18n strings and an accent tested against /^#[0-9a-fA-F]{6}$/ — no free text, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/+layout.svelte:203::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:203: active theme CSS wrapped in <style> with '</style' neutralized — escaped against breaking out of <style>, reported per docs (ledger custom-CSS design convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/+layout.svelte:205::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:60,205: customCss = `<style>` around custom.css with '</style' neutralized — escaped against breaking out of <style>, reported per docs (ledger custom-CSS design convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/+layout.svelte:206::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/+layout.svelte:59,206: headHtml = the 'head' placement snippets' sn.html (custom.service.ts:105) through fillTemplate only — admin custom-code HTML (snippets/pages/home html blocks/theme slots/maintenance, gated by the 'admin.customCode' permission, home.service.ts:197-205, custom.service.ts:455) rendered raw on purpose — ledger admin-configured raw HTML setting tp convention (TurfBuilder header_content)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/admin/embeds/+page.svelte:174::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/embeds/+page.svelte:80,174: testResult.html is the server's embed render of the admin's test URL through the BBCode embed path (bbcode/html.ts:133-171 escapeHtml on src/titles, sandboxed iframe) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/admin/updates/+page.svelte:278::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/updates/+page.svelte:278 + updates.service.ts:143: notesHtml = renderMarkdown(release notes) (packages/shared/src/markdown.ts: escapes all text first, safeHref links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/admin/updates/+page.svelte:316::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/updates/+page.svelte:316 + updates.service.ts:143: notesHtml = renderMarkdown(release notes) (packages/shared/src/markdown.ts: escapes all text first, safeHref links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/applications/[slug]/+page.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read applications/[slug]/+page.svelte:74 + applications.service.ts:468: description_html = render.post(description).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/f/[id]/[[slug]]/+page.svelte:123::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read f/[id]/[[slug]]/+page.svelte:123 + forum-admin.service.ts:213: about_html = render.post(about).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/messages/[id]/+page.svelte:208::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read messages/[id]/+page.svelte:208 + messages.service.ts:88-93,304: body_html = render.post(body).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/policies/[key]/+page.svelte:110::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read policies/[key]/+page.svelte:110 + policies.service.ts:116,339: bodyHtml = renderRichText(bodyMd) (renderBBCode) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/search/+page.svelte:185::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read search/+page.svelte:86-92,185: hl() esc()-escapes the text and the needle before wrapping matches in <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/search/+page.svelte:187::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read search/+page.svelte:86-92,187: hl() esc()-escapes the text and the needle before wrapping matches in <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/search/+page.svelte:210::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read search/+page.svelte:86-92,210: hl() esc()-escapes the text and the needle before wrapping matches in <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/t/[id]/[[slug]]/+page.svelte:727::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read t/[id]/[[slug]]/+page.svelte:727 + posts.service.ts:564: revision html = render.post(r.body_bbcode).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/tickets/[id]/+page.svelte:99::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read tickets/[id]/+page.svelte:99 + tickets.service.ts:284,387,409: ticket message body_html = render.post(body).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/tickets/new/+page.svelte:82::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read tickets/new/+page.svelte:82 + tickets.service.ts:122,178: intro_html = render.post(intro).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/u/[id]/[[slug]]/+page.svelte:291::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read u/[id]/[[slug]]/+page.svelte:291 + profiles.service.ts:150: bioHtml = renderRichText(bio) (renderBBCode) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/u/[id]/[[slug]]/+page.svelte:299::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read u/[id]/[[slug]]/+page.svelte:299 + profiles.service.ts:151: signatureHtml = renderRichText(signature) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/u/[id]/[[slug]]/+page.svelte:330::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read u/[id]/[[slug]]/+page.svelte:330: m.html is a post's body_html (forum.service.ts:652/1015, from render.post) — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/wiki/[...path]/+page.svelte:124::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read wiki/[...path]/+page.svelte:124 + wiki.service.ts:186,243: body_html = render.post(body).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/raw-html::src/routes/wiki/history/[id]/+page.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read wiki/history/[id]/+page.svelte:66 + wiki.service.ts:375: revision html = render.post(r.body).html — server BBCode renderer (packages/shared/src/bbcode/html.ts escapeHtml on all text/attrs, safeUrl on links) — escaped, reported per docs"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/server-module-state::src/hooks.server.ts:80::module-scope variable \"installed\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read apps/web/src/hooks.server.ts:70-85: `installed` is a process-wide flag caching the forum's install status from /api/install/status (no per-request or user data) — run-once init state (ledger run-once-flag convention)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/shared-state-import::src/routes/+layout.ts:3::\"$lib/i#n.svelte\" holds module-scope $state — on the server it is shared by every request and keeps its boot-time value (a leak if it ever holds per-user data)",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.ts:3,36 + lib/i18n.svelte.ts: the root load only calls loadCatalog, which fills the catalogs Map and the plain `contentLocale` (forum-wide default) and never touches the module's $state i18n.locale (set in +layout.svelte during the synchronous render) — server never reads/writes the shared state through this import"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::security/shared-state-import::src/routes/admin/policies/[id]/+page.ts:3::\"$lib/i#n.svelte\" holds module-scope $state — on the server it is shared by every request and keeps its boot-time value (a leak if it ever holds per-user data)",
+    "verdict": "tp",
+    "basis": "read admin/policies/[id]/+page.ts:3,26 + lib/i18n.svelte.ts:20-23,66-69: the universal load calls t() on the server (404 message), which reads the module-scope $state i18n.locale that each request's synchronous render sets via setLocale — an async load reads whichever visitor's locale was set last, so the error can come out in another user's language"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/heading-level-skip::src/routes/admin/import/+page.svelte:324::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: PageHeader renders <h1> (:243, PageHeader.svelte:26); the import Card.Title is a plain <div> (ui/card/card-title.svelte), so the next heading is the {#if current.status === 'ready'} <h3> (:324) — h1 to h3"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/indexability::src/routes/install/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: install/+page.svelte:197 literal <meta name=\"robots\" content=\"noindex\"> on the one-time install wizard (hooks.server.ts installGate redirects it to / once installed); noindex as claimed, intentional"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and SeoHead.svelte:54 adds WebSite + Organization to ld whenever page.url.pathname === '/'"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and [...path]/+page.ts returns loadCustomPage() whose articleSeo (lib/seo.ts:117-140) sets seo.jsonLd (Article)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/achievements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /achievements's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/achievements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/achievements's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/appearance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/appearance's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/applications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/applications's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/applications/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/applications/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/bans/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/bans's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/bans/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/bans/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/bans/log/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/bans/log's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/captcha/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/captcha's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/custom/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/custom's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/developers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/developers's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/discord/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/discord's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/embeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/embeds's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/emojis/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/emojis's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/forum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/forum's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/forum/boards/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/forum/boards/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/forum/profiles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/forum/profiles's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/forum/profiles/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/forum/profiles/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/group-requests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/group-requests's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/groups's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/groups/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/groups/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/home's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/import's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/jobs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/jobs's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/logs's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/mail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/mail's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/maintenance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/maintenance's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/maintenance/page/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/maintenance/page's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/og-card/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/og-card's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/pages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/pages's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/pages/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/pages/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/pages/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/pages/docs's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/permissions's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/plugins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/plugins's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/policies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/policies's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/policies/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/policies/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/profile-fields/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/profile-fields's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/reactions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/reactions's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/security's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/settings/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/settings/[section]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/system/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/system's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/tags/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/tags's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/themes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/themes's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/themes/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/themes/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/tickets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/tickets's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/updates/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/updates's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/users's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/users/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/warnings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/warnings's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/admin/wiki/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /admin/wiki's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/applications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /applications's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/applications/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /applications/[slug]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/applications/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /applications/review's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/applications/view/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /applications/view/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/banned/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /banned's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/change-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /change-password's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/confirm-email/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /confirm-email/[token]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/cookies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /cookies's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/developers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /developers's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/embed/t/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /embed/t/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/f/[id]/[[slug]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and f/[id]/[[slug]]/+page.ts:13 returns seo: boardSeo() with jsonLd (CollectionPage + BreadcrumbList, lib/seo.ts:70-88)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/f/[id]/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /f/[id]/new's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /forgot-password's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/forum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /forum's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /groups's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/groups/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /groups/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/groups/[id]/manage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /groups/[id]/manage's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/install/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /install's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /login's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /members's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/messages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /messages's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/messages/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /messages/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/messages/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /messages/new's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/mod/queue/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /mod/queue's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /new's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /notifications's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/oauth/authorize/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /oauth/authorize's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/online/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /online's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/pages/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and pages/[slug]/+page.ts returns loadCustomPage() whose articleSeo (lib/seo.ts:117-140) sets seo.jsonLd (Article)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/policies/[key]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and policies/[key]/+page.ts:12 returns seo: articleSeo() with jsonLd (Article)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/policies/accept/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /policies/accept's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /register's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/register/done/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /register/done's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/register/social/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /register/social's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/reset-password/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /reset-password/[token]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /search's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/account's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/achievements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/achievements's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/connections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/connections's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/groups's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/notifications's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/password's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/policies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/policies's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/preferences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/preferences's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/privacy's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/profile's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/security's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/sessions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/sessions's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/settings/warnings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /settings/warnings's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/t/[id]/[[slug]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and t/[id]/[[slug]]/+page.ts:18 returns seo: topicSeo() with jsonLd (DiscussionForumPosting + BreadcrumbList, lib/seo.ts:17-68)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/tags/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /tags/[slug]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/tickets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /tickets's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/tickets/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /tickets/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/tickets/desk/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /tickets/desk's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/tickets/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /tickets/new's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/u/[id]/[[slug]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and u/[id]/[[slug]]/+page.ts:12 returns seo: profileSeo() with jsonLd (ProfilePage, lib/seo.ts:90-115)"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/unread/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /unread's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/verify-email/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /verify-email/[token]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/wiki/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /wiki's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/wiki/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered in SSR: root +layout.svelte:196 renders <SeoHead> unconditionally, whose svelte:head emits {#each ld as item}{@html ldTag(item)}{/each} (SeoHead.svelte:43,54,87-88; ldTag builds <script type=\"application/ld+json\">), and wiki/[...path]/+page.ts:9-19 returns seo: articleSeo() with jsonLd plus breadcrumbLd"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/wiki/edit/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /wiki/edit/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/wiki/history/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /wiki/history/[id]'s load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/json-ld::src/routes/wiki/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web, packages, app.html): the only JSON-LD emitter is SeoHead.svelte's {#each ld}{@html ldTag(item)}, filled only on / and by loads returning seo.jsonLd (topic, board, profile, policy, wiki page, custom pages); /wiki/new's load sets no seo.jsonLd, so the route has none"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/single-h1::src/lib/components/CustomPageContent.svelte:130::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: key covers /, /[...path], /pages/[slug]; the 3 counted are the wide-snippet title <h1> (:124, only when p.format !== 'builder'), the card-snippet title <h1> (:130) and a builder hero <h1> (BlockView.svelte:134, only when p.format === 'builder'), pairwise exclusive: {#if p.layout === 'blank'}/{:else if wide || builder}/{:else} (:136-148) renders wide or card through withSidebar(), and builder blocks replace the title — the analyzer counts snippets passed to withSidebar() outside their arms; /[...path] and /pages/[slug] render only CustomPageContent, so the claim is false there (majority); / is {#if data.landing}CustomPageContent{:else if data.index}ForumIndexView (+page.svelte), and by default ForumIndexView gives a guest two real <h1>s, so the claim holds on / under another anchor"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/single-h1::src/lib/components/MaintenanceScreen.svelte:79::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /admin/maintenance/page renders the PageHeader <h1> (:78, PageHeader.svelte:26) and the live preview <MaintenanceScreen preview> (:262) whose title <h1> (MaintenanceScreen.svelte:79) is unconditional — two <h1>s"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/single-h1::src/lib/components/builder/BlockView.svelte:134::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: /admin/pages/[id] has the editor <h1> (:269); the second is a hero block's <h1> (BlockView.svelte:134) in BuilderPage rendered only {#if legacyBlocks} in an aria-hidden, fixed -left-[9999px] host (:297), which convertToHtml fills for ~400ms after the user clicks \"HTML koduna dönüştür\" and then clears (:228-253) — user-triggered and transient"
+  },
+  {
+    "key": "vokartz/inkforum:apps/web::seo/single-h1::src/lib/components/forum/ForumIndexView.svelte:92::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: for a guest (showWelcome = !viewer.user && welcomeEnabled !== false, :35) ForumIndexView renders the welcome banner <h1> (:71) and the \"Forumlar\" <h1> (:92) — two <h1>s by default"
+  }
+]

@@ -1,0 +1,672 @@
+[
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::a11y/duplicate-landmark::src/lib/components/shadcn/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:20 wraps every page in an unconditional <main class=\"main-content\">; catalogues/ai/+page.svelte renders <AiCatalogue> from workspace package @dsh/ai-catalogue (packages/ai-catalogue/src/lib/components/app.svelte:389), whose <SidebarInset> renders <main> (shadcn sidebar-inset.svelte:13, same file in the package and the hub), so /catalogues/ai has two main landmarks"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::architecture/prop-count::src/lib/components/shadcn/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/shadcn/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::architecture/prop-count::src/lib/components/shadcn/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/shadcn/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::architecture/prop-count::src/lib/components/shadcn/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/shadcn/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::architecture/prop-count::src/lib/components/shadcn/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/shadcn/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::correctness/each-key::src/lib/components/nav-bar/nav-bar.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/nav-bar/nav-bar.svelte:29 '{#each navigation ...}' has no key; navigation imported from $lib/generated/content/navigation, a build-time generated module (gitignored, hub/scripts/generate-content-modules.ts), not a project-source literal: static nav fixed at build time"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::correctness/each-key::src/lib/components/nav-bar/nav-bar.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/nav-bar/nav-bar.svelte:36 '{#each item.children ...}' has no key; item.children of the build-time generated static navigation (nav-bar.svelte:5): static list"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::performance/iframe-loading::src/routes/apps/climate-just/+page.svelte:1::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the page's only content, a width/height 100% embed of the external app (+page.svelte:1-7) - above the fold, where eager is right per docs"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::performance/iframe-loading::src/routes/apps/health-and-environment/+page.svelte:1::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the page's only content, a width/height 100% embed of the external app (+page.svelte:1-7) - above the fold, where eager is right per docs"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::performance/iframe-loading::src/routes/apps/where-to-build/+page.svelte:1::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the page's only content, a width/height 100% embed of the external app (+page.svelte:1-7) - above the fold, where eager is right per docs"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::performance/iframe-loading::src/routes/realtime/urban-observatory/+page.svelte:1::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the page's only content, a width/height 100% embed of the external app (+page.svelte:1-7) - above the fold, where eager is right per docs"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::security/raw-html::src/lib/components/introduction-dialog/introduction-dialog.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read introduction-dialog.svelte:14-20,39 + routes/+page.ts:2 + lib/markdown/render-home-introduction-markdown.ts: html is remark-rehype output (raw HTML dropped, no allowDangerousHtml) of homeContent.introduction from the build-generated $lib/generated/content/home — repo-authored content, reported per docs"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/ai-where-to-build/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps/ai-where-to-build (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/climate-just/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps/climate-just (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/health-and-environment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps/health-and-environment (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/uprn-geoparquet/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps/uprn-geoparquet (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/uprn/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps/uprn (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/apps/where-to-build/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /apps/where-to-build (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/catalogues/ai/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /catalogues/ai (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /catalogues/dsh-catalogue-arcgisonline (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /catalogues/dsh-catalogue (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/maps/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /maps (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/realtime/urban-observatory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /realtime/urban-observatory (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/research/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /research (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/canonical-url::src/routes/research/articles/[title]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /research/articles/[title] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; / has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/ai-where-to-build/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps/ai-where-to-build has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/climate-just/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps/climate-just has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/health-and-environment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps/health-and-environment has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/uprn-geoparquet/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps/uprn-geoparquet has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/uprn/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps/uprn has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/apps/where-to-build/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /apps/where-to-build has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/catalogues/ai/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /catalogues/ai has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /catalogues/dsh-catalogue-arcgisonline has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /catalogues/dsh-catalogue has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/maps/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /maps has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/realtime/urban-observatory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /realtime/urban-observatory has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/research/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /research has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/json-ld::src/routes/research/articles/[title]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD anywhere in hub/src, app.html or the @dsh/* workspace packages; /research/articles/[title] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/ai-where-to-build/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps/ai-where-to-build (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/climate-just/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps/climate-just (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/health-and-environment/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps/health-and-environment (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/uprn-geoparquet/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps/uprn-geoparquet (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/uprn/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps/uprn (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/apps/where-to-build/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /apps/where-to-build (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/catalogues/ai/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /catalogues/ai (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /catalogues/dsh-catalogue-arcgisonline (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /catalogues/dsh-catalogue (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/maps/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /maps (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/realtime/urban-observatory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /realtime/urban-observatory (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/research/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /research (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-description::src/routes/research/articles/[title]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /research/articles/[title] (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/ai-where-to-build/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps/ai-where-to-build (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/climate-just/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps/climate-just (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/health-and-environment/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps/health-and-environment (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/uprn-geoparquet/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps/uprn-geoparquet (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/uprn/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps/uprn (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/apps/where-to-build/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /apps/where-to-build (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/catalogues/ai/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /catalogues/ai (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /catalogues/dsh-catalogue-arcgisonline (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /catalogues/dsh-catalogue (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/maps/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /maps (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/realtime/urban-observatory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /realtime/urban-observatory (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/research/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /research (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-image::src/routes/research/articles/[title]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /research/articles/[title] (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/ai-where-to-build/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps/ai-where-to-build (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/climate-just/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps/climate-just (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/health-and-environment/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps/health-and-environment (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/uprn-geoparquet/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps/uprn-geoparquet (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/uprn/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps/uprn (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/apps/where-to-build/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /apps/where-to-build (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/catalogues/ai/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /catalogues/ai (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /catalogues/dsh-catalogue-arcgisonline (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /catalogues/dsh-catalogue (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/maps/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /maps (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/realtime/urban-observatory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /realtime/urban-observatory (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/research/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /research (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-title::src/routes/research/articles/[title]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /research/articles/[title] (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/ai-where-to-build/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps/ai-where-to-build (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/climate-just/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps/climate-just (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/health-and-environment/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps/health-and-environment (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/uprn-geoparquet/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps/uprn-geoparquet (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/uprn/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps/uprn (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/apps/where-to-build/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /apps/where-to-build (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/catalogues/ai/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /catalogues/ai (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /catalogues/dsh-catalogue-arcgisonline (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /catalogues/dsh-catalogue (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/maps/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /maps (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/realtime/urban-observatory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /realtime/urban-observatory (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/research/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /research (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/og-url::src/routes/research/articles/[title]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /research/articles/[title] (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: hub/static has no robots.txt (animations/api/config/logo/favicon), no robots route or generator in hub or @dsh packages; public site shell of the NERC Digital Solutions Hub (hub/README \"public site shell\")"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/apps/ai-where-to-build::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders only <AiWhereToBuildApp /> from @dsh/ai-where-to-build (workspace), whose components contain no heading element, {@html} or dynamic tag; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/apps/climate-just::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page is a single full-size <iframe> of an external site (apps/*/+page.svelte, realtime/urban-observatory/+page.svelte) - the iframe document is not part of the page's outline; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/apps/health-and-environment::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page is a single full-size <iframe> of an external site (apps/*/+page.svelte, realtime/urban-observatory/+page.svelte) - the iframe document is not part of the page's outline; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/apps/uprn-geoparquet::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: apps/uprn-geoparquet/+page.svelte renders a mobile Card notice or a spinner; UprnServiceApp is imported in onMount, so on this prerendered SSR route nothing it renders is in the served HTML, and @dsh/uprn-service has no literal <h1> anyway; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/apps/uprn::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: apps/uprn/+page.svelte renders a mobile Card notice or a spinner; UprnServiceApp is imported in onMount (:17-24), so on this prerendered SSR route nothing it renders is in the served HTML, and @dsh/uprn-service has no literal <h1> anyway; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/apps/where-to-build::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page is a single full-size <iframe> of an external site (apps/*/+page.svelte, realtime/urban-observatory/+page.svelte) - the iframe document is not part of the page's outline; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/catalogues/ai::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders only <AiCatalogue /> from @dsh/ai-catalogue (workspace), with no <h1>; its only {@html} renderers sit inside the summary dialog opened on demand; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/catalogues/dsh-catalogue-arcgisonline::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: catalogues/dsh-catalogue-arcgisonline/+page.svelte is only an HTML comment (the iframe is commented out) -> nothing renders but the layout; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/catalogues/dsh-catalogue::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: catalogues/dsh-catalogue/+page.svelte is only an HTML comment (the iframe is commented out) -> nothing renders but the layout; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/maps::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders only <MapsApp /> from @dsh/maps-page (workspace), with no heading element, {@html} or dynamic tag; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/realtime/urban-observatory::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page is a single full-size <iframe> of an external site (apps/*/+page.svelte, realtime/urban-observatory/+page.svelte) - the iframe document is not part of the page's outline; hub/src/routes/+layout.svelte renders NavBar and children, no heading; grep of hub/src and packages/*/src finds <h1> only in hub/src/routes/+page.svelte and apps/+page.svelte"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/research/articles/[title]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<h1> IS rendered: articlePageLoad converts the article markdown server-side and ArticlePage renders {@html data.html} (article-page.svelte:41); the published articles open with a \"# \" title (e.g. ai-agents-climatejust.md \"# AI Agents for Geospatial Data\", ai-document-insights.md, fetched from nerc-digital-solutions-hub.github.io/dsh-content, not in the clone)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/single-h1::/research::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<h1> IS rendered: research/+page.server.ts loads @dsh/research-page researchPageLoad, which converts the dsh-content research/main.md to HTML server-side (markdown-to-html.ts, prerendered) and ResearchPage renders it with {@html data.html} (research-page.svelte:21); main.md starts with \"# Research\" (fetched from nerc-digital-solutions-hub.github.io/dsh-content, not in the clone)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in hub/static, routes or @dsh packages, no generator; public site (catalogues, apps, maps, research articles) to list"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/ssr-disabled::src/routes/apps/uprn-geoparquet/+page.ts:4::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/apps/uprn-geoparquet/+page.ts:4; the route is a public tool page of the public DSH site whose load returns title/description for the page head, (root +layout.svelte:10-18 renders them into <svelte:head>), which now ships only client-side; the page already loads ArcGIS in onMount, so SSR would still ship that head"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/ssr-disabled::src/routes/apps/uprn/+page.ts:4::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/apps/uprn/+page.ts:4; the route is a public tool page of the public DSH site whose load returns title/description for the page head, (root +layout.svelte:10-18 renders them into <svelte:head>), which now ships only client-side; the page already loads ArcGIS in onMount, so SSR would still ship that head"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/ai-where-to-build/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps/ai-where-to-build (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/climate-just/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps/climate-just (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/health-and-environment/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps/health-and-environment (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/uprn-geoparquet/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps/uprn-geoparquet (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/uprn/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps/uprn (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/apps/where-to-build/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /apps/where-to-build (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/catalogues/ai/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /catalogues/ai (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/catalogues/dsh-catalogue-arcgisonline/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /catalogues/dsh-catalogue-arcgisonline (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/catalogues/dsh-catalogue/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /catalogues/dsh-catalogue (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/maps/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /maps (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/realtime/urban-observatory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /realtime/urban-observatory (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/research/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /research (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  },
+  {
+    "key": "NERC-Digital-Solutions-Hub/dsh:hub::seo/twitter-card::src/routes/research/articles/[title]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /research/articles/[title] (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); no og/twitter/canonical in hub/src or any @dsh/* workspace package (134 files; root +layout.svelte:10-18 emits only <title> and a conditional description, research-page article-page.svelte:29-34 title/description only); app.html charset/viewport only; no meta-tag library in any package.json; public prerendered site (+layout.ts prerender=true); publicly reachable, rendered route, no noindex (no auth, no hooks, no robots meta)"
+  }
+]

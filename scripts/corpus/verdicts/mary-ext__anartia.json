@@ -1,0 +1,977 @@
+[
+  {
+    "key": "mary-ext/anartia::a11y/permitted-contents::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/post-descendant-item.svelte:66::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/post-descendant-item.svelte:66 has nearest literal non-transparent ancestor <summary> (line 65) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; <summary> admits phrasing (and heading) content only"
+  },
+  {
+    "key": "mary-ext/anartia::architecture/component-size::src/lib/components/embeds/image-embed.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/embeds/image-embed.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mary-ext/anartia::architecture/component-size::src/lib/components/timeline/post-feed-item.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/timeline/post-feed-item.svelte has 241 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mary-ext/anartia::architecture/component-size::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mary-ext/anartia::architecture/prop-count::src/lib/components/avatar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/avatar.svelte has a single destructured $props() with 8 named props (> 6): profile, type, src, tabindex, title, href, size, blur"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/autoplay-muted::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte:148::<video autoplay> without muted — browsers block audible autoplay, so the video silently never starts playing",
+    "verdict": "tp",
+    "basis": "read: src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte:148-153 <video controls playsinline autoplay> with no muted/bind:muted/spread; the Bluesky video usually has audio (loop is set only when there is none, 160-169) and the explicit el.play() (25, 41) runs from an effect, not a user gesture, so it is subject to the same autoplay policy and its rejection is swallowed by .catch(() => {}); audible autoplay is blocked on Safari/iOS as claimed"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/lib/components/overflow-menu.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/overflow-menu.svelte:29 '{#each items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (menu items: every caller passes an inline literal list of fixed links, e.g. profile-aside.svelte:48-60): fixed at author time, never reorders"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/lib/components/richtext-raw-renderer.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/richtext-raw-renderer.svelte:22 '{#each tokenize(text) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (tokens of one rich-text string from @atcute/bluesky-richtext-parser tokenize): segments of one string, no identity beyond position"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/lib/components/richtext-renderer.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/richtext-renderer.svelte:34 '{#each segmentize(text, facets) …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (segments of one post text from segmentize(text, facets)): segments of one string, no identity beyond position"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/+page.svelte:51::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/+page.svelte:51 '{#each ancestors …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (ancestors of the Bluesky thread from the load, replaced on navigation between posts), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/descendants.svelte:29::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/descendants.svelte:29 '{#each replies …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (thread.replies sorted, replies arrive from the API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/interaction-state.svelte:91::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/interaction-state.svelte:91 '{#each allow …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (the threadgate record's allow rules, sorted, from the API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/post-meta-tags.svelte:98::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/components/post-meta-tags.svelte:98 '{#each media.images …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (og:image/twitter:image <meta> tags in <svelte:head> for one post's images, stateless): a key cannot change anything for head meta tags"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte:106 '{#each cluster …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (posts of the unrolled thread from the load, clustered), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "mary-ext/anartia::correctness/each-key::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte:86 '{#each clusters …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (posts of the unrolled thread from the load, clustered), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "mary-ext/anartia::performance/image-dimensions::src/routes/(app)/[actor=didOrHandle]/(profile)/+layout.svelte:32::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.banner-image 100%x100% inside .banner aspect-ratio:3/1, (profile)/+layout.svelte style) (8 routes, same element)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/lcp-image::src/routes/(app)/[actor=didOrHandle]/(profile)/+layout.svelte:32::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: (app)/+layout.svelte renders only {@render children()} and the profile layout's banner (:30-38) is its first element, before ProfileAside and the page's {@render children()} (:69) — a full-width 3:1 banner (up to 960x320) at the top, the LCP candidate, yet lazy (8 profile routes)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/+page.ts:20::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/+page.ts:20: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/media/+page.ts:20::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/media/+page.ts:20: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/with_replies/+page.ts:20::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/with_replies/+page.ts:20: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/+page.ts:40::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/+page.ts:40: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/+layout.ts:20::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/+layout.ts:20: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/+page.ts:21::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/+page.ts:21: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.ts:20::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.ts:20: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/+layout.ts:24::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/+layout.ts:24: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/posts/+page.ts:21::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/posts/+page.ts:21: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/+page.ts:22::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/+page.ts:22: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/posts/+page.ts:17::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/posts/+page.ts:17: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.ts:22::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.ts:22: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/load-waterfall::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.ts:30::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "fp",
+    "basis": "read src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.ts:30: the flagged await follows an earlier await in this universal load (handle resolution, parent() or a links lookup) — fp regardless of the chain's shape: src/routes/+layout.ts:3 `export const csr = dev` disables client-side rendering in every production build (no descendant re-enables it except watch/[actor]/[cid], not this route), so this universal load only runs during SSR — the 'round trip from the browser' claim is false; the rule only exempts a file's own literal `csr = false` (README: 'JavaScript-optional' frontend)"
+  },
+  {
+    "key": "mary-ext/anartia::performance/responsive-image::src/routes/(app)/[actor=didOrHandle]/(profile)/+layout.svelte:32::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: profile.banner, the Bluesky CDN banner image — raster, one fixed-size asset shown up to 960px wide (8 routes)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/(app)/trending/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/canonical-url::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> in the page, its layouts or app.html; canonicals exist only in profile/post/feed/list/pack/unroll/search heads outside this route's chain; public Bluesky viewer route, rendered, no noindex"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-length::src/routes/(app)/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (app)/+page.svelte:16 unconditional literal <meta name=\"description\" content=\"JavaScript-optional public web frontend for Bluesky.\"> = 52 chars, the only description on /; too short as claimed"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/media/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/with_replies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/feeds/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/followers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/following/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/lists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/(profile)/packs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/feeds/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/search/feeds/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/search/posts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/search/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/(app)/trending/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/description-presence::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (a2chain: layout chain + transitive imports): no <meta name=description> on the route (the (profile)/feeds/lists/packs/post *-meta-tags.svelte components emit og:*/twitter:* only; the only description is (app)/+page.svelte:16 on /), none in app.html (literal claim holds); not a search target: static/robots.txt is 'User-agent: * / Disallow: /', so the whole Bluesky frontend opts out of crawling (portal Disallow-all precedent)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/media/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/(timeline)/with_replies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/followers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/following/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/lists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/(profile)/packs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/[rkey=tid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/lists/[rkey=rkey]/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/search/feeds/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/search/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/search/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/(app)/trending/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/json-ld::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD (json-ld convention: tp regardless of crawl status)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/search/feeds/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/search/posts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/search/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/(app)/trending/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-description::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): packs/[rkey=rkey]/+layout.svelte:39 renders PackMetaTags, whose head (components/pack-meta-tags.svelte:35-41) emits og:site_name/twitter:card/og:url/og:title/og:description but no og:image; no og:image in the page, layouts or app.html; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/feeds/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): packs/[rkey=rkey]/+layout.svelte:39 renders PackMetaTags, whose head (components/pack-meta-tags.svelte:35-41) emits og:site_name/twitter:card/og:url/og:title/og:description but no og:image; no og:image in the page, layouts or app.html; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=didOrHandle]/packs/[rkey=rkey]/posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): packs/[rkey=rkey]/+layout.svelte:39 renders PackMetaTags, whose head (components/pack-meta-tags.svelte:35-41) emits og:site_name/twitter:card/og:url/og:title/og:description but no og:image; no og:image in the page, layouts or app.html; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/search/feeds/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/search/posts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/search/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/(app)/trending/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-image::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/search/feeds/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/search/posts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/search/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/(app)/trending/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-title::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/search/feeds/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/search/posts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/search/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/(app)/trending/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/og-url::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/[rkey=tid]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/feeds/[rkey=rkey]/likes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/feeds/[rkey=rkey]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/feeds::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/followers::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/following::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/lists/[rkey=rkey]/members::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/lists/[rkey=rkey]/posts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/lists::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/media::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/packs/[rkey=rkey]/feeds::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/packs/[rkey=rkey]/posts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/packs/[rkey=rkey]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/packs::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]/with_replies::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=didOrHandle]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=did]/[rkey=tid]/all-quotes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=did]/[rkey=tid]/all-replies::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=did]/[rkey=tid]/likes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=did]/[rkey=tid]/quotes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=did]/[rkey=tid]/reposts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/[actor=did]/[rkey=tid]/unroll::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/search/feeds::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/search/posts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/search/users::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::/watch/[actor=did]/[cid=cidRaw]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route (ssr=false route)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/single-h1::src/routes/(app)/trending/+page.svelte:32::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds no <h1> anywhere except +error.svelte:11, no <svelte:element>, no role=heading and no {@html}; the app has no Svelte npm dependencies (only @atcute/*, hls.js, valibot) — no <h1> renders on this route (its only heading is <h2>Trending, trending/+page.svelte:32)"
+  },
+  {
+    "key": "mary-ext/anartia::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ (favicon.png, robots.txt, _scripts only) or routes (only rss/hls/redirect +server.ts endpoints) (literal claim holds); static/robots.txt is 'User-agent: * / Disallow: /', so the site opts out of crawling and a sitemap has no consumer"
+  },
+  {
+    "key": "mary-ext/anartia::seo/ssr-disabled::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.ts:5::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at watch/[actor=did]/[cid=cidRaw]/+page.ts:5 (with csr = true) on the bare HLS video player page, which needs the browser (native HLS or on-demand hls.js); deliberate, and the site disallows all crawling in static/robots.txt"
+  },
+  {
+    "key": "mary-ext/anartia::seo/title-presence::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: watch/[actor=did]/[cid=cidRaw] sits outside (app) with no +layout.svelte (only root +layout.ts csr=dev), its +page.svelte is a bare <video> HLS player with no svelte:head, app.html has no <title>, no document.title in src; the ssr=false page (+page.ts:5) is linked from every video embed (video-standalone-embed.svelte:38) and the RSS feed (rss.ts:266) and stays untitled in the browser too"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=didOrHandle]/feeds/[rkey=rkey]/likes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=did]/[rkey=tid]/all-quotes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=did]/[rkey=tid]/all-replies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=did]/[rkey=tid]/likes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=did]/[rkey=tid]/quotes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=did]/[rkey=tid]/reposts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/[actor=did]/[rkey=tid]/unroll/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/search/feeds/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/search/posts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/search/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/(app)/trending/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "mary-ext/anartia::seo/twitter-card::src/routes/watch/[actor=did]/[cid=cidRaw]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card in the page, its layouts ((app)/+layout.svelte has no head) or app.html; the only emitters are the per-entity *-meta-tags.svelte components rendered by profile/post/feed/list/pack pages and layouts, none of which is in this route's chain; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  }
+]
