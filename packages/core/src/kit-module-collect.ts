@@ -1,5 +1,6 @@
 import {
   parseClientExports,
+  parseExitFactoryExports,
   parseFalseExports,
   parseInMemoryExports,
   parseKitModuleFacts
@@ -72,10 +73,14 @@ export async function collectKitModuleFacts(
       }
     })
   );
-  return decideFlagGuards(
+  return decideLoadFactories(
     rt,
     cwd,
-    await dropClientWrites(rt, cwd, await arbitrateServerStoreWrites(rt, cwd, facts), aliases)
+    await decideFlagGuards(
+      rt,
+      cwd,
+      await dropClientWrites(rt, cwd, await arbitrateServerStoreWrites(rt, cwd, facts), aliases)
+    )
   );
 }
 
@@ -131,6 +136,19 @@ async function dropClientWrites(
     const drop = (w: { name: string; line: number; via: string }) =>
       w.via === 'set-call' && clients.some((c) => c.name === w.name && c.line === w.line);
     return { ...f, importedStateWrites: f.importedStateWrites.filter((w) => !drop(w)) };
+  });
+}
+
+/** A `load` an imported factory builds never renders when the function the factory returns always exits. */
+async function decideLoadFactories(rt: Runtime, cwd: string, facts: KitModuleFacts[]): Promise<KitModuleFacts[]> {
+  const targets = [...new Set(facts.flatMap((f) => (f.pendingLoadFactory ? [f.pendingLoadFactory.resolved] : [])))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(
+    await Promise.all(targets.map(async (t) => [t, await exportsOf(rt, cwd, t, parseExitFactoryExports)] as const))
+  );
+  return facts.map((f) => {
+    const g = f.pendingLoadFactory;
+    return g && byPath.get(g.resolved)?.has(g.name) ? { ...f, loadNeverRenders: true as const } : f;
   });
 }
 

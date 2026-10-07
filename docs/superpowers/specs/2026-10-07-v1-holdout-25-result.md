@@ -8,34 +8,36 @@ verdicts: `scripts/corpus/holdout-25-2026-10-07-verdicts.json` (3,672 distinct k
 one labelled by checks over the source at the pinned commit).
 
 **Result: not ready.** Four of the nine deciding criteria fail, and two apps account for almost all of
-it. C3 fails on 8 false critical findings in supauth: detail routes whose `load` is built by an
-imported factory that always redirects, which the analyzer does not read as never rendering. C6 fails on
-that class, which ieum's `/logout` also meets. C4 (97.0%) and C7 fail mostly on fcc, whose `<svelte:head>`
-renders a canonical link and JSON-LD from a string an imported helper builds: 70 false positives, 35 of
-the 38 false warnings. C5 (97.3%) passes and no key is `unclear`. C8, published without deciding the
-result, is 31.6%.
+it. supauth's admin console has eight detail routes whose `load` an imported factory builds and that always
+redirect, which the analyzer does not read as never rendering: 8 false critical findings fail C3, and the
+72 false positives on those routes in all, with ieum's `/logout`, fail C6. fcc's `<svelte:head>` renders a
+canonical link and JSON-LD from a string an imported helper builds: 70 false positives. Together they fail C4
+(93.9%; 75 of the 78 false warnings) and C7. C5 (95.6%) passes and no key is `unclear`. C8, published
+without deciding the result, is 30.9%.
 
 | #   | Criterion                          | Threshold      | Measured                                       | Result   | H24   | H23   | H22   | H21   | H20   | H19   | H18   | H17   | H16    | H15   | H14   | H13   | H12   | H11   | H10   | H9    | H8    | H7    | H6    | H5    | H4    | H3    | H2    | H1    |
 | --- | ---------------------------------- | -------------- | ---------------------------------------------- | -------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ------ | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | C1  | CLI crashes                        | 0              | 0                                              | pass     | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | fail  | pass  | pass  | pass  | pass  | pass  | pass  | pass  |
 | C2  | Build-mode crashes                 | 0, on ≥ 3 apps | 0; the plugin ran on 13 apps, 9 of which built | pass     | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  |
 | C3  | `fp` from critical rules           | 0              | 8 (`seo/title-presence`, 1 app)                | fail     | 0     | 1     | 0     | 0     | 0     | 0     | 0     | 0     | 5      | 0     | 2     | 0     | 0     | 62    | 13    | 0     | 1     | 0     | 29    | 31    | 147   | 19    | 0     | 95    |
-| C4  | Warning precision                  | ≥ 98%          | 97.0% (1,236 / 1,274)                          | fail     | 99.2% | 99.7% | 99.8% | 98.2% | 99.8% | 98.7% | 98.4% | 99.3% | 99.95% | 99.0% | 97.7% | 99.2% | 98.7% | 99.7% | 99.6% | 99.0% | 99.6% | 97.0% | 90.7% | 99.7% | 82.9% | 97.5% | 92.1% | 71.3% |
-| C5  | Info precision                     | ≥ 95%          | 97.3% (1,380 / 1,418)                          | pass     | 98.5% | 99.8% | 99.9% | 99.1% | 99.8% | 98.9% | 99.8% | 99.6% | 99.9%  | 99.2% | 99.2% | 99.9% | 99.0% | 99.8% | 99.7% | 98.5% | 98.5% | 97.1% | 97.3% | 93.5% | 92.8% | 97.8% | 96.2% | 90.2% |
+| C4  | Warning precision                  | ≥ 98%          | 93.9% (1,212 / 1,290)                          | fail     | 99.2% | 99.7% | 99.8% | 98.2% | 99.8% | 98.7% | 98.4% | 99.3% | 99.95% | 99.0% | 97.7% | 99.2% | 98.7% | 99.7% | 99.6% | 99.0% | 99.6% | 97.0% | 90.7% | 99.7% | 82.9% | 97.5% | 92.1% | 71.3% |
+| C5  | Info precision                     | ≥ 95%          | 95.6% (1,356 / 1,418)                          | pass     | 98.5% | 99.8% | 99.9% | 99.1% | 99.8% | 98.9% | 99.8% | 99.6% | 99.9%  | 99.2% | 99.2% | 99.9% | 99.0% | 99.8% | 99.7% | 98.5% | 98.5% | 97.1% | 97.3% | 93.5% | 92.8% | 97.8% | 96.2% | 90.2% |
 | C6  | fp class shared by ≥ 2 apps        | none           | 1 class (below)                                | fail     | 1     | 1     | 1     | 1     | none  | 2     | none  | 1     | none   | 2     | 2     | none  | 2     | 1     | 2     | 2     | 1     | 1     | 2     | none  | 2     | 2     | 1     | 5     |
-| C7  | Per-rule precision                 | ≥ 90%          | 2 below (2 by the earlier definition)          | fail     | none  | none  | none  | none  | none  | 2     | 3     | 2     | 1      | 5     | 4     | 1     | 3     | 3     | 1     | 4     | 4     | 2     | 5     | 4     | 11    | 2     | 9     | 12    |
-| C8  | Design share of critical + warning | reported       | 31.6% (658 / 2,080)                            | reported | 27.8% | 26.6% | 31.4% | 28.4% | 32.8% | 29.6% | 36.3% | 20.1% | 27.3%  | 28.2% | 26.6% | 35.0% | 30.1% | 35.1% | 33.6% | 42.7% | 37.8% | 34.4% | 33.4% | 35.6% | 23.3% | 22.7% | 33.0% | 25.3% |
+| C7  | Per-rule precision                 | ≥ 90%          | 2 below (3 by the earlier definition)          | fail     | none  | none  | none  | none  | none  | 2     | 3     | 2     | 1      | 5     | 4     | 1     | 3     | 3     | 1     | 4     | 4     | 2     | 5     | 4     | 11    | 2     | 9     | 12    |
+| C8  | Design share of critical + warning | reported       | 30.9% (642 / 2,080)                            | reported | 27.8% | 26.6% | 31.4% | 28.4% | 32.8% | 29.6% | 36.3% | 20.1% | 27.3%  | 28.2% | 26.6% | 35.0% | 30.1% | 35.1% | 33.6% | 42.7% | 37.8% | 34.4% | 33.4% | 35.6% | 23.3% | 22.7% | 33.0% | 25.3% |
 | C9  | Unlabelled / unclear               | 0 / ≤ 1%       | 0 / 0                                          | pass     | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  |
 | C10 | Rules with real-app evidence       | ≥ 70 of 105    | 79 (none new)                                  | pass     | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79     | 79    | 79    | 79    | 79    | 79    | 79    | 77    | 77    | 75    | 75    | 75    | 73    | 73    | 67    | 63    |
 
 The C7 history columns from holdout 20 on are the current definition; earlier ones are the earlier
 definition, as published (`2026-10-03-c7-multi-app.md` has those holdouts under the current one).
 
-Verdicts (distinct keys): tp 2,756, fp 84, design 832, unclear 0.
+Verdicts (distinct keys): tp 2,708, fp 148, design 816, unclear 0.
 
-C7 fails on two rules whose false positives come from fcc and ieum: `seo/canonical-url` at 65.7% (69 /
-105; fcc 35, ieum 1) and `seo/json-ld` at 89.3% (301 / 337; fcc 35, ieum 1). The earlier definition fails
-the same two. `seo/single-h1` (97.0%, nos-haiku and cashflow) is above the threshold.
+C7 fails on two rules whose false positives come from three apps: `seo/canonical-url` at 61.1% (69 / 113;
+fcc 35, supauth 8, ieum 1) and `seo/json-ld` at 86.9% (293 / 337; fcc 35, supauth 8, ieum 1). The earlier
+definition also fails `seo/description-presence` at 68.0% (17 / 25, all 8 false positives from supauth).
+`seo/single-h1` (97.0%, nos-haiku and cashflow) and the og and twitter rules (96.9–97.2%) are above the
+threshold.
 
 ## Critical findings (C3)
 
@@ -52,19 +54,20 @@ top-level function in the same file, does so. The `[tab]` routes that render the
 
 ## False-positive classes
 
-| Class                                                                                                                                                                                         | Findings | Apps | Rules                                              |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- | -------------------------------------------------- |
-| **A page whose `load` redirects or errors on every path, not read as never rendering** (a `load` an imported factory builds; `return redirect(…)` after `await parent()` and a `try`/`catch`) | 11       | 2    | **title-presence**, canonical-url, og-url, json-ld |
-| A canonical link and JSON-LD in a string an imported helper builds and `<svelte:head>` renders with `{@html}`                                                                                 | 70       | 1    | **canonical-url**, **json-ld**                     |
-| An object-literal prop deciding a component's `{:else if}` arm (`up={{ isSettings: true }}`)                                                                                                  | 1        | 1    | single-h1                                          |
-| A layout `<h1>` behind `{#if pageTitle != null}`, from a `page.data` field the route's `load` does not return                                                                                 | 1        | 1    | single-h1                                          |
-| A page's unnamed `<aside>` inside the `<article>` its layout renders children in, read as a top-level landmark                                                                                | 1        | 1    | top-level-landmark                                 |
+| Class                                                                                                                                                                                         | Findings | Apps | Rules                                                                                          |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- | ---------------------------------------------------------------------------------------------- |
+| **A page whose `load` redirects or errors on every path, not read as never rendering** (a `load` an imported factory builds; `return redirect(…)` after `await parent()` and a `try`/`catch`) | 75       | 2    | **title-presence**, **canonical-url**, **json-ld**, description-presence, og and twitter rules |
+| A canonical link and JSON-LD in a string an imported helper builds and `<svelte:head>` renders with `{@html}`                                                                                 | 70       | 1    | **canonical-url**, **json-ld**                                                                 |
+| An object-literal prop deciding a component's `{:else if}` arm (`up={{ isSettings: true }}`)                                                                                                  | 1        | 1    | single-h1                                                                                      |
+| A layout `<h1>` behind `{#if pageTitle != null}`, from a `page.data` field the route's `load` does not return                                                                                 | 1        | 1    | single-h1                                                                                      |
+| A page's unnamed `<aside>` inside the `<article>` its layout renders children in, read as a top-level landmark                                                                                | 1        | 1    | top-level-landmark                                                                             |
 
 C6's class reaches the limit the docs state for routes that never render: a `load` that throws or
 redirects on every path, directly or through a top-level function of the same file. The two apps meet
 it differently:
 
-- supauth's eight detail routes export a `load` built by an imported factory (`createDetailRouteRedirect`).
+- supauth's eight detail routes export a `load` built by an imported factory (`createDetailRouteRedirect`):
+  every route-level claim on them is false, 72 in all.
 - ieum's `/logout` ends both paths of its own `load` with `return redirect(303, next)`, after `await
 parent()` and a `try`/`catch`; `redirect()` throws, so the `return` never runs.
 
@@ -72,7 +75,7 @@ They are counted as one class, as holdouts 17, 19 and 22 counted classes that re
 through different mechanisms. Split by mechanism they are two single-app classes, and C6 would pass; C3,
 C4 and C7 would still fail.
 
-fcc's class decides C4 and C7: `FccLayout.svelte` and the home page render `{@html seoHeadExtras}` in
+With supauth's routes, fcc's class decides C4 and C7: `FccLayout.svelte` and the home page render `{@html seoHeadExtras}` in
 `<svelte:head>`, where `seoHeadExtras = $derived(buildSeoHeadExtras(…))` returns
 `<link rel="canonical" …/><script type="application/ld+json">…</script>` from `src/lib/utils.ts`. The
 analyzer reads `{@html}` as JSON-LD only when its source names JSON-LD or is built from an
@@ -92,8 +95,8 @@ matilha-builders' build stopped on its environment schema.
 
 ## Labelling notes
 
-- The design share is concentrated in `canonical-url` (217), `description-presence` (203) and
-  `each-key` (127); supauth, offline-finance-dashboard, cashflow and lodestar together have 393 of the 658.
+- The design share is concentrated in `canonical-url` (209), `description-presence` (195) and
+  `each-key` (127); supauth, offline-finance-dashboard, cashflow and lodestar together have 377 of the 642.
 - Judgement calls the labellers flagged:
   - teranode's `/admin` and `/settings` are gated by a `hooks.server.ts` redirect the file says never
     runs in production (the app ships as static files behind another server), so they are labelled as

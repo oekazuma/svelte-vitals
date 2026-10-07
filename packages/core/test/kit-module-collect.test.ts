@@ -248,6 +248,51 @@ describe('collectKitModuleFacts — persistence clients outside $lib/server', ()
   });
 });
 
+describe('collectKitModuleFacts — a load an imported factory builds', () => {
+  const never = async (lib: string, call = "createRedirect('/users', 'settings')") => {
+    const facts = await collectKitModuleFacts(
+      createMemoryRuntime({
+        'src/lib/detail-route.js': lib,
+        'src/routes/x/+page.js': `import { createRedirect } from '$lib/detail-route.js';\nexport const load = ${call};`
+      }),
+      ''
+    );
+    return facts.find((f) => f.file === 'src/routes/x/+page.js')?.loadNeverRenders;
+  };
+  const kit = "import { error, redirect } from '@sveltejs/kit';\n";
+
+  it('never renders when the function the factory returns redirects or errors on every call', async () => {
+    expect(
+      await never(
+        kit +
+          'export function createRedirect(path, tab) {\n  return ({ params }) => {\n    if (!params.id) error(404);\n    redirect(307, `${path}/${params.id}/${tab}`);\n  };\n}'
+      )
+    ).toBe(true);
+    expect(await never(kit + 'export const createRedirect = (path) => () => redirect(307, path);')).toBe(true);
+  });
+
+  it('renders when the returned function may return, or the factory is not a repo-local function', async () => {
+    expect(
+      await never(
+        kit +
+          'export function createRedirect(path) {\n  return ({ url }) => {\n    if (url.search) redirect(307, path);\n    return {};\n  };\n}'
+      )
+    ).toBeUndefined();
+    expect(
+      await never('export function createRedirect(path) {\n  return () => { throw new Error(path); };\n}')
+    ).toBeUndefined();
+    expect(
+      await never(
+        kit +
+          'export function createRedirect(path, show) {\n  if (show) return () => ({});\n  return () => redirect(307, path);\n}'
+      )
+    ).toBeUndefined();
+    expect(
+      await never(kit + 'export const createRedirect = () => () => redirect(307, "/");', 'other()')
+    ).toBeUndefined();
+  });
+});
+
 describe('collectKitModuleFacts — a load guarded by an imported flag', () => {
   const never = async (config: string, guard = 'if (!FLAG) redirect(302, "/");', imp = 'FLAG') => {
     const facts = await collectKitModuleFacts(

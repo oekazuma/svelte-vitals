@@ -15051,8 +15051,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/api-resources/[resourceId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15066,8 +15066,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/applications/[appId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15106,8 +15106,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15136,8 +15136,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/organizations/[orgId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15151,8 +15151,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/roles/[roleId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15161,8 +15161,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/security/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/security/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15236,8 +15236,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/users/[userId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/users/[userId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15251,8 +15251,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/webhooks/[webhookId]/+page.svelte::Missing <link rel=\"canonical\">",
-    "verdict": "design",
-    "basis": "no <link rel=\"canonical\"> in page, layout chain, imported components, app.html, hooks or npm Svelte deps (repo grep + @svadmin/ui@0.76.0 scanned on jsDelivr: no emitter) but not a search target (auth-gated client-side admin console: +layout.js:1 ssr=false, root +layout.svelte:279-345 renders children only in the {:else if initialized} arm after the admin auth check, otherwise a skeleton/MFA form), so absence is not demonstrably a defect"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/canonical-url::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <link rel=\"canonical\">",
@@ -15266,8 +15266,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/api-resources/[resourceId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /api-resources/[resourceId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15281,8 +15281,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/applications/[appId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /applications/[appId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15321,8 +15321,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /enterprise-sso/[configId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15351,8 +15351,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/organizations/[orgId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /organizations/[orgId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15366,8 +15366,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/roles/[roleId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /roles/[roleId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15376,8 +15376,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/security/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /security (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/security/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15451,8 +15451,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/users/[userId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /users/[userId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/users/[userId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15466,8 +15466,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/webhooks/[webhookId]/+page.svelte::Missing <meta name=\"description\">",
-    "verdict": "design",
-    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=\"description\"> on /webhooks/[webhookId] (published @svadmin/ui 0.76.0, core 0.56.0, sveltekit 0.12.0 and sso 0.13.0 .svelte files fetched from jsDelivr render no description either; only AdminApp sets document.title) (literal claim holds); but this is the admin console SPA of the SupaOAuth IAM product (root +layout.js ssr = false, auth provider gate in +layout.svelte), not a search target"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/description-presence::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <meta name=\"description\">",
@@ -15486,8 +15486,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/api-resources/[resourceId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /api-resources/[resourceId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15501,8 +15501,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/applications/[appId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /applications/[appId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/applications/[appId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15541,8 +15541,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/enterprise-sso/[configId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /enterprise-sso/[configId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15571,8 +15571,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/organizations/[orgId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /organizations/[orgId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15586,8 +15586,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/roles/[roleId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /roles/[roleId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15596,8 +15596,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /security ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/security/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15671,8 +15671,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/users/[userId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /users/[userId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/users/[userId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15686,8 +15686,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/webhooks/[webhookId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /webhooks/[webhookId] ships none (ssr = false SPA; published @svadmin/ui 0.76.0, @svadmin/core 0.56.0, @svadmin/sveltekit 0.12.0 and @svadmin/sso 0.13.0 .svelte files fetched from jsDelivr carry no ld+json either)"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/json-ld::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -15701,8 +15701,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/api-resources/[resourceId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /api-resources/[resourceId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15716,8 +15716,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/applications/[appId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /applications/[appId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15756,8 +15756,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /enterprise-sso/[configId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15786,8 +15786,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/organizations/[orgId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /organizations/[orgId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15801,8 +15801,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/roles/[roleId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /roles/[roleId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15811,8 +15811,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/security/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /security: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/security/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15886,8 +15886,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/users/[userId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /users/[userId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/users/[userId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15901,8 +15901,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/webhooks/[webhookId]/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /webhooks/[webhookId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-description::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -15916,8 +15916,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/api-resources/[resourceId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /api-resources/[resourceId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -15931,8 +15931,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/applications/[appId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /applications/[appId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -15971,8 +15971,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /enterprise-sso/[configId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -16001,8 +16001,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/organizations/[orgId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /organizations/[orgId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -16016,8 +16016,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/roles/[roleId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /roles/[roleId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -16026,8 +16026,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/security/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /security: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/security/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -16101,8 +16101,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/users/[userId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /users/[userId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/users/[userId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -16116,8 +16116,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/webhooks/[webhookId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /webhooks/[webhookId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-image::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -16131,8 +16131,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/api-resources/[resourceId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /api-resources/[resourceId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16146,8 +16146,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/applications/[appId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /applications/[appId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16186,8 +16186,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /enterprise-sso/[configId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16216,8 +16216,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/organizations/[orgId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /organizations/[orgId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16231,8 +16231,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/roles/[roleId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /roles/[roleId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16241,8 +16241,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/security/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /security: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/security/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16316,8 +16316,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/users/[userId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /users/[userId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/users/[userId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16331,8 +16331,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/webhooks/[webhookId]/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /webhooks/[webhookId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-title::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -16346,8 +16346,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/api-resources/[resourceId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /api-resources/[resourceId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16361,8 +16361,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/applications/[appId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /applications/[appId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16401,8 +16401,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /enterprise-sso/[configId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16431,8 +16431,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/organizations/[orgId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /organizations/[orgId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16446,8 +16446,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/roles/[roleId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /roles/[roleId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16456,8 +16456,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/security/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /security: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/security/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16531,8 +16531,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/users/[userId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /users/[userId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/users/[userId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -16546,8 +16546,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/webhooks/[webhookId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /webhooks/[webhookId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/og-url::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -17006,8 +17006,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/api-resources/[resourceId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /api-resources/[resourceId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/api-resources/[resourceId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/api-resources/[resourceId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17021,8 +17021,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/applications/[appId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /applications/[appId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/applications/[appId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/applications/[appId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17061,8 +17061,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/enterprise-sso/[configId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /enterprise-sso/[configId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/enterprise-sso/[configId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/enterprise-sso/[configId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17091,8 +17091,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/organizations/[orgId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /organizations/[orgId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/organizations/[orgId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/organizations/[orgId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17106,8 +17106,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/roles/[roleId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /roles/[roleId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/roles/[roleId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/roles/[roleId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17116,8 +17116,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/security/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /security: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/security never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/security/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17191,8 +17191,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/users/[userId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /users/[userId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/users/[userId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/users/[userId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
@@ -17206,8 +17206,8 @@
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/webhooks/[webhookId]/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /webhooks/[webhookId]: no og:*/twitter:* in page, root +layout.svelte, layouts/AdminLayout.svelte or any file of admin-console/src incl. app.html, nor in workspace @supauth/shared; npm @svadmin/ui@0.76.0 (377 .svelte) and @svadmin/core/sso/sveltekit (no .svelte) emit none; ssr=false (+layout.js:1) so client heads count and none emit it"
+    "verdict": "fp",
+    "basis": "/webhooks/[webhookId] never renders: its +page.js is `export const load = createDetailRouteRedirect(…)` (src/lib/detail-route.js:11-23), whose returned function throws error(404) or redirect(307) on every path; every route-level claim on a route that never renders is fp"
   },
   {
     "key": "vibeunion/supauth:packages/admin-console::seo/twitter-card::src/routes/webhooks/[webhookId]/[tab]/+page.svelte::Missing <meta name=\"twitter:card\">",
