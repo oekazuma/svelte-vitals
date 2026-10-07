@@ -94,6 +94,8 @@ describe('kitchen-sink e2e (build mode)', () => {
     expect(routes).toContain('/clean');
     expect(routes).not.toContain('/clean/redirect');
     expect(routes).not.toContain('/clean/redirect-helper');
+    expect(routes).not.toContain('/clean/redirect-factory');
+    expect(routes).not.toContain('/clean/redirect-return');
   });
 
   it('analyzes the real-world canary and finds it clean', () => {

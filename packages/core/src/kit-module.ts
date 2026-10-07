@@ -55,6 +55,8 @@ export interface KitModuleFacts {
   loadNeverRenders?: true;
   /** The imported flag a load's leading guard reads (`if (!FLAG) redirect(…)`): `collectKitModuleFacts` sets `loadNeverRenders` when that export is the literal `false`. */
   pendingFlagGuard?: { resolved: string; name: string; member?: string };
+  /** The imported factory `export const load = factory(…)` calls: `collectKitModuleFacts` sets `loadNeverRenders` when the function it returns redirects or errors on every call. */
+  pendingLoadFactory?: { resolved: string; name: string };
   /** Set when the exported `load` sends a request without a session away before rendering (see `loadGatesOnLocals` in kit-module-parse.ts); every route under a `+layout` carrying it is behind a login. */
   loadGated?: true;
   /** Sequential-await analysis of the exported `load` function (performance/load-waterfall, performance/sequential-awaits): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */

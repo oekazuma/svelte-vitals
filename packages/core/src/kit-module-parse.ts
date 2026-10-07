@@ -283,7 +283,11 @@ type Frame = { seen: Set<Node>; observed: boolean };
  */
 function loadNeverRenders(program: Node, locals: Set<string>): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
-  if (!load?.body) return false;
+  return !!load?.body && alwaysExits(program, load, locals);
+}
+
+/** Whether `fn`, a function of `program`, redirects or errors on every call (see `loadNeverRenders`). */
+function alwaysExits(program: Node, fn: Node, locals: Set<string>): boolean {
   const topLevel = collectTopLevelBindings(program);
   // A parameter or a declaration in the body named like the import is a different function. A helper
   // sees only its own scope, never its caller's; `seen` stops mutually recursive helpers. `observed`
@@ -344,15 +348,22 @@ function loadNeverRenders(program: Node, locals: Set<string>): boolean {
     }
     return false;
   };
+  // A `return redirect(…)` exits like the redirect itself: `if (!user) return redirect(…)` lets the scan go on.
+  const plainReturn = (node: Node, shadow: Set<string>, frame: Frame): boolean => {
+    if (Array.isArray(node)) return node.some((n) => plainReturn(n, shadow, frame));
+    if (!node || typeof node !== 'object' || typeof node.type !== 'string' || isFunctionNode(node)) return false;
+    if (node.type === 'ReturnStatement') return !isRedirect(node.argument, shadow, frame, frame.observed);
+    return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && plainReturn(node[key], shadow, frame));
+  };
   const always = (body: Node[] | undefined, outer: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
     const shadow = within(body, outer);
     for (const stmt of body ?? []) {
       if (redirects(stmt, shadow, rethrow, frame)) return true;
-      if (containsReturn(stmt)) return false;
+      if (plainReturn(stmt, shadow, frame)) return false;
     }
     return false;
   };
-  return fnRedirects(load, new Set(), true);
+  return fnRedirects(fn, new Set(), true);
 }
 
 /**
@@ -412,6 +423,40 @@ function leadingFlagGuard(
     if (containsReturn(stmt)) return undefined;
   }
   return undefined;
+}
+
+/** The imported function `export const load = factory(…)` calls, for `collectKitModuleFacts` to read. */
+function loadFactory(
+  program: Node,
+  imported: (local: string) => { resolved: string; name: string } | undefined
+): KitModuleFacts['pendingLoadFactory'] {
+  let call: Node;
+  forEachNamedExport(program, (name, value) => {
+    if (name !== 'load') return undefined;
+    call = unwrapTs(value);
+    return true;
+  });
+  return call?.type === 'CallExpression' && call.callee?.type === 'Identifier' ? imported(call.callee.name) : undefined;
+}
+
+/**
+ * The exported functions of a module that return a function which redirects or errors on every call
+ * (`createRedirect = (to) => () => redirect(307, to)`), read like a `load` that does.
+ */
+export function parseExitFactoryExports(source: string, filename: string): ReadonlySet<string> {
+  const { program } = parseModuleProgram(source, filename);
+  const exits = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
+  const names = new Set<string>();
+  if (exits.size === 0) return names;
+  forEachNamedExport(program, (name, value) => {
+    if (!isFunctionNode(value)) return undefined;
+    const body =
+      value.body?.type === 'BlockStatement' ? value.body.body : [{ type: 'ReturnStatement', argument: value.body }];
+    const returned = body.find((stmt: Node) => stmt?.type === 'ReturnStatement')?.argument;
+    if (isFunctionNode(returned) && alwaysExits(program, returned, exits)) names.add(name);
+    return undefined;
+  });
+  return names;
 }
 
 /** The exports of a module that are the literal `false`, as `NAME` or `NAME.member` (an object literal's own property). */
@@ -1399,6 +1444,11 @@ export function parseKitModuleFacts(
     const resolved = spec === undefined ? undefined : localModulePath(spec, filename, aliases);
     return resolved === undefined ? undefined : { resolved, name: importedNames.get(local) ?? local };
   });
+  const factory = loadFactory(program, (local) => {
+    const spec = namespaceImports.has(local) ? undefined : importedSpecifiers.get(local);
+    const resolved = spec === undefined ? undefined : localModulePath(spec, filename, aliases);
+    return resolved === undefined ? undefined : { resolved, name: importedNames.get(local) ?? local };
+  });
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
@@ -1415,6 +1465,7 @@ export function parseKitModuleFacts(
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
     ...(flagGuard ? { pendingFlagGuard: flagGuard } : {}),
+    ...(factory ? { pendingLoadFactory: factory } : {}),
     ...(loadGatesOnLocals(program) ? { loadGated: true as const } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }

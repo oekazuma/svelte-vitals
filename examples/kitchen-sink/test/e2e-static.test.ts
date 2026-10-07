@@ -160,6 +160,8 @@ describe('kitchen-sink e2e (static mode)', () => {
     expect(report.routes.map((r) => r.route)).toContain('/clean');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-helper');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-factory');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-return');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/error-only');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/flag-gated');
   });

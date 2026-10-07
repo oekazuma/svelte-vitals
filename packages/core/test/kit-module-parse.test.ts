@@ -585,6 +585,15 @@ describe('parseKitModuleFacts — loadNeverRenders (routes whose load always red
       ).loadNeverRenders
     ).toBe(true);
     expect(always("export function load() {\n  return redirect(307, '/');\n}")).toBe(true);
+    // A guard that returns a redirect exits too, so the scan goes on to the redirect that follows.
+    expect(
+      always(
+        "export async function load({ parent }) {\n  const data = await parent();\n  if (!data.user) {\n    return redirect(303, '/');\n  }\n  try {\n    await logout();\n  } catch (e) {\n    console.error(e);\n  }\n  return redirect(303, '/');\n}"
+      )
+    ).toBe(true);
+    expect(
+      always("export function load({ url }) {\n  if (url.search) return redirect(303, '/');\n  return {};\n}")
+    ).toBeUndefined();
   });
   it("is set when every path throws SvelteKit's error(), and not for another error()", () => {
     const withError = "import { error } from '@sveltejs/kit';\n";
