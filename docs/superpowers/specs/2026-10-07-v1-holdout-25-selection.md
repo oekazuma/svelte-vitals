@@ -20,7 +20,7 @@ and `use:enhance` and `error(404` with `export const load` in route files, restr
 last page of the Netlify query timed out, so that query contributed 900 of its first 1,000 results. As
 in holdouts 16–24, the pool is this round's searches only.
 
-7,798 repositories came back; 2,894 remained after dropping 226 excluded repositories (the corpus
+7,798 repositories came back, one of which no longer exists; 2,894 remained after dropping 226 excluded repositories (the corpus
 repositories and every candidate and runner-up of earlier holdouts) and 4,677 with no push in six
 months; 1,172 had at least 10 routes and a lockfile; 1,041 were on Svelte 5 and Kit 2; 990 remained
 after dropping 4 app directories named `docs`, `site`, `examples`, `templates`, `tests`, `demo` or
