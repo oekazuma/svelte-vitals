@@ -462,4 +462,15 @@ describe('findKitHashRouterInSvelteConfig', () => {
     expect(findKitHashRouterInSvelteConfig(`export default { kit: {} };`)).toBe(false);
     expect(findKitHashRouterInSvelteConfig(`export default { kit: { router: { type: mode } } };`)).toBe(false);
   });
+  it('is false when another value could override the literal', () => {
+    const hash = `{ kit: { router: { type: 'hash' } } }`;
+    expect(findKitHashRouterInSvelteConfig(`export default defineConfig(${hash});`)).toBe(true);
+    expect(findKitHashRouterInSvelteConfig(`export default mergeConfigs(${hash}, base);`)).toBe(false);
+    expect(findKitHashRouterInSvelteConfig(`export default { ...base, kit: { router: { type: 'hash' } } };`)).toBe(
+      false
+    );
+    expect(findKitHashRouterInSvelteConfig(`export default { kit: { router: { type: 'hash', ...extra } } };`)).toBe(
+      false
+    );
+  });
 });

@@ -54,6 +54,21 @@ describe('svelteVitals options', () => {
     }
   });
 
+  it('waits for stdout to drain when a JSON report write is buffered', async () => {
+    const writeSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => {
+      setImmediate(() => process.stdout.emit('drain'));
+      return false;
+    });
+    try {
+      const p = svelteVitals({ cwd, ui: false, report: 'json' }) as Plugin;
+      await closeBundleOf(p)().catch(() => {});
+      const logged = writeSpy.mock.calls.map((c) => String(c[0])).join('');
+      expect(() => JSON.parse(logged)).not.toThrow();
+    } finally {
+      writeSpy.mockRestore();
+    }
+  });
+
   it('is a no-op (no report, no throw) when the prerendered dir is absent', async () => {
     const empty = await mkdtemp(join(tmpdir(), 'sv-opt-empty-'));
     try {

@@ -1,3 +1,4 @@
+import { once } from 'node:events';
 import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
@@ -285,7 +286,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
 
       if (options.report !== false) {
         if (options.report === 'json') {
-          for (const chunk of result.jsonReportChunks()) process.stdout.write(chunk);
+          for (const chunk of result.jsonReportChunks()) {
+            if (process.stdout.destroyed) break;
+            if (!process.stdout.write(chunk)) await once(process.stdout, 'drain');
+          }
           process.stdout.write('\n');
         } else console.log(result.consoleReport);
       }
