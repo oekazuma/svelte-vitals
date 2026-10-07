@@ -12,7 +12,7 @@ export const correctnessInstanceBrowserGlobal = componentRule({
     'A component instance script runs on the server on every SSR render, where window/document/localStorage do not exist. Warning, not critical: a component rendered only behind a parent {#if browser} (or a client-only dynamic import) is a legitimate pattern that static analysis cannot prove cross-file.',
   applies: (c, _o, ctx) =>
     (c.browserGlobalRefs ?? []).some((r) => r.context === 'instance') &&
-    !appSsrDisabled(ctx.kitModules) &&
+    !appSsrDisabled(ctx) &&
     !routeNeverSsr(c.file, ctx),
   bad: (c) =>
     (c.browserGlobalRefs ?? [])

@@ -146,13 +146,34 @@ export function buildJsonReport(
 }
 
 /** Render results as the documented JSON report string (design §7). */
-export function formatJsonReport(
+export function formatJsonReport(...args: Parameters<typeof formatJsonReportChunks>): string {
+  return [...formatJsonReportChunks(...args)].join('');
+}
+
+/**
+ * `formatJsonReport`'s text in pieces, one route at a time: a large prerendered site's report is
+ * longer than the longest string V8 can hold.
+ */
+export function* formatJsonReportChunks(
   results: Result[],
   config: Config,
   meta: { version: string },
   ruleIds?: readonly string[],
   examined?: Record<string, Record<string, number>>,
   skipped?: JsonReport['skipped']
-): string {
-  return JSON.stringify(buildJsonReport(results, config, meta, ruleIds, examined, skipped), null, 2);
+): Generator<string> {
+  const report = buildJsonReport(results, config, meta, ruleIds, examined, skipped);
+  // Every key before `routes` is ours, so the marker's first occurrence is the `routes` value.
+  const marker = JSON.stringify('\u0000routes');
+  const text = JSON.stringify({ ...report, routes: '\u0000routes' }, null, 2);
+  const at = text.indexOf(marker);
+  yield text.slice(0, at);
+  if (report.routes.length === 0) yield '[]';
+  else {
+    yield '[\n';
+    for (const [i, route] of report.routes.entries())
+      yield `${i > 0 ? ',\n' : ''}    ${JSON.stringify(route, null, 2).replaceAll('\n', '\n    ')}`;
+    yield '\n  ]';
+  }
+  yield text.slice(at + marker.length);
 }

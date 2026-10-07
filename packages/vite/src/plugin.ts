@@ -1,3 +1,4 @@
+import { once } from 'node:events';
 import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
@@ -284,13 +285,18 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       }
 
       if (options.report !== false) {
-        const out = options.report === 'json' ? result.jsonReport : result.consoleReport;
-        console.log(out);
+        if (options.report === 'json') {
+          for (const chunk of result.jsonReportChunks()) {
+            if (process.stdout.destroyed) break;
+            if (!process.stdout.write(chunk)) await once(process.stdout, 'drain');
+          }
+          process.stdout.write('\n');
+        } else console.log(result.consoleReport);
       }
       if (options.outFile) {
         const outPath = isAbsolute(options.outFile) ? options.outFile : join(root, options.outFile);
         await mkdir(dirname(outPath), { recursive: true });
-        await writeFile(outPath, result.jsonReport);
+        await writeFile(outPath, result.jsonReportChunks());
       }
       if (result.failed) {
         throw new Error(`svelte-vitals: build failed — findings at or above "${result.failOn}".`);

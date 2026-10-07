@@ -126,6 +126,20 @@ describe('analyze: routes with ssr = false', () => {
     }
   });
 
+  it('drops every route under the hash router, which never server-renders', async () => {
+    const hash = await fixture({
+      'svelte.config.js': "export default { kit: { router: { type: 'hash' } } };\n",
+      'index.html': SHELL
+    });
+    try {
+      const r = await analyze(hash.pages, hash.cwd, { report: false });
+      expect(r.results.filter((x) => x.route?.startsWith('/'))).toEqual([]);
+      expect(r.consoleReport).toContain('Analyzed 0 prerendered route(s) (skipped 1 with the hash router).');
+    } finally {
+      await rm(hash.cwd, { recursive: true, force: true });
+    }
+  });
+
   it('keeps routes outside the ssr = false subtree', async () => {
     const r = await analyze(scoped.pages, scoped.cwd, { report: false });
     const routes = new Set(r.results.map((x) => x.route).filter((x) => x?.startsWith('/')));

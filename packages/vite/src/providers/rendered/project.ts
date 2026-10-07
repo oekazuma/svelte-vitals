@@ -10,6 +10,7 @@ import {
   withPackageImports,
   withWorkspacePackages,
   resolveKitPathsBase,
+  findKitHashRouterInSvelteConfig,
   servesRootFile,
   type Project
 } from '@svelte-vitals/core/internal';
@@ -86,6 +87,7 @@ export async function collectRenderedProject(cwd: string, htmlLang: Detection): 
     htmlLang,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(kitPathsBase ? { kitPathsBase } : {}),
+    ...(svelteConfig && findKitHashRouterInSvelteConfig(svelteConfig.source) ? { kitHashRouter: true as const } : {}),
     ...(kitAliases ? { kitAliases } : {}),
     ...(componentAliases !== kitAliases ? { componentAliases } : {})
   };

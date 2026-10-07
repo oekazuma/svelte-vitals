@@ -392,6 +392,16 @@ describe('correctness/server-browser-global browser global in server module code
     });
     expect(fails(rs).map((r) => r.route)).toEqual(['src/lib/store.svelte.ts', 'src/routes/a/+page.server.ts']);
   });
+  it('skips universal files under the hash router, which never server-renders', async () => {
+    const rs = await correctnessServerBrowserGlobal.check({
+      ...ctx([]),
+      project: { ...base.project, kitHashRouter: true },
+      kitModules: [
+        kitFacts({ file: 'src/routes/+page.ts', browserGlobalRefs: [{ name: 'window', line: 12, inHandler: true }] })
+      ]
+    });
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('still flags module scope of a universal file under a root-layout ssr = false', async () => {
     const rs = await correctnessServerBrowserGlobal.check({
       ...ctx([]),
@@ -443,6 +453,11 @@ describe('correctness/instance-browser-global browser global during component in
     expect(
       fails(await correctnessInstanceBrowserGlobal.check({ ...ctx(components), kitModules: [rootOff, reEnabled] }))
     ).toHaveLength(1);
+  });
+  it('is silent under the hash router, which never server-renders', async () => {
+    const components = [comp({ browserGlobalRefs: [{ name: 'window', line: 2, context: 'instance' }] })];
+    const project = { ...base.project, kitHashRouter: true as const };
+    expect(await correctnessInstanceBrowserGlobal.check({ ...ctx(components), project })).toHaveLength(0);
   });
   it('is silent for a route component under a nested ssr = false layout, but not for a shared component', async () => {
     const refs: ComponentFacts['browserGlobalRefs'] = [{ name: 'navigator', line: 2, context: 'instance' }];

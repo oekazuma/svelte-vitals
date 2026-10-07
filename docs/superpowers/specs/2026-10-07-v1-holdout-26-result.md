@@ -75,10 +75,11 @@ exports. Its route-level SEO claims hold, and only the claims that code runs dur
 GitHub Actions run 37594713023 (harness in `scripts/holdout-build/`). The plugin ran on all 14 apps
 and wrote its report on 13. On duders-zone it caught "Maximum call stack size exceeded" from its own
 analysis, logged "svelte-vitals: skipped — analysis failed", and let the build finish without a report.
-The run keeps no stack, and third-party apps are not built locally, so the page that triggered it is not
-identified. The plugin's HTML parsing throws the same error on a synthetic page nested a few thousand
-elements deep, in the recursive element queries of `node-html-parser`; whether duders-zone hit that path
-is not confirmed. Thirteen builds completed:
+duders-zone prerenders a page for each of the 11,815 videos in its data, each listing 24 thumbnails, so
+one image rule returns hundreds of thousands of results, and the rule engine gathered each rule's results
+with a spread call, which overflows the stack at that size. The run keeps no stack and third-party apps are
+not built locally; a synthetic site of that shape throws the same error in the engine. Thirteen builds
+completed:
 brdsa (41 prerendered routes analyzed), caelyreth/site (10), duders-zone (the crash), and tarkana,
 eDNA-SampleTown, decent-cloud, kitchenbrain, funmary, reg_allgemein, hoshi, trailer, lemke-bank and
 greenmods with no prerendered page. After the plugin ran, ami's build (1 prerendered route analyzed) was

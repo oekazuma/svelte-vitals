@@ -13,6 +13,7 @@ import {
   withPackageImports,
   withWorkspacePackages,
   resolveKitPathsBase,
+  findKitHashRouterInSvelteConfig,
   servesRootFile,
   type Project,
   type Runtime
@@ -315,7 +316,7 @@ async function readFirstConfig(
 async function detectKitConfigFacts(
   rt: Runtime,
   cwd: string
-): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases' | 'componentAliases' | 'headAliases'>> {
+): Promise<Pick<Project, 'kitPathsBase' | 'kitHashRouter' | 'kitAliases' | 'componentAliases' | 'headAliases'>> {
   const [viteConfig, svelteConfig, packageJson] = await Promise.all([
     readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
     readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES),
@@ -331,6 +332,7 @@ async function detectKitConfigFacts(
   const headAliases = withInstalledPackages(componentAliases, installedPackages);
   return {
     ...(kitPathsBase ? { kitPathsBase } : {}),
+    ...(svelteConfig && findKitHashRouterInSvelteConfig(svelteConfig.source) ? { kitHashRouter: true as const } : {}),
     ...(kitAliases ? { kitAliases } : {}),
     ...(componentAliases !== kitAliases ? { componentAliases } : {}),
     ...(headAliases !== componentAliases ? { headAliases } : {})

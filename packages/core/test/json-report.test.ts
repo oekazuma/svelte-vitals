@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { defineConfig, type Result } from '../src/index.js';
-import { buildJsonReport, formatJsonReport, computeHealth, allRules } from '../src/internal.js';
+import { buildJsonReport, formatJsonReport, formatJsonReportChunks, computeHealth, allRules } from '../src/internal.js';
 import { DEDUCTION } from '../src/scoring/inventory.js';
 
 const config = defineConfig({});
@@ -371,5 +371,15 @@ describe('buildJsonReport — pair inventories', () => {
     // Confirm the case above is actually exercised, not vacuously true because no category spans both keys.
     expect(report.routes.find((r) => r.route === '/route-key')!.categories).toHaveProperty('performance');
     expect(report.routes.find((r) => r.route === 'src/component-key.svelte')!.categories).toHaveProperty('performance');
+  });
+});
+
+describe('formatJsonReportChunks', () => {
+  it('writes the same text as one JSON.stringify of the report, with routes or without', () => {
+    for (const rs of [results, results.filter((r) => r.route === undefined)]) {
+      const chunks = [...formatJsonReportChunks(rs, config, { version: '0' })];
+      expect(chunks.join('')).toBe(JSON.stringify(buildJsonReport(rs, config, { version: '0' }), null, 2));
+      expect(formatJsonReport(rs, config, { version: '0' })).toBe(chunks.join(''));
+    }
   });
 });

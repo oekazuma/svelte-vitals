@@ -8,7 +8,7 @@
 import type { Expression, ObjectExpression, Program, Property } from 'estree';
 import { collectNamedImportAliases, parseModuleProgram, unwrapTs, type TsExpression } from './module-ast.js';
 import { DEFAULT_KIT_ALIASES, collectTopLevelBindings } from './kit-module-parse.js';
-import { propOf, resolveConfigObject, unwrapToObjectExpression } from './config-object.js';
+import { findExportedExpression, propOf, resolveConfigObject, unwrapToObjectExpression } from './config-object.js';
 import type { KitAlias } from './types.js';
 
 /** What a Vite config says about SvelteKit's own configuration. */
@@ -352,6 +352,38 @@ export function findKitPathsBaseInSvelteConfig(source: string): { value?: string
   const kit = propOf(config, 'kit');
   const kitObj = kit ? unwrapToObjectExpression(kit.value as Expression, bindings) : undefined;
   return kitObj ? basePathOf(kitObj, bindings, constBindings(program, bindings)) : undefined;
+}
+
+/**
+ * `unwrapToObjectExpression`, but only where the literal is the value: a call passing more than one
+ * argument (`mergeConfigs(a, b)`) or a spread could make it something else.
+ */
+function knownObject(
+  expr: TsExpression | undefined,
+  bindings: Map<string, TsExpression>
+): ObjectExpression | undefined {
+  let current = expr;
+  for (let i = 0; i < 4 && current; i++) {
+    const e = unwrapTs(current);
+    if (e.type === 'ObjectExpression') return e.properties.some((p) => p.type === 'SpreadElement') ? undefined : e;
+    if (e.type === 'Identifier') current = bindings.get(e.name);
+    else if (e.type === 'CallExpression' && e.arguments.length === 1) current = e.arguments[0] as Expression;
+    else return undefined;
+  }
+  return undefined;
+}
+
+/** Whether `kit.router.type` is the literal `'hash'` in a config whose value is known. */
+export function findKitHashRouterInSvelteConfig(source: string): boolean {
+  const program = programOf(source, 'svelte.config.js');
+  if (!program) return false;
+  const bindings = collectTopLevelBindings(program);
+  const objectAt = (obj: ObjectExpression | undefined, key: string) => {
+    const p = obj && propOf(obj, key);
+    return p ? knownObject(p.value as Expression, bindings) : undefined;
+  };
+  const router = objectAt(objectAt(knownObject(findExportedExpression(program), bindings), 'kit'), 'router');
+  return stringLiteralOf(router && (propOf(router, 'type')?.value as Expression)) === 'hash';
 }
 
 /**

@@ -36,7 +36,9 @@ export async function runRules(
   const results: Result[] = [];
   const failedRules: FailedRule[] = [];
   for (const outcome of perRule) {
-    if (Array.isArray(outcome)) results.push(...outcome);
+    // Not `push(...outcome)`: spread arguments live on the stack, and a rule over a large
+    // prerendered site returns hundreds of thousands of results.
+    if (Array.isArray(outcome)) for (const r of outcome) results.push(r);
     else failedRules.push(outcome);
   }
   return { results, examined, failedRules };
