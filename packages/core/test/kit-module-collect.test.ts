@@ -282,6 +282,12 @@ describe('collectKitModuleFacts — a load an imported factory builds', () => {
       await never('export function createRedirect(path) {\n  return () => { throw new Error(path); };\n}')
     ).toBeUndefined();
     expect(
+      await never(
+        kit +
+          'export function createRedirect(path, show) {\n  if (show) return () => ({});\n  return () => redirect(307, path);\n}'
+      )
+    ).toBeUndefined();
+    expect(
       await never(kit + 'export const createRedirect = () => () => redirect(307, "/");', 'other()')
     ).toBeUndefined();
   });

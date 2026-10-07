@@ -353,7 +353,9 @@ function alwaysExits(program: Node, fn: Node, locals: Set<string>): boolean {
     if (Array.isArray(node)) return node.some((n) => plainReturn(n, shadow, frame));
     if (!node || typeof node !== 'object' || typeof node.type !== 'string' || isFunctionNode(node)) return false;
     if (node.type === 'ReturnStatement') return !isRedirect(node.argument, shadow, frame, frame.observed);
-    return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && plainReturn(node[key], shadow, frame));
+    // A block's own `redirect` is not the import, so a return that calls it returns.
+    const scope = node.type === 'BlockStatement' ? within(node.body, shadow) : shadow;
+    return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && plainReturn(node[key], scope, frame));
   };
   const always = (body: Node[] | undefined, outer: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
     const shadow = within(body, outer);
@@ -452,7 +454,10 @@ export function parseExitFactoryExports(source: string, filename: string): Reado
     if (!isFunctionNode(value)) return undefined;
     const body =
       value.body?.type === 'BlockStatement' ? value.body.body : [{ type: 'ReturnStatement', argument: value.body }];
-    const returned = body.find((stmt: Node) => stmt?.type === 'ReturnStatement')?.argument;
+    // Only the factory's first statement that can return counts, and only when it is that return: a
+    // conditional return before it may hand back a function that renders.
+    const first = body.find((stmt: Node) => containsReturn(stmt));
+    const returned = first?.type === 'ReturnStatement' ? first.argument : undefined;
     if (isFunctionNode(returned) && alwaysExits(program, returned, exits)) names.add(name);
     return undefined;
   });

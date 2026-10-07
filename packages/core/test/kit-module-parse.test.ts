@@ -594,6 +594,12 @@ describe('parseKitModuleFacts — loadNeverRenders (routes whose load always red
     expect(
       always("export function load({ url }) {\n  if (url.search) return redirect(303, '/');\n  return {};\n}")
     ).toBeUndefined();
+    // A block's own `redirect` is not SvelteKit's, so returning its call renders.
+    expect(
+      always(
+        "export function load({ url }) {\n  if (url.search) {\n    const redirect = () => ({});\n    return redirect();\n  }\n  redirect(302, '/');\n}"
+      )
+    ).toBeUndefined();
   });
   it("is set when every path throws SvelteKit's error(), and not for another error()", () => {
     const withError = "import { error } from '@sveltejs/kit';\n";
