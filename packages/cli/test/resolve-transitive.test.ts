@@ -333,6 +333,26 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
     expect(await levels('<Bar />', destructured)).toEqual([1]);
   });
 
+  it('decides an arm by a prop the component in between passes on unchanged', async () => {
+    const levels = async (use: string, middle: string) =>
+      (
+        await resolveWith(
+          {
+            'src/routes/+page.svelte': `<script>import Post from '$lib/Post.svelte'; let { data } = $props();</script>${use}`,
+            'src/lib/Post.svelte': `<script>import Media from './Media.svelte'; ${middle}</script><Media {view} />`,
+            'src/lib/Media.svelte': `<script>let { view } = $props();</script>{#if view === 'cozy'}<h1>Embed</h1>{/if}`
+          },
+          'src/routes/+page.svelte'
+        )
+      ).headings.map((h) => h.level);
+    const passes = 'let { view } = $props();';
+    expect(await levels('<Post view="compact" />', passes)).toEqual([]);
+    expect(await levels('<Post view="cozy" />', passes)).toEqual([1]);
+    expect(await levels('<Post view={data.view} />', passes)).toEqual([1]);
+    // A component that changes the prop before passing it on is not read through.
+    expect(await levels('<Post view="compact" />', `let { view } = $props(); view = 'cozy';`)).toEqual([1]);
+  });
+
   it('stops on cycles without infinite recursion', async () => {
     const r = await resolveWith(
       {

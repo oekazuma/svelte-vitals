@@ -893,6 +893,25 @@ function collectProps(ast: AST.Root): Map<string, string> {
   return props;
 }
 
+function heldProps(ast: AST.Root, reassigned: ReadonlySet<string>): Map<string, string> {
+  const held = new Map<string, string>();
+  for (const stmt of ast.instance?.content.body ?? []) {
+    if (stmt.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declarations) {
+      const init = d.init;
+      const isProps =
+        init?.type === 'CallExpression' && init.callee.type === 'Identifier' && init.callee.name === '$props';
+      if (!isProps || d.id.type !== 'ObjectPattern') continue;
+      for (const p of d.id.properties) {
+        if (p.type !== 'Property' || p.computed || p.key.type !== 'Identifier') continue;
+        const local = p.value.type === 'AssignmentPattern' ? p.value.left : p.value;
+        if (local.type === 'Identifier' && !reassigned.has(local.name)) held.set(local.name, p.key.name);
+      }
+    }
+  }
+  return held;
+}
+
 /** Prop name → its default for `let { a = 'x' } = $props()` and `export let a = 'x'`. */
 function collectPropDefaults(ast: AST.Root): Map<string, PropDefault> {
   const defaults = new Map<string, PropDefault>();
@@ -2222,6 +2241,8 @@ export interface ParsedFile {
   alwaysThrows?: true;
   /** Literal prop defaults, for `decidedArms`. */
   propDefaults: ReadonlyMap<string, PropDefault>;
+  /** Local → prop name for `let { a, b: c } = $props()` bindings the component never reassigns: they hold what the parent passed. */
+  heldProps: ReadonlyMap<string, string>;
   a11y: ParsedA11y;
   /** What `tagsInHead` re-reads when a parent renders this file inside `<svelte:head>`. */
   template: { source: string; filename: string; props: ReadonlyMap<string, string>; jsonLdNames: ReadonlySet<string> };
@@ -2301,6 +2322,7 @@ export function parseFile(raw: string, filename: string): ParsedFile {
     ...(headingAcc.flagGates.size > 0 ? { headingFlagGates: headingAcc.flagGates } : {}),
     ...(headingAcc.urlGates.size > 0 ? { headingUrlGates: headingAcc.urlGates } : {}),
     propDefaults: collectPropDefaults(ast),
+    heldProps: heldProps(ast, reassigned),
     a11y: collectA11y(ast.fragment, source, urls.sites, props, reassigned, flags, urls.blocks),
     template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)

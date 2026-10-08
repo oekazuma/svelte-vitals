@@ -1,0 +1,642 @@
+[
+  {
+    "key": "LkMasterhub/defisAsso::a11y/deprecated-attr::src/lib/components/MediaPlayer.svelte:109::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read components/MediaPlayer.svelte:109: <iframe> carries `frameborder` as reported (literal frameborder on the embed iframe); the HTML spec data marks it deprecated on that element (not an email template)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/deprecated-attr::src/lib/components/MediaPlayer.svelte:121::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read components/MediaPlayer.svelte:121: <iframe> carries `frameborder` as reported (literal frameborder on the embed iframe); the HTML spec data marks it deprecated on that element (not an email template)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/deprecated-attr::src/lib/components/MediaPlayer.svelte:132::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read components/MediaPlayer.svelte:132: <iframe> carries `frameborder` as reported (literal frameborder on the embed iframe); the HTML spec data marks it deprecated on that element (not an email template)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/deprecated-attr::src/lib/components/MusicPlayer.svelte:121::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read components/MusicPlayer.svelte:121: <iframe> carries `frameborder` as reported (literal frameborder on the embed iframe); the HTML spec data marks it deprecated on that element (not an email template)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/deprecated-attr::src/lib/components/MusicPlayer.svelte:132::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read components/MusicPlayer.svelte:132: <iframe> carries `frameborder` as reported (literal frameborder on the embed iframe); the HTML spec data marks it deprecated on that element (not an email template)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/deprecated-attr::src/lib/components/MusicPlayer.svelte:143::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read components/MusicPlayer.svelte:143: <iframe> carries `frameborder` as reported (literal frameborder on the embed iframe); the HTML spec data marks it deprecated on that element (not an email template)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/duplicate-landmark::src/routes/admin/+layout.svelte:67::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:67 <main class=p-8> renders inside root +layout.svelte:12 <main class=flex-1> (no +layout@ reset, no load or hook gating /admin), so every /admin route has two main landmarks as reported"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/permitted-contents::src/routes/admin/messages/+page.svelte:48::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs): literal <div> at messages/+page.svelte:48 has <button> (:47) as its nearest element parent in the same template (only control-flow blocks between, no component/snippet boundary); outside that parent's content model as reported"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/top-level-landmark::src/routes/admin/+layout.svelte:22::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:22 unlabelled sidebar <aside> sits in a plain <div> rendered inside root +layout.svelte:12 <main> (no sectioning ancestor), so it is a complementary landmark nested in main as reported"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::a11y/top-level-landmark::src/routes/admin/+layout.svelte:67::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:67 <main class=p-8> renders inside root +layout.svelte:12 <main class=flex-1> (no +layout@ reset), so the admin main is nested inside main as reported"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::architecture/prop-count::src/lib/components/MediaPlayer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MediaPlayer.svelte has a single destructured $props() with 8 named props (> 6): spotifyArtistId, spotifyAlbumId, deezerAlbumId, appleAlbumId, appleAlbumSlug, albumTitle, albumMeta, albumBadge"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:49::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/actions/+page.server.ts:49 'throw redirect(303, '/admin/actions')'; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens), but DEPLOY.md:5-8,36 deploys at the subdomain root with BASE_PATH empty (BASE_PATH= npm run build); claim per the docs, not a defect in the deploy"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:76::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/actions/+page.server.ts:76 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:92::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/actions/+page.server.ts:92 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/messages/+page.server.ts:41::redirect(…, '/admin/messages') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/messages') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/messages/+page.server.ts:41 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/messages/+page.server.ts:57::redirect(…, '/admin/messages') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/messages') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/messages/+page.server.ts:57 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/settings/+page.svelte:115::<a href=\"/admin/setup\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/setup') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/settings/+page.svelte:115 '<a href=\"/admin/setup\">' root-relative literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/setup/+page.svelte:7::<a href=\"/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/setup/+page.svelte:7 '<a href=\"/login\">' root-relative literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/+page.server.ts:18::redirect(…, '/demo/better-auth/login') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/demo/better-auth/+page.server.ts:18 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/+page.server.ts:8::redirect(…, '/demo/better-auth/login') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth/login') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/demo/better-auth/+page.server.ts:8 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:35::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/demo/better-auth/login/+page.server.ts:35 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:59::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/demo/better-auth/login/+page.server.ts:59 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:9::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/demo/better-auth/login/+page.server.ts:9 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/login/+page.svelte:14::goto('/admin') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/login/+page.svelte:14 \"goto('/admin')\" root-relative literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::correctness/stale-prop-derivation::src/lib/components/MediaPlayer.svelte:40::\"openLinks\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MediaPlayer.svelte:40 openLinks computed from the album-id props at init (structurally true), but the only use passes the constant LA_FONDATION_IDS (FondationSection.svelte:135-138); the props never change, not a demonstrable stale-UI defect"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::performance/sequential-awaits::src/routes/+page.server.ts:42::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+page.server.ts:41-43: the flagged await is a server-side import('$lib/server/db/schema.js') after import('$lib/server/db/index.js') — in-process module loads (cached after first use), no request serialized (ledger already-loaded dynamic import convention)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::performance/sequential-awaits::src/routes/admin/messages/+page.server.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/messages/+page.server.ts:15-17: the flagged await is a server-side import('$lib/server/db/schema.js') after import('$lib/server/db/index.js') — in-process module load, no request serialized (ledger already-loaded dynamic import convention)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::performance/sequential-awaits::src/routes/admin/messages/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/messages/+page.server.ts:15-17: the flagged await is a server-side import('drizzle-orm') after two other module imports — in-process module load, no request serialized (ledger already-loaded dynamic import convention)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable: no auth gate anywhere in source (hooks.server.ts only resolves the session; admin/+layout.svelte and its loads check no user), no noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/admin/actions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/actions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable: no auth gate anywhere in source (hooks.server.ts only resolves the session; admin/+layout.svelte and its loads check no user), no noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/admin/messages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/messages (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable: no auth gate anywhere in source (hooks.server.ts only resolves the session; admin/+layout.svelte and its loads check no user), no noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable: no auth gate anywhere in source (hooks.server.ts only resolves the session; admin/+layout.svelte and its loads check no user), no noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/admin/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/setup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable: no auth gate anywhere in source (hooks.server.ts only resolves the session; admin/+layout.svelte and its loads check no user), no noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/demo/better-auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /demo/better-auth (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders but not a search target (auth-gated: demo/better-auth/+page.server.ts:7-8 redirects guests (!event.locals.user) to /demo/better-auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/demo/better-auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/better-auth/login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/demo/playwright/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/playwright (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /admin has none (literal claim holds); but it is the DÉFIS admin back-office (admin/+layout.svelte \"DÉFIS Admin\" sidebar: dashboard, actions, messages, settings), not a search target"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/admin/actions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /admin/actions has none (literal claim holds); but it is the DÉFIS admin back-office (admin/+layout.svelte \"DÉFIS Admin\" sidebar: dashboard, actions, messages, settings), not a search target"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/admin/messages/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /admin/messages has none (literal claim holds); but it is the DÉFIS admin back-office (admin/+layout.svelte \"DÉFIS Admin\" sidebar: dashboard, actions, messages, settings), not a search target"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /admin/settings has none (literal claim holds); but it is the DÉFIS admin back-office (admin/+layout.svelte \"DÉFIS Admin\" sidebar: dashboard, actions, messages, settings), not a search target"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/admin/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /admin/setup has none (literal claim holds); but it is the DÉFIS admin back-office (admin/+layout.svelte \"DÉFIS Admin\" sidebar: dashboard, actions, messages, settings), not a search target"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/demo/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /demo has none (literal claim holds); but it is a leftover sv-create scaffold demo page (/demo links to better-auth/playwright demos; /demo/better-auth redirects without a session), not a page for search"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/demo/better-auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /demo/better-auth has none (literal claim holds); but it is a leftover sv-create scaffold demo page (/demo links to better-auth/playwright demos; /demo/better-auth redirects without a session), not a page for search"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/demo/better-auth/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /demo/better-auth/login has none (literal claim holds); but it is a leftover sv-create scaffold demo page (/demo links to better-auth/playwright demos; /demo/better-auth redirects without a session), not a page for search"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /demo/playwright has none (literal claim holds); but it is a leftover sv-create scaffold demo page (/demo links to better-auth/playwright demos; /demo/better-auth redirects without a session), not a page for search"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in src is src/routes/+page.svelte:20 (home only); root +layout.svelte and app.html have none, so /login has none (literal claim holds); but it is the admin sign-in page (<title>Connexion | DÉFIS Administration</title>, LoginForm \"Accédez à l'espace de gestion DÉFIS\"), not a search target"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); / renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /admin renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/admin/actions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /admin/actions renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/admin/messages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /admin/messages renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /admin/settings renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/admin/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /admin/setup renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /demo renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/demo/better-auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /demo/better-auth renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/demo/better-auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /demo/better-auth/login renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/demo/playwright/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /demo/playwright renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /login renders (no unconditional redirect; hooks only attaches the better-auth session) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/actions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/messages (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/admin/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/setup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/demo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/better-auth (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/better-auth/login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/playwright (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/actions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/messages (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/admin/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/setup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/better-auth (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/better-auth/login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/playwright (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/actions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/messages (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/admin/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/setup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/demo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/better-auth (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/better-auth/login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/playwright (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/admin/actions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/actions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/admin/messages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/messages (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/admin/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/setup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/demo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/demo/better-auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/better-auth (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/demo/better-auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/better-auth/login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/playwright (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon.svg and images/ only, no robots.txt file or route, no generator in package.json/app.cjs.js/DEPLOY.md; public association showcase site served at defis.lafondationofficiel.fr (README: \"site vitrine associatif\")"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte renders only two links (sv scaffold demo index); root +layout.svelte (Header, Footer, MusicPlayer) renders no heading -> no <h1>"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or src/routes, no generator in package.json/app.cjs.js/DEPLOY.md; public association showcase site served at defis.lafondationofficiel.fr (README: \"site vitrine associatif\")"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-length::src/routes/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Association DÉFIS - Diversité, Éducation, Insertion, Solidarité\" at src/routes/+page.svelte:19 in a top-level svelte:head, grapheme count = 63 as reported, the route's only title); public homepage of the association's showcase site (defis.lafondationofficiel.fr, DEPLOY.md), over 60 as claimed"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/admin/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/admin/+page.svelte: admin page; no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and admin/+layout.svelte (sidebar only) have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/admin/actions/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/admin/actions/+page.svelte: admin page; no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and admin/+layout.svelte (sidebar only) have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/admin/messages/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/admin/messages/+page.svelte: admin page; no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and admin/+layout.svelte (sidebar only) have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/admin/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/admin/settings/+page.svelte: admin page; no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and admin/+layout.svelte (sidebar only) have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/admin/setup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/admin/setup/+page.svelte: admin page; no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and admin/+layout.svelte (sidebar only) have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve); setup page linked from admin/settings/+page.svelte:115"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/demo/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/+page.svelte: sv-create demo index (two links); no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and no demo layout have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve); publicly reachable scaffold leftover served untitled (forumgw/mia-cx/KAIROS leftover-demo precedent: tp)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/demo/better-auth/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/better-auth/+page.svelte: sv-create better-auth demo (load redirects only when signed out, renders for signed-in users); no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and no demo layout have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve); publicly reachable scaffold leftover served untitled (forumgw/mia-cx/KAIROS leftover-demo precedent: tp)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/demo/better-auth/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/better-auth/login/+page.svelte: sv-create better-auth login demo (load redirects only when signed in); no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and no demo layout have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve); publicly reachable scaffold leftover served untitled (forumgw/mia-cx/KAIROS leftover-demo precedent: tp)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/title-presence::src/routes/demo/playwright/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/playwright/+page.svelte: sv-create Playwright demo (<h1> only); no svelte:head/<title> in the page; root +layout.svelte (Header/Footer/MusicPlayer) and no demo layout have no svelte:head, app.html has no <title>, no document.title in src (grep: <title> only in routes/+page.svelte and login/+page.svelte); no Svelte UI deps besides lucide-svelte; no auth gate on admin (no layout server load, hooks only runs better-auth handler then resolve); publicly reachable scaffold leftover served untitled (forumgw/mia-cx/KAIROS leftover-demo precedent: tp)"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 18 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/admin/actions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/actions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/admin/messages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/messages (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/admin/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/setup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/demo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/demo/better-auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/better-auth (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/demo/better-auth/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/better-auth/login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/playwright (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  },
+  {
+    "key": "LkMasterhub/defisAsso::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-8 charset/icon/viewport; only heads: login/+page.svelte <title>, one description meta); no meta-tag library (better-auth/lucide-svelte emit none); hooks.server.ts only attaches the session then resolves; route renders"
+  }
+]

@@ -7,6 +7,7 @@
   import Hint from '$lib/clean/prop-gated/Hint.svelte';
   import Panel from '$lib/clean/prop-gated/Panel.svelte';
   import ReturnedDraft from '$lib/clean/ReturnedDraft.svelte';
+  import Card from '$lib/clean/forward/Card.svelte';
 </script>
 
 <svelte:head>
@@ -40,3 +41,4 @@
 <Panel size="compact" />
 <Panel size="compact" />
 <ReturnedDraft />
+<Card view="compact" />

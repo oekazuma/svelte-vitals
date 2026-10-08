@@ -1,0 +1,1122 @@
+[
+  {
+    "key": "Omaledanjumaogale/SchoolXense::a11y/disallowed-aria-props::src/lib/ui/Stars.svelte:6::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <span> at ui/Stars.svelte:6 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::a11y/interactive-nesting::src/lib/ui/CommandPalette.svelte:47::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs) + read ui/CommandPalette.svelte:47: literal control nested inside the outer interactive container in the same template (chain: <li role=option>@46 < Each@45 < <ul class role=listbox>@44 < <div class style role=dialog>@38 < <div class style role=presentation>@37); <button> inside <li role=\"option\"> (children-presentational) of the palette listbox"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::architecture/prop-count::src/lib/ui/PasswordInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/PasswordInput.svelte has a single destructured $props() with 9 named props (> 6): id, value, label, autocomplete, inputmode, required, pattern, maxlength, minlength"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::architecture/prop-count::src/lib/ui/Stat.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/Stat.svelte has a single destructured $props() with 8 named props (> 6): label, value, sub, delta, icon, trend, tone, href"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminOperations.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/live/AdminOperations.svelte:16 '{#each states as state}' has no key; states = Object.keys(nigeria) (src/lib/data/nigeria.ts:852), the fixed list of Nigerian states (not an array literal, so not exempt); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminOperations.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/live/AdminOperations.svelte:18 '{#each Object.entries(health.data).filter(...) as [key,value]}' has no key; the fixed check keys of the server's configuration-health object; static list (fixed key set)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminOperations.svelte:19::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/AdminOperations.svelte:19 line holds '{#each queue.rows as row}' (rows = tickets/reports props, Convex support tickets and safety reports) unkeyed; the outer inline literal and the status literal are exempt; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminOperations.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/AdminOperations.svelte:20 '{#each payouts as payout}' has no key; payouts prop = Convex payout docs awaiting approval (:6); runtime records removed as they are approved"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminOperations.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/AdminOperations.svelte:21 '{#each events as event}' has no key; events prop = Convex E-WIN event docs (:6); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminReview.svelte:14::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/AdminReview.svelte:14 '{#each questions as q}' has no key; questions prop = Convex question drafts under review (:5), removed as they are reviewed; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminReview.svelte:15::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/AdminReview.svelte:15 '{#each verifications.filter(...) as item}' has no key; Convex verification docs pending review (:5); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/AdminReview.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/AdminReview.svelte:16 '{#each users as user}' has no key; users prop = Convex user docs (:5); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/EwinConnection.svelte:15::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/EwinConnection.svelte:15 '{#each attempts.filter(x=>x.endedAt) as attempt}' has no key; attempts prop = Convex attempt docs (:4); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/InstitutionActions.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/InstitutionActions.svelte:11 '{#each questions.data??[] as question}' has no key; useQuery(api.institutions.reviewedQuestions) (:5); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/InstitutionActions.svelte:12::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/InstitutionActions.svelte:12 '{#each exams as item}' has no key; exams prop = Convex hostedExams docs (:3); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LandingExtras.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LandingExtras.svelte:46 '{#each stories as story}' has no key; stories = testimonials.data from useQuery(api.portal.testimonials) when present (:5, :11); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveCatalogue.svelte:27::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveCatalogue.svelte:27 '{#each items as item}' has no key; items = catalogue.data from a Convex query (:12); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LivePractice.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/live/LivePractice.svelte:33 '{#each question.data.options as option, i}' has no key; the answer options of one question, picked by index i; positional list (options of one item)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LivePractice.svelte:38::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LivePractice.svelte:38 '{#each attempts.data?.attempts ?? [] as attempt}' has no key; Convex query of recent attempts (:13); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveShell.svelte:35::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveShell.svelte:35 '{#each profile.data.memberships as member}' has no key; the signed-in user's institution memberships from useQuery(api.portal.profile) (:14); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:100::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:100 '{#each rows('bookings').filter(...) as booking}' has no key; Convex booking docs of the workspace query; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:114 '{#each rows('enquiries') as enquiry}' has no key; Convex enquiry docs; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:119::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:119 '{#each Object.entries(data).filter(...) as [key, values]}' has no key; one section per array field of the workspace query result, a fixed key set per domain; static list (fixed key set)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:120::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:120 '{#each (values as Row[]).slice(0, 30) as row}' has no key; Convex rows of a workspace section; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:85 '{#each offers.data ?? [] as offer}' has no key; useQuery(api.portal.offers) (:27); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:88::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:88 '{#each rows('bookings') as booking}' has no key; Convex booking docs; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:91::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:91 line holds '{#each rows('briefs') as brief}' unkeyed (Convex brief docs; the other each is an exempt inline literal [0, 1, 2, 3]); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:95::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:95 '{#each messages.data ?? [] as entry}' has no key; useQuery(api.collab.threadMessages) (:28), messages appended over time; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/LiveWorkspace.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/live/LiveWorkspace.svelte:96 '{#each rows('consents') as consent}' has no key; Convex consent docs; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/ResidenceFields.svelte:7::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/live/ResidenceFields.svelte:7 '{#each states as item}' has no key; states = Object.keys(nigeria) (src/lib/data/nigeria.ts:852); static option list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/live/ResidenceFields.svelte:8::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/live/ResidenceFields.svelte:8 '{#each nigeria[state]??[] as item}' has no key; LGAs of the chosen state from the bundled nigeria data (src/lib/data/nigeria.ts); static option list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/AreaChart.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/AreaChart.svelte:21 '{#each series as s, si}' has no key; stateless SVG series paths of a chart component no file renders (no <AreaChart in src); positional list (chart series)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/AreaChart.svelte:27::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/AreaChart.svelte:27 '{#each series as s}' has no key; hover dots per chart series of an unused chart component; positional list (chart series)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/AreaChart.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/AreaChart.svelte:31 '{#each labels as l, i}' has no key; axis labels of a chart; positional list (axis labels)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/AreaChart.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/AreaChart.svelte:36 '{#each series as s}' has no key; legend entries per chart series; positional list (chart series)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/BookingSheet.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/BookingSheet.svelte:40 '{#each offer.topics as tp}' has no key; topics of the tutor offer record being booked (offer prop :11, hive DB record); runtime data of the selected record"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/BookingSheet.svelte:44::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/BookingSheet.svelte:44 '{#each offer.availability as s}' has no key; availability slots of the tutor offer record (:11); runtime data"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/Footer.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/Footer.svelte:21 '{#each links as [l, h]}' has no key; links of the authored footer cols literal (:18); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/OfferCard.svelte:29::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/OfferCard.svelte:29 '{#each offer.topics.slice(0, 3) as tp}' has no key; topics of a tutor offer record (offer prop :8, hive/Convex offers); runtime data"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/OfferCard.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/OfferCard.svelte:30 '{#each offer.languages.filter(...) as l}' has no key; languages of a tutor offer record (:8); runtime data"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/PublicNav.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/PublicNav.svelte:43 '{#each items as it}' has no key; items = the same-file authored LEARN/EARN nav literals (:13, :21) via an inline literal (:37); static nav list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/PublicNav.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/PublicNav.svelte:72 '{#each [...LEARN, ...EARN] as it}' has no key; spread of the same-file authored LEARN/EARN nav literals (:13, :21); static nav list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/QuestionView.svelte:28::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/QuestionView.svelte:28 '{#each q.options as opt, i}' has no key; the answer options of one question, chosen by index (chosen :4); positional list (options of one item)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/RoleSwitcher.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/RoleSwitcher.svelte:20 '{#each me.roles as r}' has no key; the signed-in user's roles, pushed at runtime (hive/store.svelte.ts:395, :930); runtime data"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/lib/ui/Thread.svelte:20::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ui/Thread.svelte:20 '{#each th.participants.slice(0, 5) as p}' has no key; participants of a hive DB thread (:8); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/+page.svelte:173::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/+page.svelte:173 '{#each PLANS.filter(...) as p}' has no key; imported constant PLANS ($payments/plans) filtered by a literal id list (a call, not the exempt shape); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/+page.svelte:177::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/+page.svelte:177 '{#each p.features as f}' has no key; features of the constant PLANS entries; static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/[landing=landing]/+page.svelte:27::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/[landing=landing]/+page.svelte:27 '{#each l.stats as [v, k], i}' has no key; l = LANDINGS[params.landing] from the bundled $hive/landings constant (+page.ts:1-2); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/[landing=landing]/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/[landing=landing]/+page.svelte:36 '{#each l.features as f}' has no key; features of the bundled LANDINGS constant (+page.ts:1-2); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/[landing=landing]/+page.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/[landing=landing]/+page.svelte:50 '{#each l.exams as eid}' has no key; exam ids of the bundled LANDINGS constant; static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/[landing=landing]/+page.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/[landing=landing]/+page.svelte:53 '{#each ex.subjects as s}' has no key; subjects of examById(eid) from the bundled exam catalogue; static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/cohorts/+page.svelte:43::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: (public)/cohorts/+page.svelte:43 '{#each c.coHosts as h}' has no key; co-hosts of a hive DB cohort record; runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/explore/+page.svelte:34::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: (public)/explore/+page.svelte:34 '{#each me.roles as r}' has no key; the signed-in user's roles, pushed at runtime (hive/store.svelte.ts:395); runtime data"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/glossary/+page.svelte:10::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/glossary/+page.svelte:10 '{#each Object.entries(GLOSSARY) as [slug, g]}' has no key; entries of the bundled GLOSSARY constant; static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/glossary/[term]/+page.svelte:12::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/glossary/[term]/+page.svelte:12 '{#each data.g.related as r}' has no key; related slugs of a bundled GLOSSARY entry; static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/library/[slug]/+page.svelte:30::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/library/[slug]/+page.svelte:30 '{#each p.preview as line, i}' has no key; numbered preview lines of one pack; positional list (text lines of one document)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/pricing/+page.svelte:33::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: (public)/pricing/+page.svelte:33 '{#each family.data.children as child}' has no key; the guardian's linked children from useQuery(api.portal.workspace) (:14); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/pricing/+page.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/pricing/+page.svelte:41 '{#each p.features as f}' has no key; features of the constant PLANS entries (:35); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/pricing/+page.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (public)/pricing/+page.svelte:53 '{#each p.items as f}' has no key; items of the constant INSTITUTION_PRICING entries (:49); static list"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/tutors/[slug]/+page.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: (public)/tutors/[slug]/+page.svelte:32 '{#each u.languages ?? [] as l}' has no key; languages of a hive DB user record (:10); runtime data"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/each-key::src/routes/(public)/tutors/[slug]/+page.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: (public)/tutors/[slug]/+page.svelte:63 '{#each teams as t}' has no key; teams = hive.db.teams filtered by membership (:14); runtime records"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::correctness/effect-as-derived::src/lib/ui/Hero3D.svelte:6::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/Hero3D.svelte:6 the effect assigns reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, a browser global read after mount; a $derived would run during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::performance/iframe-loading::src/lib/live/EwinConnection.svelte:12::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; rendered only {#if open} after the user clicks \"Open secure E-WIN connection\" (EwinConnection.svelte:12) - created when shown and then visible, eager is right per docs"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::security/raw-html::src/lib/live/LandingExtras.svelte:29::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read LandingExtras.svelte:12-19,29: FAQPage JSON-LD = JSON.stringify of the literal faqs array declared in the same component — a fully literal reviewed block per docs"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::security/raw-html::src/routes/+layout.svelte:33::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +layout.svelte:33 + lib/config.ts:2: WebSite JSON-LD of literal strings and the constant APP_URL — a fully literal reviewed block per docs"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::security/raw-html::src/routes/+layout.svelte:34::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +layout.svelte:34 + lib/config.ts:2: EducationalOrganization JSON-LD of literal strings and the constant APP_URL — a fully literal reviewed block per docs"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::security/shared-state-import::src/routes/(public)/library/[slug]/+page.ts:2::\"$hive/store.svelte\" holds module-scope $state — on the server it is shared by every request and keeps its boot-time value (a leak if it ever holds per-user data)",
+    "verdict": "tp",
+    "basis": "read library/[slug]/+page.ts:2-7 + lib/hive/store.svelte.ts:76,120-145,1212: the universal load (SSR on: no ssr export on the chain) reads hive.db, a module-scope $state instance; on the server it keeps its boot value (seed data in demo mode, empty otherwise) while the browser's copy comes from localStorage, so SSR 404s or resolves packs differently from the client — the documented shared boot-time-value case"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::security/shared-state-import::src/routes/(public)/tutors/[slug]/+page.ts:2::\"$hive/store.svelte\" holds module-scope $state — on the server it is shared by every request and keeps its boot-time value (a leak if it ever holds per-user data)",
+    "verdict": "tp",
+    "basis": "read tutors/[slug]/+page.ts:2-7 + lib/hive/store.svelte.ts:76,120-145,1212: the universal load (SSR on) reads hive.db.users from the module-scope $state instance, which on the server holds only its boot value (seed or empty) rather than the visitor's localStorage data — the documented shared boot-time-value case"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/description-length::src/routes/+layout.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> at src/routes/+layout.svelte:24 in the top-level svelte:head, grapheme count = 196 as reported) (literal claim holds); key covers 77 routes (local CLI), labelled by majority: 56 of them are noindex signed-in/auth views ((app) LiveWorkspace and (auth) AuthPanel/Welcome heads carry literal noindex), where snippet length does not matter; mixed: on the 21 public (public)/* routes, / included, the 196-char description is a real over-length defect"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/description-length::src/routes/offline/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\" content=\"Reconnect to continue using SchoolXense.\"> at src/routes/offline/+page.svelte:3 in a top-level svelte:head, grapheme count = 40 as reported) (literal claim holds); but /offline is the service-worker offline fallback page carrying a literal noindex (:4), not a search target"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:24 literal description is the only description of the 77 routes (local CLI list; only [landing], glossary/[term] and offline set their own), duplicate as claimed; key labelled by majority: 56 of the 77 are noindex signed-in/auth views (LiveWorkspace/AuthPanel/Welcome heads carry literal noindex), so no search competition there; mixed: the 21 public (public)/* routes (/, /about, /faq, /pricing, ...) do share one snippet, a real defect"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/duplicate-title::src/routes/(public)/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/(public)/+page.svelte:37 and the root +layout.svelte:23 both literal \"SchoolXense — Learn out loud, earn from what you've mastered\"; the only two routes sharing it are / and /guardian/consent/[token] (which sets no title of its own), duplicate as claimed; but the second is a per-token guardian-invitation link (signs the guardian in, then accepts the token), not a search target, so there is no search competition"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/(public)/+page.svelte:37 and the root +layout.svelte:23 both literal \"SchoolXense — Learn out loud, earn from what you've mastered\"; the only two routes sharing it are / and /guardian/consent/[token] (which sets no title of its own), duplicate as claimed; but the second is a per-token guardian-invitation link (signs the guardian in, then accepts the token), not a search target, so there is no search competition"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/heading-level-skip::src/routes/(public)/[landing=landing]/+page.svelte:39::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: [landing=landing]/+page.svelte:20 <h1>{l.title}, then the features grid <h3>{f.t} (:39) with only the stats panels between; (public)/+layout.svelte renders PublicNav and children in the {:else} arm (landing keys are not tutors/library/cohorts) -> h1 to h3"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/heading-level-skip::src/routes/(public)/for-schools/+page.svelte:38::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: for-schools/+page.svelte:18 <h1>, then only eyebrow <p>s and Bars charts, then the feature cards' <h3> (:38) -> h1 to h3 (the <h2> Book a demo comes after, :43)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/attempt/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/attempt/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /attempt/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/book/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/book/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /book is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/certificates/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/certificates/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /certificates is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/checkout/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/checkout/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /checkout/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/contracts/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/contracts/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /contracts is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/contracts/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/contracts/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /contracts/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/earn/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/earn/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /earn is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/family/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/family/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /family is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/family/[childId]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/family/[childId]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /family/[childId] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/home/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/home/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /home is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/branding/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/branding/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/branding is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/contracts/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/contracts/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/contracts is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/exams/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/exams/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/exams is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/exams/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/exams/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/exams/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/invoices/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/invoices/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/invoices is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/learners/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/learners/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/learners is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/overview/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/overview/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/overview is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/inst/[tenant]/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/inst/[tenant]/settings/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /inst/[tenant]/settings is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/notifications/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/notifications/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /notifications is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/offers/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/offers/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /offers is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/audit/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/audit/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/audit is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/content/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/content/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/content is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/flags/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/flags/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/flags is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/payouts/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/payouts/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/payouts is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/reconciliation/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/reconciliation/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/reconciliation is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/support/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/support/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/support is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/trust/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/trust/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/trust is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/ui/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/ui/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/ui is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/ops/users/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/ops/users/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /ops/users is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/packs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/packs/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /packs is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/payouts/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/payouts/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /payouts is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/plan/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/plan/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /plan is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/practice/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/practice/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /practice is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/practice/[exam]/[subject]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/practice/[exam]/[subject]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /practice/[exam]/[subject] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/record/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/record/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /record is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/referrals/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/referrals/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /referrals is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/requests/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/requests/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /requests is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/review/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/review/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /review is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/sessions/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/sessions/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /sessions is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/sessions/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/sessions/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /sessions/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/settings/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /settings is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/skills/hub/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/skills/hub/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /skills/hub is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/studio/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/studio/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /studio is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/tasks/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/tasks/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /tasks is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/teams/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/teams/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /teams is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/teams/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/teams/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /teams/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/threads/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/threads/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /threads is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/threads/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/threads/[id]/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /threads/[id] is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(app)/wallet/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/wallet/+page.svelte renders <LiveWorkspace />, whose top-level svelte:head at src/lib/live/LiveWorkspace.svelte:66 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /wallet is the signed-in workspace (rendered inside (app)/+layout.svelte's LiveShell, ssr = false, so it is the client-rendered head the convention counts on never-server-rendered routes), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(auth)/admin-login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/admin-login/+page.svelte renders <AuthPanel />, whose top-level svelte:head at src/lib/live/AuthPanel.svelte:55 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /admin-login is an auth form ((auth)/+layout.ts ssr = true), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(auth)/forgot-password/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/forgot-password/+page.svelte renders <AuthPanel />, whose top-level svelte:head at src/lib/live/AuthPanel.svelte:55 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /forgot-password is an auth form ((auth)/+layout.ts ssr = true), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(auth)/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/login/+page.svelte renders <AuthPanel />, whose top-level svelte:head at src/lib/live/AuthPanel.svelte:55 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /login is an auth form ((auth)/+layout.ts ssr = true), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(auth)/reset-password/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/reset-password/+page.svelte renders <AuthPanel />, whose top-level svelte:head at src/lib/live/AuthPanel.svelte:55 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /reset-password is an auth form ((auth)/+layout.ts ssr = true), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(auth)/signup/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/signup/+page.svelte renders <AuthPanel />, whose top-level svelte:head at src/lib/live/AuthPanel.svelte:55 carries an unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; /signup is an auth form ((auth)/+layout.ts ssr = true), deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/(auth)/welcome/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/welcome/+page.svelte renders <Welcome />, whose top-level svelte:head at src/lib/live/Welcome.svelte:26 carries an unconditional literal <meta name=\"robots\" content=\"noindex\">; /welcome is the post-signup account-setup step, deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/indexability::src/routes/offline/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/offline/+page.svelte renders its own top-level svelte:head, whose top-level svelte:head at src/routes/offline/+page.svelte:4 carries an unconditional literal <meta name=\"robots\" content=\"noindex\">; /offline is the service-worker offline fallback, deliberately noindex as claimed (robots.txt also disallows /ops and /inst/)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/attempt/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /attempt/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/book/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /book (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/certificates/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /certificates (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/checkout/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /checkout/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/contracts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contracts (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/contracts/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contracts/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/earn/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /earn (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/family/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /family (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/family/[childId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /family/[childId] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/branding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/branding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/contracts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/contracts (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/exams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/exams (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/exams/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/exams/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/invoices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/invoices (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/learners/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/learners (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/overview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/overview (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/inst/[tenant]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inst/[tenant]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notifications (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/offers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offers (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/audit (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/content/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/content (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/flags/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/flags (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/payouts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/payouts (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/reconciliation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/reconciliation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/support/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/support (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/trust/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/trust (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/ui/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/ui (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/ops/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ops/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/packs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /packs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/payouts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /payouts (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /plan (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/practice/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /practice (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/practice/[exam]/[subject]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /practice/[exam]/[subject] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/record/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /record (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/referrals/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /referrals (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/requests/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /requests (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /review (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/sessions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/sessions/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sessions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/skills/hub/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /skills/hub (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/studio/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /studio (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tasks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/teams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /teams (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/teams/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /teams/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/threads/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /threads (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/threads/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /threads/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(app)/wallet/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /wallet (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/admin-login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin-login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/guardian/consent/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guardian/consent/[token] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 31 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(auth)/welcome/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /welcome (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 45 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/[landing=landing]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[landing=landing] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 42 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/cohorts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cohorts (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/explore/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /explore (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/faq/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /faq (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/for-schools/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /for-schools (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 39 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/for-sponsors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /for-sponsors (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/glossary/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /glossary (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/glossary/[term]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /glossary/[term] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/integrity/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /integrity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/library/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library/[slug] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/pricing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /pricing (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 39 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /privacy (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/safety/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /safety (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/security/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /security (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /terms (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/tutors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tutors (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 45 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/tutors/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tutors/[slug] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 45 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/(public)/verify/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify/[code] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 38 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/og-description::src/routes/offline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offline (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files, app.html or hooks); root src/routes/+layout.svelte:22-35 emits canonical, og:site_name/type/url/title/image, twitter:card/title but no og:description; no og:description in any reached file (incl. $ui/$hive alias targets, (public)/+layout.svelte LiveCatalogue for /tutors|/library|/cohorts, lib/live/*.svelte heads) or app.html; npm Svelte deps @mmailaender/convex-better-auth-svelte@0.9.0 and convex-svelte ship no .svelte components (jsDelivr); hooks.server.ts LEGACY redirects do not match this path; route renders"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/ssr-disabled::src/routes/(app)/+layout.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/+layout.ts:2 (comment: signed-in areas are client-heavy with live Convex queries); every (app) page renders the noindex LiveWorkspace inside the session-gated LiveShell, so these are account views not meant for search (public marketing pages under (public) stay server-rendered)"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"About · SchoolXense\" at src/routes/(public)/about/+page.svelte:5 in a top-level svelte:head, grapheme count = 19 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/explore/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Explore the hub · SchoolXense\" at src/routes/(public)/explore/+page.svelte:21 in a top-level svelte:head, grapheme count = 29 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/faq/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"FAQ · SchoolXense\" at src/routes/(public)/faq/+page.svelte:17 in a top-level svelte:head, grapheme count = 17 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/glossary/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Glossary · SchoolXense\" at src/routes/(public)/glossary/+page.svelte:6 in a top-level svelte:head, grapheme count = 22 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/library/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "fp",
+    "basis": "the flagged title never renders: (public)/+layout.svelte:11 renders {#if /^\\/(tutors|library|cohorts)(\\/|$)/.test(page.url.pathname)}<LiveCatalogue />{:else}{@render children()}{/if}, so on /library the page (and its <title>Hive Library · Study packs</title>, 26 chars, library/+page.svelte:21) is replaced by LiveCatalogue, whose dynamic <title> (LiveCatalogue.svelte:22, \"Study library · SchoolXense\") ships instead; the analyzer keeps the head of a page its layout does not render on that route"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/pricing/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Pricing · SchoolXense\" at src/routes/(public)/pricing/+page.svelte:27 in a top-level svelte:head, grapheme count = 21 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Privacy notice · SchoolXense\" at src/routes/(public)/privacy/+page.svelte:5 in a top-level svelte:head, grapheme count = 28 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/security/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Security · SchoolXense\" at src/routes/(public)/security/+page.svelte:5 in a top-level svelte:head, grapheme count = 22 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/terms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Terms · SchoolXense\" at src/routes/(public)/terms/+page.svelte:5 in a top-level svelte:head, grapheme count = 19 as reported; it follows the root layout's <title> and wins, no rendered component emits another); public marketing page of the SchoolXense site (robots.txt allows it), under 30 as claimed"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/(public)/verify/[code]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Verification · SchoolXense\" at src/routes/(public)/verify/[code]/+page.svelte:13 in a top-level svelte:head, grapheme count = 26 as reported; it follows the root layout's <title> and wins, no rendered component emits another) (literal claim holds); but /verify/[code] is the per-certificate verification page reached from a certificate's code, not a search target"
+  },
+  {
+    "key": "Omaledanjumaogale/SchoolXense::seo/title-length::src/routes/offline/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Offline · SchoolXense\" at src/routes/offline/+page.svelte:2 in a top-level svelte:head, grapheme count = 21 as reported; it follows the root layout's <title> and wins, no rendered component emits another) (literal claim holds); but /offline is the service-worker offline fallback with a literal noindex (:4), not a search target"
+  }
+]

@@ -1,3 +1,4 @@
+import type { AST } from 'svelte/compiler';
 import type { Config } from '@svelte-vitals/core';
 import type { BranchStep, ComponentFacts, HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
 import {
@@ -437,6 +438,26 @@ export function tagKey(tag: ParsedTag): string {
  * Resolve a file's specific head tags (layer 1 + component layers 2/3/4) and whether
  * a broad (opaque) meta source is present. Includes transitive recursion (depth-limited, cycle-guarded).
  */
+/** `use`'s attributes with a prop this file passes on unchanged (`{view}`, `view={view}`) replaced by what the parent passed it. */
+function forwarded(
+  attributes: AST.Component['attributes'],
+  held: ReadonlyMap<string, string>,
+  passed: AST.Component['attributes'] | undefined
+): AST.Component['attributes'] {
+  if (!passed || held.size === 0 || passed.some((a) => a.type === 'SpreadAttribute')) return attributes;
+  return attributes.map((a) => {
+    if (a.type !== 'Attribute') return a;
+    const tag = Array.isArray(a.value) ? (a.value.length === 1 ? a.value[0] : undefined) : a.value;
+    const local =
+      tag !== true && tag?.type === 'ExpressionTag' && tag.expression.type === 'Identifier'
+        ? tag.expression.name
+        : undefined;
+    const prop = local === undefined ? undefined : held.get(local);
+    const from = prop === undefined ? [] : passed.filter((p) => p.type === 'Attribute' && p.name === prop);
+    return from.length === 1 ? { ...a, value: (from[0] as AST.Attribute).value } : a;
+  });
+}
+
 export async function resolveFileTags(
   rt: Runtime,
   cwd: string,
@@ -453,7 +474,9 @@ export async function resolveFileTags(
   // default), forwarded to every layer-3 component resolution, including recursive calls.
   aliases?: readonly KitAlias[],
   // Set when a parent renders this file inside `<svelte:head>`: the literal props it passes.
-  inHead?: PropArgs
+  inHead?: PropArgs,
+  // The attributes of the use that renders this file, for the props it passes on unchanged.
+  passed?: AST.Component['attributes']
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags, ...(inHead ? tagsInHead(parsed, inHead) : [])];
   const nested: { headings: HeadingInfo[]; at: BranchStep[]; base: number; offset: number }[] = [];
@@ -480,6 +503,7 @@ export async function resolveFileTags(
 
   for (const use of parsed.components) {
     const info = importOf(parsed.imports, use.name);
+    const attributes = forwarded(use.attributes, parsed.heldProps, passed);
 
     // Layer 2: known-package adapter.
     const adapter = info ? findAdapter(info) : undefined;
@@ -517,7 +541,8 @@ export async function resolveFileTags(
           childVisited,
           cache,
           aliases,
-          childHead
+          childHead,
+          attributes
         );
         const clientOnly = found.clientOnly?.has(childRel) === true;
         // An opaque source it renders is client-only too, so it becomes may-render tags, not route-wide broad.
@@ -526,7 +551,7 @@ export async function resolveFileTags(
           : child.tags;
         broad = broad || (child.broad && !clientOnly);
         // An arm a prop this use decides never renders here, so neither do its headings.
-        const decided = decidedArms(childParsed, use.attributes, undefined, [...(use.holes?.keys() ?? [])]);
+        const decided = decidedArms(childParsed, attributes, undefined, [...(use.holes?.keys() ?? [])]);
         const childHeadings = [...child.ownHeadings, ...child.headings]
           .filter(
             (h) => !h.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))

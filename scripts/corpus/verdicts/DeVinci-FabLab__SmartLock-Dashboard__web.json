@@ -1,0 +1,1037 @@
+[
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/disallowed-aria-props::src/lib/components/armoires/StockRow.svelte:46::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <span> at armoires/StockRow.svelte:46 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/disallowed-aria-props::src/lib/components/roles/PermissionLevelSelect.svelte:38::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <span> at roles/PermissionLevelSelect.svelte:38 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/disallowed-aria-props::src/lib/components/stocks/StockFlatRow.svelte:47::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <span> at stocks/StockFlatRow.svelte:47 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: on / with a signed-in user root +layout.svelte takes its {:else} arm (:24-44): <SidebarInset> renders <main data-slot=sidebar-inset> (sidebar-inset.svelte:13) and the layout puts another <main class=\"flex-1 p-6\"> inside it, so the route has two main landmarks as reported (the third the count adds, +page.svelte:77, never renders in that arm)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/duplicate-landmark::src/routes/+page.svelte:77::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "route never composes this main with another: +page.svelte:77 <main> is in the {:else} of {#if user} (user = page.data.user, :22/:35/:59), and root +layout.svelte:23-24 renders {@render children()} bare whenever !page.data.user, wrapping it in <SidebarInset>/<main> only when a user is set; the analyzer does not correlate the layout's and page's page.data.user tests"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/permitted-contents::src/lib/components/logs/LogTimeline.svelte:31::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs): literal <div> at logs/LogTimeline.svelte:31 has <button> (:26) as its nearest element parent in the same template (only control-flow blocks between, no component/snippet boundary); outside that parent's content model as reported"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/permitted-contents::src/lib/components/logs/LogTimeline.svelte:38::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs): literal <div> at logs/LogTimeline.svelte:38 has <button> (:26) as its nearest element parent in the same template (only control-flow blocks between, no component/snippet boundary); outside that parent's content model as reported"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::a11y/top-level-landmark::src/routes/+page.svelte:77::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "route never nests this main: +page.svelte:77 <main> renders only in the {:else} of {#if user} (user = page.data.user), and root +layout.svelte:23-24 renders children bare in that case ({#if isAuthRoute || !page.data.user}), inside the layout <main> only when a user is set; the analyzer does not correlate the two page.data.user tests"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/component-size::src/routes/items/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/items/+page.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/items/CategoryManagerDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/items/CategoryManagerDialog.svelte has a single destructured $props() with 7 named props (> 6): open, categories, busy, onOpenChange, onCreate, onRename, onDelete"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/items/ItemFormSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/items/ItemFormSheet.svelte has a single destructured $props() with 7 named props (> 6): open, mode, initial, categories, busy, onOpenChange, onSubmit"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/tables/DataTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/tables/DataTable.svelte has a single destructured $props() with 9 named props (> 6): rows, columns, rowKey, onRowClick, loading, emptyIcon, emptyTitle, emptyDescription, emptyAction"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::correctness/each-index-key::src/lib/components/items/PurchaseRefsEditor.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/items/PurchaseRefsEditor.svelte:28 '{#each value as ref, i (i)}' keyed by its index binding; editable purchase-ref rows added (:17) and removed mid-list (value.filter((_, idx) => idx !== i), :20); runtime-edited list"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::performance/sequential-awaits::src/routes/roles/[name]/+layout.server.ts:52::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read roles/[name]/+layout.server.ts:24-58: armoiresApi(api).list() uses nothing from the preceding rolesApi(api).list() (which only feeds the 404 gate at :34-48, exceptional path) — independent backend API requests serialized (ledger 404-gate convention)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders; publicly reachable landing (hooks.server.ts:33 PUBLIC_PATHS includes \"/\"; +page.server.ts:9 no redirect), no noindex"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/armoires/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /armoires (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/armoires/[id]/activity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /armoires/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 130 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/armoires/[id]/permissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /armoires/[id]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/armoires/[id]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /armoires/[id]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/armoires/[id]/stock/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /armoires/[id]/stock (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /items (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 171 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/items/[id]/details/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /items/[id]/details (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 162 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/items/[id]/stocks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /items/[id]/stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /logs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /me (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 117 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 163 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/roles/[name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /roles/[name] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/roles/[name]/permissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /roles/[name]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 144 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/roles/[name]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /roles/[name]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 132 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/roles/[name]/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /roles/[name]/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 131 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/stocks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/treasury/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /treasury (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 107 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/users/[id]/activity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/users/[id]/roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[id]/roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 160 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/canonical-url::src/routes/users/[id]/sessions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[id]/sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders but not a search target (auth-gated: hooks.server.ts:89-94 throws redirect(303, \"/login\") for every session-less request outside PUBLIC_PATHS (:33), and loads also error(401) on !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/armoires/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /armoires; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/armoires/[id]/activity/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /armoires/[id]/activity; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/armoires/[id]/permissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /armoires/[id]/permissions; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/armoires/[id]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /armoires/[id]/settings; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/armoires/[id]/stock/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /armoires/[id]/stock; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/items/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /items; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/items/[id]/details/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /items/[id]/details; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/items/[id]/stocks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /items/[id]/stocks; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /logs; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/me/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /me; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/roles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /roles; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/roles/[name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /roles/[name]; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/roles/[name]/permissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /roles/[name]/permissions; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/roles/[name]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /roles/[name]/settings; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/roles/[name]/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /roles/[name]/users; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/stocks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /stocks; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/treasury/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /treasury; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /users; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/users/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /users/[id]; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/users/[id]/activity/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /users/[id]/activity; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/users/[id]/roles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /users/[id]/roles; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/description-presence::src/routes/users/[id]/sessions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (literal claim holds) on /users/[id]/sessions; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/app.html:8 literal <title>SmartLock Dashboard</title> is the only title of all 23 routes (grep: no other <title>/document.title in src), duplicate as claimed; but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, so 22 of the 23 are login-gated and there is no search competition"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/heading-level-skip::src/routes/items/[id]/details/+page.svelte:138::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: items/[id]/+layout.svelte:28 renders PageHeader's <h1>{title} (primitives/PageHeader.svelte:17) before {@render children()}; details/+page.svelte has no heading until the Gated \"Zone dangereuse\" <h3> (:138) -> h1 to h3 (root layout renders none)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); / renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/armoires/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /armoires renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/armoires/[id]/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /armoires/[id]/activity renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/armoires/[id]/permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /armoires/[id]/permissions renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/armoires/[id]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /armoires/[id]/settings renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/armoires/[id]/stock/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /armoires/[id]/stock renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /items renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/items/[id]/details/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /items/[id]/details renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/items/[id]/stocks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /items/[id]/stocks renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /logs renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /me renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /roles renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/roles/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /roles/[name] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/roles/[name]/permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /roles/[name]/permissions renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/roles/[name]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /roles/[name]/settings renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/roles/[name]/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /roles/[name]/users renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/stocks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /stocks renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/treasury/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /treasury renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /users renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /users/[id] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/users/[id]/activity/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /users/[id]/activity renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/users/[id]/roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /users/[id]/roles renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/json-ld::src/routes/users/[id]/sessions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over web/src incl. app.html/hooks: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /users/[id]/sessions renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/armoires/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /armoires (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/armoires/[id]/activity/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /armoires/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 130 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/armoires/[id]/permissions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /armoires/[id]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/armoires/[id]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /armoires/[id]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/armoires/[id]/stock/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /armoires/[id]/stock (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/items/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /items (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 171 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/items/[id]/details/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /items/[id]/details (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 162 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/items/[id]/stocks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /items/[id]/stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /logs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/me/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 117 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/roles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 163 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/roles/[name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roles/[name] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/roles/[name]/permissions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roles/[name]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 144 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/roles/[name]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roles/[name]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 132 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/roles/[name]/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roles/[name]/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 131 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/stocks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/treasury/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /treasury (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 107 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/users/[id]/activity/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/users/[id]/roles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[id]/roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 160 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-description::src/routes/users/[id]/sessions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[id]/sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/armoires/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /armoires (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/armoires/[id]/activity/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /armoires/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 130 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/armoires/[id]/permissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /armoires/[id]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/armoires/[id]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /armoires/[id]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/armoires/[id]/stock/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /armoires/[id]/stock (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/items/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /items (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 171 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/items/[id]/details/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /items/[id]/details (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 162 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/items/[id]/stocks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /items/[id]/stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /logs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/me/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 117 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/roles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 163 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/roles/[name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roles/[name] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/roles/[name]/permissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roles/[name]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 144 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/roles/[name]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roles/[name]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 132 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/roles/[name]/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roles/[name]/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 131 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/stocks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/treasury/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /treasury (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 107 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/users/[id]/activity/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/users/[id]/roles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[id]/roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 160 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-image::src/routes/users/[id]/sessions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[id]/sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/armoires/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /armoires (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/armoires/[id]/activity/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /armoires/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 130 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/armoires/[id]/permissions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /armoires/[id]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/armoires/[id]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /armoires/[id]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/armoires/[id]/stock/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /armoires/[id]/stock (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/items/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /items (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 171 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/items/[id]/details/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /items/[id]/details (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 162 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/items/[id]/stocks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /items/[id]/stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /logs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/me/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 117 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/roles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 163 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/roles/[name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roles/[name] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/roles/[name]/permissions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roles/[name]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 144 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/roles/[name]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roles/[name]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 132 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/roles/[name]/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roles/[name]/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 131 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/stocks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/treasury/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /treasury (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 107 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/users/[id]/activity/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/users/[id]/roles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[id]/roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 160 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-title::src/routes/users/[id]/sessions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[id]/sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/armoires/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /armoires (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/armoires/[id]/activity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /armoires/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 130 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/armoires/[id]/permissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /armoires/[id]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/armoires/[id]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /armoires/[id]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/armoires/[id]/stock/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /armoires/[id]/stock (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/items/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /items (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 171 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/items/[id]/details/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /items/[id]/details (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 162 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/items/[id]/stocks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /items/[id]/stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /logs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/me/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 117 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/roles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 163 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/roles/[name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roles/[name] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/roles/[name]/permissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roles/[name]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 144 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/roles/[name]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roles/[name]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 132 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/roles/[name]/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roles/[name]/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 131 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/stocks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/treasury/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /treasury (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 107 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/users/[id]/activity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/users/[id]/roles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[id]/roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 160 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/og-url::src/routes/users/[id]/sessions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[id]/sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: web/static has favicon.ico and an allow-all robots.txt, no sitemap.xml route or generator (literal claim holds); but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, nothing to list"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len-style count: \"SmartLock Dashboard\" at src/app.html:8 = 19 graphemes as reported; the only title of all 23 routes, local CLI list) (literal claim holds); but SmartLock Dashboard is the DeVinci FabLab's internal locker/stock management console (Keycloak SSO; hooks.server.ts:88-95 redirects every non-public path to /login without a session, PUBLIC_PATHS are /, /login, /logout, /health), whose / for visitors is only a \"Se connecter avec Keycloak\" landing, not a search target"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/armoires/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /armoires (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/armoires/[id]/activity/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /armoires/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 130 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/armoires/[id]/permissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /armoires/[id]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/armoires/[id]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /armoires/[id]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/armoires/[id]/stock/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /armoires/[id]/stock (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 148 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /items (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 171 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/items/[id]/details/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /items/[id]/details (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 162 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/items/[id]/stocks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /items/[id]/stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /logs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 117 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/roles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 163 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/roles/[name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roles/[name] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/roles/[name]/permissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roles/[name]/permissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 144 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/roles/[name]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roles/[name]/settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 132 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/roles/[name]/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roles/[name]/users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 131 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/stocks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /stocks (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 140 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/treasury/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /treasury (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 107 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 129 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/users/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 113 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/users/[id]/activity/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[id]/activity (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/users/[id]/roles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[id]/roles (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 160 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  },
+  {
+    "key": "DeVinci-FabLab/SmartLock-Dashboard:web::seo/twitter-card::src/routes/users/[id]/sessions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[id]/sessions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 2 ancestor layout(s), 114 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-9 charset/icon/viewport/color-scheme/<title>; no <svelte:head> in src); no meta-tag library (bits-ui/formsnap/mode-watcher/svelte-sonner emit none); route renders"
+  }
+]

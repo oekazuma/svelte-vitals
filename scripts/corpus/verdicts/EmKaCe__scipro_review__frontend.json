@@ -1,0 +1,1052 @@
+[
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/assignments/criteria-editor.svelte:425::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <div> at assignments/criteria-editor.svelte:425 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/assignments/criteria-preview.svelte:157::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <span> at assignments/criteria-preview.svelte:157 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/assignments/criteria-preview.svelte:78::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <div> at assignments/criteria-preview.svelte:78 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/grading-sidebar.svelte:63::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <div> at components/grading-sidebar.svelte:63 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/submissions/copilot/copilot-header.svelte:196::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <div> at copilot/copilot-header.svelte:196 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/submissions/copilot/copilot-header.svelte:231::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <div> at copilot/copilot-header.svelte:231 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/disallowed-aria-props::src/lib/components/submissions/pipeline-log-panel.svelte:271::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_attrs.mjs): <span> at submissions/pipeline-log-panel.svelte:271 carries aria-label with no role, spread, or use: action, so it maps to generic, which prohibits naming, as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/id-duplication::src/lib/components/confirmation-dialog.svelte:131::Duplicate id \"confirm-dialog-title\"",
+    "verdict": "design",
+    "basis": "read: confirmation-dialog.svelte:131 id renders only under {#if open} (:103); on /settings and /submissions the copies are separate <ConfirmationDialog open=...> instances (danger-zone-card.svelte:49, settings/assignments, submissions/+page.svelte:1263/1274/1285), each opened by its own confirm action"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/id-duplication::src/lib/components/confirmation-dialog.svelte:155::Duplicate id \"confirm-dialog-desc\"",
+    "verdict": "design",
+    "basis": "read: confirmation-dialog.svelte:155 id renders only under {#if open} (:103); on /settings and /submissions the copies are separate <ConfirmationDialog open=...> instances (danger-zone-card.svelte:49, settings/assignments, submissions/+page.svelte:1263/1274/1285), each opened by its own confirm action"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/interactive-nesting::src/lib/components/import-dialog.svelte:245::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "design",
+    "basis": "read import-dialog.svelte:213-252: <input id=import-file-input type=file class=\"hidden\"> inside the drop-zone <div role=\"button\" tabindex={0}>, which forwards activation to it; nested as reported, but Tailwind 'hidden' (tailwindcss ^4.3.3 in package.json) is display:none, so it is neither focusable nor exposed (hidden file-input precedent)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/interactive-nesting::src/lib/components/submissions/copilot/thread-sidebar.svelte:142::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs) + read copilot/thread-sidebar.svelte:142: literal control nested inside the outer interactive container in the same template (chain: If@141 < <div class role=button tabindex=0>@132 < Each@131 < If@128 < <div class>@123); control inside a <div role=\"button\" tabindex=\"0\"> row/card in the same template, no portal or component boundary between"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/interactive-nesting::src/lib/components/submissions/copilot/thread-sidebar.svelte:163::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs) + read copilot/thread-sidebar.svelte:163: literal control nested inside the outer interactive container in the same template (chain: If@162 < <div class>@161 < <div class role=button tabindex=0>@132 < Each@131 < If@128); control inside a <div role=\"button\" tabindex=\"0\"> row/card in the same template, no portal or component boundary between"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/interactive-nesting::src/lib/components/submissions/copilot/thread-sidebar.svelte:175::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs) + read copilot/thread-sidebar.svelte:175: literal control nested inside the outer interactive container in the same template (chain: If@162 < <div class>@161 < <div class role=button tabindex=0>@132 < Each@131 < If@128); control inside a <div role=\"button\" tabindex=\"0\"> row/card in the same template, no portal or component boundary between"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/interactive-nesting::src/lib/components/submissions/upload-panel.svelte:534::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs) + read submissions/upload-panel.svelte:534: literal control nested inside the outer interactive container in the same template (chain: <div class role=button tabindex=0>@509 < <div class>@507 < <div class>@480); control inside a <div role=\"button\" tabindex=\"0\"> row/card in the same template, no portal or component boundary between"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/no-autofocus::src/lib/components/import-dialog.svelte:336::autofocus on <button> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; import <button autofocus> inside the dialog that renders under {#if open} (import-dialog.svelte:157), opened by the user's import action from +page.svelte:204 / review/[id]/+page.svelte:370; focus on user action, not page load"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/permitted-contents::src/lib/components/rubric-category.svelte:159::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs): literal <div> at components/rubric-category.svelte:159 has <button> (:152) as its nearest element parent in the same template (only control-flow blocks between, no component/snippet boundary); outside that parent's content model as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/permitted-contents::src/lib/components/settings/execution-ai-card.svelte:234::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs): literal <div> at settings/execution-ai-card.svelte:234 has <label> (:232) as its nearest element parent in the same template (only control-flow blocks between, no component/snippet boundary); outside that parent's content model as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/permitted-contents::src/lib/components/settings/execution-ai-card.svelte:269::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_pc.mjs): literal <p> at settings/execution-ai-card.svelte:269 has <label> (:232) as its nearest element parent in the same template (only control-flow blocks between, no component/snippet boundary); outside that parent's content model as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/top-level-landmark::src/routes/docs/+page.svelte:92::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "script-verified (e_anc.mjs) + read: docs/+page.svelte:92 unlabelled <aside> (ancestors: <div>@90 only) renders inside root +layout.svelte:60 <main id=main-content>; route renders (+layout.ts redirects only conditionally); complementary nested in main as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/top-level-landmark::src/routes/review/[id]/+page.svelte:302::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "script-verified (e_anc.mjs) + read: review/[id]/+page.svelte:302 unlabelled <aside class=review-page-sidebar> (ancestors: <div>@261 only) renders inside root +layout.svelte:60 <main id=main-content>; complementary nested in main as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::a11y/top-level-landmark::src/routes/submissions/[id]/+page.svelte:1111::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "script-verified (e_anc.mjs) + read: submissions/[id]/+page.svelte:1111 unlabelled <aside class=right-panel> under {#if showRightPanel ...} in a plain <div>@822, rendered inside root +layout.svelte:60 <main id=main-content>; complementary nested in main as reported"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/app-header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app-header.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/assignment-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/assignment-form.svelte has 302 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/criteria-editor-tabs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/criteria-editor-tabs.svelte has 442 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/criteria-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/criteria-editor.svelte has 936 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/criteria-preview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/criteria-preview.svelte has 402 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/scoring-editor-tabs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/scoring-editor-tabs.svelte has 384 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/scoring-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/scoring-editor.svelte has 539 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/assignments/scoring-preview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/assignments/scoring-preview.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/confirmation-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/confirmation-dialog.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/docs-content.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/docs-content.svelte has 821 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/import-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/import-dialog.svelte has 350 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/onboarding/DocsEmbedCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/onboarding/DocsEmbedCard.svelte has 868 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/onboarding/WizardShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/onboarding/WizardShell.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/quick-nav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/quick-nav.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/rubric-category.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/rubric-category.svelte has 329 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/saved-reviews.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/saved-reviews.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/settings/execution-ai-card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/execution-ai-card.svelte has 371 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/settings/grading-config-card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/grading-config-card.svelte has 395 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/Markdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/Markdown.svelte has 353 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/autofix-card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/autofix-card.svelte has 429 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/copilot-panel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/copilot-panel.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/copilot/change-ledger.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/copilot/change-ledger.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/copilot/copilot-chat.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/copilot/copilot-chat.svelte has 536 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/copilot/copilot-header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/copilot/copilot-header.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/copilot/copilot-input.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/copilot/copilot-input.svelte has 366 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/copilot/thread-sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/copilot/thread-sidebar.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/execution-output.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/execution-output.svelte has 617 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/materials-manager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/materials-manager.svelte has 447 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/pipeline-log-panel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/pipeline-log-panel.svelte has 1082 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/plagiarism-modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/plagiarism-modal.svelte has 412 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/plagiarism-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/plagiarism-tab.svelte has 442 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/reference-comparison.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/reference-comparison.svelte has 222 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/right-panel-tabs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/right-panel-tabs.svelte has 409 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/submissions-dashboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/submissions-dashboard.svelte has 1001 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/lib/components/submissions/upload-panel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/submissions/upload-panel.svelte has 1047 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 219 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/onboarding/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/+page.svelte has 933 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/review/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/review/[id]/+page.svelte has 374 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/review/[id]/evaluation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/review/[id]/evaluation/+page.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/settings/assignments/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/assignments/+page.svelte has 465 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/submissions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/submissions/+page.svelte has 1465 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/component-size::src/routes/submissions/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/submissions/[id]/+page.svelte has 1755 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/app-header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app-header.svelte has a single destructured $props() with 12 named props (> 6): showBack, breadcrumb, showSave, onsaveclick, showExport, onexportclick, exportMenuItems, showImport, onimportclick, headerState, centerContent, class"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/confirmation-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/confirmation-dialog.svelte has a single destructured $props() with 8 named props (> 6): open, title, message, confirmLabel, variant, requireTyping, onconfirm, oncancel"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/evaluation-metadata.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/evaluation-metadata.svelte has a single destructured $props() with 8 named props (> 6): studentId, assignment, date, percentage, germanGrade, usGrade, showGrading, class"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/onboarding/WizardShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/onboarding/WizardShell.svelte has a single destructured $props() with 7 named props (> 6): steps, current, fork, onfork, ongoto, banner, children"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/quick-nav.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/quick-nav.svelte has a single destructured $props() with 14 named props (> 6): categories, activeId, onNavigate, onToggleAll, allExpanded, completedCount, totalCount, progressPercentage, onSave, showSave, canUndo, canRedo, onUndo, onRedo"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/reviews-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reviews-table.svelte has a single destructured $props() with 10 named props (> 6): reviews, assignmentTitles, selectedRows, sortColumn, sortDirection, onSort, onToggleRow, onToggleAll, onOpen, onDelete"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/rubric-category.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/rubric-category.svelte has a single destructured $props() with 10 named props (> 6): entry, selections, expanded, disabled, showAskCopilot, onToggle, onToggleCheckbox, onUpdateComment, onUpdateDeduction, onUpdateNotes"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/rubric-item.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/rubric-item.svelte has a single destructured $props() with 9 named props (> 6): item, itemKey, checked, disabled, onToggle, onUpdateComment, onUpdateDeduction, commentValue, deductionValue"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/rubric-section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/rubric-section.svelte has a single destructured $props() with 9 named props (> 6): points, sentiment, disabled, onToggleCheckbox, onUpdateComment, onUpdateDeduction, comments, deductions, checkedItems"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/autofix-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/autofix-card.svelte has a single destructured $props() with 8 named props (> 6): cellIndex, source, error, traceback, submissionId, assignmentId, existingNotes, onNotesSaved"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/copilot/approval-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/copilot/approval-card.svelte has a single destructured $props() with 8 named props (> 6): toolName, args, runId, toolCallId, blocked, pending, onApprove, onDeny"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/copilot/copilot-chat.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/copilot/copilot-chat.svelte has a single destructured $props() with 19 named props (> 6): messages, isStreaming, pendingApproval, pendingSuggestions, planSteps, changes, assignmentScope, availableCommands, onApprove, onDeny, onApply, onDismiss, onAcceptChange, onRejectChange, onAcceptAllChanges, onRevertTurn, canRevertTurn, onSelectHint, onSelectCommand"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/copilot/copilot-header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/copilot/copilot-header.svelte has a single destructured $props() with 10 named props (> 6): activeThread, copilotMode, showModeToggle, sidebarOpen, isStreaming, loadingHistory, onSetMode, onNewConversation, onToggleSidebar, onDeleteActiveThread"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/copilot/copilot-input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/copilot/copilot-input.svelte has a single destructured $props() with 9 named props (> 6): inputValue, incomingPrompt, isStreaming, assignmentScope, queuedCount, onSend, onQueue, onSteer, onStop"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/execution-output.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/execution-output.svelte has a single destructured $props() with 10 named props (> 6): cells, submissionId, assignmentId, existingNotes, onNotesSaved, fixedCells, fixedView, onDisposition, preEval, copilotChips"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/pipeline-log-panel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/pipeline-log-panel.svelte has a single destructured $props() with 8 named props (> 6): entries, live, loading, error, summary, preEvalSummary, progress, onRefresh"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/pipeline-progress-bar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/pipeline-progress-bar.svelte has a single destructured $props() with 8 named props (> 6): done, total, currentId, elapsed, autofixAttempts, autofixSucceeded, running, label"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/right-panel-tabs.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/right-panel-tabs.svelte has a single destructured $props() with 18 named props (> 6): activeTab, onTabChange, dimensions, grading, gradeResult, totalDeductions, onUpdateDimension, rubric, sentimentCounts, categorySelections, onSelectionsChange, studentId, assignmentId, disabled, hideTabBar, onapply, showAskCopilot, incomingPrompt"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/submissions/submissions-dashboard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/submissions/submissions-dashboard.svelte has a single destructured $props() with 15 named props (> 6): submissions, searchQuery, statusFilter, confidenceFilter, assignmentId, onSearchChange, onStatusFilterChange, onConfidenceFilterChange, selectedIds, onToggleSelect, onSelectRange, onDeselectRange, onSelectAllVisible, onClearSelection, toolbarActions"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/ui/menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menu-button.svelte has a single destructured $props() with 9 named props (> 6): label, primaryOnClick, items, icon, title, align, variant, size, class"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/lib/components/ui/tooltip/tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip.svelte has a single destructured $props() with 9 named props (> 6): class, open, onOpenChange, delayDuration, disableHoverableContent, disableCloseOnTriggerClick, disabled, ignoreNonKeyboardFocus, children"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::architecture/prop-count::src/tests/components/right-panel-tabs-harness.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/tests/components/right-panel-tabs-harness.svelte has a single destructured $props() with 12 named props (> 6): activeTab, onTabChange, dimensions, grading, gradeResult, totalDeductions, onUpdateDimension, rubric, studentId, assignmentId, disabled, hideTabBar (test-only component; still counted, per ledger convention)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:215::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/docs-content.svelte:215 '<a href=\"/submissions\">' root-relative literal; svelte.config.js sets kit.paths.base = isNode || dev ? \"\" : \"/scipro_review\" and the student static build is served under /scipro_review (AGENTS.md:35-36 preview probe at /scipro_review/); /docs renders this component in that build (routes/docs/+page.svelte:3, root +layout.ts prerender = true), so the link leaves the base"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:275::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/docs-content.svelte:275 '<a href=\"/submissions\">' root-relative literal under the student build's base /scipro_review (svelte.config.js paths.base; AGENTS.md:35-36); rendered by routes/docs/+page.svelte in that build; points outside the app"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:312::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/docs-content.svelte:312 '<a href=\"/submissions\">' root-relative literal under the student build's base /scipro_review (svelte.config.js paths.base; AGENTS.md:35-36); rendered by routes/docs/+page.svelte; points outside the app"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:327::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/docs-content.svelte:327 '<a href=\"/submissions\">' root-relative literal under the student build's base /scipro_review (svelte.config.js paths.base; AGENTS.md:35-36); rendered by routes/docs/+page.svelte; points outside the app"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/routes/+page.ts:10::redirect(…, '/submissions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.ts:10 'throw redirect(307, \"/submissions\")' runs only when !dev && __TEACHER_MODE__ (:9), and __TEACHER_MODE__ = ADAPTER === \"node\" (vite.config.ts:13), the build whose base is \"\" (svelte.config.js: isNode || dev ? \"\" : \"/scipro_review\"); the computed base opens the documented gate, but this line never runs under a base"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/each-index-key::src/lib/components/assignments/criteria-editor.svelte:365::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: assignments/criteria-editor.svelte:365 '{#each category[sentiment] as mainPoint, mainPointIndex (mainPointIndex)}' keyed by its index binding; editable main points removed (:206) and moved (:221-222) mid-list; runtime-edited list"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/each-index-key::src/lib/components/assignments/criteria-editor.svelte:457::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: assignments/criteria-editor.svelte:457 '{#each mainPoint.sub_points as subPoint, subPointIndex (subPointIndex)}' keyed by its index binding; editable sub points of a main point, added/removed in the editor; runtime-edited list"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/each-index-key::src/lib/components/assignments/criteria-preview.svelte:134::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: assignments/criteria-preview.svelte:134 '{#each points as mp, mpIndex (mpIndex)}' keyed by its index binding; points = category[sentiment] (:121) of the criteria being edited, which the editor reorders and removes (criteria-editor.svelte:173-222); runtime-edited list"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/each-index-key::src/lib/components/assignments/criteria-preview.svelte:142::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: assignments/criteria-preview.svelte:142 '{#each mp.sub_points as sp, spIndex (spIndex)}' keyed by its index binding; sub points of the criteria being edited; runtime-edited list"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/each-index-key::src/lib/components/settings/grading-config-card.svelte:293::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: settings/grading-config-card.svelte:293 '{#each form.grade_boundaries as boundary, index (index)}' keyed by its index binding; editable grade boundary rows added (:122-126) and removed mid-list (removeBoundary); runtime-edited list"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::correctness/each-index-key::src/lib/components/submissions/execution-output.svelte:171::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: submissions/execution-output.svelte:171 '{#each outCell.outputs ?? [] as rich, i (i)}' keyed by its index binding; the rich outputs of one executed notebook cell; positional list (outputs of one cell)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::performance/iframe-loading::src/lib/components/submissions/execution-output.svelte:179::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "unclear",
+    "basis": "read: <iframe sandbox=\"\" srcdoc=…> has no loading attribute and no spread; notebook cell text/html output in the richOutputs snippet of the {#each cells} cell list (execution-output.svelte:170-189), so it can sit offscreen; but it fetches no document, and whether loading=\"lazy\" defers a srcdoc iframe is browser behaviour not decidable from source (ledger convention for srcdoc frames)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::performance/state-raw::src/lib/components/assignments/criteria-editor-tabs.svelte:67::\"draftNotes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read criteria-editor-tabs.svelte:67,166,235-243: draftNotes is only reassigned and read ({#each} items rendered as text) — $state.raw fits"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::performance/state-raw::src/lib/components/submissions/right-panel-tabs.svelte:104::\"expandedCategories\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read right-panel-tabs.svelte:104,110-113,263: expandedCategories is only replaced by spread-copy reassignments and read via {@const} — no member writes or escapes, $state.raw fits"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/lib/components/confirmation-dialog.svelte:160::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read confirmation-dialog.svelte:160 and its callers (danger-zone-card:52, DocsEmbedCard:864, +page.svelte:214, settings/assignments:296, submissions:1266-1288): messages are literals plus ids: student_id comes only from uploaded notebook names matching /^(\\d{4}(?:SS|WS))_(\\d{2,})/ (lib/server/file-service.ts:52,91-95,191-201), assignment ids are teacher config, in a loopback-only single-operator grading tool — no markup can reach it, reported per docs"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/lib/components/submissions/Markdown.svelte:257::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Markdown.svelte:20-52,62-256: the copilot-chat renderer HTML-escapes all text (and code/table cells) before adding its own tags — escaped, reported per docs (its javascript: link filter is case-sensitive, but links open target=_blank rel=noreferrer)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/lib/components/submissions/execution-output.svelte:290::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read execution-output.svelte:290 + lib/utils/markdown.ts:123-132: highlightCode = hljs.highlight(...).value (escapes the code) or escapeHtml — escaped highlighter output, reported per docs"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/lib/components/submissions/execution-output.svelte:304::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read execution-output.svelte:304 + lib/utils/markdown.ts:123-132: highlightCode = hljs.highlight(...).value (escapes the code) or escapeHtml — escaped highlighter output, reported per docs"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/lib/components/submissions/execution-output.svelte:329::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read execution-output.svelte:329 + lib/utils/markdown.ts:61-118: renderMarkdown(cell.source) = marked.parse (passes raw HTML) + KaTeX with no sanitizer, over the markdown cells of student-submitted notebooks shown to the teacher (the app sandboxes text/html outputs in iframes but not these) — student-authored HTML rendered unsanitized"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/lib/components/submissions/pipeline-log-panel.svelte:554::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read pipeline-log-panel.svelte:205-243: highlightJson escapeHtml()s every token and gap before wrapping in spans — escaped, reported per docs"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::security/raw-html::src/routes/review/[id]/evaluation/+page.svelte:199::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read evaluation/+page.svelte:95-101,199 + lib/services/text-generator.ts:54-197: renderedHtml renders the teacher's own generated evaluation (rubric texts and the teacher's comments) in a loopback-only single-operator tool — self-authored content (ledger self-only convention), reported per docs"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /onboarding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/review/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /review/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/review/[id]/evaluation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /review/[id]/evaluation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/settings/assignments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/assignments (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/assignments/[id]/criteria (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/assignments/[id]/scoring (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/submissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /submissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/canonical-url::src/routes/submissions/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /submissions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates); no auth gate, noindex or robots disallow in source (static/robots.txt allows all; teacher build is an unauthenticated local/Docker tool, student build is public GitHub Pages)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html, / renders (no unconditional redirect in the static build); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/docs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html, /docs renders (no unconditional redirect in the static build); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html (literal claim holds) on /onboarding; but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/review/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html, /review/[id] renders (no unconditional redirect in the static build); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/review/[id]/evaluation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html, /review/[id]/evaluation renders (no unconditional redirect in the static build); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html, /settings renders (no unconditional redirect in the static build); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/settings/assignments/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html (literal claim holds) on /settings/assignments; but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html (literal claim holds) on /settings/assignments/[id]/criteria; but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html (literal claim holds) on /settings/assignments/[id]/scoring; but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/submissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html (literal claim holds) on /submissions; but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/description-presence::src/routes/submissions/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html (literal claim holds) on /submissions/[id]; but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/heading-level-skip::src/routes/submissions/[id]/+page.svelte:1200::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: route renders only in the teacher build (ADAPTER=node; submissions/+layout.ts redirects when !dev && !__TEACHER_MODE__); submissions/[id]/+page.svelte:900 <h1>{studentId}</h1>, then the {#if exportGuardOpen} guard dialog's <h3> (:1200); on the default \"rubric\" tab (activeTab starts \"rubric\", :120) the right panel's rubric components render no heading -> h1 to h3 (only on the grading/plagiarism tabs does a panel heading intervene)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); / renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /docs renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /onboarding renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/review/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /review/[id] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/review/[id]/evaluation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /review/[id]/evaluation renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /settings renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/settings/assignments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /settings/assignments renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /settings/assignments/[id]/criteria renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /settings/assignments/[id]/scoring renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/submissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /submissions renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/json-ld::src/routes/submissions/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over frontend/src incl. app.html: no ld+json/jsonld/schema.org anywhere; no meta/JSON-LD package in deps); /submissions/[id] renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /docs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /onboarding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /review/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/review/[id]/evaluation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /review/[id]/evaluation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/settings/assignments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/assignments (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/assignments/[id]/criteria (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/assignments/[id]/scoring (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/submissions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /submissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-description::src/routes/submissions/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /submissions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /docs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /onboarding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /review/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/review/[id]/evaluation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /review/[id]/evaluation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/settings/assignments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/assignments (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/assignments/[id]/criteria (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/assignments/[id]/scoring (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/submissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /submissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-image::src/routes/submissions/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /submissions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /docs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /onboarding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /review/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/review/[id]/evaluation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /review/[id]/evaluation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/settings/assignments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/assignments (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/assignments/[id]/criteria (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/assignments/[id]/scoring (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/submissions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /submissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-title::src/routes/submissions/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /submissions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /docs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /onboarding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/review/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /review/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/review/[id]/evaluation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /review/[id]/evaluation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/settings/assignments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/assignments (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/assignments/[id]/criteria (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/assignments/[id]/scoring (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/submissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /submissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/og-url::src/routes/submissions/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /submissions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: / (student build; +page.ts redirects only in teacher mode) renders no <h1>: grep finds <h1> only in docs-content, upload-panel, onboarding, submissions/[id] and settings/assignments pages; +page.svelte, its components and root +layout.svelte have none (confirmation-dialog {@html message} is dialog text) -> no <h1>"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/single-h1::/review/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: review/[id]/+page.svelte and its imported components render no <h1> (script-verified walk); root +layout.svelte renders none -> no <h1> (ssr=false SPA)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte and its imported components render no <h1> (script-verified walk; confirmation-dialog {@html message} is dialog text); root layout renders none -> no <h1>"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/single-h1::src/routes/review/[id]/evaluation/+page.svelte:205::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: review/[id]/evaluation/+page.svelte renders EvaluationMetadata and {@html renderedHtml} of the app-generated evaluation markdown, whose body opens at ## sentiment sections and ### categories (lib/services/text-generator.ts generateMarkdownBody) - never a level-1 heading; no other <h1> in the chain -> no <h1>"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: frontend/static has favicons and an allow-all robots.txt, no sitemap.xml file, route or generator; the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/ssr-disabled::src/routes/+layout.ts:41::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:41 (with prerender = true); deliberate SPA: a local-first grading tool whose state lives in IndexedDB (static build) or the teacher's own Node server, the same shape as the ledger's cigale (local-first app shell) design; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"SciPro Review\" at src/routes/+page.svelte:157 in a top-level svelte:head, grapheme count = 13 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap, under 30 as claimed"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Documentation — SciPro Review\" at src/routes/docs/+page.svelte:87 in a top-level svelte:head, grapheme count = 29 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap, under 30 as claimed"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/onboarding/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Setup — SciPro Review\" at src/routes/onboarding/+page.svelte:433 in a top-level svelte:head, grapheme count = 21 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title) (literal claim holds); but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/review/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"SciPro Review — Review\" at src/routes/review/[id]/+page.svelte:234 in a top-level svelte:head, grapheme count = 22 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap, under 30 as claimed"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Settings — SciPro Review\" at src/routes/settings/+page.svelte:33 in a top-level svelte:head, grapheme count = 24 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title); the public student/static build (adapter-static, svelte.config.js:18-21 \"GitHub Pages serves at /scipro_review/\") is a public local-first web app (reviews kept in IndexedDB), so per the ledger's public-web-app convention (cigale) the claim is a real gap, under 30 as claimed"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/settings/assignments/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Assignments — SciPro Review\" at src/routes/settings/assignments/+page.svelte:157 in a top-level svelte:head, grapheme count = 27 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title) (literal claim holds); but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-length::src/routes/submissions/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"SciPro Review — Submissions\" at src/routes/submissions/+page.svelte:861 in a top-level svelte:head, grapheme count = 27 as reported; root +layout.svelte and lib components emit no other <title>, so it is the route's title) (literal claim holds); but the route is teacher-mode only: its +layout.ts load redirects to / in the public static build (!dev && !__TEACHER_MODE__), and it exists only in the self-hosted teacher Node build (ADAPTER=node, docker-compose) as the teacher's own grading console, not a search target"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-presence::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/settings/assignments/[id]/criteria/+page.svelte: no svelte:head/<title> in the page or its imports; root +layout.svelte:43 head is a favicon link only, app.html has none, no document.title anywhere in frontend/src (grep); renders in teacher-mode builds (settings/assignments/+layout.ts redirects only when !dev && !__TEACHER_MODE__), sibling pages set their own <title>"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/title-presence::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/settings/assignments/[id]/scoring/+page.svelte: no svelte:head/<title> in the page or its imports; root +layout.svelte:43 head is a favicon link only, app.html has none, no document.title anywhere in frontend/src (grep); renders in teacher-mode builds (settings/assignments/+layout.ts redirects only when !dev && !__TEACHER_MODE__), sibling pages set their own <title>"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/docs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /docs (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /onboarding (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/review/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /review/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 20 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/review/[id]/evaluation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /review/[id]/evaluation (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 17 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/settings/assignments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/assignments (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/settings/assignments/[id]/criteria/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/assignments/[id]/criteria (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/settings/assignments/[id]/scoring/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/assignments/[id]/scoring (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 11 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/submissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /submissions (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  },
+  {
+    "key": "EmKaCe/scipro_review:frontend::seo/twitter-card::src/routes/submissions/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /submissions/[id] (script-verified (a1b_reach.py, comments stripped; positive control finds SchoolXense root-layout og:url, syam-web blog/[slug] og:title and app.html canonical): none in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files, app.html or hooks); no og/twitter/canonical tag anywhere in src or app.html (app.html:3-10 charset/viewport/icons only; heads are <title>/favicon); no meta-tag library; ssr=false SPA (+layout.ts:41); the route renders in at least one build (__TEACHER_MODE__ redirects in +page.ts:9 / submissions|onboarding|settings/assignments +layout.ts are build-mode switches, not session gates)"
+  }
+]
