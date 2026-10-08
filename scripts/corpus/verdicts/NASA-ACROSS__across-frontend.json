@@ -1,0 +1,1582 @@
+[
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/accessible-name::src/lib/components/Navigation.svelte:28::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read Navigation.svelte:28-35: mobile menu <button> whose only content is an <svg> hamburger icon, no text, aria-label/labelledby or title"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/accessible-name::src/lib/components/dialog/Dialog.svelte:114::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read dialog/Dialog.svelte:114-116: close <button> whose only content is an <i class='bx bx-x'> icon, no text, aria-label/labelledby or title"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/disallowed-aria-props::src/routes/about/+layout.svelte:55::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read +layout.svelte:55: <label aria-label> with no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (all prior <label> verdicts are design)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/id-duplication::src/lib/components/LabeledValue.svelte:13::Duplicate id \"data-item-name\"",
+    "verdict": "tp",
+    "basis": "read LabeledValue.svelte:8-13: literal <label for=data-item-name> and <div id=data-item-name>; observation-request/[observationRequestId]/+page.svelte renders 21 <LabeledValue> uses (from :113, most unconditional), so the id repeats on the route and every label points at the first (load 404s only when the request is missing)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/id-duplication::src/lib/components/ObjectNameResolver.svelte:87::Duplicate id \"object-name-input\"",
+    "verdict": "tp",
+    "basis": "read: on /observations the page's own <input id=object-name-input> (observations/+page.svelte:490) and ObjectNameResolver.svelte:88 (via <CoordinateSearch> at :562) are both unconditional in the filter panel, two elements with one id"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/id-duplication::src/routes/observations/+page.svelte:631::Duplicate id \"bandpass-type-input\"",
+    "verdict": "tp",
+    "basis": "read observations/+page.svelte:611-632: the Bandpass Regime <select> (:615) and the Bandpass Type <select> (:632) both carry literal id=bandpass-type-input, unconditionally side by side, and both <label for> point at the first"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/CoordinateSearch.svelte:40::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at CoordinateSearch.svelte:40 has literal <label>@26 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/CoordinateSearch.svelte:57::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at CoordinateSearch.svelte:57 has literal <label>@43 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/CoordinateSearch.svelte:74::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at CoordinateSearch.svelte:74 has literal <label>@61 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/LabeledValue.svelte:12::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at LabeledValue.svelte:12 has literal <label>@8 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/MultiSelect.svelte:117::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at MultiSelect.svelte:117 has literal <button>@116 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/MultiSelect.svelte:118::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at MultiSelect.svelte:118 has literal <button>@116 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/MultiSelect.svelte:123::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at MultiSelect.svelte:123 has literal <button>@122 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/MultiSelect.svelte:124::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at MultiSelect.svelte:124 has literal <button>@122 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/Navigation.svelte:90::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Navigation.svelte:90 has literal <ul>@87 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <ul> admits only <li> and script-supporting elements, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/Page.svelte:47::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Page.svelte:47 has literal <h1>@46 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <h1>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/Page.svelte:53::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Page.svelte:53 has literal <h1>@46 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <h1>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/Section.svelte:22::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Section.svelte:22 has literal <h2>@21 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <h2>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/Section.svelte:29::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Section.svelte:29 has literal <h2>@21 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <h2>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/lib/components/inputs/UnitValueInput.svelte:79::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at UnitValueInput.svelte:79 has literal <label>@63 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/about/data-models/+page.svelte:65::`<ul>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <ul> at +page.svelte:65 has literal <ul>@59 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <ul> admits only <li> and script-supporting elements, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/about/data-models/+page.svelte:95::`<ul>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <ul> at +page.svelte:95 has literal <ul>@90 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <ul> admits only <li> and script-supporting elements, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/ingestion-status/+page.svelte:101::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <li> at +page.svelte:101 has literal <div>@100 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <div>'s content model is flow content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/ingestion-status/+page.svelte:111::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <li> at +page.svelte:111 has literal <div>@100 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <div>'s content model is flow content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/ingestion-status/+page.svelte:99::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:99 has literal <ul>@97 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <ul> admits only <li> and script-supporting elements, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observation-request/[observationRequestId]/+page.svelte:86::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:86 has literal <button>@85 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observation-request/_components/ProposalInfoInput.svelte:23::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at ProposalInfoInput.svelte:23 has literal <label>@13 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observation-request/_components/ProposalInfoInput.svelte:36::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at ProposalInfoInput.svelte:36 has literal <label>@26 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observation-request/create/+page.svelte:86::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:86 has literal <label>@74 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observations/+page.svelte:393::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:393 has literal <button>@392 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observations/+page.svelte:663::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:663 has literal <label>@649 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/observations/+page.svelte:680::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:680 has literal <label>@666 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/schedules/+page.svelte:242::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:242 has literal <button>@241 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/user/[userGroupName]/user-group-manage/_components/GroupUsers.svelte:39::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at GroupUsers.svelte:39 has literal <button>@33 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/user/service-accounts/_components/ServiceAccountSecretModal.svelte:31::`<div>` is not permitted content here — `<code>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at ServiceAccountSecretModal.svelte:31 has literal <code>@30 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <code>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::a11y/permitted-contents::src/routes/visibility-calculator/+page.svelte:136::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:136 has literal <button>@135 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/lib/components/ObservatoryTelescopeInstrumentSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ObservatoryTelescopeInstrumentSelector.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/about/tools/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/about/tools/+page.svelte has 230 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/observations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/observations/+page.svelte has 997 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/schedules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/schedules/+page.svelte has 544 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/user/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/profile/+page.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/service-accounts/[serviceAccountId]/+page.svelte has 254 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/user/service-accounts/_components/ServiceAccounts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/service-accounts/_components/ServiceAccounts.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/component-size::src/routes/visibility-calculator/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/visibility-calculator/+page.svelte has 363 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/prop-count::src/lib/components/ArrowButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ArrowButton.svelte has a single destructured $props() with 10 named props (> 6): id, name, href, type, containerClasses, textClasses, direction, openInNewTab, onclick, children"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/prop-count::src/lib/components/Page.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Page.svelte has a single destructured $props() with 9 named props (> 6): title, icon, showMenu, showInfo, alert, buttons, menu, children, info"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/prop-count::src/lib/components/Section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Section.svelte has a single destructured $props() with 7 named props (> 6): title, icon, type, wrap, id, buttons, children"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/prop-count::src/lib/components/dialog/Dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dialog/Dialog.svelte has a single destructured $props() with 12 named props (> 6): title, icon, body, confirmText, hasCancel, cancelText, confirmDelaySeconds, isOpen, color, onConfirm, onClose, children"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/prop-count::src/lib/components/inputs/EmailInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inputs/EmailInput.svelte has a single destructured $props() with 10 named props (> 6): name, value, placeholder, disabled, autocomplete, required, includeButton, btnTxt, isLoading, children"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::architecture/prop-count::src/lib/components/inputs/UnitValueInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inputs/UnitValueInput.svelte has a single destructured $props() with 11 named props (> 6): value, unit, id, displayName, unitOptions, min, max, step, required, placeholder, validationRejectionText"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/MobileHeader.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MobileHeader.svelte:23 '{#each header.links as link}' has no key; header comes from the const navItems literal of src/routes/+layout.svelte:24 (via Navigation.svelte:40); static nav list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/MultiSelect.svelte:130::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: MultiSelect.svelte:130 '{#each filtered as option}' has no key; filtered = $derived options filtered by the user's search text (:59), so items leave and return mid-list as the user types; runtime-filtered list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/NavHeader.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NavHeader.svelte:22 '{#each header.links as link}' has no key; header comes from the const navItems literal of src/routes/+layout.svelte:24 (via Navigation.svelte:59); static nav list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/Navigation.svelte:37::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Navigation.svelte:37 '{#each navItems as header}' has no key; navItems is the const literal of src/routes/+layout.svelte:24 passed at :83; static nav list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/Navigation.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Navigation.svelte:56 '{#each navItems as header}' has no key; navItems is the const literal of src/routes/+layout.svelte:24 passed at :83; static nav list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/Pagination.svelte:90::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Pagination.svelte:90 '{#each pageHrefs as { pageNum, href }}' has no key; page-number links computed around the current page (:31); positional list (pagination slots, ledger convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/lib/components/inputs/UnitValueInput.svelte:86::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: UnitValueInput.svelte:86 '{#each unitOptions as option}' has no key; both callers pass a same-file const literal (observation-request/create/+page.svelte:31, observations/+page.svelte:136); static option list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/about/+layout.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: about/+layout.svelte:68 '{#each link.subsections as subsection}' has no key; link iterates the same-file const aboutLinks literal (:16); static nav list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/ingestion-status/+page.svelte:112::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ingestion-status/+page.svelte:112 '{#each telescopesDict[...].schedule_cadences as cadence}' has no key; schedule cadences of a telescope from the route's load data (:17); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/ingestion-status/+page.svelte:88::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ingestion-status/+page.svelte:88 '{#each observatories as observatory}' has no key; observatories = $derived(data.observatories) from the API load (:18); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/ingestion-status/+page.svelte:98::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ingestion-status/+page.svelte:98 '{#each observatory.telescopes as telescope}' has no key; telescopes of an API observatory record; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observation-request/[observationRequestId]/+page.svelte:98::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observation-request/[id]/+page.svelte:98 '{#each numberedVersions as option}' has no key; the request's revisions from the API, numbered (:51-56); runtime records that grow with each edit"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:641::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: observations/+page.svelte:641 '{#each bandpassUnitOptions[bandpassRegime] as option}' has no key; a same-file constant option table (:127); static list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:773::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observations/+page.svelte:773 '{#each scheduleIds as id}' has no key; scheduleIds = $state the user adds to (:273) and removes from mid-list (:253); runtime list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:850::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: observations/+page.svelte:850 '{#each availableColumns as column}' has no key; the table's fixed column definitions (:91), only toggled via map (:150-195); static column list (ledger column convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:886::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: observations/+page.svelte:886 '{#each selectedColumns as column}' has no key; selectedColumns = the fixed column definitions filtered by their toggle (:111); static column list (ledger column convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:904::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observations/+page.svelte:904 '{#each observations as obs}' has no key; observations = $derived(data.observations) from the paged/filtered API load (:48); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:906::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: observations/+page.svelte:906 '{#each selectedColumns as column}' has no key; the fixed column definitions filtered by toggle (:111), one cell per column; static column list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observations/+page.svelte:909::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: observations/+page.svelte:909 '{#each getTelescopeInstrument(obs?.instrument_id) as …}' has no key; getTelescopeInstrument returns a one-element array (:317-340); a single-item list cannot reorder"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/+page.svelte:15::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observatories/+page.svelte:15 '{#each observatories as observatory}' has no key; observatories = data.observatories from the API load (:9); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/[observatoryShortName]/+page.svelte:104::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: observatories/[short]/+page.svelte:104 '{#each Object.entries(filter) as filterProperty}' has no key; the property/value pairs of one filter record, shown read-only; positional list (fields of one record)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/[observatoryShortName]/+page.svelte:144::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observatories/[short]/+page.svelte:144 '{#each instrument?.constraints as constraint}' has no key; constraints of an instrument record from the API load; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/[observatoryShortName]/+page.svelte:49::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observatories/[short]/+page.svelte:49 '{#each observatory.ephemeris_types as ephemerisType}' has no key; ephemeris types of the API observatory record (:14, sorted at :18); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/[observatoryShortName]/+page.svelte:62::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observatories/[short]/+page.svelte:62 '{#each telescopes as telescope}' has no key; telescopes = data.telescopes from the API load (:15); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/[observatoryShortName]/+page.svelte:76::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observatories/[short]/+page.svelte:76 '{#each telescope.instruments as instrument}' has no key; instruments of an API telescope record; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/observatories/[observatoryShortName]/+page.svelte:91::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: observatories/[short]/+page.svelte:91 '{#each instrument.filters as filter}' has no key; filters of an API instrument record; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/schedules/+page.svelte:426::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: schedules/+page.svelte:426 '{#each availableColumns as column}' has no key; the table's fixed column definitions (:45), only toggled via map (:74-120); static column list (ledger column convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/schedules/+page.svelte:462::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: schedules/+page.svelte:462 '{#each selectedColumns as column}' has no key; the fixed column definitions filtered by toggle (:56); static column list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/schedules/+page.svelte:478::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: schedules/+page.svelte:478 '{#each schedules as schedule}' has no key; schedules = $derived(data.schedules) from the paged/filtered API load (:25); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/schedules/+page.svelte:480::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: schedules/+page.svelte:480 '{#each selectedColumns as column}' has no key; the fixed column definitions filtered by toggle (:56), one cell per column; static column list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/schedules/+page.svelte:483::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: schedules/+page.svelte:483 '{#each getTelescope(schedule?.telescope_id) as …}' has no key; getTelescope returns a one-element array lookup (:169); a single-item list cannot reorder"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/[userGroupName]/user-group-manage/_components/AssignRole.svelte:79::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: AssignRole.svelte:79 '{#each assignableRoles as role}' has no key; the group's roles not yet held by the user, $derived from load data (:26); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/[userGroupName]/user-group-manage/_components/GroupUsers.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: GroupUsers.svelte:30 '{#each users as user}' has no key; the group's users (prop from load data), added/removed by managers; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/[userGroupName]/user-group-manage/_components/InvitedUsers.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: InvitedUsers.svelte:46 '{#each invitedUsers as userInvite}' has no key; pending invitations (prop from load data), revoked/accepted at runtime; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/[userGroupName]/user-group-manage/_components/UserDetailCard.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: UserDetailCard.svelte:85 '{#each userRoles as userRole}' has no key; the selected user's roles $derived from load data (:26), assigned/removed on the page; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/profile/_components/UserGroupInvites.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: UserGroupInvites.svelte:16 '{#each invitations as invitation}' has no key; the user's group invitations (prop), accepted/declined; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/profile/_components/UserGroups.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: UserGroups.svelte:26 '{#each userGroups as userGroup}' has no key; the user's groups (prop), which the user can leave; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:181::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: service-accounts/[id]/+page.svelte:181 '{#each serviceAccountGroupRoles as group}' has no key; groups of the service account's roles (:34), changed when roles are assigned; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:184::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: service-accounts/[id]/+page.svelte:184 '{#each serviceAccount.group_roles as groupRole}' has no key; serviceAccount = $state(data.serviceAccount), refreshed after edits (:24, :61); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: service-accounts/[id]/+page.svelte:193 '{#each groupRole.permissions as permission}' has no key; permissions of a runtime role record; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:215::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: service-accounts/[id]/+page.svelte:215 '{#each assignableGroupRoles as group}' has no key; roles not yet assigned, $derived from load data (:37); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:218::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: service-accounts/[id]/+page.svelte:218 '{#each group.roles as groupRole}' has no key; roles of a runtime group record; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte:227::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: service-accounts/[id]/+page.svelte:227 '{#each groupRole.permissions as permission}' has no key; permissions of a runtime role record; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/_components/ServiceAccounts.svelte:102::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ServiceAccounts.svelte:102 '{#each expiredServiceAccounts as serviceAccount}' has no key; $derived filter of the user's service accounts (:30); runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/user/service-accounts/_components/ServiceAccounts.svelte:49::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ServiceAccounts.svelte:49 '{#each activeServiceAccounts as serviceAccount}' has no key; $derived filter of the user's service accounts (:24), created/deleted; runtime records"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/visibility-calculator/+page.svelte:262::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: visibility-calculator/+page.svelte:262 '{#each visibilityWindowsData.jointVisibilityWindows as window, index}' has no key; windows computed by the API for the user's target and instruments (:90-93); runtime results"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/visibility-calculator/+page.svelte:304::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: visibility-calculator/+page.svelte:304 '{#each instrumentWindows as { instrument, windows }}' has no key; instruments the user selected that have windows (:65-72), changing with the selection; runtime list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/each-key::src/routes/visibility-calculator/+page.svelte:326::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: visibility-calculator/+page.svelte:326 '{#each windows as window, index}' has no key; one instrument's visibility windows computed for the user's query; runtime results"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/stale-prop-derivation::src/routes/observatories/+page.svelte:9::\"observatories\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/observatories/+page.svelte:9 observatories = data.observatories at init, rendered (:15) (structurally true), but the load takes no params and nothing on the page invalidates or re-navigates to it with other data; not a demonstrable stale-UI defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::correctness/stale-prop-derivation::src/routes/observatories/[observatoryShortName]/+page.svelte:15::\"telescopes\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: observatories/[observatoryShortName]/+page.svelte:15 telescopes = data.telescopes at init (structurally true), but no link in the app navigates from one observatory page to another (the only in-page link goes back to /observatories/, :33) and nothing invalidates; not a demonstrable stale-UI defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::performance/heavy-import::src/routes/user/profile/+page.svelte:3::Heavy import \"lodash\" — import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
+    "verdict": "tp",
+    "basis": "read user/profile/+page.svelte:3,38: `import _ from 'lodash'` (package.json lodash ^4.18.1) value import of the whole package in a client component, used for _.isEqual — ships the non-tree-shakeable package; lodash/isEqual or lodash-es per docs"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::performance/sequential-awaits::src/routes/ingestion-status/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read ingestion-status/+page.server.ts:12-25: getObservatories(fetch) uses nothing from the preceding getTelescopes(fetch) — independent ACROSS API requests serialized; Promise.all would work"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::performance/sequential-awaits::src/routes/observations/+page.server.ts:93::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read observations/+page.server.ts:82-93 + lib/utils/across/getTelescopes.ts: getTelescopes(fetch) (an uncached API call) uses nothing from the /observation request before it — independent API requests serialized"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::performance/sequential-awaits::src/routes/schedules/+page.server.ts:95::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read schedules/+page.server.ts:87-95: getTelescopes(fetch) uses nothing from the /schedule request before it — independent API requests serialized"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::performance/sequential-awaits::src/routes/user/service-accounts/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read user/service-accounts/+page.server.ts:13-17: getServiceAccounts(fetch, localUser) uses nothing from getUserInfo — independent API requests serialized (route renders only when PUBLIC_RUNTIME_ENV is 'local', the default and the Dockerfile's value, via guards.localOnlyRoute)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::performance/sequential-awaits::src/routes/user/service-accounts/[serviceAccountId]/+page.server.ts:31::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read service-accounts/[serviceAccountId]/+page.server.ts:30-31: getServiceAccounts(fetch, localUser, id) uses nothing from getUserInfo — independent API requests serialized (route renders only when PUBLIC_RUNTIME_ENV is 'local', the default and the Dockerfile's value, via guards.localOnlyRoute)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::security/handler-state-write::src/routes/user/logout/+page.ts:6::a server-executed handler writes imported module state \"loggedIn\" — module state is shared across all requests on the server; if this holds per-request or per-user data, one user's data can leak to another. Caches and rate limiters keyed by non-personal data are the benign shape — verify which this is",
+    "verdict": "design",
+    "basis": "read user/logout/+page.ts:6 + lib/stores/login.ts: the universal load (SSR on, no ssr export) does loggedIn.set(false) on a module writable, so the write does run on the server — but it is the constant false and no other file reads or writes loggedIn; no per-request or user data is shared (ledger same-value-for-every-request design)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/about/code-of-conduct/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/code-of-conduct (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/about/contributing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/contributing (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/about/data-ingestion/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/data-ingestion (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/about/data-models/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/data-models (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/about/tools/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/tools (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/ingestion-status/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ingestion-status (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /observation-request/[observationRequestId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/observation-request/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /observation-request/create (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (auth-gated: observation-request/create/+page.server.ts:13 guards.requireUser redirects to /user/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/observations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /observations (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; static/robots.txt disallows /observations for Applebot only, other crawlers allowed)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/observatories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /observatories (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /observatories/[observatoryShortName] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/playground/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /playground (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/playground/page/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /playground/page (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (playground/page has no load of its own, so playground/+page.server.ts's localOnlyRoute() does not apply; publicly reachable component demo)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/schedules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /schedules (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; static/robots.txt disallows /schedules for Applebot only, other crawlers allowed)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/[userGroupName]/user-group-manage (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/login-verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/login-verify (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/logout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/logout (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (logout page: hooks.server.ts handleLogout and the load clear the auth cookies), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/profile (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/register (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/service-accounts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/service-accounts (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /user/service-accounts/[serviceAccountId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps) but not a search target (dev/local-only: the load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 unless PUBLIC_RUNTIME_ENV is 'local' (config/config.public.ts:27-29); ledger convention for dev-only routes: canonical design, og/twitter tp), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/canonical-url::src/routes/visibility-calculator/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /visibility-calculator (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load guard; hooks.server.ts resolves every request; static/robots.txt has only an Applebot group)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on / (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /about (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/about/code-of-conduct/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /about/code-of-conduct (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/about/contributing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /about/contributing (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/about/data-ingestion/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /about/data-ingestion (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/about/data-models/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /about/data-models (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/about/tools/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /about/tools (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/ingestion-status/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /ingestion-status (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /observation-request/[observationRequestId] (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/observation-request/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /observation-request/create (literal claim holds); its load calls guards.requireUser (lib/utils/guards/requireUser.ts:6 redirects session-less requests to /user/login), a signed-in form, not a search target"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/observations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /observations (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/observatories/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /observatories (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /observatories/[observatoryShortName] (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/playground/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /playground (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/playground/page/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /playground/page (literal claim holds); component-playground demo page linked only from the local-only /playground, not a search target"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/schedules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /schedules (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/[userGroupName]/user-group-manage (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/login-verify/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/login-verify (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/login (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/logout/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/logout (literal claim holds); logout confirmation page (load only clears the auth cookies), not a search target"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/profile (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/register (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/service-accounts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/service-accounts (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /user/service-accounts/[serviceAccountId] (literal claim holds); its +page.server.ts load calls guards.localOnlyRoute() (lib/utils/guards/dev/localOnlyRoute.ts:6-12: error(404) unless PUBLIC_CONFIG.IS_LOCAL, i.e. PUBLIC_RUNTIME_ENV is 'local'), so it is served only in local development (dev-only-route convention)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/description-presence::src/routes/visibility-calculator/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only svelte:heads in src are root +layout.svelte:62-76 (charset, <title>ACROSS</title>, viewport, icons) and USGOVAnalytics.svelte (analytics script), app.html has none, no meta-tag library: no <meta name=\"description\"> on /visibility-calculator (literal claim holds); public page of NASA's ACROSS science-coordination site, as claimed"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:64 literal <title>ACROSS</title> is the only title on all 25 routes (no page, component or document.title sets another), duplicate as claimed; key covers 25 routes, labelled by majority: 14 are public pages of the NASA ACROSS site (/, /about/*, /observatories, /schedules, /observations...), 11 are local-only, login-gated, logout or playground routes"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/heading-level-skip::src/routes/about/contributing/+page.svelte:31::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: Section title=\"Ways to Contribute\" renders <h2> (Section.svelte:20-21) and the page's next heading is <h4>Bug Reports (contributing/+page.svelte:31) with no <h3> between - a real h2->h4 skip"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/heading-level-skip::src/routes/observations/+page.svelte:418::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <Page title=\"Browse Observations\"> renders the <h1> (Page.svelte:45-46); the following <Section> has no title/icon/buttons so renders no <h2> (Section.svelte:20), and the first filter heading is <h3> (:418) - a real h1->h3 skip"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/heading-level-skip::src/routes/schedules/+page.svelte:265::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <Page title=\"Browse Schedules\"> renders the <h1> (Page.svelte:45-46); the following <Section> has no title/icon/buttons so renders no <h2> (Section.svelte:20), and the first filter heading is <h3> (:265) - a real h1->h3 skip"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/heading-level-skip::src/routes/visibility-calculator/+page.svelte:142::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <Page title=\"Joint Visibility Calculator\"> renders the <h1> (Page.svelte:45-46); the following <Section> has no title/icon/buttons so renders no <h2> (Section.svelte:20), and the first heading is <h3> (:142) - a real h1->h3 skip"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; / has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /about has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/about/code-of-conduct/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /about/code-of-conduct has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/about/contributing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /about/contributing has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/about/data-ingestion/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /about/data-ingestion has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/about/data-models/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /about/data-models has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/about/tools/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /about/tools has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/ingestion-status/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /ingestion-status has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /observation-request/[observationRequestId] has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/observation-request/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /observation-request/create has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/observations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /observations has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/observatories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /observatories has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /observatories/[observatoryShortName] has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/playground/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /playground has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/playground/page/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /playground/page has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/schedules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /schedules has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/[userGroupName]/user-group-manage has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/login-verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/login-verify has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/login has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/logout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/logout has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/profile has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/register has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/service-accounts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/service-accounts has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /user/service-accounts/[serviceAccountId] has no JSON-LD (served only when PUBLIC_RUNTIME_ENV is local; dev-only-route convention keeps JSON-LD tp)"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/json-ld::src/routes/visibility-calculator/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /visibility-calculator has no JSON-LD"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/about/code-of-conduct/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/code-of-conduct (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/about/contributing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/contributing (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/about/data-ingestion/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/data-ingestion (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/about/data-models/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/data-models (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/about/tools/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/tools (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/ingestion-status/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ingestion-status (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /observation-request/[observationRequestId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/observation-request/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /observation-request/create (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/observations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /observations (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/observatories/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /observatories (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /observatories/[observatoryShortName] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/playground/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /playground (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/playground/page/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /playground/page (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/schedules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /schedules (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/[userGroupName]/user-group-manage (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/login-verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/login-verify (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/logout/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/logout (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/profile (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/register (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/service-accounts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/service-accounts (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /user/service-accounts/[serviceAccountId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-description::src/routes/visibility-calculator/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /visibility-calculator (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/about/code-of-conduct/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/code-of-conduct (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/about/contributing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/contributing (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/about/data-ingestion/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/data-ingestion (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/about/data-models/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/data-models (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/about/tools/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/tools (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/ingestion-status/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ingestion-status (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /observation-request/[observationRequestId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/observation-request/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /observation-request/create (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/observations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /observations (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/observatories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /observatories (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /observatories/[observatoryShortName] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/playground/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /playground (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/playground/page/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /playground/page (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/schedules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /schedules (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/[userGroupName]/user-group-manage (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/login-verify/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/login-verify (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/logout/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/logout (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/profile (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/register (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/service-accounts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/service-accounts (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /user/service-accounts/[serviceAccountId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-image::src/routes/visibility-calculator/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /visibility-calculator (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/about/code-of-conduct/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/code-of-conduct (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/about/contributing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/contributing (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/about/data-ingestion/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/data-ingestion (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/about/data-models/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/data-models (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/about/tools/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/tools (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/ingestion-status/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ingestion-status (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /observation-request/[observationRequestId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/observation-request/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /observation-request/create (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/observations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /observations (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/observatories/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /observatories (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /observatories/[observatoryShortName] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/playground/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /playground (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/playground/page/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /playground/page (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/schedules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /schedules (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/[userGroupName]/user-group-manage (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/login-verify/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/login-verify (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/logout/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/logout (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/profile (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/register (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/service-accounts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/service-accounts (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /user/service-accounts/[serviceAccountId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-title::src/routes/visibility-calculator/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /visibility-calculator (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/about/code-of-conduct/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/code-of-conduct (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/about/contributing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/contributing (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/about/data-ingestion/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/data-ingestion (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/about/data-models/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/data-models (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/about/tools/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/tools (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/ingestion-status/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ingestion-status (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /observation-request/[observationRequestId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/observation-request/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /observation-request/create (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/observations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /observations (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/observatories/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /observatories (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /observatories/[observatoryShortName] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/playground/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /playground (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/playground/page/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /playground/page (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/schedules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /schedules (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/[userGroupName]/user-group-manage (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/login-verify/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/login-verify (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/logout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/logout (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/profile (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/register (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/service-accounts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/service-accounts (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /user/service-accounts/[serviceAccountId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/og-url::src/routes/visibility-calculator/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /visibility-calculator (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/single-h1::src/lib/components/Page.svelte:46::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /user/logout renders <Page title=\"Logout\"> whose <h1> (Page.svelte:45-46) is followed by the page's own <h1>You have successfully logged out! (user/logout/+page.svelte:10); the load only clears auth cookies - two <h1>s render"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/single-h1::src/routes/observatories/[observatoryShortName]/+page.svelte:80::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: <Page> title <h1> plus an <h1> per telescope (:66) and per instrument (:80) inside open-by-default <details> Collapse summaries ({#each telescopes}/{#each instruments}) - multiple <h1>s render whenever the observatory has a telescope"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon.png, assets/ and robots.txt (Applebot disallows only, no Sitemap: line), no sitemap.xml file, route or generator; public NASA ACROSS site with observatory/schedule pages to list"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): root +layout.svelte:64 literal <title>ACROSS</title> in a top-level svelte:head, 6 graphemes, the only title on all 25 routes, too short as claimed; key covers 25 routes, labelled by majority: 14 are public pages of the NASA ACROSS site, 11 are local-only, login-gated, logout or playground routes"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/about/code-of-conduct/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/code-of-conduct (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/about/contributing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/contributing (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/about/data-ingestion/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/data-ingestion (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/about/data-models/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/data-models (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/about/tools/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/tools (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/ingestion-status/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ingestion-status (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/observation-request/[observationRequestId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /observation-request/[observationRequestId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/observation-request/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /observation-request/create (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/observations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /observations (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/observatories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /observatories (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/observatories/[observatoryShortName]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /observatories/[observatoryShortName] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/playground/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /playground (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/playground/page/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /playground/page (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/schedules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /schedules (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/[userGroupName]/user-group-manage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/[userGroupName]/user-group-manage (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/login-verify/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/login-verify (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/logout/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/logout (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/profile (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/register (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/service-accounts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/service-accounts (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/user/service-accounts/[serviceAccountId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /user/service-accounts/[serviceAccountId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders only when PUBLIC_RUNTIME_ENV is 'local' (its load calls guards.localOnlyRoute(), lib/utils/guards/dev/localOnlyRoute.ts:5-12 errors 404 otherwise; default 'local' at config/config.public.ts:27); brief convention for dev-only routes: og/twitter tp"
+  },
+  {
+    "key": "NASA-ACROSS/across-frontend::seo/twitter-card::src/routes/visibility-calculator/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /visibility-calculator (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; root +layout.svelte:62-76 head is charset/title/viewport/build-version/icon CSS; no Svelte npm head deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  }
+]

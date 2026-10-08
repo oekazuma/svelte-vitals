@@ -1,0 +1,1562 @@
+[
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/interactive-nesting::src/lib/components/TerminalTab.svelte:518::<button> is nested inside interactive <div role=\"tab\">",
+    "verdict": "tp",
+    "basis": "read TerminalTab.svelte:490-518: close <button> inside each session's <div role=\"tab\" tabindex=\"0\" onclick> in the same template, nested interactive as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/no-autofocus::src/routes/admin/templates/+page.svelte:864::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; admin/templates/+page.svelte:842-864 rename input in the modal under {#if renameTarget}, set by the user's rename action; focus moves on a user action, not page load"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/no-autofocus::src/routes/dashboard/templates/+page.svelte:775::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; dashboard/templates/+page.svelte:741-775 rename input in the modal under {#if renameTarget}, set by the user's rename action; focus moves on a user action, not page load"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/permitted-contents::src/lib/components/FilesTab.svelte:606::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FilesTab.svelte:606 has literal <button>@576 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/permitted-contents::src/lib/components/FilesTab.svelte:836::`<div>` is not permitted content here — `<code>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FilesTab.svelte:836 has literal <code>@836 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <code>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/permitted-contents::src/lib/components/Sidebar.svelte:208::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Sidebar.svelte:208 has literal <button>@201 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/permitted-contents::src/routes/dashboard/channels/+page.svelte:1040::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:1040 has literal <button>@1026 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/permitted-contents::src/routes/dashboard/channels/+page.svelte:817::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:817 has literal <button>@803 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::a11y/permitted-contents::src/routes/dashboard/team/+page.svelte:1213::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:1213 has literal <button>@1209 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/AdminSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AdminSidebar.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/CreateCapsuleDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CreateCapsuleDialog.svelte has 349 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/FilesTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FilesTab.svelte has 856 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/MetricsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MetricsPanel.svelte has 352 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 484 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/StatsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/StatsPanel.svelte has 450 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/lib/components/TerminalTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TerminalTab.svelte has 606 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/audit/+page.svelte has 608 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/capsules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/capsules/+page.svelte has 594 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/capsules/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/capsules/[id]/+page.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/hosts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/hosts/+page.svelte has 800 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/teams/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/teams/+page.svelte has 532 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/templates/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/templates/+page.svelte has 1039 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/admin/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/users/+page.svelte has 397 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/audit/+page.svelte has 597 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/capsules/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/capsules/+page.svelte has 622 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/capsules/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/capsules/[id]/+page.svelte has 834 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/channels/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/channels/+page.svelte has 1354 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/hosts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/hosts/+page.svelte has 769 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/keys/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/keys/+page.svelte has 489 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/settings/+page.svelte has 904 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/team/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/team/+page.svelte has 1572 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/templates/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/templates/+page.svelte has 993 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/dashboard/usage/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/usage/+page.svelte has 479 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 404 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::architecture/prop-count::src/lib/components/SnapshotDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SnapshotDialog.svelte has a single destructured $props() with 12 named props (> 6): open, capsuleId, onclose, onsnapshot, title, label, placeholder, hint, confirmLabel, pendingLabel, snapshotFn, description"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/lib/components/AdminSidebar.svelte:173::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AdminSidebar.svelte:173 '{#each items as item}' has no key; items is the navSection snippet parameter, given the same-file const literals platformItems/managementItems (:28, :34, rendered at :110-111); static nav list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/lib/components/FilesTab.svelte:520::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FilesTab.svelte:520 '{#each breadcrumbs as crumb, i}' has no key; breadcrumbs = $derived path segments of currentPath (:84-91); positional list (path segments)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/lib/components/FilesTab.svelte:836::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FilesTab.svelte:836 holds two unkeyed blocks on one line (the key's 2 occurrences): '{#each previewLines.lines as line, i}' over the lines of one previewed file (:63-72) and '{#each highlightedTokens[i] as token}' over the highlighted tokens of one line; both positional lists (text lines/segments of one document)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/lib/components/Sidebar.svelte:341::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Sidebar.svelte:341 '{#each items as item}' has no key; items is the navSection snippet parameter given platformItems/billingItems const literals and managementItems, a literal $derived that only appends Hosts at the end (:50-80); static nav list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/admin/audit/+page.svelte:391::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: admin/audit/+page.svelte:391 '{#each actions as a}' has no key; actions = ACTIONS_BY_RESOURCE[r], a same-file constant table (:41); static list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/admin/templates/+page.svelte:394::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: admin/templates/+page.svelte:394 '{#each headers as h}' has no key; headers is the skeletonRows snippet parameter, always an inline literal (:351, :363); static column list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/admin/templates/+page.svelte:402::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: admin/templates/+page.svelte:402 '{#each headers as _h, j}' has no key; one skeleton cell per literal header (:351, :363); static placeholder list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/audit/+page.svelte:368::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: dashboard/audit/+page.svelte:368 '{#each actions as a}' has no key; actions = ACTIONS_BY_RESOURCE[r], a same-file constant table (:39); static list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:1183::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: dashboard/channels/+page.svelte:1183 '{#each rotateFieldsFor(rotateTarget) as field}' has no key; the provider's field names from the constant PROVIDERS table (:252-256); static list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:1244::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: dashboard/channels/+page.svelte:1244 '{#each Object.entries(groupedEvents) …}' has no key; groupedEvents = the constant EVENT_TYPES grouped (:78-84); static list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:1247::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: dashboard/channels/+page.svelte:1247 '{#each events as et}' has no key; events of one group of the constant EVENT_TYPES (:78-84); static list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:479::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: dashboard/channels/+page.svelte:479 '{#each ch.events as ev}' has no key; the event subscriptions of a user's channel (API records, edited in the page); runtime list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:483::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: dashboard/channels/+page.svelte:483 '{#each ch.events.slice(0, 2) as ev}' has no key; the first event subscriptions of a user's channel (API records); runtime list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:713::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: dashboard/channels/+page.svelte:713 '{#each selectedProvider.fields as field}' has no key; fields of an entry of the constant PROVIDERS table (:76); static list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/each-key::src/routes/dashboard/channels/+page.svelte:846::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: dashboard/channels/+page.svelte:846 '{#each createEvents as ev}' has no key; createEvents = $state the user toggles (:837) and removes chips from (:850); runtime list with removals"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::correctness/unmutated-state::src/routes/dashboard/settings/+page.svelte:45::$state \"passwordSaved\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -n): dashboard/settings/+page.svelte:45 passwordSaved = $state(false) is only read (482, 483, 488); never assigned anywhere, so the \"saved\" state can never show"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-dimensions::src/routes/activate/+page.svelte:44::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> lacks width/height, no spread; class h-10 w-10 (h-20 w-20 / h-12 w-12) - box reserved by CSS"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-dimensions::src/routes/forgot-password/+page.svelte:28::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> lacks width/height, no spread; class h-10 w-10 (h-20 w-20 / h-12 w-12) - box reserved by CSS"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-dimensions::src/routes/login/+page.svelte:183::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> lacks width/height, no spread; class h-10 w-10 (h-20 w-20 / h-12 w-12) - box reserved by CSS"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-dimensions::src/routes/login/+page.svelte:221::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> lacks width/height, no spread; class h-10 w-10 (h-20 w-20 / h-12 w-12) - box reserved by CSS"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-dimensions::src/routes/reset-password/+page.svelte:54::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> lacks width/height, no spread; class h-10 w-10 (h-20 w-20 / h-12 w-12) - box reserved by CSS"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-loading-hint::src/routes/activate/+page.svelte:44::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> has no loading attribute, no spread; brand logo at the top of the centered auth card / login hero - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-loading-hint::src/routes/forgot-password/+page.svelte:28::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> has no loading attribute, no spread; brand logo at the top of the centered auth card / login hero - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-loading-hint::src/routes/login/+page.svelte:183::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> has no loading attribute, no spread; brand logo at the top of the centered auth card / login hero - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-loading-hint::src/routes/login/+page.svelte:221::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> has no loading attribute, no spread; brand logo at the top of the centered auth card / login hero - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/image-loading-hint::src/routes/reset-password/+page.svelte:54::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/logo.svg\"> has no loading attribute, no spread; brand logo at the top of the centered auth card / login hero - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/state-raw::src/routes/dashboard/capsules/+page.svelte:33::\"menuPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"menuPos\" in src/routes/dashboard/capsules/+page.svelte: only whole-binding reassignments (:490) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/state-raw::src/routes/dashboard/channels/+page.svelte:57::\"dropdownPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"dropdownPos\" in src/routes/dashboard/channels/+page.svelte: only whole-binding reassignments (whole-object reassignment) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/state-raw::src/routes/dashboard/settings/+page.svelte:58::\"revokingSession\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"revokingSession\" in src/routes/dashboard/settings/+page.svelte: only whole-binding reassignments (spread copies :186,190,201) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/state-raw::src/routes/dashboard/team/+page.svelte:75::\"dropdownPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"dropdownPos\" in src/routes/dashboard/team/+page.svelte: only whole-binding reassignments (whole-object reassignment) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::performance/state-raw::src/routes/dashboard/templates/+page.svelte:49::\"dropdownPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"dropdownPos\" in src/routes/dashboard/templates/+page.svelte: only whole-binding reassignments (whole-object reassignment) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::security/raw-html::src/routes/admin/audit/+page.svelte:540::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/audit/+page.svelte:540 + renderDeleted/describeEvent/actorLabel: interpolates audit names/emails the backend restricts to safe charsets (pkg/validate name.go DisplayName/SafeName, email.go, channels cleanName, service/team.go teamNameRE [A-Za-z0-9 _-@']) — no < > & \" in text content; only markup is the constant deleted-user badge; reported per docs"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::security/raw-html::src/routes/admin/audit/+page.svelte:550::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/audit/+page.svelte:550 + renderDeleted/describeEvent/actorLabel: interpolates audit names/emails the backend restricts to safe charsets (pkg/validate name.go DisplayName/SafeName, email.go, channels cleanName, service/team.go teamNameRE [A-Za-z0-9 _-@']) — no < > & \" in text content; only markup is the constant deleted-user badge; reported per docs"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::security/raw-html::src/routes/dashboard/audit/+page.svelte:517::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/dashboard/audit/+page.svelte:517 + renderDeleted/describeEvent/actorLabel: interpolates audit names/emails the backend restricts to safe charsets (pkg/validate name.go DisplayName/SafeName, email.go, channels cleanName, service/team.go teamNameRE [A-Za-z0-9 _-@']) — no < > & \" in text content; only markup is the constant deleted-user badge; reported per docs"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::security/raw-html::src/routes/dashboard/audit/+page.svelte:527::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/dashboard/audit/+page.svelte:527 + renderDeleted/describeEvent/actorLabel: interpolates audit names/emails the backend restricts to safe charsets (pkg/validate name.go DisplayName/SafeName, email.go, channels cleanName, service/team.go teamNameRE [A-Za-z0-9 _-@']) — no < > & \" in text content; only markup is the constant deleted-user badge; reported per docs"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/activate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /activate (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA; activate/+page.svelte is an onMount token-consumer that calls apiActivate and goto('/dashboard'), ledger convention for activation callbacks), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/capsules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/capsules/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/hosts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/teams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/teams (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/templates/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/templates/builds/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in admin/+layout.ts load redirects to /login unless authenticated and to /dashboard unless admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/auth/github/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/github/callback (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA; OAuth callback page that finishes login and goto('/dashboard'), ledger convention for callbacks), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/billing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/billing (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/capsules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/channels/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/channels (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/hosts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/keys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/keys (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/metrics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/metrics (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/settings (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/team/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/team (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/templates/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/dashboard/usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/usage (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA, routes/+layout.ts:6; client guard in dashboard/+layout.ts load redirects to /login unless authenticated), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); publicly reachable, rendered route, no auth gate, noindex or robots disallow (ssr=false SPA, routes/+layout.ts:6; no load or guard)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); publicly reachable, rendered route, no auth gate, noindex or robots disallow (ssr=false SPA, routes/+layout.ts:6; login/+page.svelte onMount only sends already-authenticated users on)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it) but not a search target (ssr=false SPA; reset-password/+page.svelte onMount goto('/forgot-password') when the URL carries no reset token), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/activate/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /activate (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/audit (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/capsules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/capsules (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/capsules/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/capsules/[id] (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/hosts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/hosts (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/teams/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/teams (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/templates/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/templates (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/templates/builds/[id] (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /admin/users (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/auth/github/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /auth/github/callback (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/audit (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/billing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/billing (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/capsules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/capsules (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/capsules/[id] (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/channels/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/channels (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/hosts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/hosts (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/keys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/keys (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/metrics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/metrics (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/settings (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/team/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/team (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/templates/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/templates (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/dashboard/usage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /dashboard/usage (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /forgot-password (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /login (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in frontend/src or app.html on /reset-password (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:9 literal <title>Wrenn</title> is the only title of /admin, /admin/hosts, /admin/templates, /admin/templates/builds/[id], /auth/github/callback and /dashboard (no svelte:head title there), duplicate as claimed; but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/activate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /activate has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/audit has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/capsules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/capsules has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/capsules/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/capsules/[id] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/hosts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/hosts has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/teams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/teams has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/templates/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/templates has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/templates/builds/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/templates/builds/[id] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /admin/users has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/auth/github/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /auth/github/callback has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/audit has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/billing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/billing has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/capsules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/capsules has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/capsules/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/capsules/[id] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/channels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/channels has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/hosts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/hosts has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/keys/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/keys has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/metrics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/metrics has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/settings has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/team/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/team has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/templates/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/templates has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/dashboard/usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /dashboard/usage has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /forgot-password has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /login has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in frontend/src or app.html; /reset-password has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/activate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /activate (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/capsules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/capsules/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/hosts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/teams (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/templates/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/templates/builds/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/auth/github/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/github/callback (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/billing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/billing (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/capsules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/channels/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/channels (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/hosts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/keys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/keys (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/metrics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/metrics (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/settings (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/team/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/team (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/templates/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/dashboard/usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/usage (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/activate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /activate (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/capsules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/capsules/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/hosts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/teams (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/templates/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/templates/builds/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/auth/github/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/github/callback (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/billing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/billing (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/capsules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/channels/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/channels (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/hosts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/keys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/keys (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/metrics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/metrics (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/settings (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/team/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/team (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/templates/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/dashboard/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/usage (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/activate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /activate (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/capsules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/capsules/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/hosts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/teams (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/templates/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/templates/builds/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/auth/github/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/github/callback (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/billing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/billing (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/capsules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/channels/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/channels (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/hosts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/keys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/keys (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/metrics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/metrics (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/settings (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/team/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/team (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/templates/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/dashboard/usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/usage (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/activate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /activate (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/capsules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/capsules/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/hosts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/teams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/teams (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/templates/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/templates/builds/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/auth/github/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/github/callback (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/billing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/billing (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/capsules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/channels/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/channels (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/hosts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/keys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/keys (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/metrics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/metrics (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/settings (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/team/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/team (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/templates/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/dashboard/usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/usage (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/single-h1::/admin/capsules/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/capsules/[id]/+page.svelte titles the detail with a breadcrumb <a>Capsules › <span>{capsuleId}</span> (:163-177) and tab components, no heading element; admin and root layouts have none - no <h1>"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/single-h1::/admin::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/+page.svelte is a client redirect stub (onMount goto /admin/templates, no markup); admin/+layout.svelte and root +layout.svelte render no <h1> - no <h1>, as the ledger labels client-redirect stubs (app is ssr=false, the stub still renders before the goto)"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/single-h1::/dashboard::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte is a client redirect stub (onMount goto /dashboard/capsules, no markup); dashboard/+layout.svelte and root layout render no <h1> - no <h1>, as the ledger labels client-redirect stubs"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/single-h1::src/routes/auth/github/callback/+page.svelte:91::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: auth/github/callback/+page.svelte renders only the {#if showConfirmDialog} card titled <h2>Almost there (:91) or a status screen; root layout has no <h1> - no <h1>"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: frontend/static has apple-touch-icon.png, logo.svg and an allow-all robots.txt, no sitemap.xml file or route (literal claim holds); the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target, nothing to list"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/ssr-disabled::src/routes/+layout.ts:6::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:6 for the whole app, next to prerender = true (literal claim holds); deliberate static SPA for the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: app.html:9 literal <title>Wrenn</title>, 5 graphemes, the only title on 6 console routes (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/activate/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/activate/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 24 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/admin/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/audit/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 24 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/admin/capsules/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/capsules/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 22 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/admin/teams/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/teams/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 19 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/admin/users/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/users/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 19 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/audit/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 18 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/billing/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/billing/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 15 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/capsules/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/capsules/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 16 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/channels/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/channels/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 16 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/hosts/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/hosts/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 13 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/keys/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/keys/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 16 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/metrics/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/metrics/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 15 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/settings/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 16 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/team/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/team/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 12 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/templates/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/templates/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 17 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/dashboard/usage/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/dashboard/usage/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 13 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/forgot-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/forgot-password/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 22 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/title-length::src/routes/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/reset-password/+page.svelte's top-level svelte:head (client-rendered; root ssr = false), 24 graphemes as reported (literal claim holds); but the frontend is only the Wrenn sandbox-platform console (served at app.wrenn.dev per internal/api/handlers_oauth.go:36, or a self-hosted instance; the marketing site wrenn.dev is separate): / redirects to /login or /dashboard, and dashboard/+layout.ts / admin/+layout.ts redirect signed-out visitors to /login, so its pages are a signed-in console or its auth flows, not a search target"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/activate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /activate (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/capsules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/capsules/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/hosts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/teams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/teams (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/templates/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/templates/builds/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/templates/builds/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/auth/github/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/github/callback (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/audit (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/billing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/billing (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/capsules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/capsules (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/capsules/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/capsules/[id] (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/channels/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/channels (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/hosts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/hosts (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/keys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/keys (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/metrics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/metrics (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/settings (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/team/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/team (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/templates/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/templates (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/dashboard/usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/usage (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "wrennhq/wrenn:frontend::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 112 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui only; ssr=false so client heads would count, none emit it); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  }
+]

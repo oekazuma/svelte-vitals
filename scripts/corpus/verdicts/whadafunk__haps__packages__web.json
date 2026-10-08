@@ -1,0 +1,652 @@
+[
+  {
+    "key": "whadafunk/haps:packages/web::a11y/duplicate-landmark::src/routes/admin/+page.svelte:17::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: admin/+page.svelte:16-17 renders its <main class=login-page> only in {#if !data.user} ({:else} is <div class=admin-page>), and admin/+layout.svelte wraps {@render children()} in <main class=staff-main> only in {#if data.user}, bare in {:else}; the same data.user decides both, so the route never composes two mains"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/duplicate-landmark::src/routes/admin/guests/+page.svelte:204::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read admin/guests/+page.svelte:204: unconditional top-level page <main class=page>; admin/+layout.svelte wraps children in <main class=staff-main> in {#if data.user}, the staff session this page is for (its load calls serverGet on the admin API without the dashboard's no-user fallback; admin/+layout.server.ts redirects non-staff), so the route composes two mains"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/duplicate-landmark::src/routes/admin/guests/[id]/+page.svelte:117::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read admin/guests/[id]/+page.svelte:117: unconditional top-level page <main class=page>; admin/+layout.svelte wraps children in <main class=staff-main> in {#if data.user}, the staff session this page is for (its load calls serverGet on the admin API without the dashboard's no-user fallback; admin/+layout.server.ts redirects non-staff), so the route composes two mains"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/permitted-contents::src/routes/admin/config/+page.svelte:130::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:130 has literal <label>@128 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/permitted-contents::src/routes/admin/config/+page.svelte:141::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:141 has literal <label>@139 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/permitted-contents::src/routes/admin/guests/+page.svelte:467::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:467 has literal <label>@464 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/permitted-contents::src/routes/event/[slug]/edit/+page.svelte:1116::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:1116 has literal <label>@1114 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/permitted-contents::src/routes/new-event/+page.svelte:59::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:59 has literal <label>@57 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/permitted-contents::src/routes/new-event/+page.svelte:66::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:66 has literal <label>@64 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <label>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/top-level-landmark::src/routes/admin/+page.svelte:17::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: admin/+page.svelte:16-17 renders its <main class=login-page> only in {#if !data.user} ({:else} is <div class=admin-page>), and admin/+layout.svelte wraps {@render children()} in <main class=staff-main> only in {#if data.user}, rendering it bare in {:else}; both read the layout's data.user (admin/+page.server.ts returns no user), so the login main is never inside the staff main"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/top-level-landmark::src/routes/admin/guests/+page.svelte:204::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read admin/guests/+page.svelte:204: unconditional top-level page <main class=page>; admin/+layout.svelte wraps children in <main class=staff-main> in {#if data.user}, the staff session this page is for (its load calls serverGet on the admin API without the dashboard's no-user fallback; admin/+layout.server.ts redirects non-staff), so main is nested inside main"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::a11y/top-level-landmark::src/routes/admin/guests/[id]/+page.svelte:117::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read admin/guests/[id]/+page.svelte:117: unconditional top-level page <main class=page>; admin/+layout.svelte wraps children in <main class=staff-main> in {#if data.user}, the staff session this page is for (its load calls serverGet on the admin API without the dashboard's no-user fallback; admin/+layout.server.ts redirects non-staff), so main is nested inside main"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/+page.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/admin/config/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/config/+page.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/admin/guests/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/guests/+page.svelte has 641 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/admin/guests/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/guests/[id]/+page.svelte has 459 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/event/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/event/[slug]/+page.svelte has 1298 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/event/[slug]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/event/[slug]/edit/+page.svelte has 1385 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::architecture/component-size::src/routes/inbox/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/inbox/+page.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::correctness/each-index-key::src/routes/admin/guests/+page.svelte:337::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: admin/guests/+page.svelte:337 '{#each inviteResults as inv, idx (idx)}' keyed by its index binding; inviteResults = per-guest results of a bulk-invite API call (:151); runtime records (ledger results-list convention)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::correctness/each-key::src/routes/admin/guests/[id]/+page.svelte:191::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/guests/[id]/+page.svelte:191 '{#each data.guest.events as ev}' has no key; the guest's events from the route's load; runtime records"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::correctness/each-key::src/routes/admin/guests/[id]/+page.svelte:217::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/guests/[id]/+page.svelte:217 '{#each data.guest.invites as invite}' has no key; the guest's invites from the route's load; runtime records"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::correctness/unmutated-state::src/routes/event/[slug]/edit/+page.svelte:52::$state \"inviteError\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -n): event/[slug]/edit/+page.svelte:52 inviteError = $state('') is only read (:636); never written"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/account/+page.svelte:159::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar-img width 64px height 64px (account/+page.svelte style) - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/account/+page.svelte:245::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .avatar-img width 64px height 64px (account/+page.svelte style) - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/+page.svelte:558::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; event cover .cover width 100% height auto (max-height 400px) - no box reserved, content below shifts when it loads"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/+page.svelte:815::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .guest-avatar 28x28 px - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/+page.svelte:892::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .photo-thumb 100%x100% inside .photo-thumb-btn aspect-ratio 1 (:1266-1268) - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/+page.svelte:946::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; enlarged photo inside the {#if lightboxPhoto} role=dialog overlay - a modal overlay, it moves no page content"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/+page.svelte:972::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .modal-avatar 80x80 px in the profile modal - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/album/+page.svelte:76::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .thumb 100%x100% inside .cell aspect-ratio 1 (album/+page.svelte:119-121) - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/album/+page.svelte:86::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; enlarged photo inside the {#if lightboxPhoto} role=dialog overlay - a modal overlay, it moves no page content"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:538::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; .cover-preview width 100% height auto (max-height 400px) - no box reserved, the form below shifts when it loads"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:652::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .qr-img 120x120 px - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:770::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; .photo-thumb width/height 100% sits directly in the .post-photos grid with no aspect-ratio wrapper (:768-770, :1306) - the row height comes from the image, so it shifts when it loads"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:798::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .photo-thumb 100%x100% inside .photo-thumb-btn aspect-ratio 1 (:1308) - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:839::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .album-img 100%x100% inside .album-cell-btn aspect-ratio 1 (:1313) - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:860::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; enlarged photo inside the lightbox modal ({#if lightboxPhoto}) - a modal overlay, it moves no page content"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-dimensions::src/routes/event/[slug]/edit/+page.svelte:915::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; .token-qr-img 120x120 px - box reserved by CSS"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/account/+page.svelte:159::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; profile avatar in the first profile cards right under the 'My account' <h1> (:143-159, :234-245) - above the fold"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/account/+page.svelte:245::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; profile avatar in the first profile cards right under the 'My account' <h1> (:143-159, :234-245) - above the fold"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/+page.svelte:558::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; event cover at the top of the page above the event header - above the fold, the likely LCP, where the docs keep it eager"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/+page.svelte:815::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; avatar per guest in the {#each} guest list further down the event page - later rows can sit offscreen"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/+page.svelte:946::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lightbox photo created only when the user opens it ({#if lightboxPhoto} overlay) - visible when rendered, lazy would defer nothing"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/+page.svelte:972::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; avatar at the top of the profile modal opened by clicking a guest ({#if profileModal}) - visible when rendered"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/album/+page.svelte:86::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lightbox photo created only when the user opens it - visible when rendered, lazy would defer nothing"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/edit/+page.svelte:538::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; event cover in the first card of the default 'details' tab (:533-538) - above the fold"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/edit/+page.svelte:652::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src is a QRCode.toDataURL data: URI (:145-152) generated in the browser - there is nothing to fetch, so a loading hint defers nothing"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/edit/+page.svelte:860::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; lightbox photo created only when the user opens it - visible when rendered, lazy would defer nothing"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/image-loading-hint::src/routes/event/[slug]/edit/+page.svelte:915::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src is a QRCode.toDataURL data: URI cached per token (:222), shown when the QR toggle is opened - there is nothing to fetch"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/lcp-image::src/routes/event/[slug]/album/+page.svelte:76::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "read: <img> has literal loading=\"lazy\"; first album thumbnail in the photo grid directly under the album heading (:70-76, tiles >=160px) - the page's main content and likely LCP, lazily loaded"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/account/+page.svelte:159::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded avatar URL (data.contact.avatarUrl) at 64px - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/account/+page.svelte:245::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded avatar URL (data.contact.avatarUrl) at 64px - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/+page.svelte:558::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; full-width event cover photo (coverImageUrl) - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/+page.svelte:815::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded guest avatar URL at 28px - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/+page.svelte:892::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded wall photo (photo.url) shown as a grid thumbnail - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/+page.svelte:946::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; full-size uploaded photo in the lightbox (photo.url) - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/+page.svelte:972::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded avatar URL at 80px - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/album/+page.svelte:76::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded photo (photo.url) as a grid thumbnail - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/album/+page.svelte:86::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; full-size uploaded photo in the lightbox - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:538::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; full-width event cover (event.coverImageUrl) - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:652::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a client-generated QRCode.toDataURL data: URI (:151) - no alternate sizes exist, as the ledger labels data: URL images"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:770::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded wall photo (photo.url) as a thumbnail - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:798::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded wall photo (photo.url) as a thumbnail - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:839::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; uploaded album photo (photo.url) as a grid thumbnail - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:860::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; full-size uploaded photo in the lightbox - one fixed-size asset for every device"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::performance/responsive-image::src/routes/event/[slug]/edit/+page.svelte:915::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is a client-generated QRCode.toDataURL data: URI (:222) - no alternate sizes exist, as the ledger labels data: URL images"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (+page.server.ts redirects only signed-in staff/guests or an instance still in setup)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (auth-gated: account/+page.server.ts:7 redirects to /login without a user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (admin/+layout.server.ts returns { user: null } without auth_token and admin/+page.svelte:16-19 renders the \"Staff login\" form; ledger convention: login pages tp)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/admin/config/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/config (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (auth-gated: admin/config/+page.server.ts:19 redirects to /admin without a user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/admin/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/events (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (auth-gated: admin/events/+page.server.ts:7 redirects to /admin without a user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/admin/guests/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/guests (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (staff-only: admin/guests/+page.server.ts:16 loads /admin/guests from the API with the visitor's cookies, which throws without staff auth), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/admin/guests/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/guests/[id] (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (staff-only: admin/guests/[id]/+page.server.ts:60-61 errors 404 when the staff API call fails), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/users (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (auth-gated: admin/users/+page.server.ts:8 redirects to /admin without a user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/event/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug] (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (the shareable event page; event/[slug]/+page.svelte:543-547 emits og:*/twitter:card but no canonical; errors only for unknown or invite-only events)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/event/[slug]/album/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/album (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (album load errors only for unknown or invite-only events)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/event/[slug]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/edit (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (editor-only: event/[slug]/edit/+page.server.ts:30 errors 403 unless the visitor is an editor), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/inbox/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inbox (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (session-gated: inbox/+page.server.ts:33 redirects to / without the vsid cookie), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (login/+page.server.ts redirects only signed-in users)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/magic-link/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /magic-link (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (no load; sign-in link request form)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/magic-link/verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /magic-link/verify (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (token-consumer page: magic-link/verify/+page.svelte onMount verifies ?token and goto('/my-events'), ledger convention for callbacks), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/my-events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /my-events (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (my-events/+page.server.ts has no guard; it renders an empty list without a session)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/new-event/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /new-event (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (auth-gated: new-event/+page.server.ts:6 redirects without auth_token), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only); publicly reachable, rendered route, no auth gate, noindex or robots disallow (register/+page.server.ts redirects only signed-in users)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified (a1b_write.py: comments stripped, all 57 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; workspace @haps/shared has no Svelte head output; root +layout.svelte:27-40 head has title + {#if data.meta} og:*/twitter:card only) but not a search target (setup/+page.server.ts redirects to / once the instance is set up; first-run wizard), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on / (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /account (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /admin (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/admin/config/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /admin/config (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/admin/events/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /admin/events (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/admin/guests/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /admin/guests (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/admin/guests/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /admin/guests/[id] (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /admin/users (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/event/[slug]/album/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /event/[slug]/album (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/event/[slug]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /event/[slug]/edit (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/inbox/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /inbox (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /login (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/magic-link/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /magic-link (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/magic-link/verify/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /magic-link/verify (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/my-events/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /my-events (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/new-event/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /new-event (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /register (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <meta name=\"description\"> in packages/web/src is event/[slug]/+page.svelte:542 (not on this route); root +layout.svelte:28-41 head has title/og only, app.html none, so none on /setup (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/heading-level-skip::src/routes/admin/guests/+page.svelte:328::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: admin/guests/+page.svelte <h1>Guests (:208), then the guest table (no headings) and the {#if showBulkInviteModal} modal <h3> (:324-328) - h1 to h3 when the modal opens, as the ledger labels modal headings after an <h1>"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/heading-level-skip::src/routes/my-events/+page.svelte:56::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: my-events/+page.svelte <h1>My Events (:40), PushOptIn (no headings), then each event card's <h3>{event.title} (:56) with no <h2> between - a real h1->h3 skip"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; / renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /account renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /admin renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/admin/config/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /admin/config renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/admin/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /admin/events renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/admin/guests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /admin/guests renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/admin/guests/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /admin/guests/[id] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /admin/users renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/event/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /event/[slug] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/event/[slug]/album/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /event/[slug]/album renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/event/[slug]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /event/[slug]/edit renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/inbox/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /inbox renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /login renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/magic-link/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /magic-link renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/magic-link/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /magic-link/verify renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/my-events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /my-events renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/new-event/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /new-event renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /register renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in packages/web/src, the shared package or app.html; /setup renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: packages/web/static has favicon.svg and sw.js only, no robots.txt route, and the api package serves none (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets"
+  },
+  {
+    "key": "whadafunk/haps:packages/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in packages/web/static or routes, none in the api package (literal claim holds); Haps is a self-hosted private event-planning/RSVP app (docker-compose.yml with its own Postgres; the home hero calls it 'The simple, private way to plan events and collect RSVPs'), whose pages are its staff console, guest inboxes and auth flows, not search targets, nothing to list"
+  }
+]

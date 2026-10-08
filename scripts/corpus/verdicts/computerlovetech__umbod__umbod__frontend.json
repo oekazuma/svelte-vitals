@@ -1,0 +1,572 @@
+[
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::a11y/disallowed-aria-props::src/lib/components/admin/connectors/ToolParameterDetails.svelte:34::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST) + read: literal <div> at ToolParameterDetails.svelte:34 carries aria-label with no role, spread or use: action (implicit generic), so the name is prohibited and not exposed as reported"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::a11y/disallowed-aria-props::src/lib/components/admin/shared/AdminToggle.svelte:26::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read AdminToggle.svelte:26: <label aria-label> with no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (all prior <label> verdicts are design)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::a11y/disallowed-aria-props::src/lib/components/feedback/ToastRegion.svelte:19::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST) + read: literal <div> at ToastRegion.svelte:19 carries aria-label with no role, spread or use: action (implicit generic), so the name is prohibited and not exposed as reported"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::a11y/pattern-title::src/lib/components/admin/downstream-mcp-connectors/DownstreamMcpSetupModal.svelte:75::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read DownstreamMcpSetupModal.svelte:75-87: <input pattern=\"[a-z0-9][a-z0-9-]{0,62}\" required> with no title, editable in create mode (readonly only when configuring), inside shared/Form.svelte's <form> (:37/:41, no novalidate); the helper text :89 does not state the format"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::a11y/pattern-title::src/lib/components/admin/openapi-connectors/OpenApiConnectorCreateForm.svelte:29::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read OpenApiConnectorCreateForm.svelte:29-36: <input pattern=\"[A-Za-z0-9_-]+\" required aria-label> with no title inside <form method=POST> (:17, no novalidate), so a mismatch shows only the browser's generic message"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/AdminShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/AdminShell.svelte has 261 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/connectors/ConnectorConfigurationForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/connectors/ConnectorConfigurationForm.svelte has 270 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/connectors/ConnectorList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/connectors/ConnectorList.svelte has 506 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/connectors/ToolParameterDetails.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/connectors/ToolParameterDetails.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/group-permissions/GroupPermissionsManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/group-permissions/GroupPermissionsManager.svelte has 791 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/openapi-connectors/ImportCatalogPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/openapi-connectors/ImportCatalogPanel.svelte has 260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/component-size::src/lib/components/admin/openapi-connectors/OpenApiConnectorList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/openapi-connectors/OpenApiConnectorList.svelte has 253 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/capability-catalogs/PromptCatalog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/capability-catalogs/PromptCatalog.svelte has a single destructured $props() with 10 named props (> 6): catalog, heading, emptyMessage, embedded, activationEnabled, onActivationChange, dirty, pending, saveBarMessage, children"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/capability-catalogs/ResourceCatalog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/capability-catalogs/ResourceCatalog.svelte has a single destructured $props() with 10 named props (> 6): catalog, heading, emptyMessage, embedded, activationEnabled, onActivationChange, dirty, pending, saveBarMessage, children"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/connectors/ConnectorConfigurationForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/connectors/ConnectorConfigurationForm.svelte has a single destructured $props() with 7 named props (> 6): connector, fields, form, action, checkAction, submitConnectorId, onsaved"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/connectors/ConnectorDetailSummary.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/connectors/ConnectorDetailSummary.svelte has a single destructured $props() with 8 named props (> 6): headingId, title, iconDataUrl, publicationStatus, description, summary, technicalDetails, children"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/connectors/ConnectorPublicationMenuAction.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/connectors/ConnectorPublicationMenuAction.svelte has a single destructured $props() with 7 named props (> 6): connectorId, connectorName, action, disabled, title, role, onrequest"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/connectors/PublicationConfirmationModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/connectors/PublicationConfirmationModal.svelte has a single destructured $props() with 7 named props (> 6): open, title, message, confirmLabel, cancelLabel, onconfirm, oncancel"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/downstream-mcp-connectors/DownstreamMcpWorkspace.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/downstream-mcp-connectors/DownstreamMcpWorkspace.svelte has a single destructured $props() with 8 named props (> 6): connectors, selected, catalog, promptCatalog, resourceCatalog, invocationPolicies, form, state"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/AdminConfigurationField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/AdminConfigurationField.svelte has a single destructured $props() with 16 named props (> 6): id, name, label, type, value, required, configuredSecret, unsupported, readonly, autocomplete, pattern, placeholder, helperText, describedBy, invalid, oninput"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/AdminConfirmationDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/AdminConfirmationDialog.svelte has a single destructured $props() with 7 named props (> 6): open, title, description, confirmLabel, action, domain, oncancel"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/AdminFileUpload.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/AdminFileUpload.svelte has a single destructured $props() with 11 named props (> 6): id, name, label, accept, required, disabled, optionalText, buttonText, replaceText, helperText, maxBytes"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/AdminSaveAction.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/AdminSaveAction.svelte has a single destructured $props() with 8 named props (> 6): label, loadingLabel, loading, disabled, message, tone, icon, type"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/AdminSplitWorkspace.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/AdminSplitWorkspace.svelte has a single destructured $props() with 7 named props (> 6): ariaLabel, sidebarLabel, sidebarHeading, count, detailLabel, sidebar, detail"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/AdminToggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/AdminToggle.svelte has a single destructured $props() with 7 named props (> 6): checked, ariaLabel, disabled, inputName, inputValue, onchange, submit"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/Button.svelte has a single destructured $props() with 12 named props (> 6): children, variant, size, type, disabled, onclick, formaction, role, title, class, aria-label, aria-busy"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/CatalogControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/CatalogControls.svelte has a single destructured $props() with 19 named props (> 6): ariaLabel, searchLabel, searchPlaceholder, searchValue, onSearchChange, statusOptions, statusValue, onStatusChange, pageSizeOptions, pageSizeValue, onPageSizeChange, countText, methodOptions, methodValue, onMethodChange, methodLabel, statusLabel, pageSizeLabel, extraFilter"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/CatalogPagination.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/CatalogPagination.svelte has a single destructured $props() with 7 named props (> 6): ariaLabel, page, pageCount, canGoPrevious, canGoNext, onPrevious, onNext"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/Form.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/Form.svelte has a single destructured $props() with 7 named props (> 6): method, action, enctype, onsubmit, submit, fields, actions"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/LoadingButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/LoadingButton.svelte has a single destructured $props() with 11 named props (> 6): loading, delayMs, disabled, type, label, loadingLabel, variant, onclick, formaction, role, title"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::architecture/prop-count::src/lib/components/admin/shared/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/shared/Select.svelte has a single destructured $props() with 9 named props (> 6): options, label, value, onchange, disabled, compact, id, name, accessibleName"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps); publicly reachable, rendered route, no auth gate, noindex or robots disallow (public landing: +page.svelte renders Hero; hooks.server.ts gates only /admin)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/connectors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/connectors/[connectorId]/configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/downstream-mcp-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/group-permissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/group-permissions (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/instance-configuration/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/instance-configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/mcp-setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/mcp-setup (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/canonical-url::src/routes/admin/openapi-connectors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/openapi-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no Svelte npm deps) but not a search target (auth-gated: hooks.server.ts:22-27 answers every /admin request whose identity check returns 401 with a 303 to /oauth2/sign_in; it resolves for signed-in operators), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on / (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/connectors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/connectors (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/connectors/[connectorId]/configuration (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/downstream-mcp-connectors (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/group-permissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/group-permissions (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/instance-configuration/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/instance-configuration (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/mcp-setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/mcp-setup (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/description-presence::src/routes/admin/openapi-connectors/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in umbod/frontend/src or app.html (the only svelte:heads are the admin pages' <title>s) on /admin/openapi-connectors (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; / renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/connectors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/connectors renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/connectors/[connectorId]/configuration renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/downstream-mcp-connectors renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/group-permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/group-permissions renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/instance-configuration/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/instance-configuration renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/mcp-setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/mcp-setup renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/json-ld::src/routes/admin/openapi-connectors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in umbod/frontend/src or app.html; /admin/openapi-connectors renders (signed-in for /admin) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/connectors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/connectors/[connectorId]/configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/downstream-mcp-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/group-permissions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/group-permissions (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/instance-configuration/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/instance-configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/mcp-setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/mcp-setup (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-description::src/routes/admin/openapi-connectors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/openapi-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/connectors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/connectors/[connectorId]/configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/downstream-mcp-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/group-permissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/group-permissions (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/instance-configuration/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/instance-configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/mcp-setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/mcp-setup (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-image::src/routes/admin/openapi-connectors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/openapi-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/connectors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/connectors/[connectorId]/configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/downstream-mcp-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/group-permissions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/group-permissions (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/instance-configuration/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/instance-configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/mcp-setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/mcp-setup (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-title::src/routes/admin/openapi-connectors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/openapi-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/connectors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/connectors/[connectorId]/configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/downstream-mcp-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/group-permissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/group-permissions (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/instance-configuration/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/instance-configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/mcp-setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/mcp-setup (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/og-url::src/routes/admin/openapi-connectors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/openapi-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: umbod/frontend/static has favicons/logo/icons only, no robots.txt route or generator (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in umbod/frontend/static or routes (literal claim holds); Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target, nothing to list"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/+page.svelte's top-level svelte:head, 14 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/connectors/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/connectors/+page.svelte's top-level svelte:head, 10 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/connectors/[connectorId]/configuration/+page.svelte's top-level svelte:head, 23 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/downstream-mcp-connectors/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/downstream-mcp-connectors/+page.svelte's top-level svelte:head, 20 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/group-permissions/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/group-permissions/+page.svelte's top-level svelte:head, 17 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/instance-configuration/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/instance-configuration/+page.svelte's top-level svelte:head, 17 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/mcp-setup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/mcp-setup/+page.svelte's top-level svelte:head, 13 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-length::src/routes/admin/openapi-connectors/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/admin/openapi-connectors/+page.svelte's top-level svelte:head, 18 graphemes as reported, the route's only title (literal claim holds); but Umbod is a self-hosted agent-tool gateway installed on the operator's own infrastructure (umbod/docs/index.md: 'run Umbod on your own infrastructure'), whose UI is the /admin console (hooks.server.ts:24-27 answers every /admin request without a session with a 303 to /oauth2/sign_in) and a one-screen / welcome linking to it, not a search target"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/+page.svelte renders only $lib/components/home/Hero.svelte (no svelte:head); root +layout.svelte (ToastProvider/AppHeader) has none, app.html head only icon links, the only <title>s in src are admin/* pages', no document.title; hooks only gate /admin, so the public landing page renders untitled"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/connectors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/connectors/[connectorId]/configuration/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/connectors/[connectorId]/configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/downstream-mcp-connectors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/downstream-mcp-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/group-permissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/group-permissions (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/instance-configuration/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/instance-configuration (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/mcp-setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/mcp-setup (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "computerlovetech/umbod:umbod/frontend::seo/twitter-card::src/routes/admin/openapi-connectors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/openapi-connectors (script-verified (a1b_write.py: comments stripped, all 257 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no Svelte npm deps); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  }
+]

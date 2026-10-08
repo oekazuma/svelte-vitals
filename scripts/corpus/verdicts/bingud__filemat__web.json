@@ -1,0 +1,1692 @@
+[
+  {
+    "key": "bingud/filemat:web::a11y/no-autofocus::src/lib/component/popover/InputDialog.svelte:104::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; InputDialog.svelte:97-104 input is the body of <CustomDialog bind:isOpen>, a dialog opened by a user action; focus moves on that action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/no-autofocus::src/routes/(app)/settings/account/_setting-components/ChangePasswordSetting.svelte:129::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; ChangePasswordSetting.svelte:129 input under {#if phase === 'password'} inside <CustomDialog bind:isOpen> (:122), the change-password dialog the user opens; focus follows a user action, not page load"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/no-autofocus::src/routes/(app)/settings/account/_setting-components/ChangePasswordSetting.svelte:154::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; ChangePasswordSetting.svelte:154 input under {#if phase === 'totp'} inside <CustomDialog bind:isOpen> (:122), the change-password dialog the user opens; focus follows a user action, not page load"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/no-autofocus::src/routes/(app)/settings/account/_setting-components/ChangePasswordSetting.svelte:183::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; ChangePasswordSetting.svelte:183 input under {#if phase === 'newPassword'} inside <CustomDialog bind:isOpen> (:122), the change-password dialog the user opens; focus follows a user action, not page load"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/no-autofocus::src/routes/(external)/login/+page.svelte:160::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read login/+page.svelte:12/:157-160: username <input autofocus> under {#if phase === 'login' || phase === 'setup-mfa'} with phase = $state('login') initially, so it takes focus on page load (login page-load precedent)"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/+page.svelte:356::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:356 has literal <button>@355 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/+page.svelte:359::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:359 has literal <button>@355 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileSortingButton.svelte:107::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileSortingButton.svelte:107 has literal <button>@106 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileSortingButton.svelte:115::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileSortingButton.svelte:115 has literal <button>@114 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileSortingButton.svelte:56::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileSortingButton.svelte:56 has literal <button>@55 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileSortingButton.svelte:68::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileSortingButton.svelte:68 has literal <button>@67 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileSortingButton.svelte:86::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileSortingButton.svelte:86 has literal <button>@85 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileViewTypeButton.svelte:44::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileViewTypeButton.svelte:44 has literal <button>@40 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileViewTypeButton.svelte:55::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileViewTypeButton.svelte:55 has literal <button>@51 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/FileViewTypeButton.svelte:74::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileViewTypeButton.svelte:74 has literal <button>@70 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/NewFileButton.svelte:26::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at NewFileButton.svelte:26 has literal <button>@25 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/NewFileButton.svelte:32::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at NewFileButton.svelte:32 has literal <button>@31 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/NewFileButton.svelte:41::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at NewFileButton.svelte:41 has literal <button>@40 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/NewFileButton.svelte:47::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at NewFileButton.svelte:47 has literal <button>@46 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/OpenFileAsCategoryButton.svelte:35::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at OpenFileAsCategoryButton.svelte:35 has literal <button>@29 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/SharedFileScopeSwitchPopover.svelte:31::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at SharedFileScopeSwitchPopover.svelte:31 has literal <button>@30 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/button/SharedFileScopeSwitchPopover.svelte:44::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at SharedFileScopeSwitchPopover.svelte:44 has literal <button>@43 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/layout/Breadcrumbs.svelte:147::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Breadcrumbs.svelte:147 has literal <button>@146 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/layout/Breadcrumbs.svelte:154::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at Breadcrumbs.svelte:154 has literal <button>@153 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:412::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at DetailsSidebar.svelte:412 has literal <button>@411 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:466::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at DetailsSidebar.svelte:466 has literal <button>@465 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:478::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at DetailsSidebar.svelte:478 has literal <button>@465 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/AllowDenySwitch.svelte:28::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at AllowDenySwitch.svelte:28 has literal <button>@20 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/AllowDenySwitch.svelte:40::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at AllowDenySwitch.svelte:40 has literal <button>@32 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:104::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:104 has literal <button>@100 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:115::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:115 has literal <button>@111 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:123::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:123 has literal <button>@122 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:133::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:133 has literal <button>@132 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:143::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:143 has literal <button>@142 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:152::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:152 has literal <button>@151 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:161::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:161 has literal <button>@160 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:179::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:179 has literal <button>@178 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:190::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:190 has literal <button>@189 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:199::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileContextMenuPopover.svelte:199 has literal <button>@198 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileNavZone.svelte:79::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileNavZone.svelte:79 has literal <button>@74 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/FolderTreeSelector.svelte:449::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FolderTreeSelector.svelte:449 has literal <button>@448 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileShareItemButton.svelte:102::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileShareItemButton.svelte:102 has literal <button>@101 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileShareItemButton.svelte:36::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileShareItemButton.svelte:36 has literal <button>@31 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileShareItemButton.svelte:96::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileShareItemButton.svelte:96 has literal <button>@95 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileSharingDialog.svelte:239::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at FileSharingDialog.svelte:239 has literal <button>@238 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/settings/system/exposed-files/+page.svelte:187::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:187 has literal <button>@182 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/settings/system/logs/+page.svelte:163::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:163 has literal <button>@152 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/settings/system/logs/_components/LogTypeSelectionButton.svelte:43::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at LogTypeSelectionButton.svelte:43 has literal <button>@42 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(app)/settings/system/logs/_components/SeveritySelectionButton.svelte:43::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at SeveritySelectionButton.svelte:43 has literal <button>@42 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(external)/setup/+page.svelte:314::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:314 has literal <button>@313 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(external)/setup/+page.svelte:319::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:319 has literal <button>@318 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::a11y/permitted-contents::src/routes/(external)/setup/+page.svelte:326::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <p> at +page.svelte:326 has literal <button>@318 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary); <button>'s content model is phrasing content, so the child is outside it as reported"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/lib/component/icons/util/Symbols.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/component/icons/util/Symbols.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/lib/component/popover/UploadConflictDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/component/popover/UploadConflictDialog.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/+page.svelte has 454 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/FileBrowser.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/FileBrowser.svelte has 466 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/FileList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/FileList.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte has 594 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/layout/FileViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/layout/FileViewer.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/ui/DownloadPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/ui/DownloadPanel.svelte has 242 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/ui/FolderTreeSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/ui/FolderTreeSelector.svelte has 484 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/ui/UploadPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/ui/UploadPanel.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileSharingDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileSharingDialog.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/account/_setting-components/ChangePasswordSetting.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/account/_setting-components/ChangePasswordSetting.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/account/_setting-components/MfaSetting.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/account/_setting-components/MfaSetting.svelte has 235 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/roles/[roleId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/roles/[roleId]/+page.svelte has 351 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/system/_setting-components/ThumbnailCacheSetting.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/system/_setting-components/ThumbnailCacheSetting.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/system/exposed-files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/system/exposed-files/+page.svelte has 260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/system/logs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/system/logs/+page.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(app)/settings/users/[userId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/users/[userId]/+page.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(external)/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(external)/setup/+page.svelte has 449 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/component-size::src/routes/(external)/util/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(external)/util/+page.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/prop-count::src/lib/component/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/component/Select.svelte has a single destructured $props() with 8 named props (> 6): value, items, placeholder, buttonClasses, dropdownClasses, itemClasses, bgColor, onSelect"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/prop-count::src/lib/component/auth/MfaSetupDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/component/auth/MfaSetupDialog.svelte has a single destructured $props() with 8 named props (> 6): isOpen, credentials, phase, qrCodeBase64, onCancel, onSubmit, onFinish, totpInput"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/prop-count::src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/FileList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/FileList.svelte has a single destructured $props() with 16 named props (> 6): sortedEntries, visibilityManager, event_dragStart, event_dragOver, event_dragLeave, event_drop, event_dragEnd, entryOnClick, onClickSelectCheckbox, option_rename, option_move, option_copy, option_delete, option_details, option_save, closeFileContextMenuPopover"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/prop-count::src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/GridFileEntry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/GridFileEntry.svelte has a single destructured $props() with 12 named props (> 6): entry, visibilityManager, event_dragStart, event_dragOver, event_dragLeave, event_drop, event_dragEnd, entryOnClick, entryOnContextMenu, onClickSelectCheckbox, entryMenuOnClick, size"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/prop-count::src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/RowFileEntry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/(files)/files/[...path]/_elements/FileBrowser/RowFileEntry.svelte has a single destructured $props() with 12 named props (> 6): entry, visibilityManager, event_dragStart, event_dragOver, event_dragLeave, event_drop, event_dragEnd, entryOnClick, entryOnContextMenu, onClickSelectCheckbox, entryMenuOnClick, size"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/prop-count::src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/(files)/files/[...path]/_elements/ui/FileContextMenuPopover.svelte has a single destructured $props() with 10 named props (> 6): entryMenuButton, entryMenuPopoverOnOpenChange, menuEntry, option_rename, option_move, option_copy, option_delete, option_details, option_save, closeFileContextMenuPopover"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/route-component-import::src/routes/(app)/(files)/accessible-files/+page.svelte:3::src/routes/(app)/(files)/files/[...path]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(files)/accessible-files/+page.svelte:3 default-imports src/routes/(app)/(files)/files/[...path]/+page.svelte and renders <FilesPage meta={...}> with a StateMetadata it builds itself (type accessible, l.6-12, rendered l.20); the imported page declares only a `meta` prop ($props l.46-50, falling back to the /files default when absent), reads no data/page.params, and its +page.ts only sets ssr=false/prerender=false (no load) -- a deliberate wrapper route reusing the file browser with its own explicit props, same shape as the ledger's wrapper-route design entries"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/route-component-import::src/routes/(app)/(files)/saved-files/+page.svelte:3::src/routes/(app)/(files)/files/[...path]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(files)/saved-files/+page.svelte:3 default-imports src/routes/(app)/(files)/files/[...path]/+page.svelte and renders <FilesPage meta={...}> with a StateMetadata it builds itself (type saved, l.6-12, rendered l.20); the imported page declares only a `meta` prop ($props l.46-50, falling back to the /files default when absent), reads no data/page.params, and its +page.ts only sets ssr=false/prerender=false (no load) -- a deliberate wrapper route reusing the file browser with its own explicit props, same shape as the ledger's wrapper-route design entries"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/route-component-import::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte:7::src/routes/(app)/(files)/files/[...path]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte:7 default-imports src/routes/(app)/(files)/files/[...path]/+page.svelte and renders <FilesPage meta={...}> with a StateMetadata it builds itself (pageMeta $derived l.29-44 with shareId/shareToken, rendered l.217 after the password flow); the imported page declares only a `meta` prop ($props l.46-50, falling back to the /files default when absent), reads no data/page.params, and its +page.ts only sets ssr=false/prerender=false (no load) -- a deliberate wrapper route reusing the file browser with its own explicit props, same shape as the ledger's wrapper-route design entries"
+  },
+  {
+    "key": "bingud/filemat:web::architecture/route-component-import::src/routes/(app)/(files)/shared-files/+page.svelte:3::src/routes/(app)/(files)/files/[...path]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(files)/shared-files/+page.svelte:3 default-imports src/routes/(app)/(files)/files/[...path]/+page.svelte and renders <FilesPage meta={...}> with a StateMetadata it builds itself (type allShared, l.9-15, rendered l.33); the imported page declares only a `meta` prop ($props l.46-50, falling back to the /files default when absent), reads no data/page.params, and its +page.ts only sets ssr=false/prerender=false (no load) -- a deliberate wrapper route reusing the file browser with its own explicit props, same shape as the ledger's wrapper-route design entries"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/lib/component/Select.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/component/Select.svelte:45 '{#each Object.entries(items) as [val, label]}' has no key; items' only caller passes paths, a copy of the constant filePagePaths (DefaultPageSetting.svelte:8-10, :36); static option list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/lib/component/auth/MfaSetupDialog.svelte:82::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: MfaSetupDialog.svelte:82 '{#each credentials.codes as code}' has no key; the 2FA backup codes returned by the server for this setup (credentials prop, :19); runtime data (ledger recovery-codes convention)"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/lib/component/popover/UploadConflictDialog.svelte:171::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: UploadConflictDialog.svelte:171 '{#each conflicts.slice(0, visibleLimit) as conflict}' has no key; conflicts = $state set from each upload's conflict list (:71) and resolved one by one; runtime list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/button/FileSortingButton.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FileSortingButton.svelte:52 '{#each entriesOf(fileSortingModes) …}' has no key; fileSortingModes is a constant object (lib/code/types/fileTypes.ts:2); static list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/layout/Breadcrumbs.svelte:103::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Breadcrumbs.svelte:103 '{#each breadcrumbState.hidden as segment}' has no key; path segments of the current folder that do not fit (breadcrumbState.svelte.ts:35-58); positional list (path segments)"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/layout/Breadcrumbs.svelte:119::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Breadcrumbs.svelte:119 '{#each breadcrumbState.visible as segment, index}' has no key; path segments of the current folder (breadcrumbState.svelte.ts:35-58); positional list (path segments)"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:453::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DetailsSidebar.svelte:453 '{#each permissionData.permissions.filter(USER) as meta}' has no key; permissions of the selected file fetched from the API (:207) and edited in the sidebar; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:459::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DetailsSidebar.svelte:459 '{#each permissionData.permissions.filter(ROLE) as meta}' has no key; permissions of the selected file fetched from the API (:207) and edited in the sidebar; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/layout/DetailsSidebar.svelte:484::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DetailsSidebar.svelte:484 '{#each meta.permission.permissions as perm}' has no key; the permission list of one user/role entry of the fetched file permissions; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/ui/FolderTreeSelector.svelte:476::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: FolderTreeSelector.svelte:476 '{#each node.children as child}' has no key; child folders of a node of the fetched folder tree, expanded/loaded at runtime; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/ui/UploadPanel.svelte:174::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: UploadPanel.svelte:174 '{#each uploadState.list as up}' has no key; the running upload list (uploadState), uploads added and removed as they finish; runtime list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/(files)/files/[...path]/_elements/ui/fileSharing/FileSharingDialog.svelte:291::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: FileSharingDialog.svelte:291 '{#each shares as share}' has no key; shares = $state of the file's shares fetched from the API (:81), created/deleted in the dialog; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/_components/SettingsSidebar.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SettingsSidebar.svelte:38 '{#each settingSections.allUser() as section}' has no key; allUser() filters the constant settingSections.sections (lib/code/module/settings.ts:76-78); static nav list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/_components/SettingsSidebar.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SettingsSidebar.svelte:46 '{#each adminSections as section}' has no key; adminSections = the constant admin settings sections filtered by permission (:18); static nav list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/+page.svelte:44::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/roles/+page.svelte:44 '{#each sortArrayAlphabetically(appState.roleList, …) as role}' has no key; the app's roles from the API, created/deleted by admins; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/+page.svelte:66::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/roles/+page.svelte:66 '{#each sortArrayByNumberDesc(role.permissions.map(…)) as permission}' has no key; permissions of a runtime role; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/[roleId]/+page.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/roles/[roleId]/+page.svelte:225 '{#each sortArrayAlphabetically(role.miniUsers, …) as mini}' has no key; the role's users, added/removed on the page; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/[roleId]/+page.svelte:249::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/roles/[roleId]/+page.svelte:249 '{#each sortArrayAlphabetically(allUsers, …) as user}' has no key; allUsers fetched from the API (:35); runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/[roleId]/+page.svelte:281::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/roles/[roleId]/+page.svelte:281 '{#each sortArrayByNumberDesc(displayedPermissionList.map(…)) as meta}' has no key; the role's permissions as edited on the page; runtime list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/[roleId]/+page.svelte:306::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/roles/[roleId]/+page.svelte:306 '{#each …systemPermissionMeta filtered by !newPermissionList.includes …}' has no key; the constant permissions minus the ones the user has added, so items leave mid-list as the user picks them; runtime-filtered list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/roles/new/+page.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: settings/roles/new/+page.svelte:97 '{#each sortArrayByNumberDesc(valuesOf(systemPermissionMeta), …) as permission}' has no key; the constant systemPermissionMeta table (lib/code/data/permissions.ts:7) sorted; static list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/system/exposed-files/+page.svelte:167::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: system/exposed-files/+page.svelte:167 '{#each entriesOf(visibilities) …}' has no key; visibilities = $state of exposed-path entries fetched from the API and edited (add/delete) on the page (:14-57); runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/system/logs/+page.svelte:151::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: system/logs/+page.svelte:151 '{#each logs as log}' has no key; logs = $state of a fetched, paged and filtered log list (:89); runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/system/logs/_components/LogDetailOverlay.svelte:135::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: LogDetailOverlay.svelte:135 '{#each Object.entries(log.metadata) …}' has no key; the metadata fields of one log record, shown read-only and replaced wholesale with the record; positional list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/users/+page.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/users/+page.svelte:58 '{#each sortArrayByNumber(users, …) as user, index}' has no key; the app's users from the API; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/users/[userId]/+page.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/users/[userId]/+page.svelte:111 '{#each … user.roles.map(getRole) … as role}' has no key; the user's roles, assigned/removed on the page; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/users/[userId]/+page.svelte:130::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: settings/users/[userId]/+page.svelte:130 '{#each sortArrayByNumberDesc(appState.roleList, …) as role}' has no key; the app's roles from the API; runtime records"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/users/[userId]/+page.svelte:169::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: settings/users/[userId]/+page.svelte:169 '{#each entriesOf(viewableDateFields) …}' has no key; viewableDateFields is a same-file const object literal (:34); static list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/users/[userId]/+page.svelte:179::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: settings/users/[userId]/+page.svelte:179 '{#each entriesOf(viewableFields) …}' has no key; viewableFields is a same-file const object literal (:28); static list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(app)/settings/users/[userId]/+page.svelte:93::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: settings/users/[userId]/+page.svelte:93 '{#each entriesOf(editableFields) …}' has no key; editableFields is a same-file const object literal (:22); static list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/each-key::src/routes/(external)/setup/+page.svelte:415::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (external)/setup/+page.svelte:415 '{#each appState.sensitiveFolders as folder}' has no key; the server's fixed list of protected wildcard paths, fetched once (lib/code/data/sensitiveFolders.ts:13-19) and shown as plain text rows; static list"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/effect-as-derived::src/routes/(app)/settings/system/_setting-components/ContentBaseUrlSetting.svelte:21::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: ContentBaseUrlSetting.svelte:21 the effect only does urlInput = adminSystemState.contentBaseUrl.url; the other write is bind:value (:138), the writable-$derived override pattern (svelte 5.45.2)"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/instance-browser-global::src/routes/(app)/(files)/files/[...path]/_elements/layout/FileViewer.svelte:32::localStorage is accessed during component initialisation — during SSR this runs on the server, where localStorage is not defined",
+    "verdict": "design",
+    "basis": "read: FileViewer.svelte:32 localStorage.getItem at instance top level (structurally true), but its only render sites are the files page (+page.ts ssr = false) and pages under src/routes/(app)/+layout.svelte, which renders children only {#if mounted} (:60) with mounted = $state(null) set inside onMount (:16-18), so it never runs on the server"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/unmutated-state::src/routes/(app)/settings/roles/[roleId]/+page.svelte:34::$state \"addUsersButton\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -n): settings/roles/[roleId]/+page.svelte:34 addUsersButton = $state() has no mention besides its declaration; never written or bound"
+  },
+  {
+    "key": "bingud/filemat:web::correctness/unmutated-state::src/routes/(app)/settings/system/logs/+page.svelte:22::$state \"amount\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -nw): settings/system/logs/+page.svelte:22 amount = $state(50) is only read ($derived at :26, a primitive in a request object at :63); never written"
+  },
+  {
+    "key": "bingud/filemat:web::performance/iframe-loading::src/routes/(app)/(files)/files/[...path]/_elements/layout/FileViewer.svelte:190::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the PDF viewer filling the file viewer ({:else if fileCategory === \"pdf\"}, class w-full h-full, FileViewer.svelte:189-190) - the page's main content, visible when rendered"
+  },
+  {
+    "key": "bingud/filemat:web::performance/image-dimensions::src/routes/(external)/login/+page.svelte:151::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/favicon.svg\"> lacks width/height, no spread; class size-7 - box reserved by CSS"
+  },
+  {
+    "key": "bingud/filemat:web::performance/image-loading-hint::src/routes/(external)/login/+page.svelte:151::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/favicon.svg\"> has no loading attribute, no spread; logo at the top of the login page next to the brand name (:150-152) - above the fold"
+  },
+  {
+    "key": "bingud/filemat:web::security/raw-html::src/routes/(external)/util/+page.svelte:157::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (external)/util/+page.svelte:2-3,64-75,157: SVG markup the visitor pastes into the textarea (or its cropped copy), shown back in their own browser — client-side self-only tool, no storage or sharing; reported per docs"
+  },
+  {
+    "key": "bingud/filemat:web::security/raw-html::src/routes/(external)/util/+page.svelte:180::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (external)/util/+page.svelte:2-3,64-75,180: SVG markup the visitor pastes into the textarea (or its cropped copy), shown back in their own browser — client-side self-only tool, no storage or sharing; reported per docs"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /accessible-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /saved-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /share/[shareId]/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /shared-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/account (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/other/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/other (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/preferences/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/preferences (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/roles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/roles (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/roles/[roleId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/roles/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/roles/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/system/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/system (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/system/exposed-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/system/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/system/logs (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/users (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/users/[userId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(app)/settings/users/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/users/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(external)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(external)/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/canonical-url::src/routes/(external)/util/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /util (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag) but not a search target (src/app.html:7 puts <meta name=\"robots\" content=\"noindex,nofollow\"> on every page of this self-hosted file manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /accessible-files (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /files/[...path] (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /saved-files (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /share/[shareId]/[...path] (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /shared-files (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on / (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/home/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /home (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/account (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/other/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/other (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/preferences/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/preferences (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/roles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/roles (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/roles/[roleId] (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/roles/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/roles/new (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/system/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/system (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/system/exposed-files (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/system/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/system/logs (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/users (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/users/[userId] (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(app)/settings/users/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /settings/users/new (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(external)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /login (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(external)/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /setup (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/description-presence::src/routes/(external)/util/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in web/src or app.html (root +layout.svelte:101-103 head is only the <title>) on /util (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/(files)/accessible-files/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /accessible-files is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/(files)/files/[...path]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /files/[...path] is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/(files)/saved-files/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /saved-files is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /share/[shareId]/[...path] is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/(files)/shared-files/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /shared-files is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; / is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/home/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /home is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/account/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/account is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/other/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/other is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/preferences/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/preferences is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/roles/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/roles is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/roles/[roleId] is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/roles/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/roles/new is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/system/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/system is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/system/exposed-files/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/system/exposed-files is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/system/logs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/system/logs is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/users/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/users is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/users/[userId]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/users/[userId] is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(app)/settings/users/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /settings/users/new is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(external)/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /login is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(external)/setup/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /setup is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/indexability::src/routes/(external)/util/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex,nofollow\"> in the shell head of every route; /util is noindex as claimed (deliberate for a self-hosted file manager)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /accessible-files has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /files/[...path] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/(files)/saved-files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /saved-files has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /share/[shareId]/[...path] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/(files)/shared-files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /shared-files has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; / has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /home has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/account has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/other/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/other has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/preferences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/preferences has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/roles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/roles has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/roles/[roleId] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/roles/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/roles/new has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/system/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/system has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/system/exposed-files has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/system/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/system/logs has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/users has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/users/[userId] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(app)/settings/users/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /settings/users/new has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(external)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /login has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(external)/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /setup has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/json-ld::src/routes/(external)/util/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /util has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /accessible-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /saved-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /share/[shareId]/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shared-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/account (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/other/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/other (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/preferences/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/preferences (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/roles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/roles (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/roles/[roleId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/roles/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/roles/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/system/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/system (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/system/exposed-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/system/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/system/logs (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/users (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/users/[userId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(app)/settings/users/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/users/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(external)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(external)/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-description::src/routes/(external)/util/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /util (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /accessible-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /saved-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /share/[shareId]/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shared-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/account (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/other/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/other (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/preferences/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/preferences (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/roles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/roles (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/roles/[roleId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/roles/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/roles/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/system/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/system (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/system/exposed-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/system/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/system/logs (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/users (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/users/[userId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(app)/settings/users/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/users/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(external)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(external)/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-image::src/routes/(external)/util/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /util (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /accessible-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /saved-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /share/[shareId]/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shared-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/account (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/other/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/other (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/preferences/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/preferences (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/roles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/roles (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/roles/[roleId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/roles/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/roles/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/system/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/system (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/system/exposed-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/system/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/system/logs (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/users (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/users/[userId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(app)/settings/users/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/users/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(external)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(external)/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-title::src/routes/(external)/util/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /util (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /accessible-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /saved-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /share/[shareId]/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shared-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/account (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/other/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/other (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/preferences/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/preferences (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/roles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/roles (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/roles/[roleId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/roles/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/roles/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/system/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/system (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/system/exposed-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/system/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/system/logs (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/users (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/users/[userId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(app)/settings/users/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/users/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(external)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(external)/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/og-url::src/routes/(external)/util/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /util (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: web/static has only favicon.svg, no robots.txt route or generator (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target"
+  },
+  {
+    "key": "bingud/filemat:web::seo/single-h1::src/routes/(app)/+layout.svelte:82::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: one key for 19 (app) routes: (app)/+layout.svelte renders the page inside {#if mounted} with Navbar/Sidebar (no heading) and an <h2> only in the load-failure arm (:82); no (app) page except settings/roles/[roleId] has an <h1> (grep of web/src), and '/' is a client goto shell - no <h1> on these routes"
+  },
+  {
+    "key": "bingud/filemat:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in web/static or routes (literal claim holds); Filemat is a self-hosted file manager whose frontend is built into static files for its backend (web/README.md), (app)/+layout.svelte:27-32 sends visitors without a session to /setup or /login, and app.html:7 is literal noindex,nofollow, so not a search target, nothing to list"
+  },
+  {
+    "key": "bingud/filemat:web::seo/ssr-disabled::src/routes/(app)/(files)/files/[...path]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/(files)/files/[...path]/+page.ts:1 (literal claim holds); deliberate client-only rendering of a file/user/role view in the self-hosted Filemat SPA (app.html noindex), not content for search"
+  },
+  {
+    "key": "bingud/filemat:web::seo/ssr-disabled::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/(files)/share/[shareId]/[...path]/+page.ts:1 (literal claim holds); deliberate client-only rendering of a file/user/role view in the self-hosted Filemat SPA (app.html noindex), not content for search"
+  },
+  {
+    "key": "bingud/filemat:web::seo/ssr-disabled::src/routes/(app)/settings/roles/[roleId]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/settings/roles/[roleId]/+page.ts:1 (literal claim holds); deliberate client-only rendering of a file/user/role view in the self-hosted Filemat SPA (app.html noindex), not content for search"
+  },
+  {
+    "key": "bingud/filemat:web::seo/ssr-disabled::src/routes/(app)/settings/users/[userId]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/settings/users/[userId]/+page.ts:1 (literal claim holds); deliberate client-only rendering of a file/user/role view in the self-hosted Filemat SPA (app.html noindex), not content for search"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/(files)/accessible-files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /accessible-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/(files)/files/[...path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/(files)/saved-files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /saved-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/(files)/share/[shareId]/[...path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /share/[shareId]/[...path] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/(files)/shared-files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shared-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/account (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/other/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/other (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/preferences/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/preferences (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/roles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/roles (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/roles/[roleId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/roles/[roleId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/roles/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/roles/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/system/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/system (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/system/exposed-files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/system/exposed-files (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/system/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/system/logs (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/users (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/users/[userId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/users/[userId] (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(app)/settings/users/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/users/new (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(external)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(external)/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "bingud/filemat:web::seo/twitter-card::src/routes/(external)/util/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /util (script-verified (a1b_write.py: comments stripped, all 202 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps bits-ui, @jill64/svelte-toast@2.1.6 (jsDelivr scan: none) emit no such tag); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  }
+]

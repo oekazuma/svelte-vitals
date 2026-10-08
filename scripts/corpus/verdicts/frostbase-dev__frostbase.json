@@ -1,0 +1,582 @@
+[
+  {
+    "key": "frostbase-dev/frostbase::a11y/permitted-contents::src/routes/(app)/dashboard/[projectId]/db/[[tool=dbtool]]/+page.svelte:1615::`<div>` is not permitted content here — `<div>` admits only `<dt>`, `<dd>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <div> at +page.svelte:1615 has literal <div>@1614 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary) (the <div class=px-3> directly in <dl> is the allowed wrapper; this is one level deeper); <div> admits only <dt>, <dd> and script-supporting elements, so the child is outside it as reported"
+  },
+  {
+    "key": "frostbase-dev/frostbase::a11y/permitted-contents::src/routes/(app)/dashboard/[projectId]/db/[[tool=dbtool]]/+page.svelte:1616::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (e_all.mjs, svelte/compiler AST): literal <dt> at +page.svelte:1616 has literal <div>@1615 as its nearest content-model parent, only {#if}/{#each} blocks between (no component, snippet, {@render} or svg boundary) (the <div class=px-3> directly in <dl> is the allowed wrapper; this is one level deeper); <div>'s content model is flow content, so the child is outside it as reported"
+  },
+  {
+    "key": "frostbase-dev/frostbase::a11y/top-level-landmark::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1040::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read storage/[[tool]]/+page.svelte:1040: unlabelled <aside> inside <Card.Root> (card.svelte renders a <div>) in the bucket-browser arm, no sectioning element between; dashboard/[projectId]/+layout.svelte:1024/:1039 renders {@render children()} inside <main> in both arms, so the complementary landmark is nested in main (loads/hooks redirect only for missing projects)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/lib/components/account-menu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/account-menu.svelte has 203 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/lib/components/pricing-calculator.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pricing-calculator.svelte has 350 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/(account)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/(account)/+layout.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/(account)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/(account)/+page.svelte has 437 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/(account)/organization/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/(account)/organization/+page.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/+layout.svelte has 1225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/+page.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/auth/[[tool=authtool]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/auth/[[tool=authtool]]/+page.svelte has 2021 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/config/[[tool=configtool]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/config/[[tool=configtool]]/+page.svelte has 1268 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/db/[[tool=dbtool]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/db/[[tool=dbtool]]/+page.svelte has 2117 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/db/replication-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/db/replication-tab.svelte has 507 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/db/rollback-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/db/rollback-dialog.svelte has 441 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte has 1914 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/settings/+page.svelte has 424 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte has 1708 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(app)/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/login/+page.svelte has 648 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/component-size::src/routes/(marketing)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(marketing)/+page.svelte has 1297 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6): ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6): ref, opts, plugins, setApi, orientation, class, children, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6): ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6): open, ref, value, title, description, showCloseButton, portalProps, children, class, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, alignOffset, align, side, portalProps, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6): ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6): ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/toggle-group/toggle-group.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/toggle-group/toggle-group.svelte has a single destructured $props() with 7 named props (> 6): ref, value, class, size, spacing, orientation, variant, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, side, children, arrowClasses, portalProps, ...restProps"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ui/calendar/calendar.svelte:85 '{#each weekdays as weekday, i (i)}' keyed by its index binding; the seven weekday headers of the bits-ui calendar snippet (:61); positional calendar list"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; errors prop of the shadcn field-error: validation errors that change with input (ledger field-error convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/lib/components/ui/range-calendar/range-calendar.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ui/range-calendar/range-calendar.svelte:82 '{#each weekdays as weekday, i (i)}' keyed by its index binding; the seven weekday headers of the bits-ui range calendar snippet (:57); positional calendar list"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/config/[[tool=configtool]]/+page.svelte:996::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: config/[[tool=configtool]]/+page.svelte:996 '{#each draftConditions as condition, index (index)}' keyed by its index binding; draftConditions = $state of editable condition rows added (:989) and removed mid-list by index (:1026); input state follows positions"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/sql-editor.svelte:144::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: db/sql-editor.svelte:144 '{#each results as result, statementIndex (statementIndex)}' keyed by its index binding; one result block per statement of the last run, replaced wholesale per run (:69); positional list (statement N)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/sql-editor.svelte:167::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: db/sql-editor.svelte:167 '{#each result.raw as row, rowIndex (rowIndex)}' keyed by its index binding; raw value arrays of one read-only query result with no row id; positional list (table rows of one result)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/sql-editor.svelte:169::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: db/sql-editor.svelte:169 '{#each row as cell, cellIndex (cellIndex)}' keyed by its index binding; the cells of one raw result row, one per column; positional list"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte:1145::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: db/tables-tab.svelte:1145 '{#each sqlResults ?? [] as statement, statementIndex (statementIndex)}' keyed by its index binding; one result block per statement of the last run, replaced wholesale (:772); positional list"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte:1165::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: db/tables-tab.svelte:1165 '{#each statement.raw as row, rowIndex (rowIndex)}' keyed by its index binding; raw value arrays of one read-only query result with no row id; positional list (table rows of one result)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte:1167::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: db/tables-tab.svelte:1167 '{#each row as value, valueIndex (valueIndex)}' keyed by its index binding; the cells of one raw result row, one per column; positional list"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte:1495::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: db/tables-tab.svelte:1495 '{#each designerColumns as column, index (index)}' keyed by its index binding; designerColumns = $state of editable column-draft rows added (:1567) and removed mid-list by index (:1530); input state follows positions"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/each-index-key::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1148::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: storage/[[tool=storagetool]]/+page.svelte:1148 '{#each segments as segment, index (index)}' keyed by its index binding; segments = the current prefix split on '/' (:80); positional list (path segments)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::correctness/effect-as-derived::src/routes/(app)/dashboard/[projectId]/auth/[[tool=authtool]]/+page.svelte:346::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: auth/[[tool=authtool]]/+page.svelte:346 the effect copies data.overview/analytics into $state and resets paging, but userCursors/sessionCursors are then element-written without a following wholesale reassignment (userCursors[pageIndex + 1] = … at 196/234, sessionCursors[…] at 226/239); a $derived value is not deeply proxied, so the $effect re-copy is the working shape (ledger deep-edit convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(app)/dashboard/(account)/+layout.svelte:142::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(app)/dashboard/(account)/+layout.svelte:220::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(app)/dashboard/[projectId]/+layout.svelte:636::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(app)/dashboard/[projectId]/+layout.svelte:893::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1446::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; object preview in the object Sheet (Sheet.Root open={!!previewOf}, :1415-1450), a side panel opened by the user - a modal overlay, it moves no page content"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(marketing)/(legal)/+layout.svelte:12::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(marketing)/+page.svelte:1108::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(marketing)/+page.svelte:1196::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(marketing)/+page.svelte:819::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-dimensions::src/routes/(marketing)/pricing/+page.svelte:19::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> lacks width/height, no spread; class h-5 w-5 (h-4 w-4 / h-[22px] w-[22px]) - box reserved by CSS"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(app)/dashboard/(account)/+layout.svelte:142::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> has no loading attribute, no spread; brand mark in the top sidebar/top bar/page header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(app)/dashboard/(account)/+layout.svelte:220::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> has no loading attribute, no spread; brand mark in the top sidebar/top bar/page header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(app)/dashboard/[projectId]/+layout.svelte:636::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> has no loading attribute, no spread; brand mark in the top sidebar/top bar/page header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(app)/dashboard/[projectId]/+layout.svelte:893::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> has no loading attribute, no spread; brand mark in the top sidebar/top bar/page header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1446::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; object preview created only when the user opens the object Sheet ({#if previewOf}) - visible when rendered, lazy would defer nothing"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(marketing)/(legal)/+layout.svelte:12::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> has no loading attribute, no spread; brand mark in the top sidebar/top bar/page header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(marketing)/+page.svelte:1108::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; brand mark in the page footer (:1103-1108) - offscreen on load"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(marketing)/+page.svelte:1196::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; brand mark in the fixed top nav (heroheader snippet, <nav class=\"fixed ...\">, :1182-1196) - above the fold"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(marketing)/+page.svelte:819::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; brand mark in the comparison table header, mid-way down the landing page (:777-819) - offscreen on load"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/image-loading-hint::src/routes/(marketing)/pricing/+page.svelte:19::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img src=\"/brand/mark.svg\"> has no loading attribute, no spread; brand mark in the top sidebar/top bar/page header - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/responsive-image::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1446::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src is the stored object itself (objectUrl -> the storage agent's /objects/<key>, :210-214), previewed in a Sheet - an arbitrary user file with no alternate sizes"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/sequential-awaits::src/routes/(app)/dashboard/[projectId]/auth/[[tool=authtool]]/+page.server.ts:42::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read auth/[[tool]]/+page.server.ts:42-43: flagged await is superValidate(zod4(signUpSchema)) with no input — in-process form defaults, no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/sequential-awaits::src/routes/(app)/login/+page.server.ts:38::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read login/+page.server.ts:27-45: the only preceding await is getConsoleIdentity (a no-op without cookies) that redirects a signed-in operator at :36; the console config Promise.all runs only for anonymous visitors — login-gate ordering, docs Limitations (ledger login-gate design convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/state-raw::src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte:489::\"editorIssues\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"editorIssues\" in src/routes/(app)/dashboard/[projectId]/db/tables-tab.svelte: only whole-binding reassignments (:608,619,648,665) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/state-raw::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:505::\"accessFeedback\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"accessFeedback\" in src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte: only whole-binding reassignments (spread copies :545,570,576; {@const feedback} read-only at :788/959-969) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::performance/state-raw::src/routes/(marketing)/+page.svelte:271::\"feed\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"feed\" in src/routes/(marketing)/+page.svelte: only whole-binding reassignments (:283,334 (new arrays; each body only reads event.*)) and read-only uses (member/index reads, .length, read-only {#each}/{@const} reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::security/raw-html::src/lib/components/code-examples.svelte:119::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read code-examples.svelte:51-60 + lib/shiki.ts + lib/integration-examples.ts: `highlighted` is shiki's codeToHtml over the app's own example snippets (only the project URL interpolated); shiki escapes code text — highlighter output, reported per docs"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-length::src/routes/(app)/dashboard/[projectId]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal \"Manage your Frostbase backend.\" at (app)/dashboard/[projectId]/+page.svelte:43 in a top-level svelte:head, 30 graphemes as reported (literal claim holds); but the route's layout is literal noindex and it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-length::src/routes/(marketing)/(legal)/terms/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal \"The terms that govern the hosted demo and console at frostbase.dev.\" at (marketing)/(legal)/terms/+page.svelte:7-8 in a top-level svelte:head, the route's only description, 67 graphemes as reported; public legal page of the hosted service"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-length::src/routes/(marketing)/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal description at (marketing)/+page.svelte:350-351 in a top-level svelte:head, the route's only description, 200 graphemes as reported; public landing page of frostbase.dev (renders in demo mode, the hosted deployment)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/cli-auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /cli-auth (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/dashboard/(account)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /dashboard (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/dashboard/(account)/organization/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /dashboard/organization (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/dashboard/[projectId]/api/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /dashboard/[projectId]/api (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/dashboard/[projectId]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /dashboard/[projectId]/settings (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /dashboard/[projectId]/storage/[[tool=storagetool]] (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/description-presence::src/routes/(app)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> on /login (page, root +layout.svelte:84-115 head with og/twitter tags only, (app) layouts, app.html) (literal claim holds); it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/heading-level-skip::src/routes/(marketing)/+page.svelte:1118::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: (marketing)/+page.svelte closing CTA <h2> (:1077), then the footer's column <h4> (:1118) with no <h3> between - a real h2->h4 skip"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/(account)/organization/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/(account)/organization/+page.svelte:170 literal <meta name=\"robots\" content=\"noindex\">; /dashboard/organization is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId] is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/api/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId]/api is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/auth/[[tool=authtool]]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId]/auth/[[tool=authtool]] is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/config/[[tool=configtool]]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId]/config/[[tool=configtool]] is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/db/[[tool=dbtool]]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId]/db/[[tool=dbtool]] is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId]/settings is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/dashboard/[projectId]/+layout.svelte:428-430 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow, noarchive\">; /dashboard/[projectId]/storage/[[tool=storagetool]] is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/indexability::src/routes/(app)/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/login/+page.svelte:294 literal <meta name=\"robots\" content=\"noindex\">; /login is noindex as claimed (deliberate for the console)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/cli-auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /cli-auth renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/(account)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/(account)/organization/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/organization renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId] renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId]/api renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/auth/[[tool=authtool]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId]/auth/[[tool=authtool]] renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/config/[[tool=configtool]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId]/config/[[tool=configtool]] renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/db/[[tool=dbtool]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId]/db/[[tool=dbtool]] renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId]/settings renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard/[projectId]/storage/[[tool=storagetool]] renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(app)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /login renders (console page, signed-in or demo) and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(marketing)/(legal)/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /privacy renders (public marketing page of the hosted frostbase.dev) and has no JSON-LD"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(marketing)/(legal)/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /terms renders (public marketing page of the hosted frostbase.dev) and has no JSON-LD"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(marketing)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; / renders (public marketing page of the hosted frostbase.dev) and has no JSON-LD"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/json-ld::src/routes/(marketing)/pricing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /pricing renders (public marketing page of the hosted frostbase.dev) and has no JSON-LD"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/single-h1::/cli-auth::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: (app)/cli-auth/+page.svelte renders ConsoleShell + a Card whose title is Card.Title (ui/card/card-title.svelte renders a <div>); no <h1> in the page, its components or the root layout - the route (operator-gated, renders when signed in) has no <h1>"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/single-h1::src/routes/(app)/dashboard/[projectId]/+layout.svelte:505::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /dashboard/[projectId]/api renders only an empty container that onMount fills with the dynamically imported @scalar/api-reference (api/+page.svelte:39-58); the [projectId] layout's only heading is the agent panel <h2> (:505) - the server-rendered HTML has no <h1> (client-only content counts as absent on an SSR route)"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/single-h1::src/routes/(app)/dashboard/[projectId]/storage/[[tool=storagetool]]/+page.svelte:1021::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: storage page renders its title <h1> (:712) unconditionally in the main arm and, on the default files tool with no buckets ({:else if !buckets.length}, :1018-1021), the empty-state <h1>No buckets yet - two <h1>s render together for every project without buckets"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/title-length::src/routes/(app)/cli-auth/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/(app)/cli-auth/+page.svelte's top-level svelte:head, 22 graphemes as reported (literal claim holds); but it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/title-length::src/routes/(app)/dashboard/(account)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/(app)/dashboard/(account)/+page.svelte's top-level svelte:head, 20 graphemes as reported (literal claim holds); but it is the Frostbase console, which lib/console.ts:150 PRIVATE_SURFACES (/dashboard, /login, /cli-auth) marks never-indexed and hooks.server.ts noindexHandle (124-136) serves with x-robots-tag: noindex, nofollow, so not a search target"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/title-length::src/routes/(marketing)/(legal)/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/(marketing)/(legal)/privacy/+page.svelte's top-level svelte:head, 26 graphemes as reported, the route's only title (root and (legal) layouts set none); public marketing page of frostbase.dev"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/title-length::src/routes/(marketing)/(legal)/terms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/(marketing)/(legal)/terms/+page.svelte's top-level svelte:head, 28 graphemes as reported, the route's only title (root and (legal) layouts set none); public marketing page of frostbase.dev"
+  },
+  {
+    "key": "frostbase-dev/frostbase::seo/title-length::src/routes/(marketing)/pricing/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js): literal <title> in src/routes/(marketing)/pricing/+page.svelte's top-level svelte:head, 19 graphemes as reported, the route's only title (root and (legal) layouts set none); public marketing page of frostbase.dev"
+  }
+]

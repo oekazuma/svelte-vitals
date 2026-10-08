@@ -1,0 +1,702 @@
+[
+  {
+    "key": "CiaronHowell/minilib::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children, ...restProps"
+  },
+  {
+    "key": "CiaronHowell/minilib::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; errors prop of the shadcn field-error: validation errors that change with input (ledger field-error convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::correctness/each-key::src/routes/add-book-sheet.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/add-book-sheet.svelte:85 '{#each isbnInput as _, index}' has no key; isbnInput = $state(['']) of editable ISBN inputs appended (:23) and removed by index (:32, remove button :94), so input state follows positions"
+  },
+  {
+    "key": "CiaronHowell/minilib::correctness/each-key::src/routes/verify-email/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: verify-email/+page.svelte:36 '{#each cells.slice(0, 3) as cell}' has no key; cells of the InputOTP children snippet; positional list (OTP cells, ledger convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::correctness/each-key::src/routes/verify-email/+page.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: verify-email/+page.svelte:42 '{#each cells.slice(3, 5) as cell}' has no key; cells of the InputOTP children snippet; positional list (OTP cells, ledger convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::correctness/each-key::src/routes/verify-email/+page.svelte:48::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: verify-email/+page.svelte:48 '{#each cells.slice(5, 8) as cell}' has no key; cells of the InputOTP children snippet; positional list (OTP cells, ledger convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::performance/sequential-awaits::src/routes/+page.server.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read +page.server.ts:32-40: flagged await is superValidate({owner}, zod4(schema)) — in-process form building, no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::performance/sequential-awaits::src/routes/verify-email/+page.server.ts:42::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read verify-email/+page.server.ts:24-42: flagged await is superValidate(zod4(schema)) with no input — in-process form defaults, no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::security/raw-html::src/routes/2fa/setup/+page.svelte:21::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read 2fa/setup/+page.server.ts:30-35: data.qrcode = renderSVG(keyURI) from uqr — library-generated QR markup, not user HTML (ledger QR convention)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/2fa/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/2fa/reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /2fa/reset (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/2fa/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /2fa/setup (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); publicly reachable, rendered route, no auth gate, noindex or robots disallow (forgot-password/+page.server.ts has actions only, no load)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); publicly reachable, rendered route, no auth gate, noindex or robots disallow (login/+page.server.ts load redirects only signed-in users)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/recovery-code/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recovery-code (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); publicly reachable, rendered route, no auth gate, noindex or robots disallow (register/+page.server.ts load redirects only signed-in users)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (reset-password/+page.server.ts load redirects to /forgot-password without a password-reset session cookie), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/reset-password/2fa/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password/2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (reset-password/2fa/+page.server.ts load redirects to /forgot-password without a password-reset session cookie), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password/2fa/verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (reset-password/2fa/verify-email/+page.server.ts load redirects to /forgot-password without a password-reset session cookie), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/canonical-url::src/routes/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)) but not a search target (auth-gated: the route's +page.server.ts load redirects visitors without a session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on / (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/2fa/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /2fa (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/2fa/reset/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /2fa/reset (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/2fa/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /2fa/setup (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /forgot-password (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /login (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/recovery-code/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /recovery-code (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /register (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /reset-password (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/reset-password/2fa/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /reset-password/2fa (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /reset-password/2fa/verify-email (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /settings (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/description-presence::src/routes/verify-email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no <meta name=\"description\"> on /verify-email (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/2fa/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /2fa; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/2fa/reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /2fa/reset; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/2fa/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /2fa/setup; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /forgot-password; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /login; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/recovery-code/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /recovery-code; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /register; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /reset-password; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/reset-password/2fa/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /reset-password/2fa; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /reset-password/2fa/verify-email; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /settings; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/json-ld::src/routes/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): the only <svelte:head> in src is root +layout.svelte:15-17 (favicon link only), app.html head has none, no meta-tag library in deps: no JSON-LD on /verify-email; route renders (its load returns data for some request state) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/2fa/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/2fa/reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /2fa/reset (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/2fa/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /2fa/setup (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/recovery-code/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recovery-code (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/reset-password/2fa/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password/2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password/2fa/verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-description::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/2fa/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/2fa/reset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /2fa/reset (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/2fa/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /2fa/setup (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/recovery-code/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recovery-code (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/reset-password/2fa/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password/2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password/2fa/verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-image::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/2fa/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/2fa/reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /2fa/reset (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/2fa/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /2fa/setup (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/recovery-code/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recovery-code (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/reset-password/2fa/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password/2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password/2fa/verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-title::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/2fa/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/2fa/reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /2fa/reset (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/2fa/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /2fa/setup (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/recovery-code/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recovery-code (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/reset-password/2fa/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password/2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password/2fa/verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/og-url::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/+page.svelte:12::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: 4 <h1>s render: root +layout.svelte:24 <h1>MiniLib</h1>, +page.svelte:12 <h1>Your Library</h1>, and BookTable's two pagination labels written as <h1> (book-table.svelte:123,128), all unconditional"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/2fa/+page.svelte:22::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/2fa/reset/+page.svelte:10::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/2fa/setup/+page.svelte:18::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/forgot-password/+page.svelte:10::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/login/+page.svelte:9::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/recovery-code/+page.svelte:9::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/register/+page.svelte:9::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/reset-password/+page.svelte:10::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/reset-password/2fa/+page.svelte:11::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/reset-password/2fa/verify-email/+page.svelte:12::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/settings/+page.svelte:39::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 <h1>MiniLib</h1>, settings/+page.svelte:39 <h1>Settings</h1>, and :108 <h1>Recovery code</h1> {#if data.recoveryCode !== null} (set for every user with 2FA, which the load requires) - multiple <h1>s render"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/single-h1::src/routes/verify-email/+page.svelte:22::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:24 renders <h1>MiniLib</h1> unconditionally in the nav (inside the home Button) plus the page's own unconditional <h1> at the flagged line; the load only redirects by auth state, so the route renders with both"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only robots.txt (allow-all, no Sitemap: line), no sitemap.xml route or generator (literal claim holds); MiniLib is the author's personal book-library tool (README) whose content routes (/, /settings, /recovery-code, /2fa/*) redirect session-less requests to /login in their loads and whose other routes are its sign-in/reset flows, not a search target, nothing public to list"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/2fa/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/2fa/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/2fa/reset/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/2fa/reset/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/2fa/setup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/2fa/setup/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/forgot-password/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/forgot-password/+page.svelte has no svelte:head and no load; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/login/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/recovery-code/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/recovery-code/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/register/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/register/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/reset-password/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/reset-password/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/reset-password/2fa/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/reset-password/2fa/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/reset-password/2fa/verify-email/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/settings/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/title-presence::src/routes/verify-email/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/verify-email/+page.svelte has no svelte:head; no <title> on the route: the whole src has one svelte:head (root +layout.svelte:15-17, favicon link only), app.html has none, no document.title, mode-watcher@1.1.0's components (jsDelivr) emit no <title>; hooks.server.ts always resolves; the page load redirects only on some auth states and renders on its success path"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/2fa/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/2fa/reset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /2fa/reset (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/2fa/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /2fa/setup (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/recovery-code/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recovery-code (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/reset-password/2fa/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password/2fa (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/reset-password/2fa/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password/2fa/verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "CiaronHowell/minilib::seo/twitter-card::src/routes/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /verify-email (script-verified (a1b_write.py: comments stripped, all 187 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; no meta-tag library; Svelte deps lucide-svelte, mode-watcher@1.1.0 (jsDelivr scan: no og/twitter/canonical)); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  }
+]
