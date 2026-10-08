@@ -17,7 +17,7 @@ in `package.json`; `getRequestEvent` and `$app/server` with `command(` in TypeSc
 `src/lib/components`; `rel="canonical"` in route files; and `export const config` in route modules. As
 in holdouts 16–26, the pool is this round's searches only.
 
-6,739 repositories came back; 3,139 remained after dropping 208 excluded repositories (the corpus
+6,739 repositories came back, one of which no longer exists; 3,139 remained after dropping 208 excluded repositories (the corpus
 repositories and every candidate and runner-up of earlier holdouts) and 3,391 with no push in six
 months; 982 had at least 10 routes and a lockfile; 881 were on Svelte 5 and Kit 2; 809 remained after
 dropping 11 app directories named `docs`, `site`, `examples`, `templates`, `tests`, `demo` or similar,
