@@ -5,6 +5,7 @@ import {
   collectKitModuleFacts,
   collectSourceFiles,
   compileOverrides,
+  layoutNeverRenders,
   ROBOTS_SOURCE_PATHS,
   routeNeverSsr,
   SITEMAP_SOURCE_PATHS,
@@ -109,15 +110,16 @@ export async function collectAll(
   ]);
   // Kit-module facts are file-scoped too, so a route-filtered run hands the rules none.
   const kitModules = opts.route ? [] : allKitModules;
-  // A page whose own load, or a script it renders through, always redirects or errors never renders
-  // itself, so it has no route-level facts.
+  // What a component loaded with `import()` renders is not in a server-rendered route's HTML.
+  const ssrScope = { kitModules: allKitModules, sourceFiles: collected.routeFiles, project };
+  // A page whose own load, a layout load above it, or a script it renders through always redirects or
+  // errors never renders itself, so it has no route-level facts.
   const redirectOnly = new Set([
     ...allKitModules.filter((m) => m.loadNeverRenders && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file)),
+    ...collected.heads.filter((h) => layoutNeverRenders(h.file, ssrScope)).map((h) => h.route),
     ...collected.neverRenders
   ]);
   const routeLevel = (route: string) => matches(route) && !redirectOnly.has(route);
-  // What a component loaded with `import()` renders is not in a server-rendered route's HTML.
-  const ssrScope = { kitModules: allKitModules, sourceFiles: collected.routeFiles, project };
   const heads = collected.heads
     .filter((h) => routeLevel(h.route))
     .map((h) =>

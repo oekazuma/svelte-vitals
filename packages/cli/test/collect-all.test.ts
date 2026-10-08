@@ -100,6 +100,21 @@ describe('collectAll — routes that never render', () => {
       expect(list.map((f) => f.route).sort()).toEqual(['/a', '/b', '/maybe']);
   });
 
+  it('drops the route facts of pages under a layout whose load always errors, but not under the root layout', async () => {
+    const rt = createMemoryRuntime({
+      ...PROJECT,
+      'src/routes/c/settings/+layout.ts': `import { error } from '@sveltejs/kit';\nexport function load(): { a: string } {\n  error(404, 'not yet');\n}\n`,
+      'src/routes/c/settings/+page.svelte': '<h1>Settings</h1>',
+      'src/routes/c/settings/team/+page.svelte': '<h1>Team</h1>',
+      'src/routes/c/+page.svelte': '<h1>C</h1>'
+    });
+
+    const facts = await collectAll(rt, '', defaultConfig);
+
+    for (const list of [facts.heads, facts.images, facts.headings, facts.a11y])
+      expect(list.map((f) => f.route).sort()).toEqual(['/a', '/b', '/c']);
+  });
+
   it("reads kit.router.type: 'hash' from svelte.config", async () => {
     const rt = createMemoryRuntime({
       ...PROJECT,
@@ -537,7 +552,9 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/dua.model.ts': `export const xs = ['a'];\n`,
     'src/lib/items.mjs': `export const xs = ['a'];\n`,
     'src/lib/aliased.ts': `export const days = ['Su', 'Mo'];\nexport function first(custom) {\n  const names = custom?.length === 2 ? custom : days;\n  return names[0];\n}\n`,
-    'src/lib/aliasSorted.ts': `export const order = ['b', 'a'];\nconst sorted = order;\nsorted.sort();\n`
+    'src/lib/aliasSorted.ts': `export const order = ['b', 'a'];\nconst sorted = order;\nsorted.sort();\n`,
+    'src/lib/levels.ts': `export const levels = ['a', 'b'] as const;\nexport const known = new Set<string>(levels);\n`,
+    'src/lib/shuffled.ts': `export const shuffled = ['a', 'b'];\nclass Shuffler {\n  constructor(xs) {\n    xs.reverse();\n  }\n}\nnew Shuffler(shuffled);\n`
   };
   const COMPONENTS = {
     'src/lib/Alias.svelte': each("import { xs } from '$lib/data';"),
@@ -564,7 +581,9 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/Mjs.svelte': each("import { xs } from '$lib/items.mjs';"),
     'src/lib/Dot.svelte': each("import { viaBarrel as xs } from '.';"),
     'src/lib/Aliased.svelte': each("import { days as xs } from '$lib/aliased';"),
-    'src/lib/AliasSorted.svelte': each("import { order as xs } from '$lib/aliasSorted';")
+    'src/lib/AliasSorted.svelte': each("import { order as xs } from '$lib/aliasSorted';"),
+    'src/lib/Levels.svelte': each("import { levels as xs } from '$lib/levels';"),
+    'src/lib/Shuffled.svelte': each("import { shuffled as xs } from '$lib/shuffled';")
   };
 
   it('drops the block only when the export is a repo-local constant list', async () => {
@@ -587,7 +606,8 @@ describe('collectAll — {#each} over an imported constant list', () => {
       'src/lib/JsonNamed.svelte',
       'src/lib/Missing.svelte',
       'src/lib/Package.svelte',
-      'src/lib/Pushed.svelte'
+      'src/lib/Pushed.svelte',
+      'src/lib/Shuffled.svelte'
     ]);
   });
 });

@@ -156,13 +156,15 @@ describe('kitchen-sink e2e (static mode)', () => {
     }
   });
 
-  it('gives a page whose load or script always redirects or errors no route-level findings', () => {
+  it('gives a page whose load, layout load or script always redirects or errors no route-level findings', () => {
     expect(report.routes.map((r) => r.route)).toContain('/clean');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-helper');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-factory');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-return');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/script-redirect');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/layout-error');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/layout-error/team');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/error-only');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/flag-gated');
   });

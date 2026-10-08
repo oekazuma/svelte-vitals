@@ -207,6 +207,23 @@ export function routeGated(file: string, scope: SsrScope): boolean {
   return gated.has(`page:${match[1]}`) || chain.some((l) => gated.has(`layout:${l}`));
 }
 
+/**
+ * Whether a `+page` file's route never renders because a layout above it redirects or errors in its
+ * `load` on every call (`loadNeverRenders`). Not the root layout: one that sent every request away
+ * would leave the app nothing to serve, so that reading is more likely wrong than the app, and acting
+ * on it would silence every route.
+ */
+export function layoutNeverRenders(file: string, scope: SsrScope): boolean {
+  const match = ROUTE_FILE_RE.exec(file);
+  if (!match || match[2] !== 'page') return false;
+  const dead = new Set<string>();
+  for (const m of scope.kitModules ?? []) {
+    const layout = m.loadNeverRenders ? ROUTE_FILE_RE.exec(m.file) : null;
+    if (layout?.[2] === 'layout' && layout[1] !== ROUTES_DIR) dead.add(layout[1]!);
+  }
+  return dead.size > 0 && (pageChains(scope).get(match[1]!) ?? []).some((dir) => dead.has(dir));
+}
+
 /** Whether a `+page`/`+layout` file (module or component) belongs to a route that is never server-rendered. */
 export function routeNeverSsr(file: string, scope: SsrScope): boolean {
   const match = ROUTE_FILE_RE.exec(file);

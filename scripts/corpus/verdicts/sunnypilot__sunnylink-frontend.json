@@ -631,13 +631,13 @@
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/image-dimensions::src/routes/dashboard/whats-new/+page.svelte:325::Missing <img> width/height",
-    "verdict": "design",
-    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the h-16 w-24 / sm:h-20 sm:w-32 cover box, :321-325); also the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/dashboard/whats-new/+layout.ts load() redirects to /dashboard when !FEATURES.whatsNewRoute, and src/lib/config/features.ts exports whatsNewRoute: false, so no page under /dashboard/whats-new renders and every route-level claim on it is false. (was design: script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the h-16 w-24 / sm:h-20 sm:w-32 cover box, :321-325); also the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false)"
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/image-dimensions::src/routes/dashboard/whats-new/[id]/+page.svelte:170::Missing <img> width/height",
-    "verdict": "design",
-    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the aspect-[16/7] w-full wrapper, :169-170); also the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/dashboard/whats-new/+layout.ts load() redirects to /dashboard when !FEATURES.whatsNewRoute, and src/lib/config/features.ts exports whatsNewRoute: false, so no page under /dashboard/whats-new renders and every route-level claim on it is false. (was design: script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the aspect-[16/7] w-full wrapper, :169-170); also the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false)"
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/image-loading-hint::src/routes/+page.svelte:249::Missing <img> loading attribute",
@@ -646,8 +646,8 @@
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/image-loading-hint::src/routes/dashboard/whats-new/[id]/+page.svelte:170::Missing <img> loading attribute",
-    "verdict": "design",
-    "basis": "script-verified: <img> has no loading attribute, no spread; read: topic hero image at the top of the article card (:166-171) — above the fold, where the docs keep the image eager; and the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/dashboard/whats-new/+layout.ts load() redirects to /dashboard when !FEATURES.whatsNewRoute, and src/lib/config/features.ts exports whatsNewRoute: false, so no page under /dashboard/whats-new renders and every route-level claim on it is false. (was design: script-verified: <img> has no loading attribute, no spread; read: topic hero image at the top of the article card (:166-171) — above the fold, where the docs keep the image eager; and the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false)"
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/lcp-image::src/routes/dashboard/whats-new/+page.svelte:325::First image (likely LCP) is loading=\"lazy\"",
@@ -661,13 +661,13 @@
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/responsive-image::src/routes/dashboard/whats-new/+page.svelte:325::Missing <img> srcset",
-    "verdict": "design",
-    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: topic cover thumbnail URL, raster; but the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false, so the element never ships"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/dashboard/whats-new/+layout.ts load() redirects to /dashboard when !FEATURES.whatsNewRoute, and src/lib/config/features.ts exports whatsNewRoute: false, so no page under /dashboard/whats-new renders and every route-level claim on it is false. (was design: script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: topic cover thumbnail URL, raster; but the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false, so the element never ships)"
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/responsive-image::src/routes/dashboard/whats-new/[id]/+page.svelte:170::Missing <img> srcset",
-    "verdict": "design",
-    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: topic.image_url raster; but the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false, so the element never ships"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/dashboard/whats-new/+layout.ts load() redirects to /dashboard when !FEATURES.whatsNewRoute, and src/lib/config/features.ts exports whatsNewRoute: false, so no page under /dashboard/whats-new renders and every route-level claim on it is false. (was design: script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: topic.image_url raster; but the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false, so the element never ships)"
   },
   {
     "key": "sunnypilot/sunnylink-frontend::performance/state-raw::src/lib/components/NotificationBell.svelte:18::\"panelPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",

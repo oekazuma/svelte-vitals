@@ -349,9 +349,9 @@ function collectConstantLists(
           unsafe.add(calledList);
         }
       }
-      // In the module that exports it, handing the list to an imported or global function (`z.enum(TABS)`)
-      // is taken as a read; a function this module declares could reorder it, so that call is not.
-      const callee = n.type === 'CallExpression' ? rootObjectName(n.callee) : undefined;
+      // In the module that exports it, handing the list to an imported or global function (`z.enum(TABS)`,
+      // `new Set(TABS)`) is taken as a read; a function this module declares could reorder it, so that call is not.
+      const callee = n.type === 'CallExpression' || n.type === 'NewExpression' ? rootObjectName(n.callee) : undefined;
       if (opts.exported && callee !== undefined && !declared.has(callee) && !shadowed.has(callee))
         for (const arg of n.arguments ?? []) if (listOf(unwrapTs(arg))) safe.add(unwrapTs(arg));
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))

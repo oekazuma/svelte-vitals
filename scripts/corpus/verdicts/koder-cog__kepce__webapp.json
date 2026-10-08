@@ -666,8 +666,8 @@
   },
   {
     "key": "koder-cog/kepce:webapp::a11y/top-level-landmark::src/routes/istatistikler/+layout.svelte:63::complementary landmark is nested inside main",
-    "verdict": "tp",
-    "basis": "read: istatistikler/+layout.svelte:63 unlabelled <aside class=\"sidebar-island\"> at the layout top level, rendered inside root +layout.svelte:423 <main>; complementary nested in main on all 4 routes"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/istatistikler/+layout.server.js load() calls error(404) unconditionally (\"deferred until after launch\"), so no page under /istatistikler renders and every route-level claim on it is false. (was tp: read: istatistikler/+layout.svelte:63 unlabelled <aside class=\"sidebar-island\"> at the layout top level, rendered inside root +layout.svelte:423 <main>; complementary nested in main on all 4 routes)"
   },
   {
     "key": "koder-cog/kepce:webapp::a11y/top-level-landmark::src/routes/moderasyon/+layout.svelte:102::complementary landmark is nested inside main",
@@ -1561,8 +1561,8 @@
   },
   {
     "key": "koder-cog/kepce:webapp::performance/image-dimensions::src/routes/istatistikler/insaniyet/+page.svelte:160::Missing <img> width/height",
-    "verdict": "design",
-    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.contributor-card__avatar 48px x 48px with img 100%/100% (styles/pages/_statistics.css:336-353)), so no CLS"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/istatistikler/+layout.server.js load() calls error(404) unconditionally (\"deferred until after launch\"), so no page under /istatistikler renders and every route-level claim on it is false. (was design: script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.contributor-card__avatar 48px x 48px with img 100%/100% (styles/pages/_statistics.css:336-353)), so no CLS)"
   },
   {
     "key": "koder-cog/kepce:webapp::performance/image-loading-hint::src/routes/biri/[username]/+layout.svelte:766::Missing <img> loading attribute",
@@ -1586,8 +1586,8 @@
   },
   {
     "key": "koder-cog/kepce:webapp::performance/image-loading-hint::src/routes/istatistikler/insaniyet/+page.svelte:160::Missing <img> loading attribute",
-    "verdict": "tp",
-    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in each row of the {#each contributors} list of the stats card (:152-163) - later rows offscreen on load"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/istatistikler/+layout.server.js load() calls error(404) unconditionally (\"deferred until after launch\"), so no page under /istatistikler renders and every route-level claim on it is false. (was tp: script-verified: <img> has no loading attribute, no spread; read: avatar in each row of the {#each contributors} list of the stats card (:152-163) - later rows offscreen on load)"
   },
   {
     "key": "koder-cog/kepce:webapp::performance/responsive-image::src/routes/biri/[username]/+layout.svelte:766::Missing <img> srcset",
@@ -1611,8 +1611,8 @@
   },
   {
     "key": "koder-cog/kepce:webapp::performance/responsive-image::src/routes/istatistikler/insaniyet/+page.svelte:160::Missing <img> srcset",
-    "verdict": "tp",
-    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: api.getAvatarUrl(...) uploaded user avatar URL (api/auth.js:79-84) - raster, one fixed-size asset"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/istatistikler/+layout.server.js load() calls error(404) unconditionally (\"deferred until after launch\"), so no page under /istatistikler renders and every route-level claim on it is false. (was tp: script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: api.getAvatarUrl(...) uploaded user avatar URL (api/auth.js:79-84) - raster, one fixed-size asset)"
   },
   {
     "key": "koder-cog/kepce:webapp::performance/state-raw::src/components/ui/ToastContainer.svelte:7::\"queue\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
@@ -2726,8 +2726,8 @@
   },
   {
     "key": "koder-cog/kepce:webapp::seo/heading-level-skip::src/routes/istatistikler/denetim/+page.svelte:176::Heading level skipped (<h#> to <h#>)",
-    "verdict": "tp",
-    "basis": "read: page sr-only <h1> (:93), then the stats cards with no heading and the <h3> section title (:176); istatistikler/+layout.svelte has no heading - h1 to h3"
+    "verdict": "fp",
+    "basis": "the route never renders: src/routes/istatistikler/+layout.server.js load() calls error(404) unconditionally (\"deferred until after launch\"), so no page under /istatistikler renders and every route-level claim on it is false. (was tp: read: page sr-only <h1> (:93), then the stats cards with no heading and the <h3> section title (:176); istatistikler/+layout.svelte has no heading - h1 to h3)"
   },
   {
     "key": "koder-cog/kepce:webapp::seo/heading-level-skip::src/routes/moderasyon/altyapi/etiketler/+page.svelte:108::Heading level skipped (<h#> to <h#>)",
