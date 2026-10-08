@@ -1,0 +1,1402 @@
+[
+  {
+    "key": "faulander/chapterlane::a11y/placeholder-label-option::src/routes/(app)/import/+page.svelte:27::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read import/+page.svelte:9/:27-36: <select required bind:value={source}> is the import-source switcher (outside any <form>) with source = $state('goodreads'); an intentional valid default, no user-facing defect (revel precedent)"
+  },
+  {
+    "key": "faulander/chapterlane::architecture/component-size::src/routes/(app)/books/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/books/[id]/+page.svelte has 386 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "faulander/chapterlane::architecture/prop-count::src/lib/components/books/BookCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/books/BookCard.svelte has a single destructured $props() with 11 named props (> 6): bookId, title, authors, coverUrl, statusCategory, shelvesJson, listsJson, currentPercent, statuses, currentStatusId, hasTotalPages"
+  },
+  {
+    "key": "faulander/chapterlane::correctness/each-index-key::src/lib/components/feed/FeedGroupRow.svelte:136::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: FeedGroupRow.svelte:136 '{#each group.steps as step, index (index)}' keyed by its index binding; the status steps of one feed group rendered as text separated by chevrons; positional list (text segments) with no element state"
+  },
+  {
+    "key": "faulander/chapterlane::correctness/each-key::src/routes/(app)/lists/+page.svelte:80::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: lists/+page.svelte:80 '{#each covers as cover, index}' has no key; covers = up to four cover URLs of one list (listCovers, :12-19) drawn as a decorative collage rotated by index; positional list"
+  },
+  {
+    "key": "faulander/chapterlane::correctness/each-key::src/routes/(app)/shelves/+page.svelte:87::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: shelves/+page.svelte:87 '{#each covers as cover, index}' has no key; covers = up to four cover URLs of one shelf (shelfCovers, :12-19) drawn as a decorative collage rotated by index; positional list"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/books/[id]/+page.svelte:50::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/books/[id]/+page.svelte:55::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/books/search/+page.svelte:65::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/lists/+page.svelte:81::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/lists/[id]/+page.svelte:44::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/reading/+page.svelte:34::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/shelves/+page.svelte:88::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/shelves/[id]/+page.svelte:37::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-dimensions::src/routes/(app)/users/[username]/+page.svelte:15::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; its box is reserved by CSS (fixed Tailwind size h-80 w-52 / h-28 w-20 / h-12 w-8 / h-24 w-16 / h-16 w-16, a fixed height with grid/full width h-28 or h-48, or absolute inset-0 h-full w-full in its container)"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/books/[id]/+page.svelte:50::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the book cover (and its blurred backdrop) at the top of the book page header (:45-59) - above the fold, the likely LCP"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/books/[id]/+page.svelte:55::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the book cover (and its blurred backdrop) at the top of the book page header (:45-59) - above the fold, the likely LCP"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/books/search/+page.svelte:65::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; cover repeated per item of an {#each} list/grid (search results, lists, list items, reading, shelves, shelf books) - later items sit offscreen"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/lists/+page.svelte:81::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; cover repeated per item of an {#each} list/grid (search results, lists, list items, reading, shelves, shelf books) - later items sit offscreen"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/lists/[id]/+page.svelte:44::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; cover repeated per item of an {#each} list/grid (search results, lists, list items, reading, shelves, shelf books) - later items sit offscreen"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/reading/+page.svelte:34::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; cover repeated per item of an {#each} list/grid (search results, lists, list items, reading, shelves, shelf books) - later items sit offscreen"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/shelves/+page.svelte:88::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; cover repeated per item of an {#each} list/grid (search results, lists, list items, reading, shelves, shelf books) - later items sit offscreen"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/shelves/[id]/+page.svelte:37::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; cover repeated per item of an {#each} list/grid (search results, lists, list items, reading, shelves, shelf books) - later items sit offscreen"
+  },
+  {
+    "key": "faulander/chapterlane::performance/image-loading-hint::src/routes/(app)/users/[username]/+page.svelte:15::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; profile avatar in the page header (:13-19) - above the fold"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/books/[id]/+page.svelte:50::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/books/[id]/+page.svelte:55::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/books/search/+page.svelte:65::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/lists/+page.svelte:81::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/lists/[id]/+page.svelte:44::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/reading/+page.svelte:34::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/shelves/+page.svelte:88::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/shelves/[id]/+page.svelte:37::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::performance/responsive-image::src/routes/(app)/users/[username]/+page.svelte:15::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; raster book cover (cover_url, filled by the cover fetcher) or user avatar URL - one fixed-size asset for every device"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/books/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /books (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/books/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /books/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/books/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /books/add (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/books/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /books/search (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/friends/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /friends (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /import (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/import/[jobId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /import/[jobId] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /import/[jobId]/summary (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/import/calibre/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /import/calibre (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/lists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /lists (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/lists/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /lists/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/reading/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reading (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/devices/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/devices (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/language/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/language (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/logs (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/privacy (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/profile (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/reading-places/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/reading-places (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/settings/statuses/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/statuses (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/shelves/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /shelves (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/shelves/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /shelves/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/stats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /stats (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(app)/users/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users/[username] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir) but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects visitors without locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); publicly reachable, rendered route, no auth gate, noindex or robots disallow ((auth)/login/+page.server.ts load redirects only signed-in users; static/robots.txt allows all)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); publicly reachable, rendered route, no auth gate, noindex or robots disallow ((auth)/register/+page.server.ts load redirects only signed-in users; static/robots.txt allows all)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); publicly reachable, rendered route, no auth gate, noindex or robots disallow (scaffold demo page, no load; static/robots.txt allows all)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/demo/paraglide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/paraglide (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); publicly reachable, rendered route, no auth gate, noindex or robots disallow (scaffold demo page, no load; static/robots.txt allows all)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/canonical-url::src/routes/demo/playwright/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/playwright (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no <link rel=\"canonical\"> anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); publicly reachable, rendered route, no auth gate, noindex or robots disallow (scaffold demo page, no load; static/robots.txt allows all)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/books/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /books (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/books/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /books/[id] (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/books/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /books/add (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/books/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /books/search (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /dashboard (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/friends/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /friends (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /import (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/import/[jobId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /import/[jobId] (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /import/[jobId]/summary (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/import/calibre/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /import/calibre (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/lists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /lists (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/lists/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /lists/[id] (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/reading/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /reading (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/devices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/devices (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/language/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/language (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/logs (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/privacy (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/profile (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/reading-places/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/reading-places (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/settings/statuses/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /settings/statuses (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/shelves/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /shelves (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/shelves/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /shelves/[id] (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/stats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /stats (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(app)/users/[username]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /users/[username] (literal claim holds); a signed-in page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) ((app)/+layout.server.ts:5-6 redirects every session-less request to /login), not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /login (literal claim holds); the sign-in/registration page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server), everything else behind (app)/+layout.server.ts:5-6 redirects every session-less request to /login, not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /register (literal claim holds); the sign-in/registration page of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server), everything else behind (app)/+layout.server.ts:5-6 redirects every session-less request to /login, not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/demo/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /demo (literal claim holds); a leftover sv-template demo page (paraglide/playwright examples) of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server), linked from no app page, not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /demo/paraglide (literal claim holds); a leftover sv-template demo page (paraglide/playwright examples) of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server), linked from no app page, not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/description-presence::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html (name=\"description\" hits are form inputs) on /demo/playwright (literal claim holds); a leftover sv-template demo page (paraglide/playwright examples) of ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server), linked from no app page, not a search target"
+  },
+  {
+    "key": "faulander/chapterlane::seo/heading-level-skip::src/routes/(app)/books/search/+page.svelte:87::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: books/search/+page.svelte <h1> (:18), then the search form and each result's <h3>{result.title} (:87, in the {:else} of the existing-book link) with no <h2> between; (app) layout NavBar/SideBar render no headings - a real h1->h3 skip"
+  },
+  {
+    "key": "faulander/chapterlane::seo/heading-level-skip::src/routes/(app)/shelves/[id]/+page.svelte:44::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: shelves/[id]/+page.svelte <h1>{data.shelf.name} (:16), then each book card's <h3> (:44) with no <h2> between - a real h1->h3 skip"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/books/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /books renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/books/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /books/[id] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/books/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /books/add renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/books/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /books/search renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /dashboard renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/friends/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /friends renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /import renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/import/[jobId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /import/[jobId] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /import/[jobId]/summary renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/import/calibre/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /import/calibre renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/lists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /lists renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/lists/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /lists/[id] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/reading/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /reading renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/devices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/devices renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/language/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/language renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/logs renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/privacy renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/profile renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/reading-places/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/reading-places renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/settings/statuses/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /settings/statuses renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/shelves/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /shelves renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/shelves/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /shelves/[id] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/stats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /stats renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(app)/users/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /users/[username] renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /login renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /register renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /demo renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/demo/paraglide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /demo/paraglide renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/json-ld::src/routes/demo/playwright/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in src or app.html; /demo/playwright renders for some request state and has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/books/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /books (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/books/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /books/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/books/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /books/add (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/books/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /books/search (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/friends/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /friends (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /import (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/import/[jobId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /import/[jobId] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /import/[jobId]/summary (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/import/calibre/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /import/calibre (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/lists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /lists (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/lists/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /lists/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/reading/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reading (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/devices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/devices (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/language/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/language (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/logs (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/privacy (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/profile (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/reading-places/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/reading-places (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/settings/statuses/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/statuses (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/shelves/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shelves (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/shelves/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shelves/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/stats/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /stats (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(app)/users/[username]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users/[username] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/demo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/paraglide (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-description::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /demo/playwright (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:description anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/books/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /books (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/books/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /books/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/books/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /books/add (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/books/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /books/search (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/friends/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /friends (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /import (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/import/[jobId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /import/[jobId] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /import/[jobId]/summary (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/import/calibre/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /import/calibre (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/lists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /lists (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/lists/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /lists/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/reading/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reading (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/devices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/devices (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/language/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/language (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/logs (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/privacy (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/profile (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/reading-places/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/reading-places (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/settings/statuses/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/statuses (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/shelves/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shelves (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/shelves/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shelves/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/stats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /stats (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(app)/users/[username]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users/[username] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/paraglide (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-image::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /demo/playwright (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:image anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/books/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /books (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/books/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /books/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/books/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /books/add (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/books/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /books/search (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/friends/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /friends (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /import (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/import/[jobId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /import/[jobId] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /import/[jobId]/summary (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/import/calibre/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /import/calibre (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/lists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /lists (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/lists/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /lists/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/reading/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reading (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/devices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/devices (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/language/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/language (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/logs (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/privacy (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/profile (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/reading-places/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/reading-places (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/settings/statuses/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/statuses (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/shelves/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shelves (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/shelves/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shelves/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/stats/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /stats (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(app)/users/[username]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users/[username] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/demo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/paraglide (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-title::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /demo/playwright (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:title anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/books/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /books (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/books/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /books/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/books/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /books/add (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/books/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /books/search (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/friends/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /friends (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /import (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/import/[jobId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /import/[jobId] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /import/[jobId]/summary (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/import/calibre/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /import/calibre (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/lists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /lists (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/lists/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /lists/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/reading/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reading (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/devices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/devices (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/language/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/language (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/logs (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/privacy (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/profile (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/reading-places/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/reading-places (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/settings/statuses/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/statuses (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/shelves/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shelves (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/shelves/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shelves/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/stats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /stats (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(app)/users/[username]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[username] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/demo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/paraglide (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/og-url::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /demo/playwright (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no og:url anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte (scaffold demo index) renders only two <a> links; the root +layout.svelte renders children and a hidden locale-link list - no <h1>; the route is outside (app), so no auth redirect"
+  },
+  {
+    "key": "faulander/chapterlane::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only the default allow-all robots.txt, no sitemap.xml file or route (literal claim holds); ChapterLane is a self-hosted personal reading tracker (README: 'an app they run themselves', one SQLite file on your own server) whose content sits behind (app)/+layout.server.ts:5-6 redirects every session-less request to /login, nothing to list"
+  },
+  {
+    "key": "faulander/chapterlane::seo/title-presence::src/routes/demo/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/+page.svelte: leftover sv-create scaffold page with no svelte:head; root +layout.svelte:11 head is only a favicon link, no group layout applies, app.html has no <title>, no document.title in src; publicly reachable (no load, hooks always resolve, static/robots.txt allows all, no noindex), so it renders untitled (forumgw-v2/KAIROS demo precedent)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/title-presence::src/routes/demo/paraglide/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/paraglide/+page.svelte: leftover sv-create scaffold page with no svelte:head; root +layout.svelte:11 head is only a favicon link, no group layout applies, app.html has no <title>, no document.title in src; publicly reachable (no load, hooks always resolve, static/robots.txt allows all, no noindex), so it renders untitled (forumgw-v2/KAIROS demo precedent)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/title-presence::src/routes/demo/playwright/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "src/routes/demo/playwright/+page.svelte: leftover sv-create scaffold page with no svelte:head; root +layout.svelte:11 head is only a favicon link, no group layout applies, app.html has no <title>, no document.title in src; publicly reachable (no load, hooks always resolve, static/robots.txt allows all, no noindex), so it renders untitled (forumgw-v2/KAIROS demo precedent)"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/books/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /books (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/books/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /books/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/books/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /books/add (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/books/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /books/search (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/friends/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /friends (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /import (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/import/[jobId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /import/[jobId] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/import/[jobId]/summary/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /import/[jobId]/summary (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/import/calibre/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /import/calibre (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/lists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /lists (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/lists/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /lists/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/reading/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reading (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/devices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/devices (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/language/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/language (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/logs (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/privacy (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/profile (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/reading-places/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/reading-places (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/settings/statuses/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/statuses (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/shelves/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shelves (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/shelves/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shelves/[id] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/stats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /stats (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(app)/users/[username]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users/[username] (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/demo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/paraglide (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  },
+  {
+    "key": "faulander/chapterlane::seo/twitter-card::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /demo/playwright (script-verified (a1b_write.py: comments stripped, all 135 .svelte/.ts/.js/.html files of the app src incl. app.html/hooks): no twitter:card anywhere; Svelte deps svelte-lucide only; hooks transformPageChunk only fills lang/dir); route renders (no load, layout or hooks path that always redirects/errors); og/twitter convention: tp on every rendered route"
+  }
+]
