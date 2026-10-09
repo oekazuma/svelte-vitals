@@ -158,6 +158,17 @@ describe('parseSvelte', () => {
     expect(lineOf(trailing, p!.start)).toBe(7);
   });
 
+  it('gives offsets into the source as passed when it starts with a BOM', () => {
+    const source = '﻿<script>const r = $derived(page.route.id);</script>';
+    const stmt = parseSvelte(source, 'src/routes/+layout.svelte').instance!.content.body[0];
+    if (stmt?.type !== 'VariableDeclaration') throw new Error('expected a declaration');
+    const init = stmt.declarations[0]!.init;
+    if (init?.type !== 'CallExpression') throw new Error('expected a call');
+    const arg = init.arguments[0]!;
+    const { start, end } = arg as typeof arg & { start: number; end: number };
+    expect(source.slice(start, end)).toBe('page.route.id');
+  });
+
   it('still throws on a genuinely malformed component', () => {
     expect(() => parseSvelte('<div>{#if x}</div>', 'src/routes/+page.svelte')).toThrow();
   });

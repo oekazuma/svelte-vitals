@@ -37,7 +37,7 @@ export type {
   ComponentFacts,
   SuppressionDirective
 } from './component.js';
-export { collectConstantListExports, parseComponentFacts } from './component-parse.js';
+export { collectComponentConstantLists, collectConstantListExports, parseComponentFacts } from './component-parse.js';
 export { collectSuppressions, parseModuleProgram, unwrapTs, walkEstree } from './module-ast.js';
 export { unknownDirectiveIds, addFactsDirectives, type DirectiveIndex } from './inline-directives.js';
 export { skippedFileWarnings } from './component.js';

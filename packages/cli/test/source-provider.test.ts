@@ -638,6 +638,17 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(headings.find((h) => h.route === '/c')!.headings.map((h) => h.level)).toEqual([1]);
   });
 
+  it('decides a .some over a constant list of paths, and leaves one over a list the file changes undecided', async () => {
+    const counts = async (extra: string) => {
+      const layout = `<script>import { page } from '$app/state'; let { children } = $props(); const BARE = ['/a'];${extra}</script>{#if BARE.some((r) => page.url.pathname.startsWith(r))}{@render children()}{:else}<h1>Shell</h1>{@render children()}{/if}`;
+      const files = { 'src/routes/+layout.svelte': layout, 'src/routes/a/+page.svelte': '<h1>A</h1>' };
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      return headings.find((h) => h.route === '/a')!.headings.length;
+    };
+    expect(await counts('')).toBe(1);
+    expect(await counts(" BARE.push('/b');")).toBeGreaterThan(1);
+  });
+
   it('reads a trimmed $derived of a prop, and a translation call passed to it, as deciding its arm', async () => {
     const card = `<script>let { title, children } = $props(); const shown = $derived(title?.trim() ?? '');</script>{#if shown}<h2>{shown}</h2>{/if}{@render children?.()}`;
     const page = `<script>import Card from '$lib/Card.svelte'; import { t } from '$lib/i18n';</script><h1>Crew</h1><Card title={t('Receipts')}><h3>Split</h3></Card>`;

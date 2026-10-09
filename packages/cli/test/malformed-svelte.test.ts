@@ -11,6 +11,7 @@ import { createNodeRuntime } from '../src/runtime/node.js';
 const here = dirname(fileURLToPath(import.meta.url));
 const malformedComponentProject = join(here, 'fixtures', 'malformed-component-project');
 const malformedRouteProject = join(here, 'fixtures', 'malformed-route-project');
+const malformedImportedComponentProject = join(here, 'fixtures', 'malformed-imported-component-project');
 // Isolate reporter auto-detection from the ambient test-runner environment
 // (e.g. CLAUDECODE is set when running inside Claude Code) — mirrors run.test.ts.
 const CLEAN_ENV: NodeJS.ProcessEnv = {};
@@ -54,6 +55,21 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
     const code = await run({ cwd: malformedComponentProject, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).not.toBe(2);
     expect([0, 1]).toContain(code);
+  });
+
+  it('skips a broken component that a route imports, instead of exiting 2', async () => {
+    const cap = capture();
+    const code = await run({
+      cwd: malformedImportedComponentProject,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      env: CLEAN_ENV
+    });
+    expect([0, 1]).toContain(code);
+    expect(cap.err.join('\n')).toContain('skipped 1 file(s) that could not be parsed: src/lib/Broken.svelte');
+    const report = JSON.parse(cap.out.join('\n'));
+    expect(report.routes.map((r: { route: string }) => r.route)).toContain('/');
   });
 });
 

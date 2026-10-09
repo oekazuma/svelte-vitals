@@ -381,6 +381,12 @@ function collectConstantLists(
   );
 }
 
+/** A component's script `const` lists that nothing in its scripts or template can change. */
+export function collectComponentConstantLists(ast: Node): Set<string> {
+  const scripts = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
+  return collectConstantLists(scripts, ast.fragment ?? ast);
+}
+
 /**
  * Export names of a module's constant lists — `export const X = [ … ]`, or a local one exported by
  * name — that the module itself never writes (correctness/each-key, correctness/each-index-key).

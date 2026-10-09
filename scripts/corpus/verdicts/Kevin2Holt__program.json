@@ -1,0 +1,962 @@
+[
+  {
+    "key": "Kevin2Holt/program::a11y/accessible-name::src/routes/(org)/events/[eventId]/settings/+page.svelte:81::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read +page.svelte:81: empty <button type=\"submit\" hidden aria-hidden=\"true\" tabindex=\"-1\"> bound as a programmatic submit target inside <Form>; unnamed as reported, but hidden/aria-hidden/tabindex -1 keep it out of the AT tree and tab order (hidden-button precedent)"
+  },
+  {
+    "key": "Kevin2Holt/program::a11y/permitted-contents::src/lib/components/program/TextBlockEditor.svelte:129::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at TextBlockEditor.svelte:129 has literal <span> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"popover link-popover\">@129 in {#if linkOpen}@128 in <span class=\"select\" use:dismissable>@119; outside <span>'s content model as reported"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/lib/components/calendar/RuleDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/calendar/RuleDrawer.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/lib/components/ui/DatePicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/DatePicker.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/lib/components/ui/Select.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/Select.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(org)/events/[eventId]/calendar/export/+page.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/routes/(org)/events/[eventId]/program/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(org)/events/[eventId]/program/+page.svelte has 505 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/component-size::src/routes/[code]/calendar/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[code]/calendar/+page.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/app/CodeField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/CodeField.svelte has a single destructured $props() with 8 named props (> 6): value, publicHost, eventId, unchangedCode, error, id, name, onuserinput"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/calendar/BookingEditDrawer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/BookingEditDrawer.svelte has a single destructured $props() with 8 named props (> 6): open, details, items, times, timed, todayDate, eventId, onsaved"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/calendar/CalendarGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/CalendarGrid.svelte has a single destructured $props() with 8 named props (> 6): weeks, today, window, offeringsByDate, pickCountByDate, itemsById, selectedDate, onselect"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/calendar/DayPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/DayPanel.svelte has a single destructured $props() with 7 named props (> 6): date, offerings, pickedCount, itemsById, findConflict, onadd, onclose"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/calendar/ItemDrawer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/ItemDrawer.svelte has a single destructured $props() with 7 named props (> 6): open, item, defaults, timed, eventId, todayDate, onsaved"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/calendar/PicksSummary.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/PicksSummary.svelte has a single destructured $props() with 9 named props (> 6): picks, itemsById, onremove, oncontinue, editHref, onedit, open, title, headAction"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 12 named props (> 6) plus ...rest: variant, size, icon, iconAfter, label, href, type, loading, disabled, block, class, children"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Checkbox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Checkbox.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: checked, label, labelHidden, hint, disabled, name, value, onchange, children"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/DatePicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/DatePicker.svelte has a single destructured $props() with 13 named props (> 6): value, min, max, placeholder, id, labelledBy, label, describedBy, invalid, clearable, todayDate, align, onchange"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Dialog.svelte has a single destructured $props() with 8 named props (> 6): open, variant, size, alert, labelledBy, describedBy, onclose, children"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Field.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Field.svelte has a single destructured $props() with 10 named props (> 6): id, label, hint, error, required, optional, group, labelHidden, class, children"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Form.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Form.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: action, reset, invalidateAll, class, onsuccess, onfailure, children"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Menu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Menu.svelte has a single destructured $props() with 8 named props (> 6): items, label, icon, triggerLabel, triggerClass, size, align, width"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/NumberStepper.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/NumberStepper.svelte has a single destructured $props() with 8 named props (> 6): value, min, max, id, describedBy, invalid, label, onchange"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Segmented.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Segmented.svelte has a single destructured $props() with 7 named props (> 6): value, options, label, labelledBy, block, size, onchange"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Select.svelte has a single destructured $props() with 14 named props (> 6): value, options, placeholder, id, labelledBy, label, describedBy, invalid, disabled, searchable, searchPlaceholder, size, class, onchange"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/Switch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Switch.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: checked, label, labelHidden, disabled, describedBy, name, onchange"
+  },
+  {
+    "key": "Kevin2Holt/program::architecture/prop-count::src/lib/components/ui/TimeInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/TimeInput.svelte has a single destructured $props() with 8 named props (> 6): value, id, label, describedBy, invalid, placeholder, width, onchange"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/app/OrganizerShell.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/app/OrganizerShell.svelte:37 '{#each sections as section, sectionIndex (sectionIndex)}' sections = $derived(buildSections(currentEvent, page.data.navCounts)) (routes/(org)/+layout.svelte:15), the author-written sidebar nav groups; static list (nav config)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/app/Topbar.svelte:19::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/app/Topbar.svelte:19 '{#each crumbs as crumb, index (index)}' the page's breadcrumbs ('the last crumb is the page', :4); positional list (breadcrumbs)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/calendar/BookingEditDrawer.svelte:122::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/calendar/BookingEditDrawer.svelte:122 '{#each form.selections as row, index (index)}' signup rows with bound DatePicker/Select inputs, appended (form.selections.push, :83) and removed mid-list (form.selections.splice(index, 1), :131): user-edited list, input state follows position"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/calendar/CalendarGrid.svelte:90::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/calendar/CalendarGrid.svelte:90 '{#each shown as offering, index (index)}' markers for the day's offerings (offerings.slice(0, cap), :71), runtime calendar records the organizer adds and removes; runtime records keyed by position"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/calendar/ItemDrawer.svelte:115::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/calendar/ItemDrawer.svelte:115 '{#each form.times as time, index (index)}' time rows with bound inputs, appended (form.times.push, :50) and removed mid-list (form.times.splice(index, 1), :137): user-edited list, input state follows position"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/ui/DatePicker.svelte:177::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/DatePicker.svelte:177 '{#each weeks as week, weekIndex (weekIndex)}' weeks = $derived(buildMonthWeeks(viewMonthStart)) (:40); positional list (calendar weeks)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/lib/components/ui/DatePicker.svelte:179::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/DatePicker.svelte:179 '{#each week as cellDate, dayIndex (dayIndex)}' day cells of one calendar week; positional list (calendar days)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte:127::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte:127 '{#each row.selections as selection, index (index)}' the selections of a booking row from the page load (signup records), editable through the booking drawer; runtime records keyed by position"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte:175::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte:175 '{#each data.details.log as entry, index (index)}' the booking's activity log entries from the load, appended as the booking changes; runtime records keyed by position (ledger logs convention)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:229::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:229 '{#each preview.header as column, index (index)}' header cells of one CSV export preview (preview = result of the preview request, :64-66); positional list (table cells)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:231::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:231 '{#each preview.rows as row, rowIndex (rowIndex)}' read-only rows of one CSV export preview; positional list (rows of one export result)"
+  },
+  {
+    "key": "Kevin2Holt/program::correctness/each-index-key::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:232::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(org)/events/[eventId]/calendar/export/+page.svelte:232 '{#each row as cell, cellIndex (cellIndex)}' cells of one CSV preview row; positional list (table cells)"
+  },
+  {
+    "key": "Kevin2Holt/program::security/raw-html::src/lib/components/program/ProgramView.svelte:40::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ProgramView.svelte:1-6,40 + lib/server/sanitizeHtml.js + services/programService.js:35: text-block HTML is run through sanitize-html (tag/attr/scheme allowlist) on write; the editor preview only shows the organizer's own editor output — sanitized, reported per docs"
+  },
+  {
+    "key": "Kevin2Holt/program::security/raw-html::src/lib/components/ui/Icon.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Icon.svelte:6,17 + components/icons.js: ICON_PATHS is a literal map of constant SVG path strings — repo-authored markup, reported per docs"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(auth)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar/availability (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar/bookings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar/bookings/[bookingId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar/export (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar/items (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/calendar/setup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/program (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /events/[eventId]/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (org)/+layout.server.js:11 requireUser(event) -> lib/server/http/guards.js:17-19 redirects guests to login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[code] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/[code]/calendar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[code]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[code]/calendar/confirmation/[ref] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (literal <meta name=\"robots\" content=\"noindex\"> at +page.svelte:30 and x-robots-tag noindex in +page.server.js:18), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/canonical-url::src/routes/design-system/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /design-system (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws) but not a search target (dev-only: design-system/+page.server.js:9-10 error(404) unless dev), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(auth)/login/+page.svelte, its layouts and app.html have none (literal claim holds) on /login; public auth page of the hosted progr.am service (lib/server/config.js:8 https://progr.am), renders for every signed-out visitor, so the missing description holds"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(auth)/signup/+page.svelte, its layouts and app.html have none (literal claim holds) on /signup; public auth page of the hosted progr.am service (lib/server/config.js:8 https://progr.am), renders for every signed-out visitor, so the missing description holds"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/account/+page.svelte, its layouts and app.html have none (literal claim holds) on /account; but /account is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/dashboard/+page.svelte, its layouts and app.html have none (literal claim holds) on /dashboard; but /dashboard is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar; but /events/[eventId]/calendar is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar/availability; but /events/[eventId]/calendar/availability is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar/bookings; but /events/[eventId]/calendar/bookings is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar/bookings/[bookingId]; but /events/[eventId]/calendar/bookings/[bookingId] is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/export/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar/export; but /events/[eventId]/calendar/export is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/items/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar/items; but /events/[eventId]/calendar/items is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/calendar/setup; but /events/[eventId]/calendar/setup is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/program/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/program; but /events/[eventId]/program is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/(org)/events/[eventId]/settings/+page.svelte, its layouts and app.html have none (literal claim holds) on /events/[eventId]/settings; but /events/[eventId]/settings is an organizer screen behind (org)/+layout.server.js requireUser (lib/server/http/guards.js:14-18 redirects to login), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/[code]/calendar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/[code]/calendar/+page.svelte, its layouts and app.html have none (literal claim holds) on /[code]/calendar; the public signup calendar of a published event ([code]/calendar/+page.server.js, 404 only for drafts), public content, so the missing description holds"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/[code]/calendar/confirmation/[ref]/+page.svelte, its layouts and app.html have none (literal claim holds) on /[code]/calendar/confirmation/[ref]; but it is a personal booking confirmation reached only by its opaque reference, explicitly noindex (+page.svelte:30 meta robots, +page.server.js x-robots-tag), not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/description-presence::src/routes/design-system/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html): descriptions exist only on +page.svelte (/) and [code]/+page.svelte (/[code]); src/routes/design-system/+page.svelte, its layouts and app.html have none (literal claim holds) on /design-system; but it is the dev-only component gallery (design-system/+page.server.js load throws error(404) unless dev), ledger convention for dev-gated routes: design"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/indexability::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: [code]/calendar/confirmation/[ref]/+page.svelte:30 literal <meta name=\"robots\" content=\"noindex\"> (plus x-robots-tag in +page.server.js); noindex as claimed, intentional for a personal booking confirmation"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /login renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(auth)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /signup renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /account renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /dashboard renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar/availability renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar/bookings renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar/bookings/[bookingId] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar/export renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar/items renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/calendar/setup renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/program renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /events/[eventId]/settings renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so / renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/[code]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /[code] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/[code]/calendar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /[code]/calendar renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /[code]/calendar/confirmation/[ref] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/json-ld::src/routes/design-system/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /design-system renders none; dev-only route (design-system/+page.server.js load throws error(404) unless dev), json-ld convention there: tp"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar/availability (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar/bookings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar/bookings/[bookingId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar/export (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar/items (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/calendar/setup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/program (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /events/[eventId]/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[code] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/[code]/calendar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[code]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[code]/calendar/confirmation/[ref] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-description::src/routes/design-system/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /design-system (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar/availability (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar/bookings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar/bookings/[bookingId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar/export (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar/items (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/calendar/setup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/program (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /events/[eventId]/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/[code]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[code] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/[code]/calendar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[code]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[code]/calendar/confirmation/[ref] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-image::src/routes/design-system/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /design-system (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar/availability (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar/bookings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar/bookings/[bookingId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar/export (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar/items (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/calendar/setup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/program (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /events/[eventId]/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/[code]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[code] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/[code]/calendar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[code]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[code]/calendar/confirmation/[ref] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-title::src/routes/design-system/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /design-system (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar/availability (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar/bookings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar/bookings/[bookingId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar/export (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar/items (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/calendar/setup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/program (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /events/[eventId]/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[code] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/[code]/calendar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[code]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[code]/calendar/confirmation/[ref] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/og-url::src/routes/design-system/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /design-system (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no static/robots.txt, src/routes/robots.txt endpoint or generator script in the app (literal claim holds); hosted progr.am service (lib/server/config.js:8) with a public landing page and public event programs at /[code], so the file is missing as claimed"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no static/sitemap.xml, src/routes/sitemap.xml endpoint or generator script in the app (literal claim holds); hosted progr.am service (lib/server/config.js:8) with a public landing page and public event programs at /[code], so the file is missing as claimed"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/title-length::src/routes/(auth)/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(auth)/login/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 17 as reported); public auth page of the hosted progr.am service, so the length claim holds"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/title-length::src/routes/(auth)/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(auth)/signup/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 28 as reported); public auth page of the hosted progr.am service, so the length claim holds"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/title-length::src/routes/(org)/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(org)/account/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 18 as reported) (literal claim holds); but /account is an organizer screen behind (org)/+layout.server.js requireUser, not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/title-length::src/routes/(org)/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(org)/dashboard/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 17 as reported) (literal claim holds); but /dashboard is an organizer screen behind (org)/+layout.server.js requireUser, not a search target"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/title-length::src/routes/design-system/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/design-system/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 24 as reported) (literal claim holds); but the dev-only component gallery (load throws error(404) unless dev), not a production route"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/availability/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar/availability (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/bookings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar/bookings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/bookings/[bookingId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar/bookings/[bookingId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/export/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar/export (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar/items (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/calendar/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/calendar/setup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/program/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/program (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/(org)/events/[eventId]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /events/[eventId]/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/[code]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[code] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/[code]/calendar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[code]/calendar (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/[code]/calendar/confirmation/[ref]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[code]/calendar/confirmation/[ref] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Kevin2Holt/program::seo/twitter-card::src/routes/design-system/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /design-system (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the repo (grep; root +layout.svelte:12-14 head is csrf-token meta only, page heads are <title>/description; app.html charset/viewport/color-scheme/icon only; hooks.server.js only replaces %progr.theme%; no npm Svelte meta component)); route renders (no load/hooks/script that always redirects or throws)"
+  }
+]

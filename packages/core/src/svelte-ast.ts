@@ -20,7 +20,9 @@ const PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>
  * the text scan's imprecision cannot reach it. A file that does not parse is already a hard failure,
  * which the retry can only improve on.
  */
-export function parseSvelte(source: string, filename: string): AST.Root {
+export function parseSvelte(raw: string, filename: string): AST.Root {
+  // Svelte drops a leading BOM, and its offsets would then miss the caller's source by one; a space keeps them aligned.
+  const source = raw.charCodeAt(0) === 0xfeff ? ` ${raw.slice(1)}` : raw;
   try {
     return parse(source, { modern: true, filename });
   } catch (err) {
