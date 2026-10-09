@@ -15,7 +15,7 @@ import type {
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
 import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
-import { commonPrefix, decidedArms, flagArms } from './parse.js';
+import { commonPrefix, decidedArms, flagArms, unsatisfiable, type Cond } from './parse.js';
 import { urlHolds, type UrlCond } from './url-cond.js';
 import { enumerateRoutePages } from './project.js';
 import {
@@ -261,7 +261,13 @@ async function composeA11y(
       );
       const at = group === undefined ? path : [...path, { group, branch }];
       for (const inner of child) {
-        composed.push({ ...inner, path: [...at, ...inner.path], repeatable: node.repeatable || inner.repeatable });
+        const when = [...(node.when ?? []), ...(inner.when ?? [])];
+        composed.push({
+          ...inner,
+          path: [...at, ...inner.path],
+          repeatable: node.repeatable || inner.repeatable,
+          ...(when.length > 0 ? { when } : {})
+        });
       }
     }
   }
@@ -393,6 +399,14 @@ async function resolveRoute(
   let slotLandmark: string | undefined;
   /** Branch addresses the layouts above the current chain file render their children at, one per position. */
   let slotPrefixes: BranchStep[][] = [[]];
+  /**
+   * `slotPrefixes`' arm conditions and the landmark around each position, by index: a chain file's
+   * landmark whose own arm contradicts a position's is not placed there (design
+   * 2026-10-09-layout-page-data-arms.md).
+   */
+  let slotWhens: { when: Cond[]; around?: string }[] = [{ when: [] }];
+  const placeable = (at: { when: Cond[] }, when: Cond[] | undefined) =>
+    !when || at.when.length === 0 || !unsatisfiable([...at.when, ...when]);
 
   // Set once a layout renders its children only in arms an imported `false` flag rules out: the rest
   // of the chain renders no body. Its head still counts, as the route is judged on the shell it serves.
@@ -429,14 +443,23 @@ async function resolveRoute(
     for (const node of contributed) {
       if (node.topLevel && scoped) node.topLevel = false;
       if (!node.chain || node.kind !== 'landmark' || !countsAsLandmark(node) || node.repeatable) continue;
-      const within = (scoped ? node.inFixedLandmark : node.inLandmark) ?? slotLandmark;
-      if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
+      const own = scoped ? node.inFixedLandmark : node.inLandmark;
+      const within = own ?? slotLandmark;
+      // A layout landmark around the page counts only if some position inside one fits the node's arm.
+      const fits =
+        own !== undefined
+          ? slotWhens.some((at) => placeable(at, node.when))
+          : slotWhens.every((at) => at.when.length === 0) ||
+            slotWhens.some((at) => at.around !== undefined && placeable(at, node.when));
+      if (within && fits) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
     }
     // Rendered at each of the layouts' positions, which exclude each other when they sit in the arms
     // of one block: the fold then counts the file once, where the other arms' content is not.
-    for (const prefix of slotPrefixes)
+    for (const [i, prefix] of slotPrefixes.entries())
       a11yNodes.push(
-        ...contributed.map((node) => (prefix.length > 0 ? { ...node, path: [...prefix, ...node.path] } : node))
+        ...contributed
+          .filter((node) => placeable(slotWhens[i] ?? { when: [] }, node.when))
+          .map((node) => (prefix.length > 0 ? { ...node, path: [...prefix, ...node.path] } : node))
       );
     const kept =
       parsed.a11y.slotPaths?.flatMap((p, i) =>
@@ -453,14 +476,39 @@ async function resolveRoute(
           ? parsed.a11y.slotInFixedLandmark
           : parsed.a11y.slotInLandmark;
     slotLandmark = slotIn ?? slotLandmark;
-    const slotPaths = parsed.a11y.slotPaths?.filter((_, i) => kept.includes(i));
-    const slots = exclusiveSites(slotPaths?.length ? slotPaths : parsed.a11y.slotPaths)?.map((p) =>
-      offsetPath(p, base)
-    );
+    const slotIndices = kept.length > 0 ? kept : (parsed.a11y.slotPaths?.map((_, i) => i) ?? []);
+    const slotPaths = slotIndices.map((i) => parsed.a11y.slotPaths![i]!);
+    const slotSites = exclusiveSites(slotPaths.length > 0 ? slotPaths : undefined);
+    const slots = slotSites?.map((p) => offsetPath(p, base));
     if (slots) {
-      const next = slotPrefixes.flatMap((prefix) => slots.map((slot) => [...prefix, ...slot]));
+      // A file without arm conditions at its positions, or whose positions merge into one, keeps the
+      // landmark it always had (`slotLandmark`) and no arm of its own.
+      const own =
+        parsed.a11y.slotWhens && slotSites!.length === slotPaths.length
+          ? slotIndices.map((i) => parsed.a11y.slotWhens![i]!)
+          : undefined;
+      const next = slotPrefixes.flatMap((prefix, i) =>
+        slots.map((slot, j) => {
+          const outer = slotWhens[i] ?? { when: [] };
+          const inner = own?.[j];
+          return {
+            path: [...prefix, ...slot],
+            at: inner
+              ? {
+                  when: [...outer.when, ...inner.when],
+                  around: (scoped ? inner.fixed : inner.landmark) ?? outer.around
+                }
+              : { when: outer.when, around: slotLandmark }
+          };
+        })
+      );
+      // A position inside a layout arm the arm of the position above contradicts is never reached; if
+      // every one is, the reading is more likely wrong than the app, and none is dropped.
+      const reached = next.filter((n) => n.at.when.length === 0 || !unsatisfiable(n.at.when));
+      const live = reached.length > 0 ? reached : next;
       // ponytail: positions multiply down the chain; past a handful, place the rest where they all agree.
-      slotPrefixes = next.length <= 8 ? next : [next.reduce(commonPrefix)];
+      slotPrefixes = live.length <= 8 ? live.map((n) => n.path) : [live.map((n) => n.path).reduce(commonPrefix)];
+      slotWhens = live.length <= 8 ? live.map((n) => n.at) : [{ when: [], around: slotLandmark }];
     }
 
     // A layout's images after its `{@render children()}` come after the page's in document order.

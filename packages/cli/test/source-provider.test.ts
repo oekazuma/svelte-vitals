@@ -985,6 +985,59 @@ describe('collectRoutes a11y composition', () => {
     expect((await a11yAt('/products', 'products/')).nestedLandmarks).toHaveLength(1);
   });
 
+  it('places a page landmark only where its arm agrees with the layout arm on the same load field', async () => {
+    const at = async (layout: string, page: string) =>
+      (
+        await collectRoutes(
+          createMemoryRuntime({ 'src/routes/+layout.svelte': layout, 'src/routes/admin/+page.svelte': page }),
+          ''
+        )
+      ).a11y.find((a) => a.route === '/admin')!;
+    const layout = `<script>let { data, children } = $props();</script>{#if data.user}<main>{@render children()}</main>{:else}{@render children()}{/if}`;
+    const signIn = `<script>let { data } = $props();</script>{#if !data.user}<main>Sign in</main>{:else}<div>Panel</div>{/if}`;
+    const same = await at(layout, signIn);
+    expect(same.landmarks.main).toHaveLength(1);
+    expect(same.nestedLandmarks).toEqual([]);
+    // A different field decides nothing about the layout's arm.
+    const other = await at(layout, signIn.replace('!data.user', '!data.other'));
+    expect(other.landmarks.main).toHaveLength(2);
+    expect(other.nestedLandmarks).toHaveLength(1);
+    // `page` from $app/state, a `$derived` alias with a type assertion, and a compound layout test.
+    const state = `<script>import { page } from '$app/state'; let { children } = $props(); let authRoute = $derived(page.url.pathname === '/login');</script>{#if authRoute || !page.data.user}{@render children()}{:else}<main>{@render children()}</main>{/if}`;
+    const aliased = `<script lang="ts">import { page } from '$app/state'; let user = $derived(page.data.user as { name: string } | null);</script>{#if user}<p>Hi</p>{:else}<main>Sign in</main>{/if}`;
+    const smart = await at(state, aliased);
+    expect(smart.landmarks.main).toHaveLength(1);
+    expect(smart.nestedLandmarks).toEqual([]);
+    // A local of the same name in each file is two values.
+    const local = await at(
+      `<script>let { children } = $props(); let open = $state(false);</script>{#if open}<main>{@render children()}</main>{:else}{@render children()}{/if}`,
+      `<script>let open = $state(false);</script>{#if !open}<main>x</main>{/if}`
+    );
+    expect(local.landmarks.main).toHaveLength(2);
+    // A component's own `data` prop is whatever its use passes, not the load data.
+    const card = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': layout,
+        'src/routes/admin/+page.svelte': `<script>import Card from '$lib/Card.svelte';</script><Card data={{ user: false }} />`,
+        'src/lib/Card.svelte': `<script>let { data } = $props();</script>{#if !data.user}<main>Card</main>{/if}`
+      }),
+      ''
+    );
+    expect(card.a11y.find((a) => a.route === '/admin')!.landmarks.main).toHaveLength(2);
+    // A layout below whose own arm contradicts the arm it is rendered in leaves the page no place there.
+    const nested = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': layout,
+        'src/routes/admin/+layout.svelte': `<script>let { data, children } = $props();</script>{#if !data.user}{@render children()}{:else}<p>Panel</p>{/if}`,
+        'src/routes/admin/+page.svelte': '<main>Sign in</main>'
+      }),
+      ''
+    );
+    const signedOut = nested.a11y.find((a) => a.route === '/admin')!;
+    expect(signedOut.landmarks.main).toHaveLength(1);
+    expect(signedOut.nestedLandmarks).toEqual([]);
+  });
+
   it('leaves out a component arm the use decides by its props when counting ids', async () => {
     const { a11y } = await collectRoutes(
       createMemoryRuntime({

@@ -912,6 +912,57 @@ function heldProps(ast: AST.Root, reassigned: ReadonlySet<string>): Map<string, 
   return held;
 }
 
+/**
+ * Names a reference so the route's chain files agree on it: a field of the `load` data read through
+ * the `data` prop, `page` from `$app/state`, `$page` from `$app/stores` or a `$derived` of one of
+ * those becomes `page.data.<field>`; any other reference is the file's own.
+ */
+function chainNames(
+  ast: AST.Root,
+  imports: ImportMap,
+  reassigned: ReadonlySet<string>,
+  filename: string
+): (reference: string) => string {
+  const roots = new Map<string, string>();
+  // Only a page or layout is handed the `load` data as `data`; a component's `data` prop is whatever its use passes.
+  if (/\+(page|layout)(@[^/]*)?\.svelte$/.test(filename))
+    for (const [local, prop] of heldProps(ast, reassigned)) if (prop === 'data') roots.set(local, 'page.data');
+  for (const [local, info] of imports) {
+    if (info.imported !== 'page') continue;
+    if (info.source === '$app/state') roots.set(`${local}.data`, 'page.data');
+    if (info.source === '$app/stores') roots.set(`$${local}.data`, 'page.data');
+  }
+  const shared = (reference: string): string | undefined => {
+    for (const [root, as] of roots)
+      if (reference === root || reference.startsWith(`${root}.`)) return as + reference.slice(root.length);
+    return undefined;
+  };
+  for (const stmt of ast.instance?.content.body ?? []) {
+    if (stmt.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declarations) {
+      const init = d.init;
+      if (d.id.type !== 'Identifier' || reassigned.has(d.id.name)) continue;
+      if (init?.type !== 'CallExpression' || init.callee.type !== 'Identifier' || init.callee.name !== '$derived')
+        continue;
+      const inner = init.arguments[0] ? unwrapTs(init.arguments[0] as never) : undefined;
+      const text = inner && memberText(inner as AST.IfBlock['test']);
+      const as = text === undefined ? undefined : shared(text);
+      if (as?.startsWith('page.data')) roots.set(d.id.name, as);
+    }
+  }
+  return (reference) => shared(reference) ?? `${filename}#${reference}`;
+}
+
+/** `a.b.c` for a plain member chain, else undefined. */
+function memberText(n: AST.IfBlock['test']): string | undefined {
+  if (n.type === 'Identifier') return n.name;
+  if (n.type === 'MemberExpression' && !n.computed && n.property.type === 'Identifier') {
+    const object = memberText(n.object as AST.IfBlock['test']);
+    return object === undefined ? undefined : `${object}.${n.property.name}`;
+  }
+  return undefined;
+}
+
 /** Prop name → its default for `let { a = 'x' } = $props()` and `export let a = 'x'`. */
 function collectPropDefaults(ast: AST.Root): Map<string, PropDefault> {
   const defaults = new Map<string, PropDefault>();
@@ -1652,7 +1703,7 @@ function collectHeadings(
 }
 
 /** A test's truth as a formula over the file's references (`t`), their equality to a literal (`e`) and opaque parts (`o`). */
-type Cond =
+export type Cond =
   | { t: string }
   | { e: string; v: string }
   | { o: number }
@@ -1661,13 +1712,18 @@ type Cond =
   | { and: Cond[] }
   | { or: Cond[] };
 
-function condOf(test: AST.IfBlock['test'], source: string, opaque: { next: number }): Cond {
+function condOf(
+  test: AST.IfBlock['test'],
+  source: string,
+  opaque: { next: number },
+  name: (reference: string) => string = (reference) => reference
+): Cond {
   type Expr = AST.IfBlock['test'];
   const reference = (n: Expr): boolean =>
     n.type === 'Identifier' || (n.type === 'MemberExpression' && !n.computed && reference(n.object as Expr));
   const text = (n: Expr) => {
     const { start, end } = n as Expr & { start: number; end: number };
-    return source.slice(start, end).replace(/\s+/g, '');
+    return name(source.slice(start, end).replace(/\s+/g, ''));
   };
   const read = (n: Expr): Cond => {
     if (reference(n)) return { t: text(n) };
@@ -1695,7 +1751,7 @@ function condOf(test: AST.IfBlock['test'], source: string, opaque: { next: numbe
 }
 
 /** Whether no assignment makes every condition true: references are free, one reference equals at most one literal. */
-function unsatisfiable(conds: Cond[]): boolean {
+export function unsatisfiable(conds: Cond[]): boolean {
   const bools = new Set<string>();
   const equals = new Map<string, Set<string>>();
   const gather = (c: Cond): void => {
@@ -1864,6 +1920,9 @@ function ifTests(node: AST.IfBlock): Array<AST.IfBlock['test']> {
   return [node.test, ...(chained ? ifTests(chained) : [])];
 }
 
+// One counter for every file: a11y conditions from different files meet at composition.
+const A11Y_OPAQUE = { next: 0 };
+
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
 function ifArms(node: AST.IfBlock): Array<AST.Fragment | null> {
   if (!node.alternate) return [node.consequent];
@@ -1895,6 +1954,8 @@ export interface A11yNode {
   attributes?: AST.Component['attributes'];
   /** for kind 'component': the snippet props its content supplies (`decidedArms`) */
   snippets?: string[];
+  /** The conditions of the `{#if}` arms above it, with references the route's chain shares named alike (`chainNames`). */
+  when?: Cond[];
 }
 
 export interface ParsedA11y {
@@ -1918,6 +1979,8 @@ export interface ParsedA11y {
   slotUrls?: (UrlCond | undefined)[];
   /** `slotPaths`' enclosing landmarks, by index (`slotInLandmark`, `slotInFixedLandmark`), when `slotUrls` is set. */
   slotLandmarks?: { landmark?: string; fixed?: string }[];
+  /** `slotPaths`' arm conditions (`A11yNode.when`) and enclosing landmarks, by index, when any slot has conditions. */
+  slotWhens?: { when: Cond[]; landmark?: string; fixed?: string }[];
   /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
   unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
@@ -1941,6 +2004,10 @@ const IDREF_ATTR_SET = new Set(IDREF_ATTRS);
 /** Context threaded down the a11y walk: where in the template a node sits. */
 interface A11yCtx {
   path: BranchStep[];
+  /** the conditions of the `{#if}` arms above (`A11yNode.when`) */
+  when: Cond[];
+  /** inside an `{#each}`, a snippet or an `{:then}`: a test there is read against several values, so none is recorded */
+  frozen: boolean;
   repeatable: boolean;
   /** landmark ancestors, outermost first */
   landmarks: string[];
@@ -1965,7 +2032,8 @@ function collectA11y(
   props: ReadonlyMap<string, string> = new Map(),
   reassigned: ReadonlySet<string> = new Set(),
   flags: ReadonlySet<string> = new Set(),
-  urlBlocks: ReadonlyMap<number, UrlCond> = new Map()
+  urlBlocks: ReadonlyMap<number, UrlCond> = new Map(),
+  name: (reference: string) => string = (reference) => reference
 ): ParsedA11y {
   const gates = new Map<number, PropGate>();
   const flagGates = new Map<number, FlagGate>();
@@ -1977,6 +2045,7 @@ function collectA11y(
   const slotPaths: BranchStep[][] = [];
   const slotUrls: (UrlCond | undefined)[] = [];
   const slotLandmarks: { landmark?: string; fixed?: string }[] = [];
+  const slotWhens: { when: Cond[]; landmark?: string; fixed?: string }[] = [];
   const noteSlot = (ctx: A11yCtx, start: number): void => {
     if (slotInLandmark === undefined) {
       slotInLandmark = ctx.landmarks.at(-1);
@@ -1987,6 +2056,7 @@ function collectA11y(
       slotPaths.push(ctx.path);
       slotUrls.push(urls.get(start));
       slotLandmarks.push({ landmark: ctx.landmarks.at(-1), fixed: ctx.fixedLandmark });
+      slotWhens.push({ when: ctx.when, landmark: ctx.landmarks.at(-1), fixed: ctx.fixedLandmark });
     }
   };
   const unknowable: ParsedA11y['unknowable'] = [];
@@ -1999,6 +2069,7 @@ function collectA11y(
       ...node,
       repeatable: ctx.repeatable,
       path: ctx.path,
+      ...(ctx.when.length > 0 ? { when: ctx.when } : {}),
       ...(inLandmark ? { inLandmark } : {}),
       ...(ctx.fixedLandmark ? { inFixedLandmark: ctx.fixedLandmark } : {})
     });
@@ -2033,22 +2104,32 @@ function collectA11y(
         if (flag) flagGates.set(group, flag);
         const url = urlBlocks.get(node.start);
         if (url) urlGates.set(group, url);
-        ifArms(node).forEach((arm, branch) => walk(arm, { ...ctx, path: [...ctx.path, { group, branch }] }));
+        // Each arm holds when the tests before it fail and its own passes.
+        const tests = ifTests(node).map((t) => condOf(t, source, A11Y_OPAQUE, name));
+        ifArms(node).forEach((arm, branch) =>
+          walk(arm, {
+            ...ctx,
+            path: [...ctx.path, { group, branch }],
+            when: ctx.frozen
+              ? ctx.when
+              : [...ctx.when, ...tests.slice(0, branch).map((t) => ({ not: t })), ...tests.slice(branch, branch + 1)]
+          })
+        );
         return;
       }
       case 'AwaitBlock': {
         const group = groups++;
         walk(node.pending, { ...ctx, path: [...ctx.path, { group, branch: 0 }] });
-        walk(node.then, { ...ctx, path: [...ctx.path, { group, branch: 1 }] });
+        walk(node.then, { ...ctx, path: [...ctx.path, { group, branch: 1 }], frozen: true });
         walk(node.catch, { ...ctx, path: [...ctx.path, { group, branch: 2 }] });
         return;
       }
       case 'EachBlock':
-        walk(node.body, { ...ctx, repeatable: true });
+        walk(node.body, { ...ctx, repeatable: true, frozen: true });
         walk(node.fallback, ctx);
         return;
       case 'SnippetBlock':
-        walk(node.body, { ...ctx, repeatable: true });
+        walk(node.body, { ...ctx, repeatable: true, frozen: true });
         return;
       // <svelte:element>'s tag may be dynamic (then no tag-derived landmark) but its literal
       // id/idref attributes are real — dropping them would make no-missing-id-ref report
@@ -2169,6 +2250,8 @@ function collectA11y(
 
   walk(fragment, {
     path: [],
+    when: [],
+    frozen: false,
     repeatable: false,
     landmarks: [],
     fixedLandmark: undefined,
@@ -2185,6 +2268,7 @@ function collectA11y(
     ...(flagGates.size > 0 ? { flagGates } : {}),
     ...(urlGates.size > 0 ? { urlGates } : {}),
     ...(slotUrls.some(Boolean) ? { slotUrls, slotLandmarks } : {}),
+    ...(slotWhens.some((s) => s.when.length > 0) ? { slotWhens } : {}),
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
@@ -2323,7 +2407,16 @@ export function parseFile(raw: string, filename: string): ParsedFile {
     ...(headingAcc.urlGates.size > 0 ? { headingUrlGates: headingAcc.urlGates } : {}),
     propDefaults: collectPropDefaults(ast),
     heldProps: heldProps(ast, reassigned),
-    a11y: collectA11y(ast.fragment, source, urls.sites, props, reassigned, flags, urls.blocks),
+    a11y: collectA11y(
+      ast.fragment,
+      source,
+      urls.sites,
+      props,
+      reassigned,
+      flags,
+      urls.blocks,
+      chainNames(ast, imports, reassigned, filename)
+    ),
     template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)
   };
