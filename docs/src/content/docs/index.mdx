@@ -9,28 +9,21 @@ Your SvelteKit app's code health, checked before it ships. Statically, no browse
   Install and run svelte-vitals against your SvelteKit project in a minute.
 </Card>
 
-<div class="demo-terminal">
-  <div class="demo-terminal-bar">
-    <span class="demo-terminal-dot" style="background:#ff5f56"></span>
-    <span class="demo-terminal-dot" style="background:#ffbd2e"></span>
-    <span class="demo-terminal-dot" style="background:#27c93f"></span>
-    <span class="demo-terminal-title">~/my-sveltekit-app</span>
-  </div>
-  <img
-    class="demo-gif-animated"
-    src={`${import.meta.env.BASE_URL}/demo.gif`.replace(/\/{2,}/g, '/')}
-    alt="Terminal recording of svelte-vitals running against a project, showing the Health score animate in and settle at a final score."
-  />
-  <img
-    class="demo-gif-static"
-    src={`${import.meta.env.BASE_URL}/demo-poster.png`.replace(/\/{2,}/g, '/')}
-    alt="Terminal screenshot of svelte-vitals after a run, showing the final Health score and category breakdown."
-  />
+<div class="demo">
+  <video
+    controls
+    muted
+    playsinline
+    preload="metadata"
+    aria-label="Video of svelte-vitals: one command scores a SvelteKit app across six categories, then the live dashboard, the CI gate, and the agent reporter."
+  >
+    <source src={`${import.meta.env.BASE_URL}/demo-en.mp4#t=0.1`.replace(/\/{2,}/g, '/')} type="video/mp4" />
+  </video>
 </div>
 
 <style>
   {`
-  .demo-terminal {
+  .demo {
     max-width: 44rem;
     margin: 1rem auto 2.5rem;
     border-radius: 0.75rem;
@@ -38,49 +31,17 @@ Your SvelteKit app's code health, checked before it ships. Statically, no browse
     border: 1px solid var(--blume-border);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   }
-  .demo-terminal-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.65rem 0.85rem;
-    background: #1a1b26;
-  }
-  .demo-terminal-dot {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .demo-terminal-title {
-    margin-inline-start: 0.5rem;
-    font-family: var(--blume-font-mono, monospace);
-    font-size: 0.75rem;
-    color: #8b8fa3;
-  }
-  .demo-terminal img {
+  .demo video {
+    display: block;
     width: 100%;
     margin: 0;
   }
   @media (max-width: 50rem) {
-    .demo-terminal {
+    .demo {
       max-width: 100vw;
       margin-inline: calc(50% - 50vw);
       border-radius: 0;
       border-inline: none;
-    }
-  }
-  .demo-gif-animated {
-    display: block;
-  }
-  .demo-gif-static {
-    display: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .demo-gif-animated {
-      display: none;
-    }
-    .demo-gif-static {
-      display: block;
     }
   }
   `}
