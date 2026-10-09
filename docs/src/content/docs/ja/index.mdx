@@ -9,28 +9,32 @@ SvelteKit アプリのコードヘルスを、リリース前に。静的解析�
   svelte-vitals をSvelteKitプロジェクトにインストールして、すぐに実行できます。
 </Card>
 
-<div class="demo-terminal">
-  <div class="demo-terminal-bar">
-    <span class="demo-terminal-dot" style="background:#ff5f56"></span>
-    <span class="demo-terminal-dot" style="background:#ffbd2e"></span>
-    <span class="demo-terminal-dot" style="background:#27c93f"></span>
-    <span class="demo-terminal-title">~/my-sveltekit-app</span>
-  </div>
-  <img
-    class="demo-gif-animated"
-    src={`${import.meta.env.BASE_URL}/demo.gif`.replace(/\/{2,}/g, '/')}
-    alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。"
-  />
-  <img
-    class="demo-gif-static"
-    src={`${import.meta.env.BASE_URL}/demo-poster.png`.replace(/\/{2,}/g, '/')}
-    alt="svelte-vitals 実行後、最終的な Health スコアとカテゴリ内訳が表示された端末のスクリーンショット。"
-  />
+<div class="demo">
+  <video
+    class="demo-video-animated"
+    autoplay
+    muted
+    loop
+    playsinline
+    aria-label="svelte-vitals の紹介動画。コマンドひとつで SvelteKit アプリを6カテゴリで採点し、ライブダッシュボード、CI ゲート、エージェント向けレポーターを紹介します。"
+  >
+    <source src={`${import.meta.env.BASE_URL}/demo-ja.mp4`.replace(/\/{2,}/g, '/')} type="video/mp4" />
+  </video>
+  <video
+    class="demo-video-static"
+    controls
+    muted
+    playsinline
+    preload="metadata"
+    aria-label="svelte-vitals の紹介動画。コマンドひとつで SvelteKit アプリを6カテゴリで採点し、ライブダッシュボード、CI ゲート、エージェント向けレポーターを紹介します。"
+  >
+    <source src={`${import.meta.env.BASE_URL}/demo-ja.mp4`.replace(/\/{2,}/g, '/')} type="video/mp4" />
+  </video>
 </div>
 
 <style>
   {`
-  .demo-terminal {
+  .demo {
     max-width: 44rem;
     margin: 1rem auto 2.5rem;
     border-radius: 0.75rem;
@@ -38,48 +42,29 @@ SvelteKit アプリのコードヘルスを、リリース前に。静的解析�
     border: 1px solid var(--blume-border);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   }
-  .demo-terminal-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.65rem 0.85rem;
-    background: #1a1b26;
-  }
-  .demo-terminal-dot {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .demo-terminal-title {
-    margin-inline-start: 0.5rem;
-    font-family: var(--blume-font-mono, monospace);
-    font-size: 0.75rem;
-    color: #8b8fa3;
-  }
-  .demo-terminal img {
+  .demo video {
     width: 100%;
     margin: 0;
   }
   @media (max-width: 50rem) {
-    .demo-terminal {
+    .demo {
       max-width: 100vw;
       margin-inline: calc(50% - 50vw);
       border-radius: 0;
       border-inline: none;
     }
   }
-  .demo-gif-animated {
+  .demo-video-animated {
     display: block;
   }
-  .demo-gif-static {
+  .demo-video-static {
     display: none;
   }
   @media (prefers-reduced-motion: reduce) {
-    .demo-gif-animated {
+    .demo-video-animated {
       display: none;
     }
-    .demo-gif-static {
+    .demo-video-static {
       display: block;
     }
   }

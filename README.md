@@ -19,10 +19,6 @@
 npx svelte-vitals@latest
 ```
 
-<p align="center">
-  <img src="./docs/public/demo.gif" alt="svelte-vitals running against a SvelteKit project, showing the Health score animate in and settle at a final score" width="700">
-</p>
-
 📖 **[Documentation](https://oekazuma.github.io/svelte-vitals/)**
 
 > [!WARNING]
