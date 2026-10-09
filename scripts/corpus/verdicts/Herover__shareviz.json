@@ -1,0 +1,1332 @@
+[
+  {
+    "key": "Herover/shareviz::a11y/deprecated-aria::src/routes/(app)/+page.svelte:239::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): element at +page.svelte:239 has aria-disabled with no explicit role, so its implicit role is as reported, on which ARIA 1.2/1.3 deprecated aria-disabled: <div class=\"sso\" aria-disabled=\"true\">@239 in <section class=\"auth\">@155"
+  },
+  {
+    "key": "Herover/shareviz::a11y/disallowed-aria-props::src/lib/components/chart/DataSetTransposeEditor.svelte:299::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): element at DataSetTransposeEditor.svelte:299 carries the attribute with no role, spread or use: action on it, so its implicit role is generic (no name): <div class=\"ed-tp-preview\" aria-label=\"Before / after preview\">@299 in <div class=\"ed-tp-card\">@81; prohibited as reported"
+  },
+  {
+    "key": "Herover/shareviz::a11y/interactive-nesting::src/lib/components/chart/CategoryList.svelte:197::<span> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): element at CategoryList.svelte:197 is a natively/role-interactive control whose nearest interactive container ancestor in the same template (no component/snippet boundary between) is as reported: <span role=\"button\" tabindex=\"0\" onkeydown=\"{expr}\" onclick=\"{expr}\">@197 in <div class=\"line-buttons\">@196 in <div onclick=\"{expr}\" onkeydown=\"{expr}\" onmouseover=\"{expr}\" onmouseout=\"{expr}\" onfocus= in {#if line}@161 in {#each}@160 in <div class=\"line-box\">@159"
+  },
+  {
+    "key": "Herover/shareviz::a11y/interactive-nesting::src/lib/components/chart/CategoryList.svelte:203::<span> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): element at CategoryList.svelte:203 is a natively/role-interactive control whose nearest interactive container ancestor in the same template (no component/snippet boundary between) is as reported: <span role=\"button\" tabindex=\"0\" onkeydown=\"{expr}\" onclick=\"{expr}\">@203 in <div class=\"line-buttons\">@196 in <div onclick=\"{expr}\" onkeydown=\"{expr}\" onmouseover=\"{expr}\" onmouseout=\"{expr}\" onfocus= in {#if line}@161 in {#each}@160 in <div class=\"line-box\">@159"
+  },
+  {
+    "key": "Herover/shareviz::a11y/interactive-nesting::src/lib/components/chart/Line/LinesEditorLine.svelte:80::<span> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): element at LinesEditorLine.svelte:80 is a natively/role-interactive control whose nearest interactive container ancestor in the same template (no component/snippet boundary between) is as reported: <span onclick=\"{expr}\" onkeydown=\"{expr}\" role=\"button\" tabindex=\"0\" title=\"delete\">@80 in {#if typeof key != \"undefined\"}@72 in {#if typeof style != \"undefined\"}@71 in <div class=\"line-buttons\">@70 in <div onclick=\"{expr}\" onkeydown=\"{expr}\" onmouseover=\"{expr}\" onmouseout=\"{expr}\" onfocus="
+  },
+  {
+    "key": "Herover/shareviz::a11y/permitted-contents::src/lib/components/chart/ChartViewer.svelte:116::`<style>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <style> at ChartViewer.svelte:116 has literal <div> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <style B:innerText contenteditable=\"\">@116 in <div >@115; outside <div>'s content model as reported"
+  },
+  {
+    "key": "Herover/shareviz::a11y/permitted-contents::src/lib/components/chart/EditorCollapsible.svelte:65::`<h#>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <h3> at EditorCollapsible.svelte:65 has literal <span> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <h3 >@65 in {#if lvl == 1}@63 in <span C:header-open onclick=\"{expr}\" onkeydown=\"{expr}\" class=\"header\" role=\"button\" tabin; outside <span>'s content model as reported"
+  },
+  {
+    "key": "Herover/shareviz::a11y/permitted-contents::src/lib/components/chart/EditorCollapsible.svelte:68::`<h#>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <h4> at EditorCollapsible.svelte:68 has literal <span> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <h4 >@68 in {#if lvl == 2}@66 in {#if lvl == 1}@63; outside <span>'s content model as reported"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/DropdownButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DropdownButton.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart-list/ChartList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart-list/ChartList.svelte has 379 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart-list/File.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart-list/File.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Annotations/AnnotationsEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Annotations/AnnotationsEditor.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Axis.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Axis.svelte has 486 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/AxisGridEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/AxisGridEditor.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/CategoryList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/CategoryList.svelte has 289 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/ChartViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/ChartViewer.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/ColorPicker/ColorPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/ColorPicker/ColorPicker.svelte has 300 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/DataSetEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/DataSetEditor.svelte has 474 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/DataSetTransposeEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/DataSetTransposeEditor.svelte has 644 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/HBar/HBarEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/HBar/HBarEditor.svelte has 531 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Line/Line.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Line/Line.svelte has 379 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Line/LineEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Line/LineEditor.svelte has 431 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Line/LinesEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Line/LinesEditor.svelte has 512 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/PublishTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/PublishTab.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Range/RangeEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Range/RangeEditor.svelte has 489 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Scatter/PointLabels.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Scatter/PointLabels.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Scatter/Scatter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Scatter/Scatter.svelte has 349 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Scatter/ScatterEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Scatter/ScatterEditor.svelte has 1020 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/Style/StyleEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/Style/StyleEditor.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/chart/richText/RichTextField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chart/richText/RichTextField.svelte has 1066 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/lib/components/vizzu/Channel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vizzu/Channel.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/(main)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(main)/+layout.svelte has 290 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/(main)/org/[organizationId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(main)/org/[organizationId]/+page.svelte has 474 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 644 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+page.svelte has 673 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/brand/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/brand/+page.svelte has 304 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/component-size::src/routes/(app)/editor/chart/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/editor/chart/[id]/+page.svelte has 529 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/Pill.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Pill.svelte has a single destructured $props() with 10 named props (> 6): children, variant, tone, size, square, mono, uppercase, color, interactive, title"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart-list/ChartList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart-list/ChartList.svelte has a single destructured $props() with 7 named props (> 6): contents, onAddChart, onCreateFolder, onImportChart, onUpdate, path, basePath"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart-list/File.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart-list/File.svelte has a single destructured $props() with 9 named props (> 6): item, onSelect, selected, link, onChangeFolder, onMoveItems, onDragEnd, onDragStart, isDragging"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/CategoryList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/CategoryList.svelte has a single destructured $props() with 10 named props (> 6): values, title, onfocus, onblur, searchFn, moveUp, moveDown, onSelectedChanged, connection, addressFor"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/EditorCollapsible.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/EditorCollapsible.svelte has a single destructured $props() with 7 named props (> 6): group, key, label, startOpen, lvl, actions, children"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/HBar/HBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/HBar/HBar.svelte has a single destructured $props() with 11 named props (> 6): labelWidth, valueWidth, domain, values, chartSpec, hBarSpec, label, showLegend, showAxisLabels, width, labelOverflow"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/HBar/HBarLine.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/HBar/HBarLine.svelte has a single destructured $props() with 12 named props (> 6): conf, i, d, blockHeight, blockMargin, barMargin, barHeight, labelWidth, valueHeight, valueScale, color, labelOverflow"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/HBar/HBarRect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/HBar/HBarRect.svelte has a single destructured $props() with 10 named props (> 6): x, y, height, width, barHeight, fill, label, value, axis, conf"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/Line/Line.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/Line/Line.svelte has a single destructured $props() with 10 named props (> 6): values, chartSpec, lineSpec, width, editor, maxY, minY, maxX, minX, index"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/PublishTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/PublishTab.svelte has a single destructured $props() with 7 named props (> 6): publications, version, viewerOrigin, chartSpec, imageScale, onPublish, onGeneratePng"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/Scatter/AxisTitles.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/Scatter/AxisTitles.svelte has a single destructured $props() with 7 named props (> 6): xLabel, yLabel, width, height, top, bottom, centerX"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/Scatter/Scatter.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/Scatter/Scatter.svelte has a single destructured $props() with 12 named props (> 6): componentSpec, series, contextSeries, width, editor, minX, maxX, minY, maxY, maxRValue, dataSet, onedit"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/chart/Scatter/ScatterEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chart/Scatter/ScatterEditor.svelte has a single destructured $props() with 7 named props (> 6): spec, chartSpec, chartData, connection, store, id, index"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/settings/MemberRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/MemberRow.svelte has a single destructured $props() with 7 named props (> 6): id, name, email, roleLabel, isAdmin, isYou, onRemove"
+  },
+  {
+    "key": "Herover/shareviz::architecture/prop-count::src/lib/components/settings/SettingsCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/SettingsCard.svelte has a single destructured $props() with 7 named props (> 6): id, overline, title, description, flush, aside, children"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/NotificationArea.svelte:6::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NotificationArea.svelte:6 '{#each $notifications as notification, i (i)}' notifications store entries added at runtime and removed mid-list on click (read(i) splices index i, src/lib/notificationStore.ts:32-36); runtime list, identity follows position (ledger toast convention)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/PageHead.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PageHead.svelte:27 '{#each crumbs as crumb, i (i)}' the page's breadcrumbs; positional list (breadcrumbs)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/brand/EditorialBarsMark.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/brand/EditorialBarsMark.svelte:53 '{#each bars as b, i (i)}' bars = $derived.by geometry of the brand mark from the data values (:27); positional list (chart bars)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/brand/FilledTortillaMark.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/brand/FilledTortillaMark.svelte:38 '{#each arcs as a, i (i)}' arcs = $derived(layout(...)) geometry of the brand mark (:26); positional list (computed geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/brand/StackedFillingsMark.svelte:54::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/brand/StackedFillingsMark.svelte:54 '{#each bands as b, i (i)}' bands = $derived.by geometry of the brand mark (:27); positional list (computed geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/brand/SunburstMark.svelte:46::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/brand/SunburstMark.svelte:46 '{#each discs as d, i (i)}' discs = $derived.by geometry of the brand mark (:25); positional list (computed geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart-list/ChartList.svelte:121::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart-list/ChartList.svelte:121 '{#each pathNamed as part, i (i)}' folder-path crumbs of the current location ($derived, :42), the last one an editable name; positional list (breadcrumbs)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Axis.svelte:320::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Axis.svelte:320 axis ticks generated for the scale (majorTicks/minorTicks via genTicks, :197-272); positional list (axis ticks)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Axis.svelte:331::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Axis.svelte:331 axis ticks generated for the scale (majorTicks/minorTicks via genTicks, :197-272); positional list (axis ticks)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Axis.svelte:346::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Axis.svelte:346 axis ticks generated for the scale (majorTicks/minorTicks via genTicks, :197-272); positional list (axis ticks)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Axis.svelte:418::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Axis.svelte:418 axis ticks generated for the scale (majorTicks/minorTicks via genTicks, :197-272); positional list (axis ticks)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Axis.svelte:433::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Axis.svelte:433 axis ticks generated for the scale (majorTicks/minorTicks via genTicks, :197-272); positional list (axis ticks)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Axis.svelte:466::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Axis.svelte:466 axis ticks generated for the scale (majorTicks/minorTicks via genTicks, :197-272); positional list (axis ticks)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/AxisGridEditor.svelte:180::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/AxisGridEditor.svelte:180 '{#each conf.data.ticks as kv, i (i)}' manual tick marks with value/text <input>s, removable mid-list (conf.removeTick(i), :209) and appended (:212): user-edited list, input state follows position"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/ColorPicker/ColorPicker.svelte:238::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/ColorPicker/ColorPicker.svelte:238 '{#each scheme as c, i (i)}' swatches of the colour scheme prop (default literal palette, :22); static list"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/ColorPicker/ColorPicker.svelte:251::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/ColorPicker/ColorPicker.svelte:251 '{#each chartColors as c, i (i)}' swatches of the colours the chart already uses (strings that can repeat), stateless buttons; positional list (swatches)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/DataSetEditor.svelte:157::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/DataSetEditor.svelte:157 '{#each dataStore.data.rows as column, i (i)}' the user's dataset columns, each with a type <select>, which change as the user edits the data; runtime user data, select state follows position"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/DataSetEditor.svelte:225::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/DataSetEditor.svelte:225 '{#each dataStore.data.transpose as t, i (i)}' summary chips of the transposes the user adds (dataStore.addTranspose, :258) and removes mid-list (removeTranspose(i), DataSetTransposeEditor.svelte:88); user-edited list, identity follows position"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/DataSetEditor.svelte:247::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/DataSetEditor.svelte:247 '{#each dataStore.data.transpose as transpose, i (i)}' one DataSetTransposeEditor per transpose, removable mid-list (dataStore.removeTranspose(i), DataSetTransposeEditor.svelte:88); user-edited list, component state follows position"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/DataSetTransposeEditor.svelte:315::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/DataSetTransposeEditor.svelte:315 '{#each previewFrom as _f, j (j)}' cells of one preview row addressed by column index (r[j + 1]); positional list (table cells)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/HBar/HBar.svelte:112::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/HBar/HBar.svelte:112 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/HBar/HBarLine.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/HBar/HBarLine.svelte:61 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/HBar/HBarLine.svelte:89::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/HBar/HBarLine.svelte:89 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Legend.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Legend.svelte:14 '{#each keys as d, i (i)}' legend entries of the chart's series, stateless spans; positional list (legend of chart series)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/Line.svelte:274::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Line/Line.svelte:274 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/Line.svelte:291::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Line/Line.svelte:291 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/Line.svelte:301::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Line/Line.svelte:301 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/Line.svelte:313::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Line/Line.svelte:313 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/Line.svelte:353::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Line/Line.svelte:353 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/Line.svelte:355::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Line/Line.svelte:355 SVG series/points/bars rendered from the chart's computed values; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/LineEditor.svelte:126::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/Line/LineEditor.svelte:126 '{#each columns as row, i (i)}' <option>s of the user's dataset columns (columns = $derived, :31), which change as the user edits the data; runtime option list"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/LineEditor.svelte:149::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/Line/LineEditor.svelte:149 '{#each columns as row, i (i)}' <option>s of the user's dataset columns (columns = $derived, :31), which change as the user edits the data; runtime option list"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/LineEditor.svelte:174::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/Line/LineEditor.svelte:174 '{#each columns as row, i (i)}' <option>s of the user's dataset columns (columns = $derived, :31), which change as the user edits the data; runtime option list"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Line/LineEditor.svelte:265::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/Line/LineEditor.svelte:265 '{#each columns as row, i (i)}' <option>s of the user's dataset columns (columns = $derived, :31), which change as the user edits the data; runtime option list"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Scatter/Scatter.svelte:256::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Scatter/Scatter.svelte:256 SVG segments/points of one scatter series computed from the chart data; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Scatter/Scatter.svelte:269::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Scatter/Scatter.svelte:269 SVG segments/points of one scatter series computed from the chart data; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Scatter/Scatter.svelte:286::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Scatter/Scatter.svelte:286 SVG segments/points of one scatter series computed from the chart data; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/Scatter/Scatter.svelte:299::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/Scatter/Scatter.svelte:299 SVG segments/points of one scatter series computed from the chart data; positional list (chart geometry)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/richText/DeltaView.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/richText/DeltaView.svelte:45 '{#each line.segments as segment, j (j)}' inline segments of one rich-text line; positional list (text segments)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/richText/DeltaView.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/richText/DeltaView.svelte:53 '{#each groups as group, i (i)}' groups = $derived(groupLines(lines)) of one rich-text Delta (:27); positional list (structure of one document)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/chart/richText/DeltaView.svelte:55::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart/richText/DeltaView.svelte:55 '{#each group.items as item, j (j)}' lines of one list group of a rich-text Delta; positional list (text lines of one document)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/lib/components/vizzu/Channel.svelte:36::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/vizzu/Channel.svelte:36 '{#each configChannel?.set || [] as channel, i (i)}' series <select>s of a vizzu channel, appended (configScope.add) and removed mid-list when a select is cleared (set(i, null) submits { r: 0 } at index i, src/lib/sharedbVizzu.ts:164-165): user-edited list, select state follows position"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-index-key::src/routes/(app)/brand/+page.svelte:51::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/brand/+page.svelte:51 '{#each data as _, i (i)}' six fixed number inputs bound by position (bind:value={data[i]}) over data = $state([8, 5, 6, 3, 4, 2]) (:12), replaced only by randomize, never inserted or removed; positional list (fixed slots)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/each-key::src/routes/(app)/editor/vizzu/+page.svelte:65::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/editor/vizzu/+page.svelte:65 '{#each specs as _spec, index}' one <Config> per spec of the collaborative ShareDB doc (specs = $derived($db.doc.specs), :16), which users duplicate (:68); runtime user-edited collection with no key"
+  },
+  {
+    "key": "Herover/shareviz::correctness/instance-browser-global::src/lib/components/chart-list/ChartPreview.svelte:95::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chart-list/ChartPreview.svelte:95 window.addEventListener at instance top level (structurally true), but its only render site is FileCard (FileCard.svelte:36), rendered on the ssr = true home page only from charts = browser ? [...] : [] (routes/(app)/+page.svelte:31-33, comment 'Built client-side only') and otherwise under routes/(app)/+layout.ts ssr = false, so it never runs on the server"
+  },
+  {
+    "key": "Herover/shareviz::correctness/prop-mutation::src/lib/components/chart/Line/LineStyleEditor.svelte:127::Prop \"style\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: the prop holds a LineStyleStore, a class with a $state field (#doc, src/lib/chartStores/lineStyle.svelte.ts:8) whose delete() calls this.#doc.submitOp, which ShareDB applies to the doc's data locally; a class instance with $state fields mutated through its methods is the case the rule docs say stays flagged (prop-mutation.md, 'cart.add(item)')"
+  },
+  {
+    "key": "Herover/shareviz::correctness/prop-mutation::src/lib/components/chart/Line/LinesEditorLine.svelte:81::Prop \"style\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: the prop holds a LineStyleStore, a class with a $state field (#doc, src/lib/chartStores/lineStyle.svelte.ts:8) whose delete() calls this.#doc.submitOp, which ShareDB applies to the doc's data locally; a class instance with $state fields mutated through its methods is the case the rule docs say stays flagged (prop-mutation.md, 'cart.add(item)')"
+  },
+  {
+    "key": "Herover/shareviz::correctness/prop-mutation::src/lib/components/chart/Line/LinesEditorLine.svelte:82::Prop \"style\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: the prop holds a LineStyleStore, a class with a $state field (#doc, src/lib/chartStores/lineStyle.svelte.ts:8) whose delete() calls this.#doc.submitOp, which ShareDB applies to the doc's data locally; a class instance with $state fields mutated through its methods is the case the rule docs say stays flagged (prop-mutation.md, 'cart.add(item)')"
+  },
+  {
+    "key": "Herover/shareviz::correctness/prop-mutation::src/lib/components/vizzu/Channel.svelte:37::Prop \"configScope\" is mutated, but it is not declared $bindable",
+    "verdict": "fp",
+    "basis": "read: src/lib/components/vizzu/Channel.svelte:37 configScope.set(i, ...) on the configScope prop, an object of functions from db.channelScope whose set only submits ShareDB ops (src/lib/sharedbVizzu.ts:155-170) and mutates nothing in the prop; an I/O-only method call (decided after holdout 19: fp)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/prop-mutation::src/lib/components/vizzu/Channel.svelte:45::Prop \"configScope\" is mutated, but it is not declared $bindable",
+    "verdict": "fp",
+    "basis": "read: src/lib/components/vizzu/Channel.svelte:45 configScope.add(...) on the configScope prop, an object of functions whose add only calls doc.submitOp (src/lib/sharedbVizzu.ts:152-154); an I/O-only method call, nothing in the prop is mutated (decided after holdout 19: fp)"
+  },
+  {
+    "key": "Herover/shareviz::correctness/unmutated-state::src/lib/components/chart/Line/LinesEditor.svelte:33::$state \"defaultSelected\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chart/Line/LinesEditor.svelte:33 every mention of defaultSelected listed (grep -w): the $state(false) declaration and reads only (:48-283, :435, :459); never written, bound or passed"
+  },
+  {
+    "key": "Herover/shareviz::correctness/unmutated-state::src/routes/(chart)/view/chart/[[id]]/+page.svelte:33::$state \"zoomLevel\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(chart)/view/chart/[[id]]/+page.svelte:33 every mention of zoomLevel listed (grep -w): the $state(1) declaration and one read (style:scale, :174); never written, bound or passed"
+  },
+  {
+    "key": "Herover/shareviz::performance/iframe-loading::src/routes/(app)/editor/chart/[id]/+page.svelte:353::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the chart preview frame (src=PUBLIC_VIEWER_ORIGIN/view/chart/?editor) in the chart-viewer pane of the editor (editor/chart/[id]/+page.svelte:340-361) - the editor's visible main content, where eager is right per docs"
+  },
+  {
+    "key": "Herover/shareviz::performance/namespace-import::src/lib/chartStores/data.svelte.ts:5::Namespace import \"import * as … from 'rich-text'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read chartStores/data.svelte.ts:5,101,266-279: `richText` is passed whole to json1.type.registerSubtype (ot-json1's documented registerSubtype(require('rich-text')) shape); rich-text@4.1.0 (package-lock) is CJS exporting only {Delta, type}, both used — nothing to tree-shake (like the ledger's module-object-API design entries)"
+  },
+  {
+    "key": "Herover/shareviz::performance/sequential-awaits::src/routes/(app)/(main)/org/[organizationId]/+layout.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read org/[organizationId]/+layout.server.ts:4,18,26 + server_lib/sqlite.js:5-6: independent, but db is drizzle-orm/better-sqlite3, a synchronous driver — Promise.all cannot overlap the queries (ledger sync-driver design convention)"
+  },
+  {
+    "key": "Herover/shareviz::performance/sequential-awaits::src/routes/(app)/(main)/org/[organizationId]/+layout.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read org/[organizationId]/+layout.server.ts:4,26,35 + server_lib/sqlite.js:5-6: getUserTeams is independent, but db is drizzle-orm/better-sqlite3, a synchronous driver — Promise.all cannot overlap the queries (ledger sync-driver design convention)"
+  },
+  {
+    "key": "Herover/shareviz::performance/state-raw::src/lib/components/chart/Line/FloatingLabels/FloatingLabel.svelte:22::\"relativeMove\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"relativeMove\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :39,:47; element reads :62-63); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /me/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /me/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/org/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /org (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /org/[organizationId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /org/[organizationId]/team (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /org/[organizationId]/team/[teamId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /org/[organizationId]/team/[teamId]/charts/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: (app)/(main)/+layout.server.ts:7-9 redirect(302, '/') when locals.session/user is missing), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/brand/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /brand (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /editor/chart/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/editor/vizzu/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /editor/vizzu (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/example/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /example/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /invite (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws) but not a search target (auth-gated: reset-password/+page.server.ts:7-9 redirect(302, '/') when !locals.session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(app)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/canonical-url::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /view/chart/[[id]] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /me/[...folder]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /me/settings; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/org/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /org; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /org/[organizationId]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /org/[organizationId]/team; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /org/[organizationId]/team/[teamId]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /org/[organizationId]/team/[teamId]/charts/[...folder]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/brand/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /brand; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /editor/chart/[id]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/editor/vizzu/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /editor/vizzu; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/example/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /example/[id]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/invite/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /invite; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /reset-password; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(app)/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /signup; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/description-presence::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /view/chart/[[id]]; but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /me/[...folder] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/me/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /me/settings renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/org/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /org renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /org/[organizationId] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /org/[organizationId]/team renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /org/[organizationId]/team/[teamId] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /org/[organizationId]/team/[teamId]/charts/[...folder] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so / renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/brand/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /brand renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /editor/chart/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/editor/vizzu/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /editor/vizzu renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/example/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /example/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /invite renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /reset-password renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(app)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /signup renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/json-ld::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /view/chart/[[id]] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/org/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /org (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /org/[organizationId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /org/[organizationId]/team (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /org/[organizationId]/team/[teamId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /org/[organizationId]/team/[teamId]/charts/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/brand/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /brand (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /editor/chart/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/editor/vizzu/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /editor/vizzu (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/example/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /example/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /invite (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(app)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-description::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /view/chart/[[id]] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/org/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /org (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /org/[organizationId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /org/[organizationId]/team (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /org/[organizationId]/team/[teamId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /org/[organizationId]/team/[teamId]/charts/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/brand/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /brand (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /editor/chart/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/editor/vizzu/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /editor/vizzu (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/example/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /example/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /invite (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(app)/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-image::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /view/chart/[[id]] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/org/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /org (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /org/[organizationId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /org/[organizationId]/team (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /org/[organizationId]/team/[teamId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /org/[organizationId]/team/[teamId]/charts/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/brand/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /brand (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /editor/chart/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/editor/vizzu/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /editor/vizzu (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/example/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /example/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /invite (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(app)/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-title::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /view/chart/[[id]] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/org/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /org (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /org/[organizationId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /org/[organizationId]/team (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /org/[organizationId]/team/[teamId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /org/[organizationId]/team/[teamId]/charts/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/brand/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /brand (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /editor/chart/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/editor/vizzu/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /editor/vizzu (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/example/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /example/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(app)/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/og-url::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /view/chart/[[id]] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no static/robots.txt, src/routes/robots.txt endpoint or generator script in the app (literal claim holds); but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::/example/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub (whole app ssr=false): example/[id]/+page.svelte renders only a <div class=\"creating\"> text and onMount copies the sample chart then goto()s the editor; no <h1> in (app)/+layout.svelte (NotificationArea, children) or root layout - as the ledger labels client-redirect stubs"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::/invite::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /invite: invite/+page.svelte renders only <p>/<button>/<a> messages (:27-38); load never redirects; (app)/+layout.svelte renders NotificationArea + children, no heading"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::/reset-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /reset-password (renders for a signed-in user; load redirects only !locals.session): the page is a <form> of labels/inputs/<p> (reset-password/+page.svelte:17-41); (app) layout has no heading"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::src/lib/components/PageHead.svelte:24::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/org/[organizationId]/team/[teamId]/charts/[...folder]: the page's one visible <h1> is PageHead's (PageHead.svelte:24, charts/[...folder]/+page.svelte:121); the other counted <h1>Import chart (:132) is inside <Popup show={promptSpec}>, which renders children only {#if show} (Popup.svelte) and promptSpec opens from the import button - closed by default"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::src/routes/(app)/(main)/me/[...folder]/+page.svelte:68::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two unconditional <h1> render on /me/[...folder]: <h1>Select organization (me/[...folder]/+page.svelte:64) and <h1>Your personal charts (:68)"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::src/routes/(app)/(main)/me/settings/+page.svelte:11::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /me/settings (renders for a signed-in user): the page is user-row <div>s, a form and buttons (me/settings/+page.svelte:13-39); (main)/+layout.svelte header (Brand, NavDropdown) has no heading"
+  },
+  {
+    "key": "Herover/shareviz::seo/single-h1::src/routes/(app)/signup/+page.svelte:29::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /signup (GET renders; only the POST action redirects): the title is <h2>Create your account (signup/+page.svelte:29); Brand/ThemeToggle/Icon render no heading"
+  },
+  {
+    "key": "Herover/shareviz::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no static/sitemap.xml, src/routes/sitemap.xml endpoint or generator script in the app (literal claim holds); but DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src)"
+  },
+  {
+    "key": "Herover/shareviz::seo/ssr-disabled::src/routes/(app)/+layout.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(app)/+layout.ts:3; deliberate SPA: DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src); docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "Herover/shareviz::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:3; deliberate SPA: DataTortilla is a self-hosted collaborative chart editor (README: 'host your own', 'no hosted version', 'Not ready for production'); its routes are app screens, sign-in flows or iframe embed viewers, not a website for search (no svelte:head anywhere in src); docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/me/[...folder]/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/me/settings/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/org/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/org/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/org/[organizationId]/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user ((main)/+layout.server.ts redirects only anonymous users; ssr=false app shell): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; public home page ((app)/+page.ts ssr=true, load returns sample charts): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/brand/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "literal claim holds: (app)/brand/+page.svelte has no svelte:head, layouts/app.html none, no svelte:head or document.title anywhere in src; but the file header calls it a 'Brand mark playground' comparing logo directions from a design handoff, linked from nowhere in src (playground precedent): not a page for visitors"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/editor/chart/[id]/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; the main chart editor, renders for every visitor (load returns signedIn + chartRelations): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/editor/vizzu/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "literal claim holds: (app)/editor/vizzu/+page.svelte has no svelte:head, layouts/app.html none, no svelte:head or document.title anywhere in src; but it is an experimental Vizzu editor bound to a hard-coded doc (db.connect('1')) with debug console.log runs and eslint-disable, linked from nowhere in src (unlinked developer page precedent)"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/example/[id]/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "literal claim holds: (app)/example/[id]/+page.svelte has no svelte:head, layouts/app.html none, no svelte:head or document.title anywhere in src; but the page is a client-side redirect shim (ssr=false): its only content is 'Creating your copy…' while onMount copies the sample chart and goto()s the editor with replaceState (goto-on-mount crawl-anchor precedent)"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/invite/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/invite/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for every visitor ((app)/invite/+page.server.ts load never redirects): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/reset-password/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/reset-password/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; renders for a signed-in user (load redirects only when !locals.session): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(app)/signup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(app)/signup/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; public sign-up form (no load): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/title-presence::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: no svelte:head anywhere, only SVG <title>s in lib/components/chart/*) + read: src/routes/(chart)/view/chart/[[id]]/+page.svelte has no svelte:head, (app)/+layout.svelte and (main)/+layout.svelte have none, app.html none, no Svelte npm deps; public SSR chart viewer ((chart)/view/chart/[[id]]/+layout.ts ssr=true) whose URL PublishTab.svelte:46,70-78 shares as the embed URL and opens standalone via a target=_blank Preview link (atmo-events public SSR embed precedent, tp): renders untitled"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/me/[...folder]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/me/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me/settings (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/org/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /org (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/org/[organizationId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /org/[organizationId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/org/[organizationId]/team/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /org/[organizationId]/team (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /org/[organizationId]/team/[teamId] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/(main)/org/[organizationId]/team/[teamId]/charts/[...folder]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /org/[organizationId]/team/[teamId]/charts/[...folder] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/brand/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /brand (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/editor/chart/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /editor/chart/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/editor/vizzu/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /editor/vizzu (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/example/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /example/[id] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /invite (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(app)/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signup (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "Herover/shareviz::seo/twitter-card::src/routes/(chart)/view/chart/[[id]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /view/chart/[[id]] (script-verified (a1b_label.py repo grep, read): no og:*/twitter:*/rel=canonical anywhere in the app (repo grep; app.html head is charset/icon/viewport/style only; no root +layout.svelte, (app)/+layout.svelte has no <svelte:head>; npm deps carry no Svelte meta component; hooks.server.ts only redirects viewer-origin non-/view paths)); route renders (no load/hooks/script that always redirects or throws)"
+  }
+]

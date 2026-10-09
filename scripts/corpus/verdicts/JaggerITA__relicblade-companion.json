@@ -1,0 +1,1172 @@
+[
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/id-duplication::src/lib/components/shared/Modal.svelte:31::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read: h2#modal-title (shared/Modal.svelte:31) renders only under {#if open} (:15); every copy on the 15 routes is a separate <Modal open={…}> instance driven by its own $state (e.g. campaign/[id]/+page.svelte:609 showBaseModal, :723 showSpecialistCostModal, :749, :772 confirmDelete), each opened by its own user action; documented separate-{#if} co-render model (modal precedent)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/no-autofocus::src/lib/components/gamemanager/ModelCard.svelte:200::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; <input autofocus> at ModelCard.svelte:200 is in the children snippet of <Modal open={showAddCondition}> (:197), and shared/Modal.svelte renders content only under {#if open} (:15); focus on user action inside an opened modal, not page load (modal-autofocus precedent)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/lib/components/gamemanager/ModelCard.svelte:67::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at ModelCard.svelte:67 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"min-w-0 flex-1\">@67 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-label=\"View {expr} details\">@61 in <div class=\"…\">@53; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/lib/components/gamemanager/ModelCard.svelte:98::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at ModelCard.svelte:98 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"…\">@98 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-label=\"View {expr} details\">@61 in <div class=\"…\">@53; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/lib/components/listbuilder/CharacterPickerSheet.svelte:68::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at CharacterPickerSheet.svelte:68 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"min-w-0\">@68 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-expanded=\"{expr}\">@62 in <div class=\"…\">@60; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/lib/components/listbuilder/CharacterPickerSheet.svelte:74::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at CharacterPickerSheet.svelte:74 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"…\">@74 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-expanded=\"{expr}\">@62 in <div class=\"…\">@60; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/lib/components/listbuilder/UpgradePickerSheet.svelte:83::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at UpgradePickerSheet.svelte:83 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"min-w-0\">@83 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-expanded=\"{expr}\">@77 in <div class=\"…\">@75; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/lib/components/listbuilder/UpgradePickerSheet.svelte:95::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at UpgradePickerSheet.svelte:95 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"…\">@95 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-expanded=\"{expr}\">@77 in <div class=\"…\">@75; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:287::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at +page.svelte:287 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"…\">@287 in <button type=\"button\" onclick=\"{expr}\" class=\"card w-full text-left\">@286 in {#if campaign.base}@285; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:291::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:291 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"text-xs text-on-muted\">@291 in <button type=\"button\" onclick=\"{expr}\" class=\"card w-full text-left\">@286 in {#if campaign.base}@285; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:293::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:293 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"mt-1 text-xs text-on-muted\">@293 in {#if campaign.base.notes}@292 in <button type=\"button\" onclick=\"{expr}\" class=\"card w-full text-left\">@286; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:378::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:378 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"truncate text-sm font-medium\">@378 in <button type=\"button\" onclick=\"{expr}\" class=\"min-w-0 flex-1 text-left\" aria-expanded=\"{ex in <div class=\"…\">@371; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:379::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:379 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"…\">@379 in <button type=\"button\" onclick=\"{expr}\" class=\"min-w-0 flex-1 text-left\" aria-expanded=\"{ex in <div class=\"…\">@371; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:385::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:385 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"…\">@385 in <button type=\"button\" onclick=\"{expr}\" class=\"min-w-0 flex-1 text-left\" aria-expanded=\"{ex in <div class=\"…\">@371; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:624::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:624 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"text-sm font-medium\">@624 in <button type=\"button\" onclick=\"{expr}\" class=\"…\">@619 in {#each}@618; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:625::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:625 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"text-xs text-on-muted\">@625 in <button type=\"button\" onclick=\"{expr}\" class=\"…\">@619 in {#each}@618; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:626::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:626 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"mt-1 text-xs text-on-muted\">@626 in <button type=\"button\" onclick=\"{expr}\" class=\"…\">@619 in {#each}@618; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/+page.svelte:630::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:630 has literal <button> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"mt-1 text-xs text-on-muted\">@630 in {#if template.notes}@629 in <button type=\"button\" onclick=\"{expr}\" class=\"…\">@619; outside <button>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/play/+page.svelte:175::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at +page.svelte:175 has literal <label> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"min-w-0\">@175 in <label class=\"card flex items-center gap-3\">@168 in {#each}@167; outside <label>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/play/+page.svelte:210::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:210 has literal <label> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"truncate text-sm font-medium\">@210 in <label class=\"card flex items-center gap-3\">@203 in {#each}@202; outside <label>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/campaign/[id]/play/+page.svelte:309::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at +page.svelte:309 has literal <label> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div class=\"min-w-0\">@309 in <label class=\"card flex items-center gap-3\">@302 in {#each}@301; outside <label>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/roster/[id]/+page.svelte:97::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:97 has literal <span> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"truncate font-semibold\">@97 in <span class=\"min-w-0\">@96 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-expanded=\"{expr}\">@90; outside <span>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/roster/[id]/+page.svelte:98::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <p> at +page.svelte:98 has literal <span> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <p class=\"…\">@98 in <span class=\"min-w-0\">@96 in <button type=\"button\" onclick=\"{expr}\" class=\"…\" aria-expanded=\"{expr}\">@90; outside <span>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/settings/+page.svelte:300::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at +page.svelte:300 has literal <label> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div >@300 in <label class=\"…\">@292 in <fieldset class=\"space-y-2\">@290; outside <label>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::a11y/permitted-contents::src/routes/settings/+page.svelte:313::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): <div> at +page.svelte:313 has literal <label> as nearest non-transparent element ancestor, no component/snippet/svelte:element/{@render} boundary between, not in svg: <div >@313 in <label class=\"…\">@305 in <fieldset class=\"space-y-2\">@290; outside <label>'s content model as reported"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/lib/components/cardimport/CardReviewForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/cardimport/CardReviewForm.svelte has 410 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/lib/components/cardimport/UpgradeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/cardimport/UpgradeForm.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/lib/components/gamemanager/ModelCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/gamemanager/ModelCard.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/campaign/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/campaign/[id]/+page.svelte has 804 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/campaign/[id]/play/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/campaign/[id]/play/+page.svelte has 367 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/campaign/[id]/postgame/[gameId]/+page.svelte has 397 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/campaign/scenarios/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/campaign/scenarios/+page.svelte has 372 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/game/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/game/[id]/+page.svelte has 306 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/roster/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/roster/[id]/+page.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 430 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/prop-count::src/lib/components/gamemanager/ModelCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/gamemanager/ModelCard.svelte has a single destructured $props() with 7 named props (> 6): character, model, equippedUpgradeIds, onadjusthealth, onadjustactiondice, ontoggleactivation, ontogglecondition"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::architecture/prop-count::src/lib/components/listbuilder/UpgradePickerSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/listbuilder/UpgradePickerSheet.svelte has a single destructured $props() with 7 named props (> 6): open, character, equippedUpgradeIds, collectionUpgrades, upgradesById, onpick, onclose"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::correctness/each-index-key::src/routes/campaign/[id]/+page.svelte:457::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/campaign/[id]/+page.svelte:457 '{#each state.heroicTraits as trait, i (i)}' a campaign entry's heroic traits, removable mid-list (campaignStore.removeHeroicTrait(..., i), :462) and added by the user: user-edited list, identity follows position"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::correctness/each-index-key::src/routes/campaign/[id]/+page.svelte:487::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/campaign/[id]/+page.svelte:487 '{#each state.woundTraits as trait, i (i)}' a campaign entry's wound traits, removable mid-list by index and added by the user: user-edited list, identity follows position"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::correctness/each-index-key::src/routes/campaign/[id]/+page.svelte:517::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/campaign/[id]/+page.svelte:517 '{#each state.relics as relic, i (i)}' a campaign entry's relics, removable mid-list by index and added by the user: user-edited list, identity follows position"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::correctness/each-index-key::src/routes/campaign/[id]/play/+page.svelte:274::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/campaign/[id]/play/+page.svelte:274 '{#each wildMonsterIds as characterId, i (i)}' the UI states 'You can add the same character more than once' (:270), so ids repeat and no item key exists; rows are stateless text + a remove button (removeWildMonster(i), :58); index keying is the deliberate workaround for duplicates"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::correctness/each-key::src/lib/components/cardimport/CardReviewForm.svelte:252::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/cardimport/CardReviewForm.svelte:252 '{#each actions as action, i}' actions = $state (:68) appended (:94) and removed mid-list (actions.filter((_, idx) => idx !== i), :98), each with inputs: user-edited list with no key"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/lib/components/cardimport/CardReviewForm.svelte:73::\"errors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"errors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :81; member reads :141-190); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/lib/components/cardimport/UpgradeForm.svelte:41::\"errors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"errors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :57; reads :86,:119); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/campaign/[id]/+page.svelte:31::\"baseErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"baseErrors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :113,:143; reads :653,:664); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/campaign/new/+page.svelte:13::\"errors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"errors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :23; reads :64,:79); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/campaign/scenarios/+page.svelte:42::\"scenarioErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"scenarioErrors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :60,:67; read :210); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/campaign/scenarios/+page.svelte:85::\"environmentErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"environmentErrors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :94,:101; read :330); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/game/[id]/+page.svelte:23::\"recoveryResults\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"recoveryResults\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :41,:62,:66 (spread-copy); read :253); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/roster/new/+page.svelte:14::\"errors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"errors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :20; reads :48,:83); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::performance/state-raw::src/routes/settings/+page.svelte:94::\"tplErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"tplErrors\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned :105,:113; reads :345,:356); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/campaign/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /campaign (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/campaign/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /campaign/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/campaign/[id]/play/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /campaign/[id]/play (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /campaign/[id]/postgame/[gameId] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/campaign/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /campaign/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/campaign/scenarios/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /campaign/scenarios (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/collection/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/collection/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/collection/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/collection/scan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection/scan (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/collection/upgrade/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection/upgrade/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/collection/upgrade/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /collection/upgrade/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/game/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /game (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/game/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /game/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/game/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /game/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/roster/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /roster (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/roster/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /roster/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/roster/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /roster/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws); publicly reachable, no noindex, robots allows"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/campaign/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /campaign; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/campaign/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /campaign/[id]; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/campaign/[id]/play/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /campaign/[id]/play; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /campaign/[id]/postgame/[gameId]; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/campaign/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /campaign/new; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/campaign/scenarios/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /campaign/scenarios; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/collection/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /collection; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/collection/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /collection/[id]; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/collection/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /collection/new; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/collection/scan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /collection/scan; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/collection/upgrade/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /collection/upgrade/[id]; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/collection/upgrade/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /collection/upgrade/new; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/game/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /game; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/game/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /game/[id]; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/game/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /game/new; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/roster/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /roster; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/roster/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /roster/[id]; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/roster/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /roster/new; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no <meta name=\"description\"> anywhere in the app; no meta-tag package in deps) (literal claim holds) on /settings; public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent, so the missing description holds"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so / renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/campaign/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /campaign renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/campaign/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /campaign/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/campaign/[id]/play/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /campaign/[id]/play renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /campaign/[id]/postgame/[gameId] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/campaign/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /campaign/new renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/campaign/scenarios/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /campaign/scenarios renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/collection/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /collection renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/collection/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /collection/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/collection/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /collection/new renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/collection/scan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /collection/scan renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/collection/upgrade/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /collection/upgrade/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/collection/upgrade/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /collection/upgrade/new renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/game/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /game renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/game/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /game/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/game/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /game/new renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/roster/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /roster renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/roster/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /roster/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/roster/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /roster/new renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /settings renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/campaign/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /campaign (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/campaign/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /campaign/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/campaign/[id]/play/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /campaign/[id]/play (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /campaign/[id]/postgame/[gameId] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/campaign/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /campaign/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/campaign/scenarios/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /campaign/scenarios (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/collection/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collection (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/collection/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collection/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/collection/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collection/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/collection/scan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collection/scan (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/collection/upgrade/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collection/upgrade/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/collection/upgrade/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collection/upgrade/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/game/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /game (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/game/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /game/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/game/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /game/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/roster/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roster (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/roster/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roster/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/roster/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /roster/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/campaign/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /campaign (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/campaign/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /campaign/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/campaign/[id]/play/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /campaign/[id]/play (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /campaign/[id]/postgame/[gameId] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/campaign/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /campaign/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/campaign/scenarios/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /campaign/scenarios (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/collection/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/collection/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/collection/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/collection/scan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/scan (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/collection/upgrade/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/upgrade/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/collection/upgrade/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collection/upgrade/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/game/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /game (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/game/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /game/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/game/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /game/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/roster/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roster (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/roster/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roster/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/roster/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /roster/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/campaign/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /campaign (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/campaign/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /campaign/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/campaign/[id]/play/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /campaign/[id]/play (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /campaign/[id]/postgame/[gameId] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/campaign/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /campaign/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/campaign/scenarios/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /campaign/scenarios (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/collection/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collection (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/collection/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collection/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/collection/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collection/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/collection/scan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collection/scan (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/collection/upgrade/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collection/upgrade/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/collection/upgrade/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collection/upgrade/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/game/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /game (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/game/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /game/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/game/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /game/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/roster/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roster (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/roster/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roster/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/roster/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /roster/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/campaign/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /campaign (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/campaign/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /campaign/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/campaign/[id]/play/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /campaign/[id]/play (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /campaign/[id]/postgame/[gameId] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/campaign/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /campaign/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/campaign/scenarios/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /campaign/scenarios (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/collection/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collection (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/collection/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collection/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/collection/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collection/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/collection/scan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collection/scan (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/collection/upgrade/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collection/upgrade/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/collection/upgrade/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collection/upgrade/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/game/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /game (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/game/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /game/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/game/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /game/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/roster/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roster (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/roster/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roster/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/roster/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /roster/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no static/robots.txt, src/routes/robots.txt endpoint or generator script in the app (literal claim holds); public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent (GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no static/sitemap.xml, src/routes/sitemap.xml endpoint or generator script in the app (literal claim holds); public local-first list-builder PWA deployed to GitHub Pages (.github/workflows/deploy.yml, BASE_PATH /relicblade-companion), no login gate; public web app per the ledger's EmKaCe/scipro_review precedent (GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (with prerender = true); deliberate SPA: a local-first list builder whose state lives in IndexedDB (idb), the ledger's EmKaCe/cigale local-first app-shell shape; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/campaign/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/campaign/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/campaign/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/campaign/[id]/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/campaign/[id]/play/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/campaign/[id]/play/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/campaign/[id]/postgame/[gameId]/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/campaign/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/campaign/new/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/campaign/scenarios/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/campaign/scenarios/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/collection/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/collection/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/collection/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/collection/[id]/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/collection/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/collection/new/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/collection/scan/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/collection/scan/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/collection/upgrade/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/collection/upgrade/[id]/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/collection/upgrade/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/collection/upgrade/new/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/game/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/game/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/game/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/game/[id]/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/game/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/game/new/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/roster/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/roster/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/roster/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/roster/[id]/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/roster/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/roster/new/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src for svelte:head/<title/document.title: none at all) + read: src/routes/settings/+page.svelte has no svelte:head; root +layout.svelte (Toast + bottom nav) has none, app.html has no <title>, the only Svelte dep @lucide/svelte emits none; route renders client-side (+layout.ts ssr=false; its +page.ts, if any, only sets prerender=false): renders untitled"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/campaign/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /campaign (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/campaign/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /campaign/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/campaign/[id]/play/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /campaign/[id]/play (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/campaign/[id]/postgame/[gameId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /campaign/[id]/postgame/[gameId] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/campaign/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /campaign/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/campaign/scenarios/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /campaign/scenarios (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/collection/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/collection/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/collection/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/collection/scan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/scan (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/collection/upgrade/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/upgrade/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/collection/upgrade/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collection/upgrade/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/game/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /game (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/game/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /game/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/game/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /game/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/roster/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roster (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/roster/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roster/[id] (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/roster/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /roster/new (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  },
+  {
+    "key": "JaggerITA/relicblade-companion::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b_label.py repo grep, read): no <svelte:head> anywhere in src and no og:*/twitter:*/rel=canonical in the repo (grep; app.html head is charset/icon/manifest/viewport/theme-color/apple-* only; root +layout.ts ssr=false, no hooks, npm Svelte deps are @lucide/svelte icons only)); route renders (no load/hooks/script that always redirects or throws)"
+  }
+]

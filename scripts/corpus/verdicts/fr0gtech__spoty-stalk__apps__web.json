@@ -1,0 +1,1287 @@
+[
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::a11y/interactive-nesting::src/lib/components/SongCard.svelte:100::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST walk, label29/e_walk.mjs): element at SongCard.svelte:100 is a natively/role-interactive control whose nearest interactive container ancestor in the same template (no component/snippet boundary between) is as reported: <button type=\"button\" aria-label=\"{expr}\" aria-pressed=\"{expr}\" title=\"{expr}\" onclick=\"{e in {#if canLike}@99 in <div class=\"…\">@98 in <div role=\"button\" tabindex=\"0\" onclick=\"{expr}\" onkeydown=\"{expr}\" class=\"…\">@62 in <div class=\"…\" C:border-signal C:border-line C:bg-panel C:bg-panel-2 style=\"{expr}\">@49"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/component-size::src/lib/components/PlayerBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlayerBar.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/component-size::src/lib/components/builder/NodeInspector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/builder/NodeInspector.svelte has 389 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/component-size::src/routes/(app)/directory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/directory/+page.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/component-size::src/routes/(app)/t/[handle]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/t/[handle]/+page.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/component-size::src/routes/(app)/t/[handle]/builder/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/t/[handle]/builder/+page.svelte has 347 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/component-size::src/routes/(app)/t/[handle]/shuffle/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/t/[handle]/shuffle/+page.svelte has 457 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/prop-count::src/lib/components/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Select.svelte has a single destructured $props() with 9 named props (> 6): value, options, placeholder, ariaLabel, testid, name, disabled, onValueChange, class"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::architecture/prop-count::src/lib/components/SelectMulti.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SelectMulti.svelte has a single destructured $props() with 7 named props (> 6): value, options, placeholder, ariaLabel, testid, onValueChange, class"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/NodeInspector.svelte:146::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/NodeInspector.svelte:146 '{#each Object.entries(PORTS[nt].inputs) as [key, types]}' PORTS is the constant node-port table of the workspace package @spoty/shuffle (import :4); static list"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/NodeInspector.svelte:149::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/NodeInspector.svelte:149 '{#each types as t}' the accepted types of one port in the constant PORTS table; static list"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/NodePalette.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/NodePalette.svelte:36 '{#each PALETTE as group}' PALETTE is a module constant built once by an IIFE (src/lib/shuffle/nodeMeta.ts:52), not an array literal; static list"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/NodePalette.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/NodePalette.svelte:43 '{#each group.types as type}' node types of one constant PALETTE group (nodeMeta.ts:52); static list"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/ResultsDrawer.svelte:136::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/ResultsDrawer.svelte:136 '{#each histogramStats as stat}' histogramStats = $derived.by stats of one shuffle result (:44), read-only; positional list (rows of one aggregate result)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/ResultsDrawer.svelte:142::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/ResultsDrawer.svelte:142 '{#each h as bucket}' histogram buckets of one stat (h = stat.histogram, :137); positional list (chart bars)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/ResultsDrawer.svelte:161::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/ResultsDrawer.svelte:161 '{#each sampleQueue as song, i}' sampleQueue = $derived(queue.slice(0, 8)) (:50), a read-only preview of one run's resulting queue; positional list (sample rows of one result)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/lib/components/builder/ResultsDrawer.svelte:182::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/builder/ResultsDrawer.svelte:182 '{#each result.warnings as w}' warning lines of one run result, plain text; positional list (report lines of one result)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/each-key::src/routes/(app)/request/+page.svelte:84::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/request/+page.svelte:84 '{#each data.requests as r}' the user's requests from the page load (DB records), which the user creates and cancels; runtime records with no key"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/effect-as-derived::src/lib/components/VolumeControl.svelte:9::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/VolumeControl.svelte:9 the effect only does value = [$player.muted ? 0 : $player.volume]; the other write is bind:value on the bits-ui Slider (:42), the writable-$derived override pattern (svelte resolves to 5.56.3 in pnpm-lock.yaml)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::correctness/unmutated-state::src/routes/(app)/t/[handle]/builder/+page.svelte:38::$state \"graphInput\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/t/[handle]/builder/+page.svelte:38 graphInput = $state<HTMLInputElement | null>(null) is the only mention of graphInput in the route (grep); never written, bound or passed (dead state)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-dimensions::src/routes/(app)/admin/targets/[id]/+page.svelte:27::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: avatar preview with class h-24 w-24 rounded-full - box reserved by CSS"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/admin/targets/[id]/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar preview in the target edit form directly under the page <h1> (:22) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/artist/[id]/+page.svelte:51::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if data.tracks.length === 0} right after the artist <h1> header (:36-51) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/artist/[id]/+page.svelte:62::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: album art in each row of the {#each data.tracks} list (:56-62) - later rows are offscreen"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/directory/+page.svelte:166::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if data.targets.length === 0} right after the directory heading and filter chips (:100-166) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/directory/+page.svelte:182::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in each card of the {#each filtered} directory grid (:174-182) - later cards are offscreen"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/me/+page.svelte:144::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if songs.length === 0} directly after the header card and toolbar (:110-144) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/me/+page.svelte:85::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile avatar in the header card, the first block of /me (:82-90) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/me/playlist/[pid]/+page.svelte:49::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if data.songs.length === 0} right after the playlist <h1> (:24-49) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/me/playlists/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if data.playlists.length === 0} right after the <h1> (:35-39) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/me/playlists/+page.svelte:49::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: playlist cover in each card of the {#each data.playlists} grid (:44-49) - later cards are offscreen"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/+page.svelte:135::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: target avatar in the file-header card, the first block of the page (:132-140) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/+page.svelte:212::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: playlist cover in each card of the {#each playlists} HScroll strip below the header card (:194-212) - later cards are offscreen"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/+page.svelte:279::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image {#if songs.length === 0} after the header card, the playlists strip and the feed controls (:132-279) - can sit offscreen on load"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/overlap/+page.svelte:174::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image in {:else if songs} (no overlap) right after the header/summary card (:147-174) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/overlap/+page.svelte:99::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: target avatar in the overlap header card, the first block of the page (:96-104) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte:41::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if data.songs.length === 0} right after the playlist <h1> header (:26-41) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/playlists/+page.svelte:30::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 96px frog empty-state image shown {#if data.playlists.length === 0} right after the <h1> (:24-30) - visible when rendered"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(app)/t/[handle]/playlists/+page.svelte:40::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: playlist cover in each card of the {#each data.playlists} grid (:35-40) - later cards are offscreen"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(public)/+page.svelte:46::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: song thumbnail in each row of the {#each data.teaser} Trending list below the py-20 hero (:39-46) - later rows are offscreen"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/image-loading-hint::src/routes/(public)/+page.svelte:80::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: curator avatar in each card of the {#each data.featured} grid, the section after the hero and Trending list (:71-80) - offscreen on load"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/admin/targets/[id]/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: avatar || /frog.png, a Spotify profile image URL or static/frog.png (400x400 raster) shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/artist/[id]/+page.svelte:51::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/artist/[id]/+page.svelte:62::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: t.imageUrl (Spotify album-art URL) or static/frog.png, raster shown at 48px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/directory/+page.svelte:166::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/directory/+page.svelte:182::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: t.avatarUrl (Spotify profile image) or static/frog.png, raster shown at 56px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/me/+page.svelte:144::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/me/+page.svelte:85::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.profile.image (Spotify profile image) or static/frog.png, raster shown at 88-104px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/me/playlist/[pid]/+page.svelte:49::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/me/playlists/+page.svelte:39::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/me/playlists/+page.svelte:49::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: pl.imageUrl (Spotify playlist cover) or static/frog.png, raster shown at 56px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/+page.svelte:135::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.target.avatarUrl (Spotify profile image) or static/frog.png, raster shown at 88-104px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/+page.svelte:212::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: p.imageUrl (Spotify playlist cover) or static/frog.png, raster shown at 116px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/+page.svelte:279::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/overlap/+page.svelte:174::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/overlap/+page.svelte:99::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.target.avatarUrl (Spotify profile image) or static/frog.png, raster shown at 48px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte:41::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/playlists/+page.svelte:30::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static/frog.png, a 400x400 raster shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(app)/t/[handle]/playlists/+page.svelte:40::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: pl.imageUrl (Spotify playlist cover) or static/frog.png, raster shown at 56px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(public)/+page.svelte:46::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: item.imageUrl (Spotify song image) shown at 36px - raster - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/responsive-image::src/routes/(public)/+page.svelte:80::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: t.avatarUrl (Spotify profile image) or static/frog.png, raster shown at 56px - one fixed-size asset"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/admin/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/admin/+page.server.ts:7-8 + lib/server/admin.ts:7-16: the only preceding await is requireAdmin (session + user upsert, throws 403 for non-admins) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/admin/requests/+page.server.ts:8::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/requests/+page.server.ts:7-8: the only preceding await is requireAdmin (403 gate, lib/server/admin.ts:7-16) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/admin/targets/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/targets/+page.server.ts:10-11: the only preceding await is requireAdmin (403 gate, lib/server/admin.ts:7-16) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/admin/targets/[id]/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read admin/targets/[id]/+page.server.ts:8-9: the only preceding await is requireAdmin (403 gate, lib/server/admin.ts:7-16) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/artist/[id]/+page.server.ts:9::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read artist/[id]/+page.server.ts:7-9: getArtistTracks(db, params.id) uses only params; getArtist's result feeds only the 404 path — independent postgres-js Drizzle queries (packages/db/src/client.ts:5-7) serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/home/+page.server.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (app)/home/+page.server.ts:14-21: the trending/recent Promise.all uses nothing from the preceding ensureAppUser (session + user upsert, not a gate: home is public and user is only read at :32) — independent postgres-js queries serialized"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/me/+page.server.ts:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/me/+page.server.ts:20-34 + lib/server/spotifyApi.ts:22-41: the only preceding await is the ensureAppUser auth gate (logged-out early return), and the flagged getAccessTokenForRequest is an in-process JWT decode that only refreshes an expired token — auth-before-query ordering, nothing real serialized (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/me/playlist/[pid]/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/me/playlist/[pid]/+page.server.ts:7-10 + lib/server/spotifyApi.ts:22-41: the only preceding await is the ensureAppUser auth gate (logged-out early return), and getAccessTokenForRequest is an in-process JWT decode — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/me/playlists/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/me/playlists/+page.server.ts:7-10 + lib/server/spotifyApi.ts:22-41: the only preceding await is the ensureAppUser auth gate (logged-out early return), and getAccessTokenForRequest is an in-process JWT decode — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/t/[handle]/builder/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read t/[handle]/builder/+page.server.ts:18-20: ensureAppUser (session + user upsert) uses nothing from getTargetByHandle, whose result feeds only the 404 path — independent postgres-js queries serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/t/[handle]/overlap/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read t/[handle]/overlap/+page.server.ts:8-10: ensureAppUser uses nothing from getTargetByHandle, whose result feeds only the 404 path — independent postgres-js queries serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(app)/t/[handle]/shuffle/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read t/[handle]/shuffle/+page.server.ts:13-15: ensureAppUser uses nothing from getTargetByHandle, whose result feeds only the 404 path — independent postgres-js queries serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(public)/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (public)/+page.server.ts:8-11: the only preceding await is event.locals.auth() (session lookup that redirects signed-in users to /home) — auth-before-query ordering (ledger gate convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(public)/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (public)/+page.server.ts:11-14: getTrendingSongs(db, 7, 6) uses nothing from the preceding listActiveTargets(db) — independent postgres-js queries serialized; Promise.all would work"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(public)/shuffle/[token]/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (public)/shuffle/[token]/+page.server.ts:9-11: ensureAppUser uses nothing from getByShareToken, whose result feeds only the 404 path — independent postgres-js queries serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/sequential-awaits::src/routes/(public)/shuffle/[token]/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (public)/shuffle/[token]/+page.server.ts:9-12: listActiveTargets(db) uses nothing from getByShareToken (404 gate) or ensureAppUser (user only read for loggedIn) — independent postgres-js queries serialized"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::performance/state-raw::src/lib/components/AddToPlaylist.svelte:17::\"added\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"added\" in the file (d_refs.js): only whole-binding reassignments and read-only template/expression uses (reassigned by spread-copy :27; indexed reads :75,:77); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; but not a search target (auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/admin/requests/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/requests: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; but not a search target (auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/admin/targets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/targets: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; but not a search target (auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/targets/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; but not a search target (auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/artist/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /artist/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/directory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /directory: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /home: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /me: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /me/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/me/playlists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /me/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/request/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /request: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/shuffle/explore/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /shuffle/explore: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/t/[handle]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[handle]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[handle]/builder: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[handle]/overlap: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[handle]/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[handle]/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /t/[handle]/shuffle: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(public)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(public)/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/canonical-url::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /shuffle/[token]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; publicly reachable rendered route with no auth gate, noindex or redirect stub"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-length::src/routes/(app)/directory/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal description in src/routes/(app)/directory/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 56 as reported); /directory is a public page of the music-discovery site that renders without a session, so the length claim holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-length::src/routes/(app)/shuffle/explore/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal description in src/routes/(app)/shuffle/explore/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 57 as reported); /shuffle/explore is a public page of the music-discovery site that renders without a session, so the length claim holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/admin/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /admin; but /admin is admin-only ((app)/admin/+layout.server.ts:5 requireAdmin, 403 otherwise), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/admin/requests/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/admin/requests/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /admin/requests; but /admin/requests is admin-only ((app)/admin/+layout.server.ts:5 requireAdmin, 403 otherwise), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/admin/targets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/admin/targets/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /admin/targets; but /admin/targets is admin-only ((app)/admin/+layout.server.ts:5 requireAdmin, 403 otherwise), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/admin/targets/[id]/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /admin/targets/[id]; but /admin/targets/[id] is admin-only ((app)/admin/+layout.server.ts:5 requireAdmin, 403 otherwise), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/artist/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/artist/[id]/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /artist/[id]; /artist/[id] renders without a session and is a public artist page of the catalog of a public music-discovery site, so the missing description holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/home/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/home/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /home; /home renders without a session and is the public trending/fresh-adds feed (home/+page.server.ts:13-14 'home is public-friendly', renders without a session) of a public music-discovery site, so the missing description holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/me/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/me/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /me; but /me is the signed-in user's library (me/+page.server.ts:21 returns an empty logged-out shell without a session), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/me/playlist/[pid]/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /me/playlist/[pid]; but /me/playlist/[pid] is a signed-in user's playlist (empty logged-out shell without a session), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/me/playlists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/me/playlists/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /me/playlists; but /me/playlists is the signed-in user's playlists (empty logged-out shell without a session), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/request/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/request/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /request; but /request is the signed-in subject-request form, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/t/[handle]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/t/[handle]/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /t/[handle]; /t/[handle] renders without a session and is a public subject file (every track a subject added) of a public music-discovery site, so the missing description holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/t/[handle]/builder/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /t/[handle]/builder; but /t/[handle]/builder is the node-canvas shuffle-algorithm builder tool (+layout@ reset), an interactive tool screen rather than content, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/t/[handle]/overlap/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /t/[handle]/overlap; but /t/[handle]/overlap is the signed-in user's taste-overlap view with a subject, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /t/[handle]/playlist/[pid]; /t/[handle]/playlist/[pid] renders without a session and is a public subject playlist page of a public music-discovery site, so the missing description holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/t/[handle]/playlists/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /t/[handle]/playlists; /t/[handle]/playlists renders without a session and is a public subject's playlist index of a public music-discovery site, so the missing description holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(app)/t/[handle]/shuffle/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /t/[handle]/shuffle; but /t/[handle]/shuffle is the shuffle-algorithm editor/player tool for a subject, an interactive tool screen rather than content, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/description-presence::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of apps/web/src incl. app.html): descriptions exist only on (public)/+page.svelte, (public)/about, (app)/directory and (app)/shuffle/explore; src/routes/(public)/shuffle/[token]/+page.svelte, (app)/+layout.svelte, root +layout.svelte and app.html have none (literal claim holds) on /shuffle/[token]; but /shuffle/[token] is a token-addressed shared-algorithm link, not discoverable, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /admin renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/admin/requests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /admin/requests renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/admin/targets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /admin/targets renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /admin/targets/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/artist/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /artist/[id] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/directory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /directory renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /home renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /me renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /me/playlist/[pid] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/me/playlists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /me/playlists renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/request/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /request renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/shuffle/explore/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /shuffle/explore renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/t/[handle]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /t/[handle] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /t/[handle]/builder renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /t/[handle]/overlap renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /t/[handle]/playlist/[pid] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /t/[handle]/playlists renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /t/[handle]/shuffle renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(public)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so / renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(public)/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /about renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/json-ld::src/routes/(public)/shuffle/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for ld+json|jsonld|json-ld|structuredData|schema.org; no meta-tag or JSON-LD package in deps): no JSON-LD anywhere in the app, so /shuffle/[token] renders none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/admin/requests/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/requests: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/admin/targets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/targets: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/targets/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/artist/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /artist/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/directory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /directory: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/me/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/me/playlists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /me/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/request/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /request: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/shuffle/explore/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shuffle/explore: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/t/[handle]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[handle]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[handle]/builder: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[handle]/overlap: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[handle]/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[handle]/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /t/[handle]/shuffle: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(public)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(public)/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-description::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shuffle/[token]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/admin/requests/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/requests: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/admin/targets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/targets: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/targets/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/artist/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /artist/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/directory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /directory: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/me/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/me/playlists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /me/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/request/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /request: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/shuffle/explore/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shuffle/explore: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/t/[handle]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[handle]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[handle]/builder: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[handle]/overlap: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[handle]/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[handle]/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /t/[handle]/shuffle: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(public)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(public)/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-image::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shuffle/[token]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/admin/requests/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/requests: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/admin/targets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/targets: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/targets/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/artist/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /artist/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/directory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /directory: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/me/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/me/playlists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /me/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/request/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /request: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/shuffle/explore/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shuffle/explore: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/t/[handle]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[handle]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[handle]/builder: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[handle]/overlap: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[handle]/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[handle]/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /t/[handle]/shuffle: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(public)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(public)/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-title::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shuffle/[token]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/admin/requests/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/requests: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/admin/targets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/targets: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/targets/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/artist/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /artist/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/directory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /directory: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/me/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/me/playlists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /me/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/request/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /request: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/shuffle/explore/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shuffle/explore: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/t/[handle]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[handle]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[handle]/builder: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[handle]/overlap: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[handle]/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[handle]/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /t/[handle]/shuffle: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(public)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(public)/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/og-url::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shuffle/[token]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no static/robots.txt, src/routes/robots.txt endpoint or generator script in the app (literal claim holds); public music-discovery site whose directory, artist and subject pages render without a session (static/social.png share image), so the file is missing as claimed"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/single-h1::/t/[handle]/builder::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /t/[handle]/builder: builder/+layout@.svelte resets to the root layout and its header has links/spans only; the page renders Select/NodePalette/SvelteFlow/NodeInspector/ResultsDrawer with no <h1>; whole-src grep finds <h1> only in the unused NavBar.svelte"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/single-h1::src/routes/(app)/directory/+page.svelte:100::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on /directory: the page heading is <h2>Subjects under surveillance (directory/+page.svelte:100); (app) layout renders AppShell (no heading) and NavBar.svelte (the only lib <h1>) is imported by no route"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no static/sitemap.xml, src/routes/sitemap.xml endpoint or generator script in the app (literal claim holds); public music-discovery site whose directory, artist and subject pages render without a session (static/social.png share image), so the file is missing as claimed"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/admin/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 19 as reported) (literal claim holds); but /admin is admin-only (admin/+layout.server.ts requireAdmin 403), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/admin/requests/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/admin/requests/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 22 as reported) (literal claim holds); but /admin/requests is admin-only (admin/+layout.server.ts requireAdmin 403), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/admin/targets/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/admin/targets/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 21 as reported) (literal claim holds); but /admin/targets is admin-only (admin/+layout.server.ts requireAdmin 403), not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/directory/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/directory/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 11 as reported); /directory is a public page of the music-discovery site that renders without a session, so the length claim holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/home/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/home/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 22 as reported); /home is a public page of the music-discovery site that renders without a session, so the length claim holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/me/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/me/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 24 as reported) (literal claim holds); but /me is the signed-in user's library view, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/me/playlist/[pid]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/me/playlist/[pid]/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 22 as reported) (literal claim holds); but /me/playlist/[pid] is the signed-in user's library view, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(app)/me/playlists/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(app)/me/playlists/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 26 as reported) (literal claim holds); but /me/playlists is the signed-in user's library view, not a search target"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/title-length::src/routes/(public)/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal title in src/routes/(public)/about/+page.svelte, entities decoded, whitespace collapsed, grapheme count = 19 as reported); /about is a public page of the music-discovery site that renders without a session, so the length claim holds"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/admin/requests/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/requests: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/admin/targets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/targets: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/admin/targets/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/targets/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders; route context: auth-gated: (app)/admin/+layout.server.ts:5 requireAdmin (lib/server/admin.ts:7-15) errors 403 for every guest/non-admin (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/artist/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /artist/[id]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/directory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /directory: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/me/playlist/[pid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/me/playlists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /me/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/request/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /request: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/shuffle/explore/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shuffle/explore: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/t/[handle]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[handle]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/t/[handle]/builder/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[handle]/builder: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/t/[handle]/overlap/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[handle]/overlap: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/t/[handle]/playlist/[pid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[handle]/playlist/[pid]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/t/[handle]/playlists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[handle]/playlists: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(app)/t/[handle]/shuffle/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /t/[handle]/shuffle: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(public)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(public)/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  },
+  {
+    "key": "fr0gtech/spoty-stalk:apps/web::seo/twitter-card::src/routes/(public)/shuffle/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shuffle/[token]: no og:*/twitter:*/rel=canonical emitter anywhere in apps/web/src, app.html (charset/icon/viewport/font links) or @spoty/* workspace packages (repo grep; no <svelte:head> in any route or layout; static/social.png is never referenced); npm Svelte deps at lockfile versions scanned on jsDelivr (a1a_npmscan.py) emit none (@auth/sveltekit@1.11.2, @xyflow/svelte@1.6.0, @tanstack/svelte-query@5.90.2, bits-ui@1.8.0, lucide-svelte icons); hooks.server.ts is the Auth.js handle only; route renders"
+  }
+]
