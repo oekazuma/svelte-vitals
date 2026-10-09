@@ -1255,6 +1255,8 @@ function childrenUrlConds(ast: AST.Root, source: string) {
   if (!source.includes('pathname') && !source.includes('route.id')) return { sites: out, blocks };
   type Expr = AST.IfBlock['test'];
   const derived = new Map<string, Expr>();
+  // `const PUBLIC = ['/login', '/setup']`: a list a test may search instead of an array literal.
+  const lists = new Map<string, Expr>();
   for (const stmt of ast.instance?.content.body ?? []) {
     if (stmt.type !== 'VariableDeclaration') continue;
     for (const d of stmt.declarations) {
@@ -1262,6 +1264,7 @@ function childrenUrlConds(ast: AST.Root, source: string) {
       if (d.id.type === 'Identifier' && init?.type === 'CallExpression' && init.callee.type === 'Identifier')
         if (init.callee.name === '$derived' && init.arguments.length === 1)
           derived.set(d.id.name, init.arguments[0] as Expr);
+      if (stmt.kind === 'const' && d.id.type === 'Identifier' && init) lists.set(d.id.name, init as Expr);
     }
   }
   const strip = (n: Expr): Expr => {
@@ -1274,6 +1277,13 @@ function childrenUrlConds(ast: AST.Root, source: string) {
     return source.slice(start, end).replace(/\s+/g, '');
   };
   const literal = (n: Expr) => (n.type === 'Literal' && typeof n.value === 'string' ? n.value : undefined);
+  const stringsOf = (raw: Expr): string[] | undefined => {
+    const n = strip(raw);
+    const list = n.type === 'Identifier' ? lists.get(n.name) : n;
+    if (list?.type !== 'ArrayExpression') return undefined;
+    const values = list.elements.map((e) => (e?.type === 'Literal' ? literal(e as Expr) : undefined));
+    return values.every((v) => v !== undefined) ? (values as string[]) : undefined;
+  };
   const isRouteId = (raw: Expr, depth = 0): boolean => {
     const n = strip(raw);
     if (n.type === 'MemberExpression') return /^\$?page\.route\.id$/.test(text(n));
@@ -1317,11 +1327,21 @@ function childrenUrlConds(ast: AST.Root, source: string) {
       const v = n.arguments.length === 1 ? literal(n.arguments[0] as Expr) : undefined;
       if (op && v !== undefined && isPath(n.callee.object as Expr, depth)) return { op, v };
       // `['/a', '/b'].includes(page.route.id)`
-      const list = n.callee.object as Expr;
-      if (name === 'includes' && list.type === 'ArrayExpression' && n.arguments.length === 1) {
-        const ids = list.elements.map((e) => (e ? literal(e as Expr) : undefined));
-        if (ids.every((id) => id !== undefined) && isRouteId(n.arguments[0] as Expr, depth))
-          return { id: ids as string[] };
+      const ids = stringsOf(n.callee.object as Expr);
+      if (name === 'includes' && ids && n.arguments.length === 1 && isRouteId(n.arguments[0] as Expr, depth))
+        return { id: ids };
+      // `PUBLIC.some((r) => page.url.pathname.startsWith(r))`
+      const fn = n.arguments[0] as Expr;
+      if (name === 'some' && ids && n.arguments.length === 1 && fn.type === 'ArrowFunctionExpression') {
+        const param = fn.params.length === 1 && fn.params[0]!.type === 'Identifier' ? fn.params[0]!.name : undefined;
+        const body = fn.body.type === 'BlockStatement' ? undefined : strip(fn.body as Expr);
+        if (param && body?.type === 'CallExpression' && body.callee.type === 'MemberExpression' && !body.callee.computed) {
+          const test = body.callee.property.type === 'Identifier' ? body.callee.property.name : '';
+          const each = ({ startsWith: 'starts', endsWith: 'ends', includes: 'includes' } as const)[test as 'includes'];
+          const arg = body.arguments.length === 1 ? (body.arguments[0] as Expr) : undefined;
+          if (each && arg?.type === 'Identifier' && arg.name === param && isPath(body.callee.object as Expr, depth))
+            return { or: ids.map((v): UrlCond => ({ op: each, v })) };
+        }
       }
       // `/^\/app\//.test(page.url.pathname)`
       const re = n.callee.object as Expr & { regex?: { pattern: string; flags: string } };
