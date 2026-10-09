@@ -236,7 +236,10 @@ async function composeA11y(
     }
     // Package (incl. adapter) imports and `<svelte:self>` resolve to no repo-local file.
     const found = depth > 0 ? await resolveComponentFiles(ctx, node.key, parsed, fileRel) : undefined;
-    const files = found?.files.filter((f) => !visited.has(f)) ?? [];
+    const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
+    // The component pass already skips and reports a component that does not parse; it stays unresolved here.
+    const read = await Promise.all(unvisited.map((f) => readAndParse(rt, cwd, f, ctx.cache).catch(() => undefined)));
+    const files = unvisited.filter((_, i) => read[i] !== undefined);
     if (!found?.complete || files.length < found.files.length) {
       state.fullyResolved = false;
       state.causes.push({ kind: 'component', detail: node.key, file: fileRel, line: node.line });
@@ -245,8 +248,9 @@ async function composeA11y(
       state.elementsClosed = false;
     }
     const group = files.length > 1 ? state.nextGroup++ : undefined;
+    const parsedFiles = read.filter((p) => p !== undefined);
     for (const [branch, childRel] of files.entries()) {
-      const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
+      const childParsed = parsedFiles[branch]!;
       const gates = childParsed.a11y.gates;
       const childDecided =
         gates && node.attributes ? decidedArms(childParsed, node.attributes, gates, node.snippets) : undefined;

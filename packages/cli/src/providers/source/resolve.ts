@@ -84,20 +84,6 @@ export function readAndParse(rt: Runtime, cwd: string, rel: string, cache: Parse
   return hit;
 }
 
-/**
- * `readAndParse`, except that an installed package's file that does not parse is undefined, so its
- * usage reads as unfollowed: a dependency's source must not fail the run the way the app's own does.
- */
-async function readPackageAware(
-  rt: Runtime,
-  cwd: string,
-  rel: string,
-  cache: ParseCache
-): Promise<ParsedFile | undefined> {
-  const parsed = readAndParse(rt, cwd, rel, cache);
-  return rel.split('/').includes('node_modules') ? parsed.catch(() => undefined) : parsed;
-}
-
 function nameOf(node: { type: string; name?: string; value?: unknown }): string {
   return node.type === 'Identifier' ? node.name! : String(node.value);
 }
@@ -517,10 +503,13 @@ export async function resolveFileTags(
     // Layer 3: transitively resolve a user component in src/.
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : undefined;
     const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
-    const read = await Promise.all(unvisited.map((f) => readPackageAware(rt, cwd, f, cache)));
+    // The component pass already skips and reports a component that does not parse; following it must not fail the run.
+    const read = await Promise.all(
+      unvisited.map((f) => readAndParse(rt, cwd, f, cache).catch(() => undefined))
+    );
     const files = unvisited.filter((_, i) => read[i] !== undefined);
     const parsedFiles = read.filter((p) => p !== undefined);
-    // A package file that does not parse stays unfollowed; the ones that parse are still alternatives.
+    // A file that does not parse stays unfollowed; the ones that parse are still alternatives.
     const unreadable = files.length < unvisited.length;
     if (found && files.length > 0) {
       // Which of several components renders, or whether one renders at all, is runtime state.
