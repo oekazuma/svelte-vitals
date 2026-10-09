@@ -923,9 +923,10 @@ function chainNames(
   reassigned: ReadonlySet<string>,
   filename: string
 ): (reference: string) => string {
-  const held = heldProps(ast, reassigned);
   const roots = new Map<string, string>();
-  for (const [local, prop] of held) if (prop === 'data') roots.set(local, 'page.data');
+  // Only a page or layout is handed the `load` data as `data`; a component's `data` prop is whatever its use passes.
+  if (/\+(page|layout)(@[^/]*)?\.svelte$/.test(filename))
+    for (const [local, prop] of heldProps(ast, reassigned)) if (prop === 'data') roots.set(local, 'page.data');
   for (const [local, info] of imports) {
     if (info.imported !== 'page') continue;
     if (info.source === '$app/state') roots.set(`${local}.data`, 'page.data');

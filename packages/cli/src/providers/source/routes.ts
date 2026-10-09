@@ -447,7 +447,10 @@ async function resolveRoute(
       const within = own ?? slotLandmark;
       // A layout landmark around the page counts only if some position inside one fits the node's arm.
       const fits =
-        own !== undefined || !node.when || slotWhens.some((at) => at.around !== undefined && placeable(at, node.when));
+        own !== undefined
+          ? slotWhens.some((at) => placeable(at, node.when))
+          : slotWhens.every((at) => at.when.length === 0) ||
+            slotWhens.some((at) => at.around !== undefined && placeable(at, node.when));
       if (within && fits) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
     }
     // Rendered at each of the layouts' positions, which exclude each other when they sit in the arms
@@ -499,9 +502,13 @@ async function resolveRoute(
           };
         })
       );
+      // A position inside a layout arm the arm of the position above contradicts is never reached; if
+      // every one is, the reading is more likely wrong than the app, and none is dropped.
+      const reached = next.filter((n) => n.at.when.length === 0 || !unsatisfiable(n.at.when));
+      const live = reached.length > 0 ? reached : next;
       // ponytail: positions multiply down the chain; past a handful, place the rest where they all agree.
-      slotPrefixes = next.length <= 8 ? next.map((n) => n.path) : [next.map((n) => n.path).reduce(commonPrefix)];
-      slotWhens = next.length <= 8 ? next.map((n) => n.at) : [{ when: [], around: slotLandmark }];
+      slotPrefixes = live.length <= 8 ? live.map((n) => n.path) : [live.map((n) => n.path).reduce(commonPrefix)];
+      slotWhens = live.length <= 8 ? live.map((n) => n.at) : [{ when: [], around: slotLandmark }];
     }
 
     // A layout's images after its `{@render children()}` come after the page's in document order.

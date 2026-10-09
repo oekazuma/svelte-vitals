@@ -1014,6 +1014,28 @@ describe('collectRoutes a11y composition', () => {
       `<script>let open = $state(false);</script>{#if !open}<main>x</main>{/if}`
     );
     expect(local.landmarks.main).toHaveLength(2);
+    // A component's own `data` prop is whatever its use passes, not the load data.
+    const card = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': layout,
+        'src/routes/admin/+page.svelte': `<script>import Card from '$lib/Card.svelte';</script><Card data={{ user: false }} />`,
+        'src/lib/Card.svelte': `<script>let { data } = $props();</script>{#if !data.user}<main>Card</main>{/if}`
+      }),
+      ''
+    );
+    expect(card.a11y.find((a) => a.route === '/admin')!.landmarks.main).toHaveLength(2);
+    // A layout below whose own arm contradicts the arm it is rendered in leaves the page no place there.
+    const nested = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': layout,
+        'src/routes/admin/+layout.svelte': `<script>let { data, children } = $props();</script>{#if !data.user}{@render children()}{:else}<p>Panel</p>{/if}`,
+        'src/routes/admin/+page.svelte': '<main>Sign in</main>'
+      }),
+      ''
+    );
+    const signedOut = nested.a11y.find((a) => a.route === '/admin')!;
+    expect(signedOut.landmarks.main).toHaveLength(1);
+    expect(signedOut.nestedLandmarks).toEqual([]);
   });
 
   it('leaves out a component arm the use decides by its props when counting ids', async () => {
