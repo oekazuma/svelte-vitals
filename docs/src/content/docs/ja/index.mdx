@@ -11,24 +11,13 @@ SvelteKit アプリのコードヘルスを、リリース前に。静的解析�
 
 <div class="demo">
   <video
-    class="demo-video-animated"
-    autoplay
-    muted
-    loop
-    playsinline
-    aria-label="svelte-vitals の紹介動画。コマンドひとつで SvelteKit アプリを6カテゴリで採点し、ライブダッシュボード、CI ゲート、エージェント向けレポーターを紹介します。"
-  >
-    <source src={`${import.meta.env.BASE_URL}/demo-ja.mp4`.replace(/\/{2,}/g, '/')} type="video/mp4" />
-  </video>
-  <video
-    class="demo-video-static"
     controls
     muted
     playsinline
     preload="metadata"
     aria-label="svelte-vitals の紹介動画。コマンドひとつで SvelteKit アプリを6カテゴリで採点し、ライブダッシュボード、CI ゲート、エージェント向けレポーターを紹介します。"
   >
-    <source src={`${import.meta.env.BASE_URL}/demo-ja.mp4`.replace(/\/{2,}/g, '/')} type="video/mp4" />
+    <source src={`${import.meta.env.BASE_URL}/demo-ja.mp4#t=0.1`.replace(/\/{2,}/g, '/')} type="video/mp4" />
   </video>
 </div>
 
@@ -43,6 +32,7 @@ SvelteKit アプリのコードヘルスを、リリース前に。静的解析�
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   }
   .demo video {
+    display: block;
     width: 100%;
     margin: 0;
   }
@@ -52,20 +42,6 @@ SvelteKit アプリのコードヘルスを、リリース前に。静的解析�
       margin-inline: calc(50% - 50vw);
       border-radius: 0;
       border-inline: none;
-    }
-  }
-  .demo-video-animated {
-    display: block;
-  }
-  .demo-video-static {
-    display: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .demo-video-animated {
-      display: none;
-    }
-    .demo-video-static {
-      display: block;
     }
   }
   `}

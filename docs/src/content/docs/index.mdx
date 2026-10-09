@@ -11,24 +11,13 @@ Your SvelteKit app's code health, checked before it ships. Statically, no browse
 
 <div class="demo">
   <video
-    class="demo-video-animated"
-    autoplay
-    muted
-    loop
-    playsinline
-    aria-label="Video of svelte-vitals: one command scores a SvelteKit app across six categories, then the live dashboard, the CI gate, and the agent reporter."
-  >
-    <source src={`${import.meta.env.BASE_URL}/demo-en.mp4`.replace(/\/{2,}/g, '/')} type="video/mp4" />
-  </video>
-  <video
-    class="demo-video-static"
     controls
     muted
     playsinline
     preload="metadata"
     aria-label="Video of svelte-vitals: one command scores a SvelteKit app across six categories, then the live dashboard, the CI gate, and the agent reporter."
   >
-    <source src={`${import.meta.env.BASE_URL}/demo-en.mp4`.replace(/\/{2,}/g, '/')} type="video/mp4" />
+    <source src={`${import.meta.env.BASE_URL}/demo-en.mp4#t=0.1`.replace(/\/{2,}/g, '/')} type="video/mp4" />
   </video>
 </div>
 
@@ -43,6 +32,7 @@ Your SvelteKit app's code health, checked before it ships. Statically, no browse
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   }
   .demo video {
+    display: block;
     width: 100%;
     margin: 0;
   }
@@ -52,20 +42,6 @@ Your SvelteKit app's code health, checked before it ships. Statically, no browse
       margin-inline: calc(50% - 50vw);
       border-radius: 0;
       border-inline: none;
-    }
-  }
-  .demo-video-animated {
-    display: block;
-  }
-  .demo-video-static {
-    display: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .demo-video-animated {
-      display: none;
-    }
-    .demo-video-static {
-      display: block;
     }
   }
   `}
