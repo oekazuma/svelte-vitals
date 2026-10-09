@@ -1,6 +1,7 @@
 import type { AST } from 'svelte/compiler';
 import type { BranchStep, HeadTag, SuppressionDirective } from '@svelte-vitals/core/internal';
 import {
+  collectComponentConstantLists,
   collectSuppressions,
   stripTextDirective,
   parseSvelte,
@@ -1255,7 +1256,8 @@ function childrenUrlConds(ast: AST.Root, source: string) {
   if (!source.includes('pathname') && !source.includes('route.id')) return { sites: out, blocks };
   type Expr = AST.IfBlock['test'];
   const derived = new Map<string, Expr>();
-  // `const PUBLIC = ['/login', '/setup']`: a list a test may search instead of an array literal.
+  // `const PUBLIC = ['/login', '/setup']`, never changed: a list a test may search instead of an array literal.
+  const constant = collectComponentConstantLists(ast);
   const lists = new Map<string, Expr>();
   for (const stmt of ast.instance?.content.body ?? []) {
     if (stmt.type !== 'VariableDeclaration') continue;
@@ -1264,7 +1266,7 @@ function childrenUrlConds(ast: AST.Root, source: string) {
       if (d.id.type === 'Identifier' && init?.type === 'CallExpression' && init.callee.type === 'Identifier')
         if (init.callee.name === '$derived' && init.arguments.length === 1)
           derived.set(d.id.name, init.arguments[0] as Expr);
-      if (stmt.kind === 'const' && d.id.type === 'Identifier' && init) lists.set(d.id.name, init as Expr);
+      if (d.id.type === 'Identifier' && init && constant.has(d.id.name)) lists.set(d.id.name, init as Expr);
     }
   }
   const strip = (n: Expr): Expr => {
