@@ -55,9 +55,10 @@ imports is not.
   constant searched with `.some`. Hoop-Rush's root layout renders its `BottomNav` under
   `{#if showBottomNav}`, with `showBottomNav = $derived(routeId === '/' || routeId === '/roster' || …)`
   and `routeId = $derived(page.route.id)`. Both are tests the rule docs' route reading does not list
-  (a string literal, an array literal's `.includes`, a regex, or one `$derived` of the path), so both
-  reach the same documented limit by different syntax, which holdouts 25 and 27 counted as one class.
-  Split by syntax, each is a single-app class and C6 passes; C1 fails either way.
+  (the path against a string literal, directly or through one `$derived`; `route.id` against a string
+  literal or in an array literal; a regex), so both reach one documented limit through different
+  mechanisms, which holdouts 17, 19, 22, 25 and 27 counted as one class. Split by mechanism, each is a
+  single-app class and C6 passes; C1 fails either way.
 - **saffron-hive's `duplicate-landmark` on `sidebar-inset.svelte:13` is `tp`.** It covers 29 routes; on
   26 the signed-in arm puts the page's `<main>` inside the layout's, and on `/login`, `/setup` and
   `/change-password-required` the claim is false for the reason above. The key is labelled by its
