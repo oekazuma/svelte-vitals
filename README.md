@@ -19,6 +19,8 @@
 npx svelte-vitals@latest
 ```
 
+https://github.com/user-attachments/assets/0f2a6f24-eed1-4380-be9a-b09e728c4208
+
 📖 **[Documentation](https://oekazuma.github.io/svelte-vitals/)**
 
 > [!WARNING]
