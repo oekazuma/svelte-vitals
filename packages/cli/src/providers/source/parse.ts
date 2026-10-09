@@ -1335,7 +1335,12 @@ function childrenUrlConds(ast: AST.Root, source: string) {
       if (name === 'some' && ids && n.arguments.length === 1 && fn.type === 'ArrowFunctionExpression') {
         const param = fn.params.length === 1 && fn.params[0]!.type === 'Identifier' ? fn.params[0]!.name : undefined;
         const body = fn.body.type === 'BlockStatement' ? undefined : strip(fn.body as Expr);
-        if (param && body?.type === 'CallExpression' && body.callee.type === 'MemberExpression' && !body.callee.computed) {
+        if (
+          param &&
+          body?.type === 'CallExpression' &&
+          body.callee.type === 'MemberExpression' &&
+          !body.callee.computed
+        ) {
           const test = body.callee.property.type === 'Identifier' ? body.callee.property.name : '';
           const each = ({ startsWith: 'starts', endsWith: 'ends', includes: 'includes' } as const)[test as 'includes'];
           const arg = body.arguments.length === 1 ? (body.arguments[0] as Expr) : undefined;

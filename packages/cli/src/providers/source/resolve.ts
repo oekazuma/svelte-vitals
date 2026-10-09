@@ -504,9 +504,7 @@ export async function resolveFileTags(
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : undefined;
     const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
     // The component pass already skips and reports a component that does not parse; following it must not fail the run.
-    const read = await Promise.all(
-      unvisited.map((f) => readAndParse(rt, cwd, f, cache).catch(() => undefined))
-    );
+    const read = await Promise.all(unvisited.map((f) => readAndParse(rt, cwd, f, cache).catch(() => undefined)));
     const files = unvisited.filter((_, i) => read[i] !== undefined);
     const parsedFiles = read.filter((p) => p !== undefined);
     // A file that does not parse stays unfollowed; the ones that parse are still alternatives.
