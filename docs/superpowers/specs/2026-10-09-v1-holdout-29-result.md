@@ -8,10 +8,9 @@ refuses it on the x64 runner), so it was measured uninstalled. Raw first look:
 `scripts/corpus/holdout-29-2026-10-09.json`; verdicts: `scripts/corpus/holdout-29-2026-10-09-verdicts.json`
 (3,920 distinct keys from 13 apps, every one labelled by checks over the source at the pinned commit).
 
-**Result: C1 and C6 fail.** The CLI exits 2 on BizForge, so that app has no findings to label. One
-false-positive class reaches two apps: a layout `{#if}` decided by the route, in a test shape the
-route reading does not take. Every other deciding criterion passes: no build-mode crash, no false
-critical finding, C4 and C5 at 99.8%, no rule judged under C7, and no key `unclear`. Six keys are
+**Result: C1 fails.** The CLI exits 2 on BizForge, so that app has no findings to label. Every other
+deciding criterion passes: no build-mode crash, no false critical finding, C4 and C5 at 99.8%, no
+false-positive class in two apps, no rule judged under C7, and no key `unclear`. Six keys are
 false positives in all. C8, published without deciding the result, is 36.9%. The release decision
 stays with the owner, as the criteria say.
 
@@ -22,7 +21,7 @@ stays with the owner, as the criteria say.
 | C3  | `fp` from critical rules           | 0              | 0                                               | pass     | 0     | 0     | 1     | 8     | 0     | 1     | 0     | 0     | 0     | 0     | 0     | 0     | 5      | 0     | 2     | 0     | 0     | 62    | 13    | 0     | 1     | 0     | 29    | 31    | 147   | 19    | 0     | 95    |
 | C4  | Warning precision                  | ≥ 98%          | 99.8% (1,287 / 1,290)                           | pass     | 99.8% | 98.0% | 99.2% | 93.9% | 99.2% | 99.7% | 99.8% | 98.2% | 99.8% | 98.7% | 98.4% | 99.3% | 99.95% | 99.0% | 97.7% | 99.2% | 98.7% | 99.7% | 99.6% | 99.0% | 99.6% | 97.0% | 90.7% | 99.7% | 82.9% | 97.5% | 92.1% | 71.3% |
 | C5  | Info precision                     | ≥ 95%          | 99.8% (1,713 / 1,716)                           | pass     | 99.9% | 98.9% | 99.6% | 95.6% | 98.5% | 99.8% | 99.9% | 99.1% | 99.8% | 98.9% | 99.8% | 99.6% | 99.9%  | 99.2% | 99.2% | 99.9% | 99.0% | 99.8% | 99.7% | 98.5% | 98.5% | 97.1% | 97.3% | 93.5% | 92.8% | 97.8% | 96.2% | 90.2% |
-| C6  | fp class shared by ≥ 2 apps        | none           | 1                                               | fail     | none  | 1     | none  | 1     | 1     | 1     | 1     | 1     | none  | 2     | none  | 1     | none   | 2     | 2     | none  | 2     | 1     | 2     | 2     | 1     | 1     | 2     | none  | 2     | 2     | 1     | 5     |
+| C6  | fp class shared by ≥ 2 apps        | none           | none                                            | pass     | none  | 1     | none  | 1     | 1     | 1     | 1     | 1     | none  | 2     | none  | 1     | none   | 2     | 2     | none  | 2     | 1     | 2     | 2     | 1     | 1     | 2     | none  | 2     | 2     | 1     | 5     |
 | C7  | Per-rule precision                 | ≥ 90%          | none judged (2 by the earlier definition)       | pass     | none  | none  | none  | 2     | none  | none  | none  | none  | none  | 2     | 3     | 2     | 1      | 5     | 4     | 1     | 3     | 3     | 1     | 4     | 4     | 2     | 5     | 4     | 11    | 2     | 9     | 12    |
 | C8  | Design share of critical + warning | reported       | 36.9% (791 / 2,141)                             | reported | 36.5% | 30.8% | 26.7% | 30.9% | 27.8% | 26.6% | 31.4% | 28.4% | 32.8% | 29.6% | 36.3% | 20.1% | 27.3%  | 28.2% | 26.6% | 35.0% | 30.1% | 35.1% | 33.6% | 42.7% | 37.8% | 34.4% | 33.4% | 35.6% | 23.3% | 22.7% | 33.0% | 25.3% |
 | C9  | Unlabelled / unclear               | 0 / ≤ 1%       | 0 / 0                                           | pass     | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  |
@@ -50,19 +49,21 @@ imports is not.
 
 ## What the result rests on
 
-- **C6: the two route-decided classes are counted as one.** saffron-hive's layout renders the page
-  bare under `{:else if PUBLIC_ROUTES.some((r) => $page.url.pathname.startsWith(r))}`, an array
-  constant searched with `.some`. Hoop-Rush's root layout renders its `BottomNav` under
-  `{#if showBottomNav}`, with `showBottomNav = $derived(routeId === '/' || routeId === '/roster' || …)`
-  and `routeId = $derived(page.route.id)`. Both are tests the rule docs' route reading does not list
-  (the path against a string literal, directly or through one `$derived`; `route.id` against a string
-  literal or in an array literal; a regex), so both reach one documented limit through different
-  mechanisms, which holdouts 17, 19, 22, 25 and 27 counted as one class. Split by mechanism, each is a
-  single-app class and C6 passes; C1 fails either way.
+- **C6: saffron-hive's and Hoop-Rush's classes are kept apart.** saffron-hive's layout renders the
+  page bare under `{:else if PUBLIC_ROUTES.some((r) => $page.url.pathname.startsWith(r))}`, an array
+  constant searched with `.some`, a test the rule docs' route reading does not list. Hoop-Rush's root
+  layout renders its `BottomNav` under `{#if showBottomNav}`, with
+  `showBottomNav = $derived(routeId === '/' || …)` and `routeId = $derived(page.route.id)`, a test the
+  reading does take; the layout file starts with a byte order mark, which Svelte drops before parsing,
+  so every offset into the file was one character off and the test read as unknown. One reaches a
+  documented limit and the other a defect no documentation describes, so they are two single-app
+  classes, as holdouts 26 and 28 kept apart cases that reach different limits. Counted as one, C6
+  would fail.
 - **saffron-hive's `duplicate-landmark` on `sidebar-inset.svelte:13` is `tp`.** It covers 29 routes; on
   26 the signed-in arm puts the page's `<main>` inside the layout's, and on `/login`, `/setup` and
-  `/change-password-required` the claim is false for the reason above. The key is labelled by its
-  majority; it is the same app and class, so no count above changes.
+  `/change-password-required` the claim is false: the layout's own `<main>` sits in the `{:else}` of
+  that block, and the route reading decides a layout's own content only by the block's first test. The
+  key is labelled by its majority; it is the same app, so no count above changes.
 - **shareviz's three `style.delete()` keys under `prop-mutation` are `design`.** The prop holds a
   `LineStyleStore`, a class with a `$state` field whose `delete()` submits a ShareDB op that is applied
   to the document locally, which is the class-instance case the rule docs say stays reported. Under
@@ -80,12 +81,13 @@ shareviz 13, taijobi 8) and 3 `design`, all shareviz: `/brand`, an unlinked bran
 
 ## False-positive classes
 
-| Class                                                                                                                                                        | Findings | Apps | Rules                     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ---- | ------------------------- |
-| A layout `{#if}` decided by the route in a test the route reading does not take (`ARRAY.some(… startsWith …)`, `\|\|` of `route.id` through two `$derived`s) | 4        | 2    | single-h1, id-duplication |
-| A prop holding an object of functions, called to submit a ShareDB op, read as a mutation of the prop                                                         | 2        | 1    | prop-mutation             |
+| Class                                                                                                                    | Findings | Apps | Rules          |
+| ------------------------------------------------------------------------------------------------------------------------ | -------- | ---- | -------------- |
+| A layout `{#if}` decided by the route with `.some` over a constant list of paths, a test the route reading does not take | 3        | 1    | single-h1      |
+| A file starting with a byte order mark, read at offsets one character off, so a layout's route test reads as unknown     | 1        | 1    | id-duplication |
+| A prop holding an object of functions, called to submit a ShareDB op, read as a mutation of the prop                     | 2        | 1    | prop-mutation  |
 
-The second class has ledger precedents of the same shape (wordplay, mankunku): the object the prop
+The third class has ledger precedents of the same shape (wordplay, mankunku): the object the prop
 holds does not change.
 
 ## C2 in detail
@@ -123,5 +125,6 @@ was not built, since its install failed.
 
 ## Next
 
-Make the route walk skip a component that does not parse, as the component pass does; extend the
-route reading to the two test shapes above; and add these 14 apps to the tuning corpus.
+Make the route walk skip a component that does not parse, as the component pass does; read a file
+that starts with a byte order mark at the right offsets; extend the route reading to `.some` over a
+constant list; and add these apps to the tuning corpus.
