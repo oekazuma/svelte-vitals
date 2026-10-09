@@ -52,7 +52,7 @@ under 90% either: `responsive-image` is at 95.7% (90 / 94) and `single-h1` at 98
   five `/settings*` routes the layout's `<main>` and the guard's own render together, which is real. On
   `/forecast-data` the page passes its `<main>` to `AdminGuard` as children, which the guard renders only
   in its admin arm and its own `<main>` only in the other, so the claim is false there. The key is
-  labelled by its majority; counted `fp`, it is one more single-app class and no result changes.
+  labelled by its majority. Counted `fp`, C6 would fail if it were grouped with sekai-viewer-reborn's class, since both are a component's `{#if}` the route walk does not decide; they reach different limits, which holdouts 26 and 28 kept apart: sekai-viewer-reborn's is the rule docs' prop passed as an expression, and this one is the landmark reading's stated scope (`2026-10-09-layout-page-data-arms.md`: landmarks of a component a chain file renders keep the conditions of the component's tag, and conditions inside the component are its own).
 - **ridgeline's canonical and `og:url` on `/identity` and `/m/identity` are `design`.** The app's Go
   server writes both tags into the SPA shell when it serves those pages. The ledger labels a head tag a
   build script writes outside SvelteKit `design`; a server that writes it at request time is taken the
@@ -91,6 +91,8 @@ its environment schema (`JWT_SECRET` not set) and schoolrise's on `MINIO_ACCESS_
 - No flagged route never renders. The routes whose `load` redirects on every path (schoolrise's and
   tessera's `/`, tessera's `/p/[pageSlug]`, sekai-viewer-reborn's `/events/[region]/list`) were already
   left out; `/p/[pageSlug]`'s `sequential-awaits` is `tp`, since both awaits run before the redirect.
+- Patrik-Homelab's `H1.svelte:10` `single-h1` key is on one route in the first look and on two in a
+  local run on the uninstalled clone; it is labelled from the first look.
 - The design share is concentrated in `canonical-url` (282), `description-presence` (247),
   `each-index-key` (95) and `each-key` (92); tybalt_turbo, fluffly, CrispDeck and ai-almanac together have
   460 of the 770. tybalt_turbo is an internal application that sends every signed-out visitor to its
