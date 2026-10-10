@@ -637,6 +637,7 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
       names('<script lang="ts">let byId = $state<Record<string, string>>(load()); send({ byId });</script>')
     ).toEqual([]);
     expect(names('<script>let snap = $state(initial?.snap ?? { items: [] }); onSave({ snap });</script>')).toEqual([]);
+    expect(names("<script>let mode = $state('ready' || {}); send({ mode });</script>")).toEqual(['mode']);
     expect(names('<script>let s = $state({ count: 1 }); send({ count: s.count });</script>')).toEqual(['s']);
   });
   it('does not flag a $state bound through a non-null member', () => {

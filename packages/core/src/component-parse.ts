@@ -586,8 +586,9 @@ function isObjectState(call: Node): boolean {
   const arg = unwrapTs(call.arguments?.[0]);
   if (isPrimitiveLiteral(arg)) return false;
   if (OBJECT_VALUES.has(arg?.type)) return true;
-  if (arg?.type === 'LogicalExpression' && arg.operator !== '&&' && OBJECT_VALUES.has(unwrapTs(arg.right)?.type))
-    return true;
+  const fallback =
+    arg?.type === 'LogicalExpression' && arg.operator !== '&&' && !isPrimitiveLiteral(unwrapTs(arg.left));
+  if (fallback && OBJECT_VALUES.has(unwrapTs(arg.right)?.type)) return true;
   const type = (call.typeArguments ?? call.typeParameters)?.params?.[0];
   if (type?.type === 'TSTypeReference') return OBJECT_TYPE_NAMES.has(type.typeName?.name);
   return OBJECT_TYPES.has(type?.type);
