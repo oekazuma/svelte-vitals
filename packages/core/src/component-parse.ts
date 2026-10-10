@@ -581,6 +581,7 @@ const OBJECT_TYPES = new Set(['TSArrayType', 'TSTupleType', 'TSTypeLiteral', 'TS
 /** A `$state` call whose initial value or type argument is an object, array or class instance. */
 function isObjectState(call: Node): boolean {
   const arg = unwrapTs(call.arguments?.[0]);
+  if (isPrimitiveLiteral(arg)) return false;
   if (['ObjectExpression', 'ArrayExpression', 'NewExpression'].includes(arg?.type)) return true;
   const type = (call.typeArguments ?? call.typeParameters)?.params?.[0];
   return OBJECT_TYPES.has(type?.type);
