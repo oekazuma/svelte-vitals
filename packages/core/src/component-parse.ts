@@ -576,14 +576,20 @@ function isDerivedDeclaration(node: Node): boolean {
  */
 type WriteKind = 'reassign' | 'mutate' | 'escape';
 
-const OBJECT_TYPES = new Set(['TSArrayType', 'TSTupleType', 'TSTypeLiteral', 'TSTypeReference']);
+const OBJECT_TYPES = new Set(['TSArrayType', 'TSTupleType', 'TSTypeLiteral']);
+// A named type is read only when it is a built-in object type: an app's own name may alias a primitive.
+const OBJECT_TYPE_NAMES = new Set(['Array', 'ReadonlyArray', 'Record', 'Map', 'Set', 'WeakMap', 'WeakSet', 'Date']);
+const OBJECT_VALUES = new Set(['ObjectExpression', 'ArrayExpression', 'NewExpression']);
 
 /** A `$state` call whose initial value or type argument is an object, array or class instance. */
 function isObjectState(call: Node): boolean {
   const arg = unwrapTs(call.arguments?.[0]);
   if (isPrimitiveLiteral(arg)) return false;
-  if (['ObjectExpression', 'ArrayExpression', 'NewExpression'].includes(arg?.type)) return true;
+  if (OBJECT_VALUES.has(arg?.type)) return true;
+  if (arg?.type === 'LogicalExpression' && arg.operator !== '&&' && OBJECT_VALUES.has(unwrapTs(arg.right)?.type))
+    return true;
   const type = (call.typeArguments ?? call.typeParameters)?.params?.[0];
+  if (type?.type === 'TSTypeReference') return OBJECT_TYPE_NAMES.has(type.typeName?.name);
   return OBJECT_TYPES.has(type?.type);
 }
 
@@ -662,7 +668,8 @@ function collectStateWrites(
       // goes wherever that value goes. A spread copies it (`list = [...list, x]`), so it is left out.
       const values = n.type === 'ObjectExpression' ? (n.properties ?? []).map((p: Node) => p?.value) : n.elements;
       for (const v of values ?? []) {
-        const r = rootObjectName(v);
+        const placed = unwrapTs(v);
+        const r = placed?.type === 'Identifier' ? placed.name : undefined;
         if (r && heldObjects.has(r) && stateNames.has(r) && !shadowed(r)) record(r, 'escape');
       }
     } else if ((n?.type === 'Property' || n?.type === 'MethodDefinition') && n.kind === 'get') {

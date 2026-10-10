@@ -632,6 +632,12 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
     expect(names('<script lang="ts">let lang = $state<Lang>("en"); setContext("form", { lang });</script>')).toEqual([
       'lang'
     ]);
+    expect(names('<script lang="ts">let count = $state<Count>(load()); send({ count });</script>')).toEqual(['count']);
+    expect(
+      names('<script lang="ts">let byId = $state<Record<string, string>>(load()); send({ byId });</script>')
+    ).toEqual([]);
+    expect(names('<script>let snap = $state(initial?.snap ?? { items: [] }); onSave({ snap });</script>')).toEqual([]);
+    expect(names('<script>let s = $state({ count: 1 }); send({ count: s.count });</script>')).toEqual(['s']);
   });
   it('does not flag a $state bound through a non-null member', () => {
     expect(names('<script lang="ts">let q = $state({ limit: 10 });</script><Pager bind:limit={q.limit!} />')).toEqual(
