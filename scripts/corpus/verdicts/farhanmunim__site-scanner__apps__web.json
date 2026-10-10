@@ -1,0 +1,832 @@
+[
+  {
+    "key": "farhanmunim/site-scanner:apps/web::a11y/pattern-title::src/routes/admin/login/+page.svelte:19::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read admin/login/+page.svelte:19: <input id=code type=text inputmode=numeric pattern=\"[0-9 ]*\"> with no title, in <form method=POST> (:12) with a submit button, so a mismatch shows the browser's generic message with no format hint; the route renders (admin/+layout.server.ts:6 exempts /admin/login from its redirect)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::architecture/component-size::src/routes/r/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/r/[id]/+page.svelte has 363 physical lines (newline count, trailing newline not counted; 344 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/lib/components/Evidence.svelte:8::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Evidence.svelte:8 '{#each items as e}' has no key; items is the evidence list of a detected technology/finding from a scan report (Finding.svelte:15, TechCard.svelte:17, r/[id]/+page.svelte:170): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/+page.svelte:24::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+page.svelte:24 '{#each data.recent as s}' has no key; data.recent are the latest scan rows from the database (load data): runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/+page.svelte:29::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+page.svelte:29 '{#each data.topTech as t}' has no key; data.topTech is a database aggregate ranking that changes order between loads: runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/+page.svelte:31::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+page.svelte:31 '{#each data.topDomains as d}' has no key; data.topDomains is a database aggregate ranking that changes order between loads: runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/health/+page.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/health/+page.svelte:11 '{#each data.workers as w}' has no key; data.workers are the live worker heartbeats from load (id per worker): runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/health/+page.svelte:20::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/health/+page.svelte:20 '{#each Object.entries(data.redis.queue ?? {}) as [k, v]}' has no key; the counter fields of one Redis queue-stats object shown read-only: positional list (fields of one record)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/health/+page.svelte:39::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/health/+page.svelte:39 '{#each data.tables as t}' has no key; data.tables are database table row counts from load: runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/lookups/+page.svelte:14::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/lookups/+page.svelte:14 '{#each data.rows as l}' has no key; data.rows are lookup-log rows from the database, filtered by the search form: runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/technologies/+page.svelte:17::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/technologies/+page.svelte:17 '{#each data.sites as s}' has no key; data.sites are scan rows from the database for the chosen technology: runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/technologies/+page.svelte:24::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/technologies/+page.svelte:24 '{#each data.leaderboard as t}' has no key; data.leaderboard is a database aggregate ranking filtered by category/days: runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/admin/technologies/+page.svelte:9::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/technologies/+page.svelte:9 '{#each data.categories as c}' has no key; <option>s of the technology categories read from the database (load data): runtime records"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:136::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:136 '{#each report.technologies.filter(...).slice(0, 18) as t}' has no key; report = $state from the scan (:13), replaced while the scan streams (:24): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:158::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:158 '{#each byCategory as [cat, techs]}' has no key; byCategory = $derived grouping of filteredTechs (:62), which the techFilter input narrows (:61), inserting/removing groups of <TechCard>s mid-list: runtime list"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:178::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:178 '{#each report.infra.ips as ip}' has no key; the scanned site's resolved IPs from the scan report $state (:13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:182::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/r/[id]/+page.svelte:182 '{#each Object.entries(report.http?.cacheHeaders ?? {}) as [k, v]}' has no key; the header fields of one HTTP response shown read-only: positional list (fields of one record)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:183::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:183 '{#each report.http.chain as hop}' has no key; the redirect hops recorded by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:224::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:224 '{#each report.dns.A as v}' has no key; DNS A records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:225 '{#each report.dns.AAAA as v}' has no key; DNS AAAA records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:226::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:226 '{#each report.dns.CNAME as v}' has no key; DNS CNAME records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:227::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:227 '{#each report.dns.NS as v}' has no key; DNS NS records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:228::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:228 '{#each report.dns.MX as v}' has no key; DNS MX records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:229::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:229 '{#each report.dns.TXT as v}' has no key; DNS TXT records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:230::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:230 '{#each report.dns.CAA as v}' has no key; DNS CAA records returned by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:251::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:251 '{#each report.cookies as c}' has no key; the cookies the scanned site set (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:277::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/r/[id]/+page.svelte:277 '{#each Object.entries(report.seo.openGraph) as [k, v]}' has no key; the Open Graph fields of one scanned page shown read-only: positional list (fields of one record)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:287::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/r/[id]/+page.svelte:287 '{#each report.robots.aiCrawlers as a}' has no key; aiCrawlers = AI_CRAWLERS.map(...) over the fixed constant agent list (packages/core/src/analyze/audits/seo.ts:5/:39), same order every scan: static list fixed at author time"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:324::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:324 '{#each p.accessibilityIssues as a}' has no key; the accessibility issues an external audit returned for the scan (report.performance, :300): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:339::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:339 '{#each report.thirdParties as t}' has no key; third-party domains observed by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/each-key::src/routes/r/[id]/+page.svelte:357::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/r/[id]/+page.svelte:357 '{#each report.cms.plugins as p}' has no key; CMS plugins detected by the scan (report $state :13): runtime scan results"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::correctness/stale-prop-derivation::src/routes/admin/settings/+page.svelte:3::\"v\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/settings/+page.svelte:3 v = data.values at init, rendered (claim structurally true); the settings <form method=\"POST\"> has no use:enhance and nothing in the app calls invalidate, so a save is a full document reload that remounts the page; data cannot change while it is mounted, not a demonstrable stale value"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/image-dimensions::src/routes/r/[id]/+page.svelte:141::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: the Lighthouse fallback <img class=\"screenshot\" src={report.screenshot.dataUrl}> (r/[id]/+page.svelte:141, the {:else} arm) lacks width/height, no spread; .screenshot is width:100% with no height or aspect-ratio (app.css:471-476) - the card's height comes from the image (its sibling stored-screenshot <img> does set width/height)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/image-loading-hint::src/routes/+layout.svelte:9::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "key covers 13 routes: the brand /favicon.svg icon (22x22) in the site header of the root +layout.svelte:9 - above the fold on every route, where the docs keep the image eager"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/image-loading-hint::src/routes/r/[id]/+page.svelte:141::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: the Lighthouse data: URL screenshot (r/[id]/+page.svelte:141, {:else} arm) in the card beside the report summary stats in the first section (:120-146) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/responsive-image::src/routes/r/[id]/+page.svelte:141::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: first-look lists 2 routes, the local uninstalled run only /r/[id]; both <img class=\"screenshot\"> on r/[id]/+page.svelte:141 have no srcset, no spread: the stored /screenshots/<path> raster (apps/worker/src/index.ts:80) full-width at one size (the Lighthouse data: URL fallback in the {:else} arm has no alternates either) - one fixed-size asset"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/sequential-awaits::src/routes/admin/health/+page.server.ts:21::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/health/+page.server.ts:9-21: getRedis().ping() uses nothing from the DB/egress Promise.all — independent redis and postgres round trips serialized"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/sequential-awaits::src/routes/admin/health/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/health/+page.server.ts:20-26: q.getJobCounts(...) uses nothing from the ping (both redis round trips, the try already reports either failure as down) — serialized for no data reason"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/sequential-awaits::src/routes/admin/health/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/health/+page.server.ts:27: the lookups min(createdAt) drizzle/postgres select uses nothing from the redis or earlier DB awaits — independent queries serialized"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/sequential-awaits::src/routes/admin/technologies/+page.server.ts:20::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/technologies/+page.server.ts:12-20: the categories select uses nothing from the leaderboard select — independent drizzle/postgres queries serialized"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::performance/sequential-awaits::src/routes/admin/technologies/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/technologies/+page.server.ts:21-29: the sites select uses only url params (name, since), nothing from leaderboard/categories — independent queries serialized"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/blocklist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/blocklist (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/domains/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/domains (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/health/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/health (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/lookups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/lookups (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/scans/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/scans (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/admin/technologies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/technologies (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/bot/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /bot (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no noindex, static/robots.txt allows it"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/canonical-url::src/routes/r/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /r/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (literal noindex,nofollow robots meta at r/[id]/+page.svelte:76, hooks.server.ts x-robots-tag noindex on /r/, static/robots.txt Disallow: /r/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-length::src/routes/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (len): src/routes/+page.svelte top-level svelte:head unconditional literal <meta name=description> 'Evidence-backed website intelligence: …third-party services.' = 179 chars, the route's only description; too long as claimed on the public home page"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/blocklist/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/blocklist (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/domains/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/domains (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/health/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/health (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/login (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/lookups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/lookups (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/scans/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/scans (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/settings (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/admin/technologies/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /admin/technologies (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/bot/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/bot/+page.svelte svelte:head has only a <title>, root +layout.svelte has no head, app.html none, workspace packages @site-scanner/core|db render no head; /bot is a public page robots.txt explicitly allows (Allow: /bot), so it ships without a description as claimed"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/privacy/+page.svelte svelte:head has only a <title>, root +layout.svelte has no head, app.html none, workspace packages @site-scanner/core|db render no head; /privacy is a public page robots.txt explicitly allows (Allow: /privacy), so it ships without a description as claimed"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/description-presence::src/routes/r/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /r/[id] (page head only title/robots, layouts and app.html none) (literal claim holds); but not a search target: r/[id]/+page.svelte head literal <meta name=robots content=\"noindex, nofollow\">, hooks.server.ts x-robots-tag noindex for /r/ and robots.txt Disallow: /r/ (per-scan result pages)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/heading-level-skip::src/routes/+page.svelte:26::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:14 <h1>How is this website built?, then the scan form and the feature cards whose first heading is <h3> (:26) with no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/blocklist/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/domains/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/health/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/lookups/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/scans/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/admin/technologies/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin; noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/indexability::src/routes/r/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: r/[id]/+page.svelte head literal <meta name=robots content=\"noindex, nofollow\">, hooks.server.ts x-robots-tag noindex for /r/ and robots.txt Disallow: /r/ (per-scan result pages); noindex as claimed (intentional)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): / has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/blocklist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/blocklist has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/domains/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/domains has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/health/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/health has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/login has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/lookups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/lookups has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/scans/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/scans has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/settings has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/admin/technologies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /admin/technologies has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/bot/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /bot has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /privacy has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/json-ld::src/routes/r/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep over apps/web/src incl. app.html: no ld+json/jsonld/schema.org): /r/[id] has no JSON-LD in page, layouts or app.html (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/blocklist/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/blocklist (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/domains/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/domains (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/health/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/health (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/lookups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/lookups (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/scans/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/scans (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/admin/technologies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/technologies (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/bot/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /bot (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /privacy (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-description::src/routes/r/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /r/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:description only in the listed emitters)); route context: not a search target (literal noindex,nofollow robots meta at r/[id]/+page.svelte:76, hooks.server.ts x-robots-tag noindex on /r/, static/robots.txt Disallow: /r/) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/blocklist/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/blocklist (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/domains/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/domains (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/health/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/health (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/lookups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/lookups (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/scans/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/scans (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/admin/technologies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/technologies (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/bot/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /bot (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-image::src/routes/r/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /r/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:image only in the listed emitters)); route context: not a search target (literal noindex,nofollow robots meta at r/[id]/+page.svelte:76, hooks.server.ts x-robots-tag noindex on /r/, static/robots.txt Disallow: /r/) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/blocklist/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/blocklist (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/domains/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/domains (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/health/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/health (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/lookups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/lookups (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/scans/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/scans (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/admin/technologies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/technologies (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/bot/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /bot (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /privacy (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-title::src/routes/r/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /r/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:title only in the listed emitters)); route context: not a search target (literal noindex,nofollow robots meta at r/[id]/+page.svelte:76, hooks.server.ts x-robots-tag noindex on /r/, static/robots.txt Disallow: /r/) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/blocklist/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/blocklist (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/domains/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/domains (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/health/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/health (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/lookups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/lookups (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/scans/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/scans (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/admin/technologies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/technologies (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/bot/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /bot (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/og-url::src/routes/r/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /r/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (literal noindex,nofollow robots meta at r/[id]/+page.svelte:76, hooks.server.ts x-robots-tag noindex on /r/, static/robots.txt Disallow: /r/) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: apps/web/static has favicon.svg and robots.txt only, no sitemap.xml file or route (literal claim holds); but self-hosted scanner whose robots.txt allows only /, /bot and /privacy (Disallow /r/, /admin, /api/), nothing more to list"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/blocklist/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/blocklist/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/domains/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/domains/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/health/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/health/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/login/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/lookups/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/lookups/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/scans/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/scans/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/settings/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/title-length::src/routes/admin/technologies/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/admin/technologies/+page.svelte's top-level svelte:head, length as reported (literal claim holds); but not a search target: admin/+layout.svelte top-level svelte:head literal <meta name=robots content=noindex>, admin/+layout.server.ts redirects every non-admin request (except /admin/login) to the login, hooks.server.ts sends x-robots-tag noindex for /admin and static/robots.txt disallows /admin"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/blocklist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/blocklist (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/domains/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/domains (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/health/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/health (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/login (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/lookups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/lookups (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/scans/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/scans (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/settings (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/admin/technologies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/technologies (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (auth-gated: admin/+layout.server.ts:6 redirects guests to /admin/login; literal noindex robots meta at admin/+layout.svelte:16, hooks.server.ts x-robots-tag noindex on /admin, static/robots.txt Disallow: /admin) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/bot/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /bot (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: public route, no noindex, static/robots.txt allows it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "farhanmunim/site-scanner:apps/web::seo/twitter-card::src/routes/r/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /r/[id] (no og:*/twitter:*/rel=canonical anywhere in apps/web/src or app.html (heads are <title>/description/robots only); workspace @site-scanner/core|db ship no .svelte; hooks.server.ts only sets locals/headers after resolve(); no meta-tag library; route renders; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds twitter:card only in the listed emitters)); route context: not a search target (literal noindex,nofollow robots meta at r/[id]/+page.svelte:76, hooks.server.ts x-robots-tag noindex on /r/, static/robots.txt Disallow: /r/) (the og/twitter rules have no search-target exemption)"
+  }
+]

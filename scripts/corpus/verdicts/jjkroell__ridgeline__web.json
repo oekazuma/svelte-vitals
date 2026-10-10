@@ -1,0 +1,537 @@
+[
+  {
+    "key": "jjkroell/ridgeline:web::a11y/no-autofocus::src/lib/components/IataPickerModal.svelte:69::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; IataPickerModal.svelte:69 <input autofocus> sits in <Modal> (role=\"dialog\", Modal.svelte:44), and its only caller ObserverSetupModal.svelte:341 mounts it under {#if showIata}, set by the user; focus on user action inside an opened modal, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/lib/components/LiveGroupModal.svelte:482::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@482 at lib/components/LiveGroupModal.svelte:482 has <button onclick=\"{expr}\">@478 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/lib/components/LiveGroupModal.svelte:486::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@486 at lib/components/LiveGroupModal.svelte:486 has <button onclick=\"{expr}\">@478 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/lib/components/MembersPanel.svelte:123::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <h2>@123 at lib/components/MembersPanel.svelte:123 has <button onclick=\"{expr}\" aria-expanded=\"{expr}\">@114 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/routes/channels/+page.svelte:369::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@369 at routes/channels/+page.svelte:369 has <button onclick=\"{expr}\">@362 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/routes/channels/+page.svelte:374::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@374 at routes/channels/+page.svelte:374 has <button onclick=\"{expr}\">@362 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/routes/m/channels/+page.svelte:220::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@220 at routes/m/channels/+page.svelte:220 has <button onclick=\"{expr}\">@219 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/routes/m/channels/+page.svelte:225::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@225 at routes/m/channels/+page.svelte:225 has <button onclick=\"{expr}\">@219 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/routes/m/live/+page.svelte:57::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@57 at routes/m/live/+page.svelte:57 has <button onclick=\"{expr}\">@55 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/permitted-contents::src/routes/m/live/+page.svelte:69::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label30/e_walk.mjs): <div>@69 at routes/m/live/+page.svelte:69 has <button onclick=\"{expr}\">@55 as its nearest element ancestor (only {#if}/{#each}/{#await} blocks between, no component/snippet/svg boundary); `<button>`'s content model is phrasing content, so the child is not permitted"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::a11y/top-level-landmark::src/routes/channels/+page.svelte:275::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: channels/+page.svelte:275 unlabelled <aside> (no aria-label/labelledby) sits under plain <div>s (:261, :270), no sectioning ancestor; root +layout.svelte:144-146 renders {@render children()} inside <main> in the {:else} of {#if isMobileApp} (pathname /m or /m/*), which holds on /channels, so a complementary landmark is nested in main; +layout.ts load only redirects phones in the browser (not every path), so the route renders"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/AccountSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AccountSettings.svelte has 205 physical lines (newline count, trailing newline not counted; 195 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/ClaimPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ClaimPanel.svelte has 336 physical lines (newline count, trailing newline not counted; 320 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/FallbackMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FallbackMap.svelte has 580 physical lines (newline count, trailing newline not counted; 550 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/HashIdGuide.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HashIdGuide.svelte has 348 physical lines (newline count, trailing newline not counted; 326 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/HashIdPlanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HashIdPlanner.svelte has 640 physical lines (newline count, trailing newline not counted; 614 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/LiveGroupModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LiveGroupModal.svelte has 537 physical lines (newline count, trailing newline not counted; 506 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/MembersPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MembersPanel.svelte has 211 physical lines (newline count, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/NodeAdmin.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NodeAdmin.svelte has 384 physical lines (newline count, trailing newline not counted; 368 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/NodeDetail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NodeDetail.svelte has 803 physical lines (newline count, trailing newline not counted; 767 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/NotesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotesPanel.svelte has 215 physical lines (newline count, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/ObserverSetupModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ObserverSetupModal.svelte has 348 physical lines (newline count, trailing newline not counted; 323 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/PacketPathMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PacketPathMap.svelte has 291 physical lines (newline count, trailing newline not counted; 274 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/PrivateLocationPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PrivateLocationPanel.svelte has 531 physical lines (newline count, trailing newline not counted; 495 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/lib/components/TopologyGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TopologyGraph.svelte has 378 physical lines (newline count, trailing newline not counted; 364 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 298 physical lines (newline count, trailing newline not counted; 284 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/+page.svelte has 386 physical lines (newline count, trailing newline not counted; 367 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 789 physical lines (newline count, trailing newline not counted; 748 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/analytics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/analytics/+page.svelte has 708 physical lines (newline count, trailing newline not counted; 674 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/channels/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/channels/+page.svelte has 477 physical lines (newline count, trailing newline not counted; 450 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/firmware-builder/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/firmware-builder/+page.svelte has 557 physical lines (newline count, trailing newline not counted; 528 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/live-map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/live-map/+page.svelte has 677 physical lines (newline count, trailing newline not counted; 638 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/live/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/live/+page.svelte has 326 physical lines (newline count, trailing newline not counted; 307 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 272 physical lines (newline count, trailing newline not counted; 260 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/+layout.svelte has 216 physical lines (newline count, trailing newline not counted; 202 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/account/+page.svelte has 339 physical lines (newline count, trailing newline not counted; 322 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/admin/+page.svelte has 372 physical lines (newline count, trailing newline not counted; 342 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/channels/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/channels/+page.svelte has 269 physical lines (newline count, trailing newline not counted; 253 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/live-map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/live-map/+page.svelte has 274 physical lines (newline count, trailing newline not counted; 256 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/map/+page.svelte has 356 physical lines (newline count, trailing newline not counted; 337 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/nodes/[pubkey]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/nodes/[pubkey]/+page.svelte has 374 physical lines (newline count, trailing newline not counted; 351 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/m/observers/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/m/observers/[id]/+page.svelte has 230 physical lines (newline count, trailing newline not counted; 213 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/map/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/map/+page.svelte has 543 physical lines (newline count, trailing newline not counted; 515 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/nodes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/nodes/+page.svelte has 204 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/component-size::src/routes/observers/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/observers/[id]/+page.svelte has 415 physical lines (newline count, trailing newline not counted; 393 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/prop-count::src/lib/components/FallbackMap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/FallbackMap.svelte has a single destructured $props() with 15 named props (> 6): nodes, center, zoom, onselect, notice, cluster, live, audio, roleFilter, bannerOpen, coverage, pin, coverageMode, onmapclick, onpinmove"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/prop-count::src/lib/components/NodeAdmin.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/NodeAdmin.svelte has a single destructured $props() with 7 named props (> 6): pubkey, seedLat, seedLon, nodeName, retired, hashSize, hashSizeSource"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::architecture/prop-count::src/lib/components/widgets/WidgetShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/widgets/WidgetShell.svelte has a single destructured $props() with 7 named props (> 6): title, icon, href, linkLabel, color, fill, children"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/HopChips.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HopChips.svelte:21 '{#each hops as hop, i (i)}' keyed by its index binding; hops prop, the relay path of one packet in hop order (rendered with → separators, i > 0): positional list (the index is the hop position)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/LiveGroupModal.svelte:427::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LiveGroupModal.svelte:427 '{#each tr.hopSnr as snr, i (i)}' keyed by its index binding; tr.hopSnr = parseTrace(ev) ({@const} :415), the per-hop SNR values of one trace in hop order: positional list (the index is the hop position)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/LiveGroupModal.svelte:511::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LiveGroupModal.svelte:511 '{#each dumpBytes(ev.raw, breakdown.ranges) as d, i (i)}' keyed by its index binding; dumpBytes(ev.raw, breakdown.ranges), the bytes of one raw packet in order: positional list (bytes of one record)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/LiveGroupModal.svelte:516::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LiveGroupModal.svelte:516 '{#each breakdown.fields as f, i (i)}' keyed by its index binding; breakdown.fields = buildPacketFields(repeat) (:99), the decoded fields of one packet in byte order: positional list (fields of one record)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/NodeDetail.svelte:595::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NodeDetail.svelte:595 '{#each detail.activity as count, i (i)}' keyed by its index binding; detail.activity, hourly advert counts drawn as bars where i is the hour offset (tooltip uses windowHours - 1 - i): positional chart bars"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/NodeDetail.svelte:675::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NodeDetail.svelte:675 '{#each heatmap.grid as row, d (d)}' keyed by its index binding; heatmap.grid, one row per weekday of an activity heatmap (d is the day): positional chart cells"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/lib/components/NodeDetail.svelte:679::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NodeDetail.svelte:679 '{#each row as count, h (h)}' keyed by its index binding; row, one cell per hour of a heatmap row (h is the hour): positional chart cells"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/routes/analytics/+page.svelte:485::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/analytics/+page.svelte:485 '{#each graph.edges as e, i (i)}' keyed by its index binding; graph.edges, line segments of the analytics graph drawn as SVG <line>s: positional chart geometry"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/routes/live/+page.svelte:274::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/live/+page.svelte:274 '{#each path.slice(0, 4) as hop, i (i)}' keyed by its index binding; path.slice(0, 4), the first hops of one packet's lead path in hop order: positional list (the index is the hop position)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/routes/m/nodes/[pubkey]/+page.svelte:320::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/m/nodes/[pubkey]/+page.svelte:320 '{#each detail.activity as count, i (i)}' keyed by its index binding; detail.activity, hourly advert counts drawn as bars: positional chart bars"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/routes/m/observers/[id]/+page.svelte:193::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/m/observers/[id]/+page.svelte:193 '{#each data.activity as c, i (i)}' keyed by its index binding; data.activity, hourly counts of one observer drawn as bars: positional chart bars"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-index-key::src/routes/observers/[id]/+page.svelte:342::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/observers/[id]/+page.svelte:342 '{#each data.activity as count, i (i)}' keyed by its index binding; data.activity, hourly counts of one observer drawn as bars: positional chart bars"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/each-key::src/lib/components/Linkify.svelte:9::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Linkify.svelte:9 '{#each segments as s}' has no key; segments = $derived(linkSegments(text)) (:5), the text and link runs of one string: positional list (segments of one string)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/effect-as-derived::src/lib/components/NodeAdmin.svelte:43::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NodeAdmin.svelte:43 the effect only copies the hashSize/hashSizeSource props into hsSize/hsSource; the other writes are reassignments in pinHash (optimistic pin), the writable-$derived override pattern (svelte ^5.56.1)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/instance-browser-global::src/lib/components/Tooltip.svelte:25::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Tooltip.svelte:25 window.innerWidth is read inside the lazy $derived left (:23), only when bubbleW is non-zero; left is read only in the {#if show} bubble (:53-58), which opens on mouseenter and never renders during SSR, so the read never reaches the server; claim structurally true (ledger lazy-$derived convention)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/prop-mutation::src/lib/components/NodeFilterModal.svelte:49::Prop \"filters\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NodeFilterModal.svelte:49 filters.clear() on the filters prop, a NodeFilters class instance whose fields are $state (lib/node-filters.svelte.ts:44-49, created with new NodeFilters() in routes/nodes/+page.svelte:21); the mutation is reactive, the docs' class-instance limitation"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/prop-mutation::src/lib/components/NodeFilterModal.svelte:62::Prop \"filters\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NodeFilterModal.svelte:62 filters.role = r.key writes a $state field of the NodeFilters class instance prop (lib/node-filters.svelte.ts:46); reactive by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/prop-mutation::src/lib/components/NodeFilterModal.svelte:81::Prop \"filters\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NodeFilterModal.svelte:81 filters.segment = sg.key writes a $state field of the NodeFilters class instance prop (lib/node-filters.svelte.ts:47); reactive by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::correctness/unmutated-state::src/routes/map/+page.svelte:70::$state \"rxHeight\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/map/+page.svelte:70 let rxHeight = $state(2) is only read (rxHeightM: rxHeight, :117); never written, bound or passed by reference"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::performance/state-raw::src/routes/observers/+page.svelte:12::\"coverage\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to coverage: declared :12, whole reassignment :20 (Object.fromEntries), read via {@const cov = coverage[o.id]} :66 whose only uses are cov?.clockSkewMs reads :153-154 — reassign-only; $state.raw fits"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::security/raw-html::src/lib/components/NodeDetail.svelte:557::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read NodeDetail.svelte:7,329-337,557: qrSvg = QRCode.toString(url, {type:'svg'}) from the qrcode package — library-generated QR markup (ledger QR convention)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::security/raw-html::src/routes/m/nodes/[pubkey]/+page.svelte:277::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read m/nodes/[pubkey]/+page.svelte:7,139,277: qrSvg = QRCode.toString(url, {type:'svg'}) — library-generated QR markup (ledger QR convention)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (static/robots.txt Disallow: /account; account/+page.svelte:132 goto('/login') for guests), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/identity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent from the SvelteKit source on /identity (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)), but design: head tag written outside SvelteKit: the Go server (internal/api/api.go:271 shareHandler; internal/api/share_preview.go:44 sharePages[\"/identity\"], previewPath maps /m/identity to it; :340-344 writes <link rel=\"canonical\"> and og:url into the SPA shell head) serves this route with the tag, so the claim holds only for the SvelteKit source"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (static/robots.txt Disallow: /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/m/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /m/account (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)) but not a search target (client-side gate: m/account/+page.svelte:106 renders the sign-in prompt instead of the account for guests), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/m/hash-ids/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /m/hash-ids (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/m/identity/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent from the SvelteKit source on /m/identity (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)), but design: head tag written outside SvelteKit: the Go server (internal/api/api.go:271 shareHandler; internal/api/share_preview.go:44 sharePages[\"/identity\"], previewPath maps /m/identity to it; :340-344 writes <link rel=\"canonical\"> and og:url into the SPA shell head) serves this route with the tag, so the claim holds only for the SvelteKit source"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/m/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /m/login (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/canonical-url::src/routes/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email (no <link rel=\"canonical\"> on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds <link rel=\"canonical\"> only in the listed emitters)); public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/description-length::src/app.html::Description is too long (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "key covers 9 routes (local CLI list), labelled by majority: app.html:114-118 literal fallback <meta name=description> (216 chars) is the only description of /account, /identity, /login, /m/account, /m/identity, /m/login, /m/hash-ids, /reset-password and /verify-email (the other routes set their own through Seo.svelte), too long as claimed; but 6 are robots-disallowed (/account, /identity, /login) or their /m/ mirrors and 2 are emailed-token pages, not search targets; the dissenting route is /m/hash-ids (mobile-PWA mirror of the sitemap-listed public /hash-ids), where the too-long fallback description is a real defect"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 9 routes (local CLI list), labelled by majority: app.html:114-118 literal fallback description is the only description of /account, /identity, /login, /m/account, /m/identity, /m/login, /m/hash-ids, /reset-password and /verify-email, duplicate as claimed; but 6 are robots-disallowed (/account, /identity, /login) or their /m/ mirrors and 2 are emailed-token pages, so no search competition; the dissenting route is /m/hash-ids (mobile-PWA mirror of the sitemap-listed public /hash-ids)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-title::src/routes/account/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/account/+page.svelte carries the same literal <title> as its desktop/mobile-PWA twin (/m/… mirrors the desktop route), duplicate as claimed; but /account is the signed-in account page (goto('/login') when signed out) and static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index'), and the /m/ copies are left out of static/sitemap.xml, so no search competition"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-title::src/routes/identity/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/identity/+page.svelte carries the same literal <title> as its desktop/mobile-PWA twin (/m/… mirrors the desktop route), duplicate as claimed; but /identity is the node-key provisioning tool, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index'), and the /m/ copies are left out of static/sitemap.xml, so no search competition"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-title::src/routes/login/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/login/+page.svelte carries the same literal <title> as its desktop/mobile-PWA twin (/m/… mirrors the desktop route), duplicate as claimed; but /login is the sign-in page, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index'), and the /m/ copies are left out of static/sitemap.xml, so no search competition"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-title::src/routes/m/account/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/m/account/+page.svelte carries the same literal <title> as its desktop/mobile-PWA twin (/m/… mirrors the desktop route), duplicate as claimed; but /m/account is the mobile-PWA account page (signed-out prompt) mirroring /account, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index'), and the /m/ copies are left out of static/sitemap.xml, so no search competition"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-title::src/routes/m/identity/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/m/identity/+page.svelte carries the same literal <title> as its desktop/mobile-PWA twin (/m/… mirrors the desktop route), duplicate as claimed; but /m/identity is the mobile-PWA mirror of /identity, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index'), and the /m/ copies are left out of static/sitemap.xml, so no search competition"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/duplicate-title::src/routes/m/login/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/m/login/+page.svelte carries the same literal <title> as its desktop/mobile-PWA twin (/m/… mirrors the desktop route), duplicate as claimed; but /m/login is the mobile-PWA sign-in mirroring /login, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index'), and the /m/ copies are left out of static/sitemap.xml, so no search competition"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (static/robots.txt Disallow: /account; account/+page.svelte:132 goto('/login') for guests) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/identity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "design",
+    "basis": "og:url absent from the SvelteKit source on /identity (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)), but design: head tag written outside SvelteKit: the Go server (internal/api/api.go:271 shareHandler; internal/api/share_preview.go:44 sharePages[\"/identity\"], previewPath maps /m/identity to it; :340-344 writes <link rel=\"canonical\"> and og:url into the SPA shell head) serves this route with the tag, so the claim holds only for the SvelteKit source"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (static/robots.txt Disallow: /login) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/m/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /m/account (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: not a search target (client-side gate: m/account/+page.svelte:106 renders the sign-in prompt instead of the account for guests) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/m/hash-ids/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /m/hash-ids (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/m/identity/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "design",
+    "basis": "og:url absent from the SvelteKit source on /m/identity (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)), but design: head tag written outside SvelteKit: the Go server (internal/api/api.go:271 shareHandler; internal/api/share_preview.go:44 sharePages[\"/identity\"], previewPath maps /m/identity to it; :340-344 writes <link rel=\"canonical\"> and og:url into the SPA shell head) serves this route with the tag, so the claim holds only for the SvelteKit source"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/m/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /m/login (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/og-url::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email (no og:url on this route: page head is <title> only and it does not render lib/components/Seo.svelte (the only canonical/og:url emitter); app.html:28 deliberately has neither; ssr=false app-wide (+layout.ts:7) so client heads count and none exist; script-verified (a1b_label.py: grep of src incl. app.html/hooks finds og:url only in the listed emitters)); route context: public route, no auth gate, no noindex, not matched by static/robots.txt Disallow lines (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/single-h1::src/routes/m/nodes/[pubkey]/+page.svelte:198::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: the mobile app bar in m/+layout.svelte:115 always renders <h1>{title} (after the {#if isDetail} back-button block, not inside it), and the page renders its own m/nodes/[pubkey]/+page.svelte:198 <h1>{node.name} (in the loaded {:else} arm) - two <h1>s once the record loads (ssr=false SPA)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/single-h1::src/routes/m/observers/[id]/+page.svelte:99::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: the mobile app bar in m/+layout.svelte:115 always renders <h1>{title} (after the {#if isDetail} back-button block, not inside it), and the page renders its own m/observers/[id]/+page.svelte:99 <h1>{observer.name} (in the loaded {:else} arm) - two <h1>s once the record loads (ssr=false SPA)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/ssr-disabled::src/routes/+layout.ts:7::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false (with prerender = false) at src/routes/+layout.ts:7, adapter-static fallback index.html served by the Go daemon; the public observatory pages static/sitemap.xml lists for search (/nodes, /live, /map, /analytics, /channels, /observers…) therefore ship as the empty SPA shell to non-JS crawlers, as claimed (only /about is prerendered with ssr = true)"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/account/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /account is the signed-in account page (goto('/login') when signed out) and static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index')"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/identity/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/identity/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /identity is the node-key provisioning tool, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index')"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/login/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /login is the sign-in page, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index')"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/m/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/m/account/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /m/account is the mobile-PWA account page (signed-out prompt) mirroring /account, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index')"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/m/identity/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/m/identity/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /m/identity is the mobile-PWA mirror of /identity, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index')"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/m/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/m/login/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /m/login is the mobile-PWA sign-in mirroring /login, which static/robots.txt disallows /account, /identity, /login and /admin ('account/admin/API areas are not useful to index')"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/reset-password/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /reset-password is the emailed-token password reset page (phase 'missing' without a token), not a search target"
+  },
+  {
+    "key": "jjkroell/ridgeline:web::seo/title-length::src/routes/verify-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: literal <title> in src/routes/verify-email/+page.svelte's top-level svelte:head (client-rendered, replaces app.html's fallback), length as reported (literal claim holds); but /verify-email is the emailed-token verification page, not a search target"
+  }
+]
