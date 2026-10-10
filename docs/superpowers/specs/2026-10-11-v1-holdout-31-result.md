@@ -104,7 +104,7 @@ racona-core's environment schema stops on `DATABASE_URL` and others not set.
   were already left out.
 - The design share is concentrated in `canonical-url` (355), `description-presence` (302), `each-key`
   (142) and `each-index-key` (101); erp-bcs-frontend, listing-sync, distroface and radiologyos together
-  have 732 of the 1,102.
+  have 722 of the 1,102.
 - Keys labelled by their majority with some routes differing: listing-sync's `PageHead.svelte:56`
   `single-h1` is `tp` on a one-to-one split, false on `/resources/[id]`; wwiser's two `id-duplication`
   keys are `design`, false on three of thirteen routes for the same reason as its landmark class;
