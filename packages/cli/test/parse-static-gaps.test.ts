@@ -88,13 +88,15 @@ describe('parse: image loading/srcset capture (performance/lcp-image, performanc
       false
     ]);
   });
-  it('marks an SVG source: a literal or base-prefixed .svg path, or an imported .svg', () => {
+  it('marks an SVG source: a literal or base-prefixed .svg path, an imported .svg, or a .svg path given to a helper', () => {
     const svg = (src: string) => parseFile(src, 'x.svelte').images[0]!.svg;
     expect(svg('<img src="/rss.svg?v=2" />')).toBe(true);
     expect(svg('<img src="{base}/icons/rss.svg" />')).toBe(true);
     expect(svg("<script>import logo from '$lib/logo.svg';</script><img src={logo} />")).toBe(true);
     expect(svg('<script>import logo from \'$lib/logo.svg\';</script><img src="{logo}" />')).toBe(true);
     expect(svg("<img src={'/rss.svg'} />")).toBe(true);
+    expect(svg("<img src={asset('/icons/rss.svg')} />")).toBe(true);
+    expect(svg("<img src={asset('/hero.jpg')} />")).toBeUndefined();
     expect(svg('<img src="/a.jpg" />')).toBeUndefined();
     expect(svg("<script>import hero from '$lib/hero.png';</script><img src={hero} />")).toBeUndefined();
     expect(svg('<img src={url} />')).toBeUndefined();

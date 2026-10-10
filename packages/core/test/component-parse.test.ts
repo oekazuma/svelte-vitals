@@ -623,6 +623,13 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
       )
     ).not.toContain('rows');
   });
+  it('does not flag a $state known to hold an object when it is placed in an object or array', () => {
+    expect(names('<script>let lang = $state({ code: "en" }); setContext("form", { lang });</script>')).toEqual([]);
+    expect(names('<script>let ids = $state([]); const payload = { ids }; onSave(payload);</script>')).toEqual([]);
+    expect(names('<script>let n = $state(0); setContext("form", { n });</script>')).toEqual(['n']);
+    expect(names('<script lang="ts">let ids = $state<string[]>(load()); onSave({ ids });</script>')).toEqual([]);
+    expect(names('<script>let v = $state(data.version); send({ v });</script>')).toEqual(['v']);
+  });
   it('does not flag a $state bound through a non-null member', () => {
     expect(names('<script lang="ts">let q = $state({ limit: 10 });</script><Pager bind:limit={q.limit!} />')).toEqual(
       []

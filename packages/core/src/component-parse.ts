@@ -576,6 +576,16 @@ function isDerivedDeclaration(node: Node): boolean {
  */
 type WriteKind = 'reassign' | 'mutate' | 'escape';
 
+const OBJECT_TYPES = new Set(['TSArrayType', 'TSTupleType', 'TSTypeLiteral', 'TSTypeReference']);
+
+/** A `$state` call whose initial value or type argument is an object, array or class instance. */
+function isObjectState(call: Node): boolean {
+  const arg = unwrapTs(call.arguments?.[0]);
+  if (['ObjectExpression', 'ArrayExpression', 'NewExpression'].includes(arg?.type)) return true;
+  const type = (call.typeArguments ?? call.typeParameters)?.params?.[0];
+  return OBJECT_TYPES.has(type?.type);
+}
+
 function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
@@ -594,10 +604,14 @@ function collectStateWrites(
   // By name, so a state counts as primitive only when every `$state` of that name is.
   const primitiveStates = new Set<string>();
   const objectStates = new Set<string>();
+  // States whose source shows an object (`$state({})`, `$state<string[]>(…)`): only unmutated-state reads
+  // one placed in an object or array as handed on, since a primitive placed there is a copy.
+  const heldObjects = new Set<string>();
   walkEstree(root, (n: Node) => {
     const init: Node = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
     if (n?.id?.type !== 'Identifier' || !isStateDeclaration(init)) return;
     (isPrimitiveLiteral(init.arguments?.[0]) ? primitiveStates : objectStates).add(n.id.name);
+    if (localStates && isObjectState(init)) heldObjects.add(n.id.name);
   });
   for (const name of objectStates) primitiveStates.delete(name);
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
@@ -642,6 +656,14 @@ function collectStateWrites(
       const out: Node = unwrapTs(n.argument);
       const r = out?.type === 'Identifier' ? out.name : undefined;
       if (r && stateNames.has(r) && !shadowed(r) && !primitiveStates.has(r)) record(r, 'escape');
+    } else if (heldObjects.size > 0 && (n?.type === 'ObjectExpression' || n?.type === 'ArrayExpression')) {
+      // Placed in an object or array (`setContext('k', { lang })`, `onSave({ ids })`), the reference
+      // goes wherever that value goes. A spread copies it (`list = [...list, x]`), so it is left out.
+      const values = n.type === 'ObjectExpression' ? (n.properties ?? []).map((p: Node) => p?.value) : n.elements;
+      for (const v of values ?? []) {
+        const r = rootObjectName(v);
+        if (r && heldObjects.has(r) && stateNames.has(r) && !shadowed(r)) record(r, 'escape');
+      }
     } else if ((n?.type === 'Property' || n?.type === 'MethodDefinition') && n.kind === 'get') {
       // A getter hands out the state's reference like a call argument: `{ get list() { return list } }`.
       // Over a state that holds a primitive until it is written, it hands out a copy.
