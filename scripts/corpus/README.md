@@ -472,7 +472,7 @@ Measured on 431 apps, each pinned to a commit:
 - [jjkroell/ridgeline/web](https://github.com/jjkroell/ridgeline/tree/014151cce542c8ebe8ac44602286f5f02e6aaeb4/web) (`014151c`)
 - [gvorwaller/madonnahist](https://github.com/gvorwaller/madonnahist/tree/731a583a367872c65781576fd88a269d288f3a5f) (`731a583`)
 
-178316 of 178341 corpus findings have a verdict.
+178297 of 178322 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -529,7 +529,7 @@ Measured on 431 apps, each pinned to a commit:
 | [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 975             | 135  | 443 / 5 / 527 / 0                     | 99% (443/448)      | 54% (527/975)    |
 | [`correctness/server-browser-global`](../../docs/src/content/docs/rules/correctness/server-browser-global.md)         | 11              | 4    | 0 / 0 / 11 / 0                        | —                  | 100% (11/11)     |
 | [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 275             | 91   | 70 / 0 / 205 / 0                      | 100% (70/70)       | 75% (205/275)    |
-| [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 566             | 157  | 558 / 8 / 0 / 0                       | 99% (558/566)      | 0% (0/566)       |
+| [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 558             | 156  | 556 / 2 / 0 / 0                       | 100% (556/558)     | 0% (0/558)       |
 | [`performance/font-preload-crossorigin`](../../docs/src/content/docs/rules/performance/font-preload-crossorigin.md)   | 0               | 0    | —                                     | —                  | —                |
 | [`performance/heavy-import`](../../docs/src/content/docs/rules/performance/heavy-import.md)                           | 112             | 9    | 112 / 0 / 0 / 0                       | 100% (112/112)     | 0% (0/112)       |
 | [`performance/iframe-loading`](../../docs/src/content/docs/rules/performance/iframe-loading.md)                       | 309             | 142  | 76 / 0 / 230 / 3                      | 100% (76/76)       | 74% (230/309)    |
@@ -542,7 +542,7 @@ Measured on 431 apps, each pinned to a commit:
 | [`performance/preconnect`](../../docs/src/content/docs/rules/performance/preconnect.md)                               | 3               | 3    | 3 / 0 / 0 / 0                         | 100% (3/3)         | 0% (0/3)         |
 | [`performance/preload-missing-as`](../../docs/src/content/docs/rules/performance/preload-missing-as.md)               | 0               | 0    | —                                     | —                  | —                |
 | [`performance/render-blocking-script`](../../docs/src/content/docs/rules/performance/render-blocking-script.md)       | 6               | 4    | 6 / 0 / 0 / 0                         | 100% (6/6)         | 0% (0/6)         |
-| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 2770            | 289  | 2295 / 6 / 469 / 0                    | 100% (2295/2301)   | 17% (469/2770)   |
+| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 2759            | 288  | 2295 / 4 / 460 / 0                    | 100% (2295/2299)   | 17% (460/2759)   |
 | [`performance/sequential-awaits`](../../docs/src/content/docs/rules/performance/sequential-awaits.md)                 | 2614            | 220  | 1281 / 2 / 1329 / 2                   | 100% (1281/1283)   | 51% (1329/2614)  |
 | [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 900             | 200  | 900 / 0 / 0 / 0                       | 100% (900/900)     | 0% (0/900)       |
 | [`security/handler-state-write`](../../docs/src/content/docs/rules/security/handler-state-write.md)                   | 27              | 10   | 18 / 0 / 9 / 0                        | 100% (18/18)       | 33% (9/27)       |

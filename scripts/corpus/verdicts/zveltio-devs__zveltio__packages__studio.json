@@ -1626,8 +1626,8 @@
   },
   {
     "key": "zveltio-devs/zveltio:packages/studio::correctness/unmutated-state::src/routes/(admin)/onboarding/+page.svelte:74::$state \"webhookEvents\" is never mutated — use const (or $state.raw if you only reassign it)",
-    "verdict": "tp",
-    "basis": "read: src/routes/(admin)/onboarding/+page.svelte:74 webhookEvents is only read as a property value in the api.post body object (187); never written (ledger object-literal-read convention)"
+    "verdict": "design",
+    "basis": "no longer reported: webhookEvents ($state of an array literal) is placed in the object passed to api.post('/api/webhooks', { events: webhookEvents }) (:187), which the rule docs exempt as handed on; it is never mutated, so this is a missed finding, not a false one (was tp: read: src/routes/(admin)/onboarding/+page.svelte:74 webhookEvents is only read as a property value in the api.post body object (187); never written (ledger object-literal-read convention))"
   },
   {
     "key": "zveltio-devs/zveltio:packages/studio::performance/iframe-loading::src/lib/components/marketplace/MarketplaceSandbox.svelte:129::<iframe> without a loading attribute loads eagerly even when offscreen",

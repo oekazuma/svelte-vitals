@@ -2146,8 +2146,8 @@
   },
   {
     "key": "AlexBocken/homepage::correctness/unmutated-state::src/routes/[recipeLang=recipeLang]/edit/[name]/+page.svelte:93::$state \"datemodified\" is never mutated — use const (or $state.raw if you only reassign it)",
-    "verdict": "tp",
-    "basis": "script-verified (grep of the name in the file) + read: src/routes/[recipeLang=recipeLang]/edit/[name]/+page.svelte:93 datemodified; its only other mention places it in the currentRecipeData object (138), which nothing writes through; no reassignment, member write, mutating call, bind:, call argument or directive, so it is never written as claimed"
+    "verdict": "design",
+    "basis": "no longer reported: datemodified ($state(new Date())) is placed in the object the save function returns (:138), which the rule docs exempt as handed on; it is never mutated, so this is a missed finding, not a false one (was tp: script-verified (grep of the name in the file) + read: src/routes/[recipeLang=recipeLang]/edit/[name]/+page.svelte:93 datemodified; its only other mention places it in the currentRecipeData object (13)"
   },
   {
     "key": "AlexBocken/homepage::performance/image-dimensions::src/routes/(main)/+page.svelte:145::Missing <img> width/height",

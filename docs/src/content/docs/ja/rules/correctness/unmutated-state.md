@@ -9,7 +9,7 @@ description: 一度も変更しない $state は、const（または $state.raw�
 
 コンポーネント内のどこでも書き込まれず、外部にも渡らない `let x = $state(...)` を検出します。再代入も、変更（`x.a = …`、`x.push()`）も、バインド（`bind:value={x}`）も、関数やコンポーネントへの受け渡しもないものです。getter（`get x() { return x; }`）で外へ渡す場合も、値がプリミティブでなければ検出しません。
 
-`use:`／`transition:`／`animate:` ディレクティブに渡した state も検出しません。受け取った側が参照を保持し、静的解析には見えない形で変更しうるためです。関数が `return` で返す state も、同じ理由で検出しません。
+`use:`／`transition:`／`animate:` ディレクティブに渡した state も検出しません。受け取った側が参照を保持し、静的解析には見えない形で変更しうるためです。関数が `return` で返す state も、同じ理由で検出しません。オブジェクトや配列の値に入れた state（`setContext('form', { lang })`、`const payload = { ids }`）も、初期値か型引数からオブジェクトを持つと分かる場合は検出しません。たとえば `$state({})`、`$state([])`、`$state(new Date())`、`$state(saved ?? {})`、`$state<string[]>(…)`、`$state<Record<string, string>>(…)` のような組み込みのオブジェクト型です。アプリ独自の型名はプリミティブの別名でありうるので、判断に使いません。数えるのは state そのものだけで、`{ count: state.count }` は state ではなくプロパティを入れているので当たりません。スプレッド（`[...list, x]`）は state をコピーするので、これには当たりません。プリミティブを持つかもしれない state も、オブジェクトに入るのはその値のコピーなので、これには当たりません。
 
 ## なぜ重要か
 
