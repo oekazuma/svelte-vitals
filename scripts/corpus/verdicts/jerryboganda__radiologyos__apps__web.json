@@ -1,0 +1,1222 @@
+[
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/disallowed-aria-props::src/lib/components/exams/ExamRunner.svelte:166::`aria-label` is prohibited on <p> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/exams/ExamRunner.svelte:166: <p> carries aria-label with no role, spread or use: action, so its role (paragraph) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/disallowed-aria-props::src/lib/components/study/CardFace.svelte:57::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/study/CardFace.svelte:57: <span> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/disallowed-aria-props::src/lib/components/study/session/SbaBlock.svelte:70::`aria-label` is prohibited on <p> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/study/session/SbaBlock.svelte:70: <p> carries aria-label with no role, spread or use: action, so its role (paragraph) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/pattern-title::src/lib/components/reader/PageNav.svelte:42::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read lib/components/reader/PageNav.svelte:33-49: <input id=\"jump\" pattern=\"[0-9]*\"> without title inside a <form onsubmit> (no novalidate), so submitting a non-numeric value shows the browser's generic mismatch message with no format hint"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/top-level-landmark::src/routes/(app)/library/+page.svelte:93::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/(app)/library/+page.svelte:93: unnamed <aside> inside plain grid <div>s of the page, which (app)/+layout.svelte renders inside <main id=\"main\"> in both arms (:30-32 / :42-44); scoped to main, so a complementary nested in main as reported (route renders for signed-in users)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/top-level-landmark::src/routes/(app)/library/[source]/+page.svelte:138::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/(app)/library/[source]/+page.svelte:138: unnamed <aside> inside plain grid <div>s of the page, which (app)/+layout.svelte renders inside <main id=\"main\"> in both arms (:30-32 / :42-44); scoped to main, so a complementary nested in main as reported (route renders for signed-in users)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::a11y/top-level-landmark::src/routes/(app)/tutor/+page.svelte:184::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/(app)/tutor/+page.svelte:184: <aside aria-labelledby=\"threads-heading\"> inside plain grid <div>s of the page, which (app)/+layout.svelte renders inside <main id=\"main\"> in both arms (:30-32 / :42-44); scoped to main, so a complementary nested in main as reported (route renders for signed-in users)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::architecture/component-size::src/lib/components/exams/ExamRunner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/exams/ExamRunner.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::architecture/component-size::src/lib/components/reader/PageViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reader/PageViewer.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::architecture/component-size::src/routes/(app)/tutor/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/tutor/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::architecture/prop-count::src/lib/components/exams/ExamQuestion.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/exams/ExamQuestion.svelte has a single destructured $props() with 9 named props (> 6): question, number, selected, text, confidence, disabled, onchoose, ontext, onconfidence"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::architecture/prop-count::src/lib/components/reader/PageViewer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/reader/PageViewer.svelte has a single destructured $props() with 9 named props (> 6): src, alt, corner, blocks, figures, selected, showBlocks, blocksToggle, onselect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/AnswerView.svelte:105::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/AnswerView.svelte:105 '{#each block.segment.citations as citation, j (j)}' keyed by its index binding; citation chips of one answer segment; positional list (parts of one generated answer)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/AnswerView.svelte:57::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/AnswerView.svelte:57 '{#each others(segment.citations) as citation, j (j)}' keyed by its index binding; citation chips of one answer segment; positional list (parts of one generated answer)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/AnswerView.svelte:60::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/AnswerView.svelte:60 '{#each figures(segment.citations) as citation, j (j)}' keyed by its index binding; figure-citation chips of one answer segment; positional list (parts of one generated answer)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/AnswerView.svelte:73::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/AnswerView.svelte:73 '{#each blocks as block, i (i)}' keyed by its index binding; blocks = layoutAnswer(segments) (:29), heading/table/paragraph blocks of one generated answer; positional list (parts of one answer)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/AnswerView.svelte:89::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/AnswerView.svelte:89 '{#each row.cells as cell, c (c)}' keyed by its index binding; the cells of one comparison-table row of an answer; positional cells"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/AnswerView.svelte:92::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/AnswerView.svelte:92 '{#each cell as segment, j (j)}' keyed by its index binding; text segments of one table cell; positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/CitationList.svelte:11::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/CitationList.svelte:11 '{#each citations as citation, i (i)}' keyed by its index binding; citation chips of one point/answer; positional list (parts of one record)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/QuestionCard.svelte:78::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/QuestionCard.svelte:78 '{#each question.options as option, i (i)}' keyed by its index binding; the lettered options of one MCQ question, whose identity is their position (the answer is stored and compared by index); positional list"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/SearchHitCard.svelte:17::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/SearchHitCard.svelte:17 '{#each parts as part, i (i)}' keyed by its index binding; parts = highlight(snippet(...)) (:8), matched/unmatched text segments of one hit; positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/TutorProgress.svelte:14::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/TutorProgress.svelte:14 '{#each stages as stage, i (i)}' keyed by its index binding; stages prop: progress-stage strings of one tutor run, appended at the end while streaming (last one marked current); positional list"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/exams/ExamQuestion.svelte:109::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/exams/ExamQuestion.svelte:109 '{#each question.options as option, i (i)}' keyed by its index binding; the lettered options of one exam question, selected by index (selected === i); option identity is its position"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/knowledge/ConceptGraph.svelte:31::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/knowledge/ConceptGraph.svelte:31 '{#each layout.edges as edge, i (i)}' keyed by its index binding; SVG <line> edges of one computed radial layout; positional chart geometry"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/knowledge/ConceptNote.svelte:63::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/knowledge/ConceptNote.svelte:63 '{#each section.groups as group, g (g)}' keyed by its index binding; sentence groups of one concept-note section; positional list (parts of one document)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/knowledge/ConceptNote.svelte:66::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/knowledge/ConceptNote.svelte:66 '{#each group.sentences as sentence, i (i)}' keyed by its index binding; sentences of one group of a concept note; positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/knowledge/DdxTree.svelte:25::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/knowledge/DdxTree.svelte:25 '{#each branch.discriminators as sentence, i (i)}' keyed by its index binding; discriminator sentences of one differential branch; positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/library/red/FigureEvidence.svelte:42::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/library/red/FigureEvidence.svelte:42 '{#each figure.findings as finding, i (i)}' keyed by its index binding; finding strings of one figure, plain <li> text; positional list (parts of one record)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/library/red/Highlighted.svelte:9::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/library/red/Highlighted.svelte:9 '{#each segments as segment, i (i)}' keyed by its index binding; segments = highlight(text, spans) (:6), marked/unmarked text segments; positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/library/red/NotesEvidence.svelte:26::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/library/red/NotesEvidence.svelte:26 '{#each item.statements as s, i (i)}' keyed by its index binding; statements of one evidence item, numbered read-only list; positional list (parts of one record)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/ReviewCard.svelte:31::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/ReviewCard.svelte:31 '{#each item.checker_reasons as reason, i (i)}' keyed by its index binding; checker reason strings of one review item; positional list (messages of one result)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/ReviewCard.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/ReviewCard.svelte:37 '{#each item.options as option, i (i)}' keyed by its index binding; the lettered options of one review item, the key compared by index (i === item.key); option identity is its position"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/ReviewCard.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/ReviewCard.svelte:50 '{#each item.marking_scheme as point, i (i)}' keyed by its index binding; marking-scheme points of one review item, read-only; positional list (parts of one record)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/ReviewCard.svelte:79::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/ReviewCard.svelte:79 '{#each item.options as option, i (i)}' keyed by its index binding; the lettered option inputs of one review item (name=\"option_{i}\", key radio value={i}); the options are never reordered/inserted here and their identity is the letter/position"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/SbaFeedback.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/SbaFeedback.svelte:32 '{#each options as option, i (i)}' keyed by its index binding; the lettered options of one answered question with explanations, read-only; option identity is its position"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/WrittenFeedback.svelte:16::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/WrittenFeedback.svelte:16 '{#each result.points as point, i (i)}' keyed by its index binding; marked points of one written-answer result, read-only; positional list (parts of one result)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/questions/WrittenFeedback.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/questions/WrittenFeedback.svelte:37 '{#each result.key_findings as finding, i (i)}' keyed by its index binding; key-finding strings of one result; positional list (text lines)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/reader/FigurePanel.svelte:44::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/reader/FigurePanel.svelte:44 '{#each figure.findings as finding, i (i)}' keyed by its index binding; finding strings of one figure, plain <li> text; positional list (parts of one record)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/reader/TableList.svelte:24::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/reader/TableList.svelte:24 '{#each table.cells[0] as cell, c (c)}' keyed by its index binding; header cells of one extracted table; positional cells"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/reader/TableList.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/reader/TableList.svelte:28 '{#each table.header ? table.cells.slice(1) : table.cells as row, r (r)}' keyed by its index binding; rows of one extracted read-only table; positional list (table rows of one document)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/reader/TableList.svelte:30::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/reader/TableList.svelte:30 '{#each row as cell, c (c)}' keyed by its index binding; the cells of one extracted table row; positional cells"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/study/CardFace.svelte:52::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/study/CardFace.svelte:52 '{#each clozeParts(card.front) as part, i (i)}' keyed by its index binding; clozeParts(card.front), text/blank segments of one card face; positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/study/TodayPlan.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/study/TodayPlan.svelte:21 '{#each blocks as { block, view }' keyed by its index binding; blocks of today's study plan (plan.blocks mapped, :7), numbered read-only list; positional list (parts of one plan)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/study/WeeklyReport.svelte:30::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/study/WeeklyReport.svelte:30 '{#each report.daily_minutes as minutes, i (i)}' keyed by its index binding; one bar per weekday of daily_minutes, labelled DAYS[i]; positional chart geometry"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/study/session/SbaBlock.svelte:114::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/study/session/SbaBlock.svelte:114 '{#each question.options as option, i (i)}' keyed by its index binding; the lettered options of the current question (radio value={i}, choice === i); option identity is its position (letter/keyboard shortcut)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/tutor/DraftAnswer.svelte:16::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/tutor/DraftAnswer.svelte:16 '{#each sources as text, i (i)}' keyed by its index binding; source paragraphs of one draft answer (sources = drafts.sources filtered, :8); positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/tutor/DraftAnswer.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/tutor/DraftAnswer.svelte:22 '{#each web as text, i (i)}' keyed by its index binding; web paragraphs of one draft answer (:9); positional list (text segments)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/tutor/ImageReading.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/tutor/ImageReading.svelte:27 '{#each reading.findings as finding, i (i)}' keyed by its index binding; finding strings of one image reading; positional list (parts of one result)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/viva/TurnResult.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/viva/TurnResult.svelte:27 '{#each evaluation.points as point, i (i)}' keyed by its index binding; expected points of one viva turn evaluation, read-only; positional list (parts of one result)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/viva/TurnResult.svelte:58::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/viva/TurnResult.svelte:58 '{#each turn.expected as point, i (i)}' keyed by its index binding; expected points of one viva turn, read-only; positional list (parts of one result)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/lib/components/viva/VivaDebrief.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: lib/components/viva/VivaDebrief.svelte:53 '{#each debrief.teaching_points as point, i (i)}' keyed by its index binding; teaching points of one viva debrief, read-only; positional list (parts of one result)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/routes/(app)/search/+page.svelte:80::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: routes/(app)/search/+page.svelte:80 '{#each table.cells.slice(0, 6) as row, r (r)}' keyed by its index binding; the first six rows of one table search hit, read-only preview; positional list (table rows of one document)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/each-index-key::src/routes/(app)/search/+page.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: routes/(app)/search/+page.svelte:82 '{#each row as cell, c (c)}' keyed by its index binding; the cells of one table-preview row; positional cells"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/lib/components/reader/PageViewer.svelte:46::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: lib/components/reader/PageViewer.svelte:46 the effect only does dpr = window.devicePixelRatio || 1; the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/lib/components/settings/InstallApp.svelte:8::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: lib/components/settings/InstallApp.svelte:8 the effect only does ios = /iphone|ipad|ipod/i.test(navigator.userAgent); the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/lib/components/settings/PipelineControl.svelte:16::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: lib/components/settings/PipelineControl.svelte:16 the effect reads the browser's time zone (Intl.DateTimeFormat().resolvedOptions().timeZone) after mount; a $derived would compute the server's zone during SSR and flip on hydration (same class as the ledger's Math.random design convention: the value differs between server and client, so a $derived would mismatch on hydration)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/lib/components/settings/ReminderForm.svelte:11::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: lib/components/settings/ReminderForm.svelte:11 the effect reads the browser's time zone (Intl...resolvedOptions().timeZone || value.timezone) after mount; a $derived would compute the server's zone during SSR and flip on hydration (same class as the ledger's Math.random design convention)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/lib/components/study/Onboarding.svelte:11::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: lib/components/study/Onboarding.svelte:11 the effect reads the browser's time zone (Intl...resolvedOptions().timeZone) after mount; a $derived would compute the server's zone during SSR and flip on hydration (same class as the ledger's Math.random design convention)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/routes/(app)/+page.svelte:34::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: routes/(app)/+page.svelte:34 the effect does now = new Date() after mount (now starts null, :33) so the greeting uses the visitor's clock; a $derived would compute the server's time during SSR and differ on hydration (same class as the ledger's Math.random convention and glennsyang's deliberate new Date design entry; the ledger also has a nasty-project new Date entry labelled tp)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/routes/(app)/library/[source]/+page.svelte:35::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: routes/(app)/library/[source]/+page.svelte:35 the effect only does selected = parseBlock(page.url.searchParams.get('block')); later writes are reassignments from the block list (select :42), the writable-$derived override pattern"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::correctness/effect-as-derived::src/routes/(app)/settings/+page.svelte:21::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: routes/(app)/settings/+page.svelte:21 the effect reads the browser's time zone (Intl...resolvedOptions().timeZone) after mount; a $derived would compute the server's zone during SSR and flip on hydration (same class as the ledger's Math.random design convention)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::performance/image-dimensions::src/routes/(app)/library/figures/[figure]/similar/+page.svelte:20::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class h-28 w-40 object-contain - box reserved by CSS"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::performance/image-loading-hint::src/routes/(app)/library/figures/[figure]/similar/+page.svelte:20::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the reference figure directly under the PageHeader (:14-20) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::performance/responsive-image::src/routes/(app)/library/figures/[figure]/similar/+page.svelte:20::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg; read: /media/figures/{id} proxies the figure crop \"at source resolution\" (routes/media/figures/[figure]/+server.ts) shown at 160x112 - one fixed-size raster"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders: guest-reachable: (app)/+layout.server.ts:10 exempts /, and (app)/+page.svelte:48-49 renders the sign-in screen for guests; no noindex/robots.txt"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/exams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /exams (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/exams/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /exams/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/exams/blueprints/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /exams/blueprints (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/exams/disputes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /exams/disputes (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/knowledge/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /knowledge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /knowledge/[concept] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /knowledge/curriculum (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/knowledge/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /knowledge/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/library/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /library (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/library/[source]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /library/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /library/figures/[figure]/similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/library/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /library/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/library/review/[source]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /library/review/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/progress/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /progress (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/questions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /questions (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/questions/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /questions/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /search (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/tutor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tutor (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/viva/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /viva (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/(app)/viva/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /viva/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders but not a search target (auth-gated: (app)/+layout.server.ts:10 redirects every request without locals.user to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/canonical-url::src/routes/offline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /offline (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders: prerendered offline fallback (offline/+page.ts:3-4), ungated, no noindex/robots.txt (ledger treats offline fallbacks as tp)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: app.html:8 literal description 'A private radiology study workspace.', 36 graphemes as reported; the only description of the 23 routes per local CLI) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:8 literal <meta name=description> is the only description of all 23 routes (local CLI list), duplicate as claimed; but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target, so no search competition"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): / (src/routes/(app)/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/exams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /exams (src/routes/(app)/exams/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/exams/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /exams/[id] (src/routes/(app)/exams/[id]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/exams/blueprints/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /exams/blueprints (src/routes/(app)/exams/blueprints/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/exams/disputes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /exams/disputes (src/routes/(app)/exams/disputes/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/knowledge/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /knowledge (src/routes/(app)/knowledge/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /knowledge/[concept] (src/routes/(app)/knowledge/[concept]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /knowledge/curriculum (src/routes/(app)/knowledge/curriculum/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/knowledge/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /knowledge/review (src/routes/(app)/knowledge/review/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/library/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /library (src/routes/(app)/library/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/library/[source]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /library/[source] (src/routes/(app)/library/[source]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /library/figures/[figure]/similar (src/routes/(app)/library/figures/[figure]/similar/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/library/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /library/review (src/routes/(app)/library/review/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/library/review/[source]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /library/review/[source] (src/routes/(app)/library/review/[source]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/progress/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /progress (src/routes/(app)/progress/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/questions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /questions (src/routes/(app)/questions/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/questions/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /questions/review (src/routes/(app)/questions/review/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /search (src/routes/(app)/search/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /settings (src/routes/(app)/settings/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/tutor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /tutor (src/routes/(app)/tutor/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/viva/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /viva (src/routes/(app)/viva/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/(app)/viva/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /viva/[id] (src/routes/(app)/viva/[id]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/json-ld::src/routes/offline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /offline (src/routes/offline/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/exams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /exams (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/exams/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /exams/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/exams/blueprints/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /exams/blueprints (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/exams/disputes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /exams/disputes (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/knowledge/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /knowledge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /knowledge/[concept] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /knowledge/curriculum (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/knowledge/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /knowledge/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/library/[source]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library/figures/[figure]/similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/library/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/library/review/[source]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /library/review/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/progress/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /progress (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/questions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /questions (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/questions/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /questions/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/tutor/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tutor (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/viva/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /viva (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/(app)/viva/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /viva/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-description::src/routes/offline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /offline (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/exams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /exams (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/exams/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /exams/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/exams/blueprints/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /exams/blueprints (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/exams/disputes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /exams/disputes (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/knowledge/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /knowledge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /knowledge/[concept] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /knowledge/curriculum (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/knowledge/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /knowledge/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/library/[source]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library/figures/[figure]/similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/library/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/library/review/[source]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /library/review/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/progress/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /progress (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/questions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /questions (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/questions/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /questions/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/tutor/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tutor (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/viva/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /viva (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/(app)/viva/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /viva/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-image::src/routes/offline/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /offline (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/exams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /exams (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/exams/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /exams/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/exams/blueprints/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /exams/blueprints (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/exams/disputes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /exams/disputes (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/knowledge/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /knowledge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /knowledge/[concept] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /knowledge/curriculum (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/knowledge/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /knowledge/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/library/[source]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library/figures/[figure]/similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/library/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/library/review/[source]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /library/review/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/progress/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /progress (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/questions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /questions (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/questions/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /questions/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/tutor/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tutor (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/viva/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /viva (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/(app)/viva/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /viva/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-title::src/routes/offline/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /offline (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/exams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /exams (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/exams/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /exams/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/exams/blueprints/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /exams/blueprints (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/exams/disputes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /exams/disputes (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/knowledge/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /knowledge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /knowledge/[concept] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /knowledge/curriculum (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/knowledge/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /knowledge/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/library/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/library/[source]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library/figures/[figure]/similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/library/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/library/review/[source]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /library/review/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/progress/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /progress (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/questions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /questions (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/questions/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /questions/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/tutor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tutor (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/viva/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /viva (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/(app)/viva/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /viva/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/og-url::src/routes/offline/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /offline (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in apps/web/static (icons, manifest, service-worker) or routes, none anywhere in the repo (literal claim holds); radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in apps/web/static or routes, no generator (literal claim holds); radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target, nothing to list"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/exams/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/exams/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/exams/blueprints/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/exams/blueprints/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/exams/disputes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/exams/disputes/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/knowledge/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/knowledge/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/knowledge/curriculum/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/knowledge/curriculum/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/knowledge/review/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/knowledge/review/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/library/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/library/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/library/figures/[figure]/similar/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/progress/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/progress/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/questions/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/questions/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/questions/review/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/questions/review/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/settings/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/tutor/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/tutor/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/(app)/viva/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/(app)/viva/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it follows root +layout.svelte:25's <title>radbrain</title>) (literal claim holds); but radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/title-length::src/routes/offline/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title>Offline · radbrain</title> at offline/+page.svelte:6, 18 graphemes as reported) (literal claim holds); but /offline is the PWA's prerendered offline fallback page of radbrain is a private, tenant-isolated radiology study workspace (README; app.html:8 'A private radiology study workspace.') whose (app)/+layout.server.ts:9 redirects every session-less request except / (the sign-in screen) to /, not a search target"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/exams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /exams (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/exams/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /exams/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/exams/blueprints/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /exams/blueprints (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/exams/disputes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /exams/disputes (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/knowledge/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /knowledge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/knowledge/[concept]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /knowledge/[concept] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/knowledge/curriculum/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /knowledge/curriculum (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/knowledge/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /knowledge/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/library/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/library/[source]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/library/figures/[figure]/similar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library/figures/[figure]/similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/library/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/library/review/[source]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /library/review/[source] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/progress/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /progress (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/questions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /questions (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/questions/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /questions/review (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/tutor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tutor (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/viva/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /viva (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/(app)/viva/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /viva/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "jerryboganda/radiologyos:apps/web::seo/twitter-card::src/routes/offline/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /offline (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; heads are <title> only (root +layout.svelte:24-26, page titles); app.html:4-14 charset/viewport/theme/description/icons/manifest; only dep is jose); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  }
+]
