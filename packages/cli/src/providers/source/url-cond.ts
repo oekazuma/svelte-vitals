@@ -79,5 +79,8 @@ export function urlHolds(cond: UrlCond | undefined, route: string, routeId = rou
     return v.length <= prefix.length && !mayEnd ? false : undefined;
   }
   if (cond.op === 'includes') return route.split(DYNAMIC).some((part) => part.includes(v)) ? true : undefined;
-  return undefined;
+  // The path always ends with the literal after the last parameter (`/print` of `/inv/[id]/print`).
+  const suffix = route.slice(route.lastIndexOf(']') + 1);
+  if (v.length <= suffix.length) return suffix.endsWith(v);
+  return v.endsWith(suffix) ? undefined : false;
 }
