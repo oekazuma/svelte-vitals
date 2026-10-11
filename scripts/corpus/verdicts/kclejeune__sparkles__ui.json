@@ -1,0 +1,1347 @@
+[
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/DiffLines.svelte:24::`aria-label` is prohibited on <pre> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/DiffLines.svelte:24: <pre> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/ExplainPanel.svelte:105::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ExplainPanel.svelte:105: <span> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/ExplainPanel.svelte:96::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ExplainPanel.svelte:96: <span> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/MemoryTab.svelte:93::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/MemoryTab.svelte:93: <div> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/RecallView.svelte:131::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/RecallView.svelte:131: <div> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/ResultMap.svelte:131::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ResultMap.svelte:131: <div> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/lib/components/ShapesDraftDialog.svelte:207::`aria-label` is prohibited on <pre> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ShapesDraftDialog.svelte:207: <pre> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/routes/query/+page.svelte:1984::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/query/+page.svelte:1984: <div> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/disallowed-aria-props::src/routes/query/+page.svelte:2590::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/query/+page.svelte:2590: <div> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/id-duplication::src/lib/components/Modal.svelte:44::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read: h2#modal-title is inside Modal.svelte {#if open} (:42-44), a native <dialog> opened with showModal() (:24); the copies on each route are separate Modal instances (Backup/Dataset/Token dialogs …) each opened by its own action, so two never render together; documented model counts separate blocks as both rendering"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/top-level-landmark::src/routes/explore/+page.svelte:1191::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/explore/+page.svelte:1191: <aside class=\"side\" aria-label=\"Class details\"> in the schema tab arm, rendered inside root +layout.svelte:178-180 <main>{@render children()}</main> (unconditional); a named complementary nested in main as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::a11y/top-level-landmark::src/routes/explore/+page.svelte:777::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read routes/explore/+page.svelte:777: <aside class=\"side\" aria-label=\"Resource details\"> in the graph tab arm, rendered inside root +layout.svelte:178-180 <main>{@render children()}</main> (unconditional); a named complementary nested in main as reported"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ActivityTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ActivityTab.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/BackupDrawer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BackupDrawer.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/BackupsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BackupsPanel.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/BackupsTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BackupsTable.svelte has 335 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/BranchesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BranchesPanel.svelte has 539 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/CloneDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CloneDialog.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/CommitGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CommitGraph.svelte has 545 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/DatasetDialogs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DatasetDialogs.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/DescribePanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DescribePanel.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/DiagnosticsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DiagnosticsPanel.svelte has 362 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ExplainPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ExplainPanel.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/FullTextPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FullTextPanel.svelte has 514 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/GraphView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/GraphView.svelte has 412 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/HistoryPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HistoryPanel.svelte has 715 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/InboxPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/InboxPanel.svelte has 358 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/IngestPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/IngestPanel.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/IngestSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/IngestSettings.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/MapView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MapView.svelte has 316 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/MemoryTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MemoryTab.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/MergeDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MergeDialog.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/NearbyPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NearbyPanel.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/PlanView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlanView.svelte has 603 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/PoliciesTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PoliciesTab.svelte has 444 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/PolicyEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PolicyEditor.svelte has 577 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/QuestionHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QuestionHeader.svelte has 268 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ReasoningPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReasoningPanel.svelte has 322 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/RecallView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RecallView.svelte has 298 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/RepositoriesTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RepositoriesTab.svelte has 366 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/RepositoryDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RepositoryDialog.svelte has 502 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/RestoreDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RestoreDialog.svelte has 576 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ResultMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ResultMap.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ResultTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ResultTable.svelte has 365 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/SchemaDiffDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SchemaDiffDialog.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ShapesDraftDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShapesDraftDialog.svelte has 322 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ShexPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShexPanel.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/ShexResults.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShexResults.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/SimilarPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SimilarPanel.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/SnapshotsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SnapshotsPanel.svelte has 341 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/SparqlEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SparqlEditor.svelte has 258 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/SpatialIndexPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SpatialIndexPanel.svelte has 661 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/TaskList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TaskList.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/TextSearchView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TextSearchView.svelte has 439 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/VectorIndexPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/VectorIndexPanel.svelte has 1104 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/VerifyDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/VerifyDialog.svelte has 219 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/lib/components/WriteValidationPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/WriteValidationPanel.svelte has 374 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 449 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/backups/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/backups/+page.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/datasets/[name]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/datasets/[name]/+page.svelte has 1930 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/datasets/[name]/merge/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/datasets/[name]/merge/+page.svelte has 827 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/datasets/[name]/review/[branch]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/datasets/[name]/review/[branch]/+page.svelte has 468 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/explore/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/explore/+page.svelte has 1883 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/memory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/memory/+page.svelte has 498 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/query/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/query/+page.svelte has 3260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/server/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/server/+page.svelte has 651 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/similar/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/similar/+page.svelte has 957 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/component-size::src/routes/tokens/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tokens/+page.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/AskBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AskBar.svelte has a single destructured $props() with 8 named props (> 6): value, mode, model, step, context, onask, onstop, onnew"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/BackupsPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BackupsPanel.svelte has a single destructured $props() with 7 named props (> 6): name, branch, info, readOnly, refreshKey, onstarted, onchanged"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/BranchesPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BranchesPanel.svelte has a single destructured $props() with 10 named props (> 6): name, list, error, loading, current, canEdit, canMerge, onreload, onchange, onselect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/ClassTree.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ClassTree.svelte has a single destructured $props() with 9 named props (> 6): schema, iris, prefixes, open, selected, onselect, ontoggle, depth, path"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/ExplainPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ExplainPanel.svelte has a single destructured $props() with 11 named props (> 6): explanation, notes, nodes, shownNotes, executed, stopped, loading, error, hovered, onselect, onlight"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/ExplainedPlan.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ExplainedPlan.svelte has a single destructured $props() with 8 named props (> 6): ds, query, plan, commit, error, executed, prefixes, open"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/FullTextPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FullTextPanel.svelte has a single destructured $props() with 10 named props (> 6): name, branch, prefixes, predicates, readOnly, busy, refreshKey, onstart, onstarted, onchanged"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/MapView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MapView.svelte has a single destructured $props() with 8 named props (> 6): features, selected, onselect, popup, fit, onview, height, label"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/NearbyPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NearbyPanel.svelte has a single destructured $props() with 7 named props (> 6): ds, iri, literal, prefixes, selected, onresults, onselect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/PlanView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PlanView.svelte has a single destructured $props() with 9 named props (> 6): plan, executed, prefixes, selected, marks, lit, onhover, onselect, toolbar"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/PolicyEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PolicyEditor.svelte has a single destructured $props() with 8 named props (> 6): open, editing, repositories, datasets, taken, onsaved, onrun, onretention"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/QuestionHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/QuestionHeader.svelte has a single destructured $props() with 11 named props (> 6): q, check, edited, checking, prefixes, canAdmin, onrecheck, onopen, onsave, onsuggest, onclose"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/ReasoningPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReasoningPanel.svelte has a single destructured $props() with 9 named props (> 6): name, branch, info, busy, readOnly, prefixes, explore, onstart, onchanged"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/RecallView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/RecallView.svelte has a single destructured $props() with 7 named props (> 6): result, prefixes, filter, entities, superseded, onopen, showHeader"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/ResultTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ResultTable.svelte has a single destructured $props() with 7 named props (> 6): vars, rows, prefixes, onopen, cited, highlight, onhover"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/ShexPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ShexPanel.svelte has a single destructured $props() with 7 named props (> 6): name, branch, info, prefixes, namedGraphs, explore, conforms"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/SparqlEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SparqlEditor.svelte has a single destructured $props() with 7 named props (> 6): docId, value, onchange, onrun, onformat, completion, placeholder"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/SpatialIndexPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SpatialIndexPanel.svelte has a single destructured $props() with 9 named props (> 6): name, branch, prefixes, readOnly, busy, refreshKey, onstart, onstarted, onchanged"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::architecture/prop-count::src/lib/components/VectorIndexPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VectorIndexPanel.svelte has a single destructured $props() with 11 named props (> 6): name, branch, prefixes, predicates, canAdmin, readOnly, busy, refreshKey, onstart, onstarted, onchanged"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/base-path-navigation::src/routes/server/+page.svelte:471::<a href=\"/$/openapi.json\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/$/openapi.json') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: routes/server/+page.svelte:471 <a href=\"/$/openapi.json\" target=\"_blank\"> under the literal kit.paths.base = '/ui' (svelte.config.js:11); the line is a root-relative literal as reported, but it deliberately leaves the UI for the Sparkles server's own API description, which the server serves at /$/openapi.json outside the /ui app (README.md:257, crates/sparkles-client/src/routes.rs:337)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/base-path-navigation::src/routes/server/+page.svelte:476::<a href=\"/$/openapi.yaml\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/$/openapi.yaml') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: routes/server/+page.svelte:476 <a href=\"/$/openapi.yaml\" target=\"_blank\"> under kit.paths.base = '/ui' (svelte.config.js:11); a deliberate link to the Sparkles server's API description at the server root, outside the /ui app (README.md:257)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/AnswerSummary.svelte:36::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: AnswerSummary.svelte:36 '{#each parts as p, i (i)}' keyed by its index binding; parts = summaryParts(summary.text, citations) (:26), text/citation segments of one answer; positional list (text segments)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/DiagnosticsPanel.svelte:213::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: DiagnosticsPanel.svelte:213 '{#each report.findings as f, i (i)}' keyed by its index binding; read-only finding rows of one diagnostics report ($state :61, replaced wholesale per run); positional list (rows of one report result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/DiagnosticsPanel.svelte:234::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: DiagnosticsPanel.svelte:234 '{#each evidenceTerms(v) as t, j (j)}' keyed by its index binding; the terms of one evidence value of one finding; positional list (parts of one record)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/DiffLines.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: DiffLines.svelte:27 '{#each quads as q, i (i)}' keyed by its index binding; +/- lines of one diff in a <pre>; positional list (diff lines)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ExplainPanel.svelte:103::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ExplainPanel.svelte:103 '{#each nodeNotes as n, i (i)}' keyed by its index binding; notes of one query-plan explanation (nodeNotes = visible.filter(node), :55); positional list (messages of one result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ExplainPanel.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ExplainPanel.svelte:68 '{#each asks as s, i (i)}' keyed by its index binding; sentences of one generated explanation (:43); positional list (text segments)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ExplainPanel.svelte:94::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ExplainPanel.svelte:94 '{#each queryNotes as n, i (i)}' keyed by its index binding; notes of one query-plan explanation (:56); positional list (messages of one result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/GuardReportView.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: GuardReportView.svelte:37 '{#each rows as r, i (i)}' keyed by its index binding; read-only rows of one guard report (rows = guardRows(report, prefixes) :16); positional list (rows of one report result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/HistoryPanel.svelte:513::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: HistoryPanel.svelte:513 '{#each hist.changes as c, i (i)}' keyed by its index binding; change lines of one fetched history rendered as text in a <pre class=\"diff-lines\">; positional list (diff lines)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/NearbyPanel.svelte:112::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: NearbyPanel.svelte:112 '{#each hits as h, i (i)}' keyed by its index binding; read-only rows of one nearby-search result ($state :48, replaced wholesale per search), selected by position (selected === i); positional list (rows of one search result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/PlanView.svelte:222::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: PlanView.svelte:222 '{#each r.last as isLast, d (d)}' keyed by its index binding; the per-depth tree-guide booleans of one plan row, drawn at left = d * 18; positional geometry"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/QuestionHeader.svelte:134::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: QuestionHeader.svelte:134 '{#each r.issues as issue, i (i)}' keyed by its index binding; issue messages of one check result (r = $derived(check?.result) :39); positional list (messages of one result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/QuestionHeader.svelte:80::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: QuestionHeader.svelte:80 '{#each q.assumptions as a, i (i)}' keyed by its index binding; assumption strings of one question, plain <li> text; positional list (text lines)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ResultMap.svelte:160::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ResultMap.svelte:160 '{#each undrawn.slice(0, 200) as u, i (i)}' keyed by its index binding; read-only list of result cells that could not be drawn (:64); positional list (rows of one query result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ResultTable.svelte:198::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ResultTable.svelte:198 '{#each row as term, c (c)}' keyed by its index binding; the cells of one result row by column; positional cells"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/SchemaDiffDialog.svelte:125::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SchemaDiffDialog.svelte:125 '{#each diff.report as c, i (i)}' keyed by its index binding; change lines of one schema diff, plain text; positional list (diff lines)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/SchemaDiffDialog.svelte:149::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SchemaDiffDialog.svelte:149 '{#each e.changes as c, i (i)}' keyed by its index binding; change lines of one entry of a schema diff, plain text; positional list (diff lines)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ShexResults.svelte:42::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ShexResults.svelte:42 '{#each report.warnings as w, i (i)}' keyed by its index binding; warning strings of one validation report; positional list (messages of one result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ShexResults.svelte:55::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ShexResults.svelte:55 '{#each report.results.slice(0, shown) as r, i (i)}' keyed by its index binding; rows of one validation report grown only at the end (shown), whose expansion state is itself kept by position (open.has(i)); positional list (rows of one report result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/ShexResults.svelte:93::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: ShexResults.svelte:93 '{#each r.appinfo.failures as f, j (j)}' keyed by its index binding; failure rows of one validation result; positional list (rows of one report result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/SimilarPanel.svelte:150::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SimilarPanel.svelte:150 '{#each current.vectors as _, i (i)}' keyed by its index binding; one <option value={i}> per vector of the entity, labelled by position (\"i of n\"); positional list"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/SimilarPanel.svelte:193::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SimilarPanel.svelte:193 '{#each hits as h, i (i)}' keyed by its index binding; read-only rows of one similarity-search result ($state :54, replaced wholesale per search); positional list (rows of one search result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/TextSearchView.svelte:230::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: TextSearchView.svelte:230 '{#each hits as h, i (i)}' keyed by its index binding; ranked rows of one text-search result (rank shown as {i + 1}, $state :39 replaced wholesale per search); positional list (rows of one search result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/lib/components/WriteValidationPanel.svelte:273::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: WriteValidationPanel.svelte:273 '{#each st.recentRejections as r, i (i)}' keyed by its index binding; the recent-rejection log of the dataset's validation status, re-polled on an interval (:100-118), so new entries shift rows over time; runtime records (live log)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/datasets/[name]/+page.svelte:1040::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: datasets/[name]/+page.svelte:1040 '{#each report.results.slice(0, resultsShown) as r, i (i)}' keyed by its index binding; rows of one SHACL validation report ($state :352, replaced per run) grown only at the end; positional list (rows of one report result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/datasets/[name]/merge/+page.svelte:430::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: datasets/[name]/merge/+page.svelte:430 '{#each side as o, k (k)}' keyed by its index binding; the objects of one side of one merge-conflict cell, plain text; positional list (parts of one record)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/explore/+page.svelte:1119::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: explore/+page.svelte:1119 '{#each segs as sg, i (i)}' keyed by its index binding; segs = ex.objectSegments(o) (:1117), width-proportional bar segments; positional chart geometry"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/explore/+page.svelte:1125::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: explore/+page.svelte:1125 '{#each segs as sg, i (i)}' keyed by its index binding; legend items of the same segment bar (:1117); positional chart legend"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/explore/+page.svelte:1154::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: explore/+page.svelte:1154 '{#each ex.constraintChips(schema.constraints, p.iri, short) as c, i (i)}' keyed by its index binding; text chips of one property's constraints; positional list (parts of one record)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/explore/+page.svelte:1310::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: explore/+page.svelte:1310 '{#each clsConstraints as l, i (i)}' keyed by its index binding; read-only constraint lines of one class derived from the loaded schema (:542); static per view (parts of one record)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/query/+page.svelte:2556::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: query/+page.svelte:2556 '{#each why.first.issues as issue, i (i)}' keyed by its index binding; issue strings of one empty-result explanation (:2537); positional list (messages of one result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/similar/+page.svelte:525::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: similar/+page.svelte:525 '{#each ownVectors as v, i (i)}' keyed by its index binding; one <option value={i}> per vector of the entity, selected by position; positional list"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/each-index-key::src/routes/similar/+page.svelte:645::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: similar/+page.svelte:645 '{#each result.hits as h, i (i)}' keyed by its index binding; ranked rows of one vector-search result (rank {i + 1}, $state :287 replaced per search); positional list (rows of one search result)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/effect-as-derived::src/lib/components/ExplainedPlan.svelte:43::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: ExplainedPlan.svelte:43 the $effect.pre only does shown = open (prop); later writes are bind:checked={shown} (:111), the writable-$derived override pattern"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/effect-as-derived::src/lib/components/ResultMap.svelte:31::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: ResultMap.svelte:31 the effect only does shownColumns = [...columns]; later writes are bind:group={shownColumns} (:103), which reassigns, the writable-$derived override pattern"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/effect-as-derived::src/routes/datasets/[name]/+page.svelte:221::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: datasets/[name]/+page.svelte:221 the effect assigns tableBase = load(tableBaseKey, ''), and load reads globalThis.localStorage (lib/storage.ts:3-5); the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/effect-as-derived::src/routes/datasets/[name]/+page.svelte:314::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: datasets/[name]/+page.svelte:314 the effect assigns validateLang from load(validateLangKey(name)), which reads localStorage (lib/storage.ts:3-5); the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::correctness/effect-as-derived::src/routes/datasets/[name]/+page.svelte:358::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: datasets/[name]/+page.svelte:358 the effect assigns shapesSyntax/shapes from load(...), which reads localStorage (lib/storage.ts:3-5); the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::performance/state-raw::src/lib/components/BackupsTable.svelte:32::\"problems\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"problems\" in src/lib/components/BackupsTable.svelte (d_refs.py): $state container literal/typed array only ever reassigned whole; every other use is a read (.length, member read, read-only {#each}/{@const}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::performance/state-raw::src/lib/components/GeoMapCard.svelte:41::\"hits\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"hits\" in src/lib/components/GeoMapCard.svelte (d_refs.py): $state container literal/typed array only ever reassigned whole; every other use is a read (.length, member read, read-only {#each}/{@const}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::performance/state-raw::src/lib/components/IngestPanel.svelte:22::\"caps\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"caps\" in src/lib/components/IngestPanel.svelte (d_refs.py): $state container literal/typed array only ever reassigned whole; every other use is a read (.length, member read, read-only {#each}/{@const}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::performance/state-raw::src/routes/query/+page.svelte:195::\"snapshotNames\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"snapshotNames\" in src/routes/query/+page.svelte (d_refs.py): $state container literal/typed array only ever reassigned whole; every other use is a read (.length, member read, read-only {#each}/{@const}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/backups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /backups (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/cli/authorize/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cli/authorize (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/cli/device/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cli/device (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/datasets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /datasets (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/datasets/[name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /datasets/[name] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/datasets/[name]/merge/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /datasets/[name]/merge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /datasets/[name]/review/[branch] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/explore/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /explore (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders: guest-reachable sign-in page (root +layout.svelte:37 renders /ui/login bare; the auth guard sends anonymous callers here, never away), no noindex/robots.txt; the server's loopback-by-default bind (docs/USAGE.md:104-118) is a deployment default, not a route-level signal"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/memory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /memory (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/query/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /query (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/server/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /server (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/similar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/canonical-url::src/routes/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tokens (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders but not a search target (localhost-only database console: the Rust server binds 127.0.0.1 by default and refuses a non-loopback host without --auth-config, answering 421 to unknown Host headers (docs/USAGE.md:104-118); with auth on, root +layout.svelte:57 auth.guard() sends anonymous callers to /ui/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/backups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /backups; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/cli/authorize/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /cli/authorize; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/cli/device/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /cli/device; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/datasets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /datasets; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/datasets/[name]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /datasets/[name]; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/datasets/[name]/merge/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /datasets/[name]/merge; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /datasets/[name]/review/[branch]; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/explore/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /explore; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /login; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/memory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /memory; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/query/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /query; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/server/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /server; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/similar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /similar; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/description-presence::src/routes/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of ui/src incl. app.html): no <meta name=description> anywhere (app.html head: charset, viewport, color-scheme, icon, <title>Sparkles</title>) (literal claim holds) on /tokens; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): / (src/routes/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/backups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /backups (src/routes/backups/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/cli/authorize/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /cli/authorize (src/routes/cli/authorize/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/cli/device/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /cli/device (src/routes/cli/device/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/datasets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /datasets (src/routes/datasets/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/datasets/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /datasets/[name] (src/routes/datasets/[name]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/datasets/[name]/merge/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /datasets/[name]/merge (src/routes/datasets/[name]/merge/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /datasets/[name]/review/[branch] (src/routes/datasets/[name]/review/[branch]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/explore/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /explore (src/routes/explore/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /login (src/routes/login/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/memory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /memory (src/routes/memory/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/query/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /query (src/routes/query/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/server/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /server (src/routes/server/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/similar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /similar (src/routes/similar/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/json-ld::src/routes/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of ui/src incl. app.html for ld+json|jsonld|schema.org: only the MIME-type option strings in ValidationConfigForm.svelte:128 and query/+page.svelte:1437, no JSON-LD block; no JSON-LD library in deps): /tokens (src/routes/tokens/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/backups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /backups (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/cli/authorize/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cli/authorize (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/cli/device/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cli/device (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/datasets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /datasets (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/datasets/[name]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /datasets/[name] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/datasets/[name]/merge/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /datasets/[name]/merge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /datasets/[name]/review/[branch] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/explore/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /explore (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/memory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /memory (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/query/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /query (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/server/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /server (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/similar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-description::src/routes/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tokens (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/backups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /backups (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/cli/authorize/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cli/authorize (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/cli/device/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cli/device (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/datasets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /datasets (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/datasets/[name]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /datasets/[name] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/datasets/[name]/merge/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /datasets/[name]/merge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /datasets/[name]/review/[branch] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/explore/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /explore (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/memory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /memory (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/query/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /query (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/server/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /server (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/similar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-image::src/routes/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tokens (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/backups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /backups (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/cli/authorize/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cli/authorize (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/cli/device/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cli/device (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/datasets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /datasets (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/datasets/[name]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /datasets/[name] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/datasets/[name]/merge/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /datasets/[name]/merge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /datasets/[name]/review/[branch] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/explore/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /explore (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/memory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /memory (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/query/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /query (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/server/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /server (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/similar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-title::src/routes/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tokens (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/backups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /backups (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/cli/authorize/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cli/authorize (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/cli/device/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cli/device (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/datasets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /datasets (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/datasets/[name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /datasets/[name] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/datasets/[name]/merge/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /datasets/[name]/merge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /datasets/[name]/review/[branch] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/explore/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /explore (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/memory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /memory (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/query/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /query (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/server/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /server (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/similar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/og-url::src/routes/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tokens (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in ui/static (favicon.svg only) or routes, and no robots handler in the Rust crates (literal claim holds); the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: routes/+page.svelte is a client redirect stub (onMount goto /query) rendering no markup; root +layout.svelte (ssr = false SPA) renders nav/UserMenu/Toasts with no heading - redirect-stub convention"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/single-h1::/query::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: query/+page.svelte has no heading element and its components (QuestionHeader, AskBar, ResultTable, Modal <h2>...) render none; the only <h1>s in ui/src are AuthCard and other route pages; root layout renders none"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/single-h1::src/routes/explore/+page.svelte:742::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: explore/+page.svelte's only page heading is the empty-state <h2>Start from a resource (:742); its components (ClassTree, GraphView, TermView, GeoMapCard <h3>, ...) and the root layout render no <h1>"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in ui/static or routes, no handler in the Rust crates (literal claim holds); the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target, nothing to list"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:2 (comment: pure SPA, the Rust server serves build/index.html as fallback for every /ui/* path); deliberate SPA for the admin console of a self-hosted database server, not content for search; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: app.html:8 literal <title>Sparkles</title>, 8 graphemes as reported; root +page.svelte and +layout.svelte set no title) (literal claim holds) on /; but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/backups/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/backups/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/cli/authorize/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/cli/authorize/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/cli/device/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/cli/device/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/datasets/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/datasets/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/explore/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/explore/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/login/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/memory/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/memory/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/query/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/query/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/server/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/server/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/similar/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/similar/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/title-length::src/routes/tokens/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/tokens/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Sparkles</title>) (literal claim holds); but the UI is the admin console of Sparkles, a self-hosted RDF/SPARQL database server (README), served by the Rust server under /ui as an ssr=false SPA (root +layout.ts:1-3, svelte.config.js paths.base '/ui'), not a search target"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/backups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /backups (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/cli/authorize/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cli/authorize (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/cli/device/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cli/device (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/datasets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /datasets (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/datasets/[name]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /datasets/[name] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/datasets/[name]/merge/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /datasets/[name]/merge (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/datasets/[name]/review/[branch]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /datasets/[name]/review/[branch] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/explore/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /explore (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/memory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /memory (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/query/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /query (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/server/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /server (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/similar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /similar (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "kclejeune/sparkles:ui::seo/twitter-card::src/routes/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tokens (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter anywhere; ssr=false app-wide (routes/+layout.ts:2) so client heads count, and they hold <title> only; app.html:4-7 charset/viewport/color-scheme/icon; no Svelte deps beyond svelte/kit); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  }
+]

@@ -1,0 +1,737 @@
+[
+  {
+    "key": "monxas/remote-pulse:web::a11y/accessible-name::src/lib/components/app/SavedViewsSwitcher.svelte:260::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read lib/components/app/SavedViewsSwitcher.svelte:260: empty full-screen click-away <button aria-hidden=\"true\" tabindex=\"-1\"> (comment above it) closing the open menu; unnamed as reported, but aria-hidden and tabindex -1 keep it out of the AT tree and tab order (hidden-button precedent)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/accessible-name::src/routes/audit/+page.svelte:180::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read routes/audit/+page.svelte:180: empty full-screen click-away <button aria-hidden=\"true\" tabindex=\"-1\"> (comment above it) closing the open menu; unnamed as reported, but aria-hidden and tabindex -1 keep it out of the AT tree and tab order (hidden-button precedent)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/disallowed-aria-props::src/lib/components/app/RelativeTime.svelte:32::`aria-label` is prohibited on <time> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/app/RelativeTime.svelte:32: <time> carries aria-label with no role, spread or use: action, so its role (time) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/interactive-nesting::src/lib/components/app/HostTable.svelte:189::<input> is nested inside interactive <tr role=\"link\">",
+    "verdict": "tp",
+    "basis": "read lib/components/app/HostTable.svelte:178-195: the selection <input type=\"checkbox\"> sits inside <tr role=\"link\" tabindex=\"0\"> (row opens the host); a checkbox nested in a link-role container as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/BulkIssueCommandDialog.svelte:318::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/BulkIssueCommandDialog.svelte:318 <div> is a direct literal child of <button> at :307 with no component, snippet or transparent element in between; <button> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/BulkIssueCommandDialog.svelte:381::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/BulkIssueCommandDialog.svelte:381 <div> is a direct literal child of <label> at :378 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/BulkIssueCommandDialog.svelte:436::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/BulkIssueCommandDialog.svelte:436 <div> is a direct literal child of <label> at :433 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/HostTable.svelte:278::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/HostTable.svelte:278 <div> is a direct literal child of <button> at :273 with no component, snippet or transparent element in between; <button> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/HostTable.svelte:286::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/HostTable.svelte:286 <div> is a direct literal child of <button> at :273 with no component, snippet or transparent element in between; <button> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/HostTable.svelte:290::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/HostTable.svelte:290 <div> is a direct literal child of <button> at :273 with no component, snippet or transparent element in between; <button> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/IssueCommandDialog.svelte:285::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/IssueCommandDialog.svelte:285 <div> is a direct literal child of <button> at :275 with no component, snippet or transparent element in between; <button> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/IssueCommandDialog.svelte:348::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/IssueCommandDialog.svelte:348 <div> is a direct literal child of <label> at :345 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/IssueCommandDialog.svelte:403::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/IssueCommandDialog.svelte:403 <div> is a direct literal child of <label> at :400 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::a11y/permitted-contents::src/lib/components/app/RetentionCard.svelte:152::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/app/RetentionCard.svelte:152 <div> is a direct literal child of <label> at :150 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/BulkIssueCommandDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/BulkIssueCommandDialog.svelte has 578 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/BulkUserDialogs.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/BulkUserDialogs.svelte has 401 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/HostTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/HostTable.svelte has 300 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/IssueCommandDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/IssueCommandDialog.svelte has 473 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/NotificationsToggle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/NotificationsToggle.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/PermissionsDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/PermissionsDialog.svelte has 309 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/RecentActivityWidget.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/RecentActivityWidget.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/RetentionCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/RetentionCard.svelte has 278 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/lib/components/app/SavedViewsSwitcher.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/app/SavedViewsSwitcher.svelte has 574 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 239 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/audit/+page.svelte has 395 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/commands/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/commands/+page.svelte has 232 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/commands/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/commands/[id]/+page.svelte has 312 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/enroll/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/enroll/+page.svelte has 486 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/hosts/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/hosts/[id]/+page.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 883 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/stats/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/stats/+page.svelte has 511 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/webhooks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/webhooks/+page.svelte has 613 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/component-size::src/routes/webhooks/[id]/deliveries/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/webhooks/[id]/deliveries/+page.svelte has 375 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/BulkGroupActionBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/BulkGroupActionBar.svelte has a single destructured $props() with 7 named props (> 6): count, previewLabels, totalLabels, deletable, blockedNames, onDelete, onClear"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/BulkUserActionBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/BulkUserActionBar.svelte has a single destructured $props() with 9 named props (> 6): count, previewLabels, totalLabels, onChangeRole, onAddGroup, onRemoveGroup, onGrant, onDelete, onClear"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/BulkUserDialogs.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/BulkUserDialogs.svelte has a single destructured $props() with 7 named props (> 6): mode, open, onOpenChange, users, groups, currentUserId, onSettled"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/MetricCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/MetricCard.svelte has a single destructured $props() with 8 named props (> 6): label, value, hint, tone, Icon, trend, loading, class"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/SortableHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/SortableHeader.svelte has a single destructured $props() with 7 named props (> 6): columnKey, activeKey, activeDir, onToggle, align, class, children"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/Sparkline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/Sparkline.svelte has a single destructured $props() with 9 named props (> 6): data, width, height, color, label, yMin, yMax, title, unit"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/app/TableSearch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/app/TableSearch.svelte has a single destructured $props() with 7 named props (> 6): value, onChange, onReset, placeholder, showReset, label, testId"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 10 named props (> 6), beside a ...rest element: variant, size, class, children, href, type, onclick, disabled, aria-label, title"
+  },
+  {
+    "key": "monxas/remote-pulse:web::architecture/prop-count::src/lib/components/ui/dialog/dialog-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/dialog/dialog-content.svelte has a single destructured $props() with 7 named props (> 6), beside a ...rest element: ref, class, side, showClose, portal, closeLabel, children"
+  },
+  {
+    "key": "monxas/remote-pulse:web::correctness/base-path-navigation::src/lib/components/app/UserMenu.svelte:28::<a href=\"/auth/logout\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/logout') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: UserMenu.svelte:28 <a href=\"/auth/logout\" data-sveltekit-reload> under kit.paths.base = '/dash-next' (svelte.config.js:22); a root-relative literal as reported, but it deliberately leaves the SPA for the FastAPI logout endpoint at the server root (server/src/rp_server/routers/auth_oidc.py:14 GET /auth/logout; web/eslint.config.js:33 says so)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::correctness/effect-as-derived::src/lib/components/app/HostFilters.svelte:31::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: HostFilters.svelte:31 the effect only does qLocal = q (prop); later writes are reassignments from the search input, the writable-$derived override pattern (the author disabled svelte/prefer-writable-derived at :29)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::correctness/effect-as-derived::src/routes/audit/+page.svelte:109::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: audit/+page.svelte:109 the effect only assigns actionPrefixLocal from $page.url.searchParams; later writes are reassignments from the input handler (:114), the writable-$derived override pattern"
+  },
+  {
+    "key": "monxas/remote-pulse:web::correctness/effect-as-derived::src/routes/audit/+page.svelte:67::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: audit/+page.svelte:67 the effect only assigns actorLocal from $page.url.searchParams; later writes are reassignments from the input handler, the writable-$derived override pattern"
+  },
+  {
+    "key": "monxas/remote-pulse:web::correctness/effect-as-derived::src/routes/commands/+page.svelte:49::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: commands/+page.svelte:49 the effect only assigns issuedByLocal from $page.url.searchParams; later writes are reassignments from the input handler, the writable-$derived override pattern"
+  },
+  {
+    "key": "monxas/remote-pulse:web::performance/image-dimensions::src/routes/enroll/+page.svelte:324::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class h-[140px] w-[140px] sm:h-[180px] sm:w-[180px] - box reserved by CSS"
+  },
+  {
+    "key": "monxas/remote-pulse:web::performance/image-loading-hint::src/routes/enroll/+page.svelte:324::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: src is qrDataUrl from QRCode.toDataURL (:155-166), an inline data: URL - no network request for loading to defer"
+  },
+  {
+    "key": "monxas/remote-pulse:web::performance/responsive-image::src/routes/enroll/+page.svelte:324::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg; read: src is a client-generated QR data: URL (QRCode.toDataURL, :166) - no alternate sizes exist"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/approvals/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /approvals (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /audit (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/commands/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /commands (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/commands/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /commands/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/enroll/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /enroll (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/hosts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /hosts (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/hosts/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /hosts/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/stats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /stats (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/webhooks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /webhooks (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/canonical-url::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /webhooks/[id]/deliveries (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders but not a search target (robots.txt disallows everything (static/robots.txt: Disallow: /) and root +layout.ts:63-69 client load sends unauthenticated visitors to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: app.html:8 literal description 'Remote-Pulse fleet dashboard', 28 graphemes as reported; the only description of all 12 routes per local CLI) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:8 literal <meta name=description content='Remote-Pulse fleet dashboard'> is the only description of all 12 routes (local CLI list), duplicate as claimed; but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target, so no search competition"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/heading-level-skip::src/routes/commands/[id]/+page.svelte:262::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the Output card's <CardTitle>Output (:237) renders <h2> (ui/card/card-title.svelte, level defaults to 2), and the next heading is the desktop column's <h4>stdout (:262; the mobile Tabs arm before it has no heading) -> h2 to h4; ssr = false SPA, routes render after the client auth check"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): / (src/routes/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/approvals/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /approvals (src/routes/approvals/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /audit (src/routes/audit/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/commands/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /commands (src/routes/commands/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/commands/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /commands/[id] (src/routes/commands/[id]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/enroll/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /enroll (src/routes/enroll/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/hosts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /hosts (src/routes/hosts/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/hosts/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /hosts/[id] (src/routes/hosts/[id]/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /settings (src/routes/settings/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/stats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /stats (src/routes/stats/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/webhooks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /webhooks (src/routes/webhooks/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/json-ld::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html for ld+json|jsonld|schema.org: no hit; no JSON-LD library in deps): /webhooks/[id]/deliveries (src/routes/webhooks/[id]/deliveries/+page.svelte) renders no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/approvals/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /approvals (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /audit (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/commands/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /commands (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/commands/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /commands/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/enroll/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /enroll (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/hosts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /hosts (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/hosts/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /hosts/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/stats/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /stats (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/webhooks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /webhooks (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-description::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /webhooks/[id]/deliveries (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/approvals/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /approvals (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /audit (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/commands/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /commands (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/commands/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /commands/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/enroll/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /enroll (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/hosts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /hosts (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/hosts/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /hosts/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/stats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /stats (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/webhooks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /webhooks (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-image::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /webhooks/[id]/deliveries (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/approvals/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /approvals (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /audit (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/commands/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /commands (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/commands/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /commands/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/enroll/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /enroll (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/hosts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /hosts (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/hosts/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /hosts/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/stats/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /stats (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/webhooks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /webhooks (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-title::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /webhooks/[id]/deliveries (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/approvals/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /approvals (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /audit (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/commands/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /commands (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/commands/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /commands/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/enroll/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /enroll (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/hosts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /hosts (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/hosts/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /hosts/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/stats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /stats (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/webhooks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /webhooks (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/og-url::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /webhooks/[id]/deliveries (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in web/static (favicon.svg, robots.txt) or routes (literal claim holds); Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target, nothing to list"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/ssr-disabled::src/routes/+layout.ts:8::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:8 (comment: static SPA, every load is client-side); deliberate SPA for Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/approvals/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/approvals/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/audit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/audit/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/commands/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/commands/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/enroll/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/enroll/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/settings/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/stats/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/stats/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/title-length::src/routes/webhooks/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/webhooks/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it overrides app.html's <title>Remote-Pulse</title>) (literal claim holds); but Remote-Pulse is a self-hosted fleet-monitoring dashboard (README) whose ssr=false SPA root +layout.ts:41-80 sends every browser without a session to the FastAPI OIDC /auth/login, and static/robots.txt is Disallow: /, not a search target"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/approvals/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /approvals (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /audit (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/commands/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /commands (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/commands/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /commands/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/enroll/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /enroll (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/hosts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /hosts (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/hosts/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /hosts/[id] (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/stats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /stats (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/webhooks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /webhooks (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "monxas/remote-pulse:web::seo/twitter-card::src/routes/webhooks/[id]/deliveries/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /webhooks/[id]/deliveries (script-verified (repo-wide grep + a1b_chain.js): no og:*/twitter:*/rel=canonical emitter in web/src (the canonical hits are the separate static docs/site HTML, not SvelteKit routes); ssr=false app-wide (routes/+layout.ts:8); app.html:4-8 charset/icon/viewport/color-scheme/description only); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  }
+]

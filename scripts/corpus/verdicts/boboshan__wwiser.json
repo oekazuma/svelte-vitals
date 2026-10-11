@@ -1,0 +1,242 @@
+[
+  {
+    "key": "boboshan/wwiser::a11y/duplicate-landmark::src/lib/landing/page-shell.svelte:16::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: routes/+layout.svelte:94-96 renders {@render children()} bare in {#if STANDALONE_PAGES.has(currentToolId)} and inside its <main> (:119) only in {:else}; currentToolId (:33-41) is 'about'/'faq' for /about and /faq (both flagged routes), and STANDALONE_PAGES = new Set(['home','about','faq']), so page-shell.svelte:16 <main> is the only main there"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/id-duplication::src/lib/components/connection-form.svelte:59::Duplicate id \"conn-host\"",
+    "verdict": "design",
+    "basis": "mixed, labelled by majority (local run 13 routes): the copies are two ConnectionChip instances in app-header.svelte (:73 desktop header 'hidden lg:flex', :94 mobile header 'lg:hidden'), each rendering ConnectionForm (#conn-host) only under its own {#if open} (connection-chip.svelte:53), opened by its own button; separate blocks that never render together on the 10 tool routes (design); on /, /about and /faq the root layout renders children bare (STANDALONE_PAGES, +layout.svelte:94-96) with no AppHeader, so there it is fp"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/id-duplication::src/lib/components/connection-form.svelte:69::Duplicate id \"conn-port\"",
+    "verdict": "design",
+    "basis": "mixed, labelled by majority (local run 13 routes): the copies are two ConnectionChip instances in app-header.svelte (:73 desktop header 'hidden lg:flex', :94 mobile header 'lg:hidden'), each rendering ConnectionForm (#conn-port) only under its own {#if open} (connection-chip.svelte:53), opened by its own button; separate blocks that never render together on the 10 tool routes (design); on /, /about and /faq the root layout renders children bare (STANDALONE_PAGES, +layout.svelte:94-96) with no AppHeader, so there it is fp"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/permitted-contents::src/routes/assign/+page.svelte:674::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/assign/+page.svelte:674 <p> is a direct literal child of <label> at :665 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/permitted-contents::src/routes/assign/+page.svelte:675::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/assign/+page.svelte:675 <p> is a direct literal child of <label> at :665 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/permitted-contents::src/routes/assign/+page.svelte:888::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/assign/+page.svelte:888 <div> is a direct literal child of <button> at :879 with no component, snippet or transparent element in between; <button> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/permitted-contents::src/routes/wrap/+page.svelte:327::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/wrap/+page.svelte:327 <p> is a direct literal child of <label> at :318 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "boboshan/wwiser::a11y/permitted-contents::src/routes/wrap/+page.svelte:328::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): routes/wrap/+page.svelte:328 <p> is a direct literal child of <label> at :318 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/lib/components/monaco-editor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/monaco-editor.svelte has 389 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/lib/components/sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/analyze/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/analyze/+page.svelte has 958 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/assign/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/assign/+page.svelte has 1268 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/batch/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/batch/+page.svelte has 633 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/copy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/copy/+page.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/explore/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/explore/+page.svelte has 944 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/fill/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/fill/+page.svelte has 658 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/rename/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/rename/+page.svelte has 321 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/trace/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/trace/+page.svelte has 858 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/volume/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/volume/+page.svelte has 674 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/volume/volume-graph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/volume/volume-graph.svelte has 396 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/component-size::src/routes/wrap/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/wrap/+page.svelte has 492 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/app-shell/operand-row.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/app-shell/operand-row.svelte has a single destructured $props() with 7 named props (> 6): index, icon, name, badge, target, skipped, arrow"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/app-shell/tool-page.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/app-shell/tool-page.svelte has a single destructured $props() with 8 named props (> 6): toolbar, config, list, action, layout, listFill, configVisible, configTitle"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/components/combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/combobox.svelte has a single destructured $props() with 11 named props (> 6): items, value, placeholder, disabled, id, allowCustomValue, onchange, variant, compact, inputClass, itemClass"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/components/grouped-combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/grouped-combobox.svelte has a single destructured $props() with 10 named props (> 6): groups, value, placeholder, disabled, id, allowCustomValue, onchange, variant, compact, inputClass"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/components/monaco-editor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/monaco-editor.svelte has a single destructured $props() with 7 named props (> 6): value, language, readonly, height, resizable, extraLibs, onchange"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/components/select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/select.svelte has a single destructured $props() with 8 named props (> 6): items, value, placeholder, disabled, id, onchange, compact, triggerClass"
+  },
+  {
+    "key": "boboshan/wwiser::architecture/prop-count::src/lib/components/sidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sidebar.svelte has a single destructured $props() with 7 named props (> 6): tools, explore, currentTool, sidebarOpen, onClose, theme, onThemeChange"
+  },
+  {
+    "key": "boboshan/wwiser::correctness/each-index-key::src/routes/assign/+page.svelte:718::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: assign/+page.svelte:718 '{#each customMappings.slice(0, 3) as m, i (i)}' keyed by its index binding; the first three plain-text <span> previews of mappings parsed from the textarea text (customMappings $derived.by :120); positional list (parse output of one text)"
+  },
+  {
+    "key": "boboshan/wwiser::correctness/each-index-key::src/routes/faq/+page.svelte:108::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: faq/+page.svelte:108 '{#each faq.answer as seg, j (j)}' keyed by its index binding; code/bold/text segments of one answer of the same-file const faqs literal (:13); positional list (text segments)"
+  },
+  {
+    "key": "boboshan/wwiser::correctness/each-index-key::src/routes/volume/volume-graph.svelte:288::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: volume-graph.svelte:288 '{#each graph.columns as column, colIdx (colIdx)}' keyed by its index binding; the layout columns (depth levels) of the computed signal-flow graph, whose nodes are keyed by node.id (:291); positional list (layout columns)"
+  },
+  {
+    "key": "boboshan/wwiser::correctness/each-index-key::src/routes/volume/volume-graph.svelte:383::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: volume-graph.svelte:383 '{#each edgePaths as p, i (i)}' keyed by its index binding; SVG <path> edge geometry recomputed wholesale from DOM positions (:188-225); positional chart geometry"
+  },
+  {
+    "key": "boboshan/wwiser::correctness/prop-mutation::src/routes/volume/volume-slider.svelte:80::Prop \"slider\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: volume-slider.svelte:80 slider.value = …; slider is a SliderState class instance (same file's module script :2) whose value is a $state field (:3); reactive class-instance mutation, the docs' class-instance limitation"
+  },
+  {
+    "key": "boboshan/wwiser::correctness/prop-mutation::src/routes/volume/volume-slider.svelte:97::Prop \"slider\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: volume-slider.svelte:97 slider.set(val, oncommit) calls SliderState.set (:25), which writes its $state value field; the class's own API, the docs' class-instance limitation"
+  },
+  {
+    "key": "boboshan/wwiser::performance/state-raw::src/routes/fill/+page.svelte:41::\"orphanObjects\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"orphanObjects\" in src/routes/fill/+page.svelte (d_refs.py): $state container literal/typed array only ever reassigned whole; every other use is a read (.length, member read, read-only {#each}/{@const}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "boboshan/wwiser::performance/state-raw::src/routes/volume/volume-graph.svelte:188::\"edgePaths\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"edgePaths\" in src/routes/volume/volume-graph.svelte (d_refs.py): $state container literal/typed array only ever reassigned whole; every other use is a read (.length, member read, read-only {#each}/{@const}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "boboshan/wwiser::security/raw-html::src/lib/components/seo.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/seo.svelte:66: JSON-LD built only from siteConfig constants ($lib/config/site) and literals — fully literal reviewed JSON block, reported per docs"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::/explore::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - /explore renders the explorer tool with no <h1>"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::/trace::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - /trace renders the trace tool with no <h1>"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/analyze/+page.svelte:734::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - analyze page's headings are <h3>/<h4> panel labels (e.g. :734)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/assign/+page.svelte:803::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - assign page's headings are <h3> panel labels (:803)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/batch/+page.svelte:529::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - batch page's headings are <h3> panel labels (:529)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/copy/+page.svelte:267::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - copy page's only heading is the <h3>Preview label (:267)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/fill/+page.svelte:398::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - fill page's headings are <h3> panel labels (:398)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/rename/+page.svelte:235::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - rename page's only heading is the <h3>Preview label (:235)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/volume/+page.svelte:646::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - volume page's headings are <h3> panel labels (:646)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/single-h1::src/routes/wrap/+page.svelte:409::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: the app's only <h1>s are lib/landing/hero.svelte:44 (home), about/+page.svelte:43 and faq/+page.svelte:85; root +layout.svelte (Seo, Sidebar, AppHeader, tool shell) and lib/app-shell render none (ssr = false SPA, no load) - wrap page's only heading is the <h3>Preview label (:409)"
+  },
+  {
+    "key": "boboshan/wwiser::seo/ssr-disabled::src/routes/+layout.ts:5::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:5 (with prerender = true) for the whole app; wwiser.app is a public site that asks to be indexed (static/robots.txt Allow: / with Sitemap, routes/sitemap.xml/+server.ts lists /, /about, /faq and the tool pages, root +layout.svelte:85 Seo title/description/canonical), and its content pages (/about, /faq) ship as empty prerendered shells to non-JS crawlers, as claimed"
+  }
+]

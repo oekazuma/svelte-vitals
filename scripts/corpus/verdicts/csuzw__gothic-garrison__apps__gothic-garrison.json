@@ -1,0 +1,442 @@
+[
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::a11y/deprecated-aria::src/routes/+layout.svelte:158::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:158: <span aria-disabled=\"true\"> with no role (a disabled pager/nav placeholder styled as a button); aria-disabled is deprecated on generic as reported"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::a11y/disallowed-aria-props::src/lib/components/NationFlag.svelte:11::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/NationFlag.svelte:11: <span> carries aria-label with no role, spread or use: action, so its role (generic) prohibits a name; the label is not exposed as reported"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::a11y/interactive-nesting::src/routes/+page.svelte:195::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read routes/+page.svelte:181-200: the info <button aria-label=\"About {n.name}\"> sits inside the nation card <div role=\"button\" tabindex=\"0\"> (onclick/onkeydown select the nation); a button nested in a button-role container as reported"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::a11y/permitted-contents::src/lib/components/CodexFlatEntityEditor.svelte:115::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/CodexFlatEntityEditor.svelte:115 <div> is a direct literal child of <label> at :100 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::a11y/permitted-contents::src/lib/components/CodexFlatEntityEditor.svelte:136::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/CodexFlatEntityEditor.svelte:136 <div> is a direct literal child of <label> at :100 with no component, snippet or transparent element in between; <label> admits only phrasing content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::a11y/permitted-contents::src/lib/components/UserMenu.svelte:26::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): lib/components/UserMenu.svelte:26 <div> is a direct literal child of <summary> at :25 with no component, snippet or transparent element in between; <summary> admits only phrasing (or heading) content, so the child is outside its content model as reported"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/lib/components/CodexMonsterTypeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CodexMonsterTypeForm.svelte has 388 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/lib/components/CodexSoldierTypeForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CodexSoldierTypeForm.svelte has 481 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/cheat-sheet/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cheat-sheet/+page.svelte has 392 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/cheat-sheet/campaign/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cheat-sheet/campaign/+page.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/reference/[entity]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/reference/[entity]/+page.svelte has 461 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/units/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/units/[id]/+page.svelte has 1196 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/component-size::src/routes/units/[id]/print/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/units/[id]/print/+page.svelte has 309 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/prop-count::src/lib/components/CodexMonsterTypeEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CodexMonsterTypeEditor.svelte has a single destructured $props() with 7 named props (> 6): slug, sources, allAttributes, allEquipment, target, onsaved, onclose"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/prop-count::src/lib/components/CodexMonsterTypeForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CodexMonsterTypeForm.svelte has a single destructured $props() with 9 named props (> 6): mode, row, sources, allAttributes, allEquipment, saving, error, onsave, oncancel"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/prop-count::src/lib/components/CodexSoldierTypeEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CodexSoldierTypeEditor.svelte has a single destructured $props() with 8 named props (> 6): slug, sources, nations, allAttributes, allEquipment, target, onsaved, onclose"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::architecture/prop-count::src/lib/components/CodexSoldierTypeForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CodexSoldierTypeForm.svelte has a single destructured $props() with 10 named props (> 6): mode, row, sources, nations, allAttributes, allEquipment, saving, error, onsave, oncancel"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-index-key::src/lib/components/CodexMonsterTypeForm.svelte:315::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: CodexMonsterTypeForm.svelte:315 '{#each loadouts as lo, li (li)}' keyed by its index binding; loadouts is a user-edited $state list with mid-list removal (removeLoadout filters by index, :105) whose blocks hold <select bind:value> controls; user-edited list, element state follows position"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-index-key::src/lib/components/CodexMonsterTypeForm.svelte:330::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: CodexMonsterTypeForm.svelte:330 '{#each lo.items as it, ii (ii)}' keyed by its index binding; user-edited item rows with mid-list removal (removeItem filters by index, :114) and <select bind:value>/inputs per row; user-edited list"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-index-key::src/lib/components/CodexSoldierTypeForm.svelte:407::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: CodexSoldierTypeForm.svelte:407 '{#each loadouts as lo, li (li)}' keyed by its index binding; loadouts is a user-edited $state list with mid-list removal (removeLoadout filters by index, :118) whose blocks hold <select bind:value> controls; user-edited list"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-index-key::src/lib/components/CodexSoldierTypeForm.svelte:422::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: CodexSoldierTypeForm.svelte:422 '{#each lo.items as it, ii (ii)}' keyed by its index binding; user-edited item rows with mid-list removal (removeItem filters by index, :127) and <select bind:value>/inputs per row; user-edited list"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/lib/components/AttributePicker.svelte:26::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AttributePicker.svelte:26 '{#each fixed as f}' has no key; fixed is the read-only fixed-attribute list of one soldier type (prop, passed from units/[id]/+page.svelte:650/874), shown as text badges; static per view (parts of one reference record)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/lib/components/SoldierStatPopover.svelte:37::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SoldierStatPopover.svelte:37 '{#each soldier.fixedAttributes as a}' has no key; the read-only fixed attributes of one soldier type shown as text badges in a popover; static per view (parts of one reference record)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/lib/components/StatLine.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: StatLine.svelte:22 '{#each cols as c}' has no key; cols = STAT_META.map(...) (:11), the fixed stat columns from the constant STAT_META; static authored list (fixed columns)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/lib/components/StatLine.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: StatLine.svelte:31 '{#each cols as c}' has no key; cols = STAT_META.map(...) (:11), the fixed stat header cells; static authored list (fixed columns)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/lib/components/StatLine.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: StatLine.svelte:38 '{#each cols as c}' has no key; cols = STAT_META.map(...) (:11), the fixed stat value cells of one row; positional cells"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/+layout.svelte:112::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:112 '{#each link.children as child}' has no key; children of the same-file const navLinks literal (:42); static nav list"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/+layout.svelte:148::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:148 '{#each link.children as child}' has no key; children of the same-file const navLinks literal (:42); static nav list"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/+page.svelte:249::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:249 '{#each counts as t}' has no key; counts = memberTypeCounts(u.members) of each unit loaded for the user; runtime data whose entries change as members are added/removed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/reference/[entity]/+page.svelte:265::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: reference/[entity]/+page.svelte:265 '{#each los as lo}' has no key; los = row.loadouts (:228), the alternative loadouts of one reference row, which have no id (identity is position; inner items are keyed); positional list (parts of one record)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/reference/[entity]/+page.svelte:348::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: reference/[entity]/+page.svelte:348 '{#each los as lo}' has no key; los = row.loadouts (:228), the alternative loadouts of one reference row, which have no id (identity is position; inner items are keyed); positional list (parts of one record)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/+page.svelte:1096::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: units/[id]/+page.svelte:1096 '{#each options as opt}' has no key; options = TIER_UPGRADE_OPTIONS[tier] (constant lib/unit/types.ts:44) filtered (:1088); static option list"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/+page.svelte:1111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: units/[id]/+page.svelte:1111 '{#each officerPool.filter(a => !alreadyPickedAttrIds.has(a.id)) as attr}' has no key; reference attributes filtered by the picks the user makes, so entries drop out mid-list; runtime data"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/+page.svelte:685::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: units/[id]/+page.svelte:685 '{#each doc.officer.tierUpgrades ?? [] as u}' has no key; the tier upgrades the user applies to the officer of the loaded unit doc ($state :53); runtime user-edited records"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/+page.svelte:883::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: units/[id]/+page.svelte:883 '{#each ref.fixedAttributes as a}' has no key; read-only fixed attributes of one soldier type shown as text badges; static per view (parts of one reference record)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/+page.svelte:980::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: units/[id]/+page.svelte:980 '{#each m.tierUpgrades ?? [] as u}' has no key; the tier upgrades the user applies to a member of the loaded unit doc; runtime user-edited records"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/print/+page.svelte:274::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: units/[id]/print/+page.svelte:274 '{#each allAttributeRules as a}' has no key; rule-reference rows of a printable unit sheet ($derived.by :52), rendered once for printing; static per view (printable view)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::correctness/each-key::src/routes/units/[id]/print/+page.svelte:296::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: units/[id]/print/+page.svelte:296 '{#each allEquipmentRules as e}' has no key; rule-reference rows of a printable unit sheet ($derived.by :74), rendered once for printing; static per view (printable view)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::performance/image-dimensions::src/routes/about/+page.svelte:54::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: source cover with class h-24 w-auto (:54) - fixed-height box, width only varies inside its card row"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::performance/image-loading-hint::src/routes/about/+page.svelte:54::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: source cover in each card of the {#each data.sources} grid after the About intro and the Sources <h2> (:22-54) - later cards offscreen"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::performance/responsive-image::src/routes/about/+page.svelte:54::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg; read: coverImageUrl is a Cloudinary jacket JPEG (w_300; packages/db/src/seed-data.ts:51+) shown at h-24 - one fixed-size raster although the CDN serves other sizes"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::security/raw-html::src/routes/+layout.svelte:82::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:82: JSON.stringify of a fully literal WebApplication object — literal reviewed JSON-LD, reported per docs"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/cheat-sheet/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /cheat-sheet (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/cheat-sheet/campaign/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /cheat-sheet/campaign (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/reference/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reference (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/reference/[entity]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reference/[entity] (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/sign-in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-in (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/sign-up/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sign-up (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders: publicly reachable rendered route (loads only redirect signed-in users away from auth pages), static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/units/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /units/[id] (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders but not a search target (per-owner unit page: the unit comes from the visitor's own IndexedDB or the owner-only API (api/units/[id]/+server.ts:8 401 without a session, :14 filters by userId), any other visitor gets \"Unit not found\"; not in sitemap.xml/+server.ts:5), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/canonical-url::src/routes/units/[id]/print/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /units/[id]/print (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders but not a search target (per-owner unit page: the unit comes from the visitor's own IndexedDB or the owner-only API (api/units/[id]/+server.ts:8 401 without a session, :14 filters by userId), any other visitor gets \"Unit not found\"; not in sitemap.xml/+server.ts:5), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:77 literal <meta name=description> (Free fan-made list builder...) is the only description of /about, /cheat-sheet, /cheat-sheet/campaign, /reference, /reference/[entity], /sign-in and the other routes the key covers (11 per local CLI; no page sets its own), duplicate as claimed; gothic-garrison.app is a public, account-optional list-builder site (static/robots.txt Allow: / with Sitemap; routes/sitemap.xml/+server.ts lists /, /about, /cheat-sheet, /reference; no noindex), so the public content pages compete as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:129 literal <meta name=description> on / is the same text as root +layout.svelte:77, which every other route ships, duplicate as claimed; gothic-garrison.app is a public, account-optional list-builder site (static/robots.txt Allow: / with Sitemap; routes/sitemap.xml/+server.ts lists /, /about, /cheat-sheet, /reference; no noindex)"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/heading-level-skip::src/routes/+page.svelte:292::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "script-verified: nearest earlier heading in +page.svelte is the page <h1>Your units (:137); between it and the Build options modal <h3> ({#if optionsOpen}, :292) only NationFlag (no heading) inside the picker/unit lists; root +layout.svelte renders no heading -> h1 to h3 when the modal is open"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/heading-level-skip::src/routes/reference/+layout.svelte:98::Heading level skipped (<h#> to <h#>)",
+    "verdict": "design",
+    "basis": "the flagged <h3>Export to repo (:98) is in {#if showExport}, set only by openExport() from the button rendered {#if !readonly} (:74-76), and readonly = data.readonly || override with data.readonly = !dev (reference/+layout.server.ts) - the dialog can open only in a dev build, where it follows the layout <h1>Reference (:64) and a page with no heading -> h1 to h3; the claim holds only in dev tooling that production never renders"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/cheat-sheet/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cheat-sheet (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/cheat-sheet/campaign/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cheat-sheet/campaign (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/reference/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reference (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/reference/[entity]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reference/[entity] (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/sign-in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-in (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/sign-up/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sign-up (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/units/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /units/[id] (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/og-image::src/routes/units/[id]/print/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /units/[id]/print (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/single-h1::src/routes/units/[id]/+page.svelte:600::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: units/[id]/+page.svelte's headings are card-title <h2>s (e.g. :600); its components (AttributePicker, EquipmentBrowser, NationFlag, ...) and root +layout.svelte have no <h1> (grep of src/lib: none); load only fetches reference data"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/about/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it renders after root +layout.svelte:76's title, so it is the shown title); gothic-garrison.app is a public, account-optional list-builder site (static/robots.txt Allow: / with Sitemap; routes/sitemap.xml/+server.ts lists /, /about, /cheat-sheet, /reference; no noindex), and /about is a public page"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/title-length::src/routes/reference/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/reference/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it renders after root +layout.svelte:76's title, so it is the shown title); gothic-garrison.app is a public, account-optional list-builder site (static/robots.txt Allow: / with Sitemap; routes/sitemap.xml/+server.ts lists /, /about, /cheat-sheet, /reference; no noindex), and /reference is a public page"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/title-length::src/routes/sign-in/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> in src/routes/sign-in/+page.svelte's top-level svelte:head, grapheme count equals the reported length; it renders after root +layout.svelte:76's title, so it is the shown title); gothic-garrison.app is a public, account-optional list-builder site (static/robots.txt Allow: / with Sitemap; routes/sitemap.xml/+server.ts lists /, /about, /cheat-sheet, /reference; no noindex), and /sign-in is a public page"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/cheat-sheet/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cheat-sheet (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/cheat-sheet/campaign/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cheat-sheet/campaign (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/reference/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reference (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/reference/[entity]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reference/[entity] (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/sign-in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-in (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/sign-up/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sign-up (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/units/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /units/[id] (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  },
+  {
+    "key": "csuzw/gothic-garrison:apps/gothic-garrison::seo/twitter-card::src/routes/units/[id]/print/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /units/[id]/print (script-verified (repo-wide grep + a1b_chain.js): the only social emitter is root +layout.svelte:75-93 (og:title/og:description/og:url/og:type + JSON-LD, unconditional), which has no og:image, no twitter:card and no rel=canonical; no other head emits them, app.html:4-9 none, no meta-tag library among deps); route renders (no load, layout load or hooks path redirects/throws on every request), missing as claimed"
+  }
+]
