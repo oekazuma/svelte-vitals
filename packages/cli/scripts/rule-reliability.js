@@ -40,7 +40,15 @@ export function readVerdicts(dir) {
   return readdirSync(dir)
     .filter((f) => f.endsWith('.json'))
     .sort()
-    .flatMap((f) => JSON.parse(readFileSync(join(dir, f), 'utf8')));
+    .flatMap((f) => {
+      const file = join(dir, f);
+      try {
+        return JSON.parse(readFileSync(file, 'utf8'));
+      } catch (err) {
+        // A broken ledger must stop the run; the bare SyntaxError would not say which of the files it is.
+        throw new Error(`${file}: ${err.message}`, { cause: err });
+      }
+    });
 }
 
 export function appId({ repo, path }) {
