@@ -22,13 +22,14 @@ other way fails a criterion.
 | C4  | Warning precision                  | ≥ 98%          | 99.4% (2,369 / 2,384)                          | pass     | 100.0% | 99.8% | 99.8% | 98.0% | 99.2% | 93.9% | 99.2% | 99.7% | 99.8% | 98.2% | 99.8% | 98.7% | 98.4% | 99.3% | 99.95% | 99.0% | 97.7% | 99.2% | 98.7% | 99.7% | 99.6% | 99.0% | 99.6% | 97.0% | 90.7% | 99.7% | 82.9% | 97.5% | 92.1% | 71.3% |
 | C5  | Info precision                     | ≥ 95%          | 100.0% (2,487 / 2,488)                         | pass     | 99.6%  | 99.8% | 99.9% | 98.9% | 99.6% | 95.6% | 98.5% | 99.8% | 99.9% | 99.1% | 99.8% | 98.9% | 99.8% | 99.6% | 99.9%  | 99.2% | 99.2% | 99.9% | 99.0% | 99.8% | 99.7% | 98.5% | 98.5% | 97.1% | 97.3% | 93.5% | 92.8% | 97.8% | 96.2% | 90.2% |
 | C6  | fp class shared by ≥ 2 apps        | none           | none                                           | pass     | none   | none  | none  | 1     | none  | 1     | 1     | 1     | 1     | 1     | none  | 2     | none  | 1     | none   | 2     | 2     | none  | 2     | 1     | 2     | 2     | 1     | 1     | 2     | none  | 2     | 2     | 1     | 5     |
-| C7  | Per-rule precision                 | ≥ 90%          | none judged (3 by the earlier definition)      | pass     | none   | none  | none  | none  | none  | 2     | none  | none  | none  | none  | none  | 2     | 3     | 2     | 1      | 5     | 4     | 1     | 3     | 3     | 1     | 4     | 4     | 2     | 5     | 4     | 11    | 2     | 9     | 12    |
+| C7  | Per-rule precision                 | ≥ 90%          | none judged (3 by the earlier definition)      | pass     | none   | none  | none  | none  | none  | 2     | none  | none  | none  | none  | none  | 1     | 1     | 2     | 1      | 5     | 4     | 1     | 3     | 3     | 1     | 4     | 4     | 2     | 5     | 4     | 11    | 2     | 9     | 12    |
 | C8  | Design share of critical + warning | reported       | 31.5% (1,102 / 3,498)                          | reported | 30.5%  | 36.9% | 36.5% | 30.8% | 26.7% | 30.9% | 27.8% | 26.6% | 31.4% | 28.4% | 32.8% | 29.6% | 36.3% | 20.1% | 27.3%  | 28.2% | 26.6% | 35.0% | 30.1% | 35.1% | 33.6% | 42.7% | 37.8% | 34.4% | 33.4% | 35.6% | 23.3% | 22.7% | 33.0% | 25.3% |
 | C9  | Unlabelled / unclear               | 0 / ≤ 1%       | 0 / 0                                          | pass     | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass   | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  | pass  |
 | C10 | Rules with real-app evidence       | ≥ 70 of 105    | 79 (none new)                                  | pass     | 79     | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79    | 79     | 79    | 79    | 79    | 79    | 79    | 79    | 77    | 77    | 75    | 75    | 75    | 73    | 73    | 67    | 63    |
 
-The C7 history columns from holdout 20 on are the current definition; earlier ones are the earlier
-definition, as published (`2026-10-03-c7-multi-app.md` has those holdouts under the current one).
+The C7 history columns from holdout 18 on are the current definition, which applies from holdout 18;
+earlier ones are the earlier definition, as published (`2026-10-03-c7-multi-app.md` has those holdouts
+under the current one).
 
 Verdicts (distinct keys): tp 4,868, fp 16, design 1,273, unclear 0.
 
@@ -99,9 +100,10 @@ racona-core's environment schema stops on `DATABASE_URL` and others not set.
 
 ## Labelling notes
 
-- No flagged route never renders. The routes whose `load` redirects or fails on every path (eleven in
-  erp-bcs-frontend, seventeen in listing-sync's console, arguspam's `/`, clickclack's settings index)
-  were already left out.
+- No route a route-level finding is on never renders. The routes whose `load` redirects or fails on
+  every path (eleven in erp-bcs-frontend, seventeen in listing-sync's console, arguspam's `/`,
+  clickclack's settings index) carry no route-level finding; the 18 component-scoped findings on such
+  pages are labelled `design` and count in C8, as set out above.
 - The design share is concentrated in `canonical-url` (355), `description-presence` (302), `each-key`
   (142) and `each-index-key` (101); erp-bcs-frontend, listing-sync, distroface and radiologyos together
   have 722 of the 1,102.
