@@ -2383,6 +2383,99 @@ const MUTATING_METHODS = new Set([
   'clear'
 ]);
 
+/** Built-in types whose own methods include the mutating method names above. */
+const COLLECTION_TYPES = new Set([
+  'Array',
+  'ReadonlyArray',
+  'Set',
+  'ReadonlySet',
+  'Map',
+  'ReadonlyMap',
+  'WeakMap',
+  'WeakSet',
+  'SvelteSet',
+  'SvelteMap',
+  'URLSearchParams',
+  'SvelteURLSearchParams',
+  'FormData',
+  'Headers',
+  'Int8Array',
+  'Uint8Array',
+  'Uint8ClampedArray',
+  'Int16Array',
+  'Uint16Array',
+  'Int32Array',
+  'Uint32Array',
+  'Float16Array',
+  'Float32Array',
+  'Float64Array',
+  'BigInt64Array',
+  'BigUint64Array'
+]);
+const NON_COLLECTION_NODES = new Set([
+  'TSStringKeyword',
+  'TSNumberKeyword',
+  'TSBooleanKeyword',
+  'TSBigIntKeyword',
+  'TSNullKeyword',
+  'TSUndefinedKeyword',
+  'TSFunctionType',
+  'TSTypeLiteral',
+  'TSLiteralType'
+]);
+
+/**
+ * The props whose declared type, from the `$props()` annotation, is known not to be a collection: a
+ * method called on one is its own API (`queryClient.clear()`), not an array, Set or Map mutation.
+ * A named type counts unless it is a built-in collection or a same-file alias of one.
+ */
+function nonCollectionProps(program: Node): Set<string> {
+  const decls = new Map<string, Node>();
+  walkEstree(program, (n) => {
+    if ((n.type === 'TSInterfaceDeclaration' || n.type === 'TSTypeAliasDeclaration') && n.id?.name)
+      decls.set(n.id.name, n);
+  });
+  const unwrap = (t: Node | undefined) => (t?.type === 'TSTypeAnnotation' ? t.typeAnnotation : t);
+  const nonCollection = (t: Node | undefined, depth: number): boolean => {
+    t = unwrap(t);
+    if (!t || depth > 4) return false;
+    if (NON_COLLECTION_NODES.has(t.type)) return true;
+    if (t.type === 'TSUnionType') return t.types.every((u: Node) => nonCollection(u, depth + 1));
+    if (t.type !== 'TSTypeReference' || t.typeName?.type !== 'Identifier') return false;
+    const name: string = t.typeName.name;
+    if (COLLECTION_TYPES.has(name)) return false;
+    const decl = decls.get(name);
+    if (decl?.type === 'TSTypeAliasDeclaration') return nonCollection(decl.typeAnnotation, depth + 1);
+    if (decl?.type === 'TSInterfaceDeclaration')
+      return !(decl.extends ?? []).some((h: Node) => COLLECTION_TYPES.has(h.expression?.name));
+    // `ReturnType<…>`, `Readonly<T[]>`: a type built from arguments may still be a collection.
+    return !(t.typeArguments ?? t.typeParameters)?.params?.length;
+  };
+  const membersOf = (t: Node | undefined, depth: number): Node[] | undefined => {
+    t = unwrap(t);
+    if (t?.type === 'TSTypeLiteral') return t.members;
+    if (t?.type !== 'TSTypeReference' || depth > 4) return undefined;
+    const decl = decls.get(t.typeName?.name);
+    if (decl?.type === 'TSInterfaceDeclaration') return decl.body?.body;
+    return decl?.type === 'TSTypeAliasDeclaration' ? membersOf(decl.typeAnnotation, depth + 1) : undefined;
+  };
+  const names = new Set<string>();
+  walkEstree(program, (n) => {
+    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(unwrapTs(n.init))) return;
+    if (n.id?.type !== 'ObjectPattern') return;
+    const types = new Map<string, Node>();
+    for (const m of membersOf(n.id.typeAnnotation, 0) ?? []) {
+      if (m.type === 'TSPropertySignature' && m.key?.type === 'Identifier') types.set(m.key.name, m.typeAnnotation);
+    }
+    for (const p of n.id.properties ?? []) {
+      if (p?.type !== 'Property' || p.key?.type !== 'Identifier' || !types.has(p.key.name)) continue;
+      const local = p.value?.type === 'AssignmentPattern' ? p.value.left : p.value;
+      if (local?.type === 'Identifier' && nonCollection(types.get(p.key.name), 0)) names.add(local.name);
+    }
+  });
+  return names;
+}
+
 /**
  * Flag mutations of a non-`$bindable` prop (correctness/prop-mutation): a member-expression write
  * (`prop.x = …`, `prop.x += …`, `prop.x++`), `delete prop.x`, or a call to a mutating
@@ -2399,12 +2492,15 @@ function collectPropMutations(
   propNames: Set<string>,
   source: string,
   acc: { name: string; line: number }[],
-  legacy: Set<string>
+  legacy: Set<string>,
+  ownApi: Set<string> = new Set()
 ): void {
   if (propNames.size === 0) return;
   // Legacy idiom `items.push(x); items = items;` (or `delete items[k]`): a reassignment in the same
   // function or `$:` statement, closures included, invalidates the mutation.
   const exemptCalls = new Set<Node>();
+  // `problem = problem.clear(name)`: a method whose result goes back into the prop may return the receiver it changed.
+  const returnedToProp = new Set<Node>();
   if (legacy.size > 0) {
     walkEstree(root, (fn: Node) => {
       const body = isDeferredBody(fn)
@@ -2456,6 +2552,17 @@ function collectPropMutations(
         ? unwrapTs(m.callee.object)
         : undefined;
     if (chained?.type === 'CallExpression') exemptCalls.add(chained);
+    if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier') {
+      let back = unwrapTs(m.right);
+      if (back?.type === 'LogicalExpression') back = unwrapTs(back.left);
+      if (back?.type === 'ChainExpression') back = back.expression;
+      if (
+        back?.type === 'CallExpression' &&
+        back.callee.type === 'MemberExpression' &&
+        rootObjectName(back.callee.object) === m.left.name
+      )
+        returnedToProp.add(back);
+    }
   });
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
@@ -2472,6 +2579,8 @@ function collectPropMutations(
       flag(rootObjectName(n.argument));
     } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
+      const receiver = unwrapTs(n.callee.object);
+      if (receiver?.type === 'Identifier' && ownApi.has(receiver.name) && !returnedToProp.has(n)) return;
       if (method && MUTATING_METHODS.has(method)) flag(rootObjectName(n.callee.object));
     }
   });
@@ -3031,8 +3140,10 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const legacyPropNames = collectLegacyPropNames(program);
     const nonBindableProps = new Set([...collectPropNames(program, false), ...legacyPropNames]);
     const rawMutations: { name: string; line: number }[] = [];
-    collectPropMutations(program, nonBindableProps, source, rawMutations, legacyPropNames);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations, legacyPropNames);
+    const ownApi = nonCollectionProps(program);
+    collectPropMutations(program, nonBindableProps, source, rawMutations, legacyPropNames, ownApi);
+    if (ast.fragment)
+      collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations, legacyPropNames, ownApi);
     const isLegacy = legacyPropNames.size > 0;
     for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
     const allPropNames = new Set([...collectPropNames(program, true), ...legacyPropNames]);

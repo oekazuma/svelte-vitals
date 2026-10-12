@@ -848,6 +848,33 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       '<script>let { db, items } = $props(); async function f(id) { await db.rows.clear(); db.rows.delete(id).then(() => {}); items.push(1); }</script>';
     expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'items', line: 1 }]);
   });
+  it('does not flag a method called on a prop typed as a non-collection', () => {
+    const src = `<script lang="ts">
+      import type { QueryClient } from '@tanstack/query-core';
+      interface Roster { add(x: number): void }
+      type Editor = { clear: (n: number) => void };
+      let { client, roster, editor }: { client: QueryClient; roster: Roster; editor?: Editor | null } = $props();
+      function f() { client.clear(); roster.add(1); editor?.clear(1); }
+    </script>`;
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([]);
+  });
+  it('still flags a typed prop that is a collection, has type arguments, has its result put back, or is written', () => {
+    const src = `<script lang="ts">
+      import type { Problem, Model } from 'x';
+      type Items = string[];
+      interface Props { a: Set<string>; b: Items; c: ReturnType<typeof make>; problem: Problem; m: Model }
+      let { a, b, c, problem, m }: Props = $props();
+      function f() { a.add('x'); b.push('y'); c.add(1); problem = problem?.clear('n') || null; m.items.push(1); m.x = 1; }
+    </script>`;
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps.map((m) => m.name)).toEqual([
+      'a',
+      'b',
+      'c',
+      'problem',
+      'm',
+      'm'
+    ]);
+  });
   it('still flags Map#set reassigned to itself — it mutates and returns the same map', () => {
     const src = "<script>let { map } = $props(); function f() { map = map.set('k', 1); }</script>";
     expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'map', line: 1 }]);

@@ -7,7 +7,7 @@ description: Don't mutate a prop from $props() unless it is declared $bindable.
 
 ## What it checks
 
-Flags a mutation of a value destructured from `$props()` that is not declared `$bindable`: a member write (`user.name = …`, `obj.count += 1`), `delete obj.x`, or a mutating method call (`items.push(…)`, `arr.splice(…)`, `map.set(…)`, …). Those methods are synchronous, so a call awaited or chained with `.then`/`.catch`/`.finally` (`await db.items.clear()`) is a client's own API and is not flagged. A `...rest` binding is tracked too, since rest props can never be individually declared `$bindable`.
+Flags a mutation of a value destructured from `$props()` that is not declared `$bindable`: a member write (`user.name = …`, `obj.count += 1`), `delete obj.x`, or a mutating method call (`items.push(…)`, `arr.splice(…)`, `map.set(…)`, …). Those methods are synchronous, so a call awaited or chained with `.then`/`.catch`/`.finally` (`await db.items.clear()`) is a client's own API and is not flagged. Neither is a method called directly on a prop whose type in the `$props()` annotation is not a collection: an object type, or a named type other than `Array`, `Set`, `Map` and the other built-in collections (`queryClient.clear()` on a `QueryClient`), followed through a same-file alias or interface. A call whose result goes back into the prop (`problem = problem.clear(name)`) is still flagged, since the method may return the object it changed, and so is a named type with type arguments (`ReturnType<…>`). A name imported from another module is taken as not a collection, so a prop typed with an imported alias of an array type (`type Items = Item[]`) is missed. A `...rest` binding is tracked too, since rest props can never be individually declared `$bindable`.
 
 Plain reassignment of the prop itself (`count = 5`) is **not** flagged: Svelte's docs explicitly sanction temporary reassignment for unsaved ephemeral state. Only mutation is prohibited.
 
@@ -15,7 +15,7 @@ A local reusing the prop's name shadows it and is not the prop at all, so mutati
 
 `{#snippet}`/`{:then}`/`{:catch}` bindings are not tracked and could still produce a false positive. This is a deliberately partial mitigation, not full scope resolution.
 
-A prop holding a class instance with `$state` fields is still flagged when you mutate it through its fields or methods (`todo.done = true`, `cart.add(item)`), even though that mutation is reactive: static analysis cannot tell a class instance from a plain object. If that is the intended pattern, suppress the occurrence inline.
+A prop holding a class instance with `$state` fields is still flagged when you mutate it through its fields (`todo.done = true`), or through its methods when the prop has no type annotation (`cart.add(item)`), even though that mutation is reactive: static analysis cannot tell a class instance from a plain object. If that is the intended pattern, suppress the occurrence inline.
 
 ## Why it matters
 
