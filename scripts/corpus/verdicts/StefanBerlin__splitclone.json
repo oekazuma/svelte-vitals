@@ -1,0 +1,892 @@
+[
+  {
+    "key": "StefanBerlin/splitclone::a11y/disallowed-aria-props::src/lib/ui/components/QrCode.svelte:29::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read ui/components/QrCode.svelte:29-34: <div class=\"qr\" bind:this aria-label=\"Join code QR\"> with no role; qr-creator renders into it in an $effect but sets no role, so the generic div's prohibited name is not exposed, as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/interactive-nesting::src/routes/ledger/[ledgerId]/+layout.svelte:106::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ledger/[ledgerId]/+layout.svelte:88-106: the Close <button> sits in the role=\"dialog\" sheet inside the overlay <div role=\"button\" tabindex=\"0\"> (children-presentational, so the dialog's controls are nested in a button); same shape the ledger labels tp for role=button overlays"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/interactive-nesting::src/routes/ledger/[ledgerId]/+layout.svelte:108::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ledger/[ledgerId]/+layout.svelte:88-108: the acknowledge <button> sits in the role=\"dialog\" sheet inside the overlay <div role=\"button\" tabindex=\"0\">; nested as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/no-autofocus::src/lib/ui/components/ClaimParticipant.svelte:72::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read ClaimParticipant.svelte:17-22/:41-76: the name <input autofocus> is in the {:else} of {#if mode === 'pick' && hasAny}, which renders without any user action whenever the ledger has no one to claim (hasAny false); shown by ledger/[ledgerId]/+layout.svelte:75 under {#if needsClaim} on entering the ledger, so focus moves on screen load"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte:62::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dt> at ledger/[ledgerId]/expense/[expenseId]/+page.svelte:62 is a direct child of literal <div> (line 60) through {#each} only (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte:63::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dd> at ledger/[ledgerId]/expense/[expenseId]/+page.svelte:63 is a direct child of literal <div> (line 60) through {#each} only (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/export/+page.svelte:131::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dt> at ledger/[ledgerId]/export/+page.svelte:131 is a direct child of literal <div> (line 129) through {#each} only (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/export/+page.svelte:132::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dd> at ledger/[ledgerId]/export/+page.svelte:132 is a direct child of literal <div> (line 129) through {#each} only (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:132::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dt> at ledger/[ledgerId]/settings/+page.svelte:132 is a direct child of literal <div> (line 131) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:133::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dd> at ledger/[ledgerId]/settings/+page.svelte:133 is a direct child of literal <div> (line 131) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:79::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dt> at ledger/[ledgerId]/settings/+page.svelte:79 is a direct child of literal <div> (line 78) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:80::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dd> at ledger/[ledgerId]/settings/+page.svelte:80 is a direct child of literal <div> (line 78) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:81::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dt> at ledger/[ledgerId]/settings/+page.svelte:81 is a direct child of literal <div> (line 78) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:82::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dd> at ledger/[ledgerId]/settings/+page.svelte:82 is a direct child of literal <div> (line 78) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:83::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dt> at ledger/[ledgerId]/settings/+page.svelte:83 is a direct child of literal <div> (line 78) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::a11y/permitted-contents::src/routes/ledger/[ledgerId]/settings/+page.svelte:84::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <dd> at ledger/[ledgerId]/settings/+page.svelte:84 is a direct child of literal <div> (line 78) (the parent is <div class=\"dl\">, not inside any <dl>, so the dl>div wrapper exception does not apply); spec-invalid as reported"
+  },
+  {
+    "key": "StefanBerlin/splitclone::architecture/component-size::src/lib/ui/components/ExpenseForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/components/ExpenseForm.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "StefanBerlin/splitclone::architecture/component-size::src/routes/backup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/backup/+page.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "StefanBerlin/splitclone::architecture/component-size::src/routes/ledger/[ledgerId]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ledger/[ledgerId]/settings/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/callback (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); but not a search target (OAuth return stub: auth/callback/+page.svelte:14-38 exchanges the code from the query and goto(/)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/auth/start/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/start (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); but not a search target (client redirect stub: auth/start/+page.svelte:9-20 onMount window.location.assign to Microsoft sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/backup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /backup (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/balances (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/expense/[expenseId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/expense/[expenseId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/expense/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/export (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/labels (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/settle/[settlementId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/[ledgerId]/settle/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/join/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/join (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/ledger/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ledger/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads)); publicly reachable rendered route with no gate (client-only SPA; static/robots.txt allows all)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on / (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/auth/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /auth/callback (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/auth/start/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /auth/start (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/backup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /backup (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId] (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/balances (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/expense/[expenseId] (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/expense/[expenseId]/edit (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/expense/new (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/export (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/labels (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/settings (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/settle/[settlementId]/edit (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/[ledgerId]/settle/new (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/join/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/join (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/ledger/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /ledger/new (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /settings (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); SplitClone is a public local-first web app deployed at stefanberlin.github.io/splitclone (README:23), no auth gate, static/robots.txt allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; / renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /auth/callback renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/auth/start/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /auth/start renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/backup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /backup renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/balances renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/expense/[expenseId] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/expense/[expenseId]/edit renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/expense/new renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/export renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/labels renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/settings renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/settle/[settlementId]/edit renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/[ledgerId]/settle/new renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/join/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/join renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/ledger/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ledger/new renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /settings renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/callback (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/auth/start/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auth/start (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/backup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /backup (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/balances (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/expense/[expenseId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/expense/[expenseId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/expense/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/export (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/labels (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/settle/[settlementId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/[ledgerId]/settle/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/join/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/join (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/ledger/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ledger/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/callback (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/auth/start/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auth/start (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/backup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /backup (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/balances (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/expense/[expenseId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/expense/[expenseId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/expense/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/export (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/labels (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/settle/[settlementId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/[ledgerId]/settle/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/join/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/join (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/ledger/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ledger/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/callback (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/auth/start/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auth/start (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/backup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /backup (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/balances (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/expense/[expenseId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/expense/[expenseId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/expense/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/export (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/labels (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/settle/[settlementId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/[ledgerId]/settle/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/join/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/join (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/ledger/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ledger/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/callback (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/auth/start/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/start (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/backup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /backup (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/balances (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/expense/[expenseId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/expense/[expenseId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/expense/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/export (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/labels (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/settle/[settlementId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/[ledgerId]/settle/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/join/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/join (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/ledger/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ledger/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page titles its screen with a <span class=\"title\"> in a .topbar div (route's +page.svelte), and root +layout.svelte renders only children + a home link; no heading element on the route (the app's only <h1> is ClaimParticipant.svelte, used under /ledger/[ledgerId]) -> no <h1>"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/auth/callback::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: OAuth redirect stub: the page renders only a 'Redirecting to Microsoft sign-in…'/'Finishing sign-in…' <p> (or an error) and navigates away in onMount; no heading on the route - claim holds, but as the ledger labels client redirect stubs, there is no content to title"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/auth/start::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: OAuth redirect stub: the page renders only a 'Redirecting to Microsoft sign-in…'/'Finishing sign-in…' <p> (or an error) and navigates away in onMount; no heading on the route - claim holds, but as the ledger labels client redirect stubs, there is no content to title"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/backup::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page titles its screen with a <span class=\"title\"> in a .topbar div (route's +page.svelte), and root +layout.svelte renders only children + a home link; no heading element on the route (the app's only <h1> is ClaimParticipant.svelte, used under /ledger/[ledgerId]) -> no <h1>"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/ledger/join::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page titles its screen with a <span class=\"title\"> in a .topbar div (route's +page.svelte), and root +layout.svelte renders only children + a home link; no heading element on the route (the app's only <h1> is ClaimParticipant.svelte, used under /ledger/[ledgerId]) -> no <h1>"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/ledger/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page titles its screen with a <span class=\"title\"> in a .topbar div (route's +page.svelte), and root +layout.svelte renders only children + a home link; no heading element on the route (the app's only <h1> is ClaimParticipant.svelte, used under /ledger/[ledgerId]) -> no <h1>"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page titles its screen with a <span class=\"title\"> in a .topbar div (route's +page.svelte), and root +layout.svelte renders only children + a home link; no heading element on the route (the app's only <h1> is ClaimParticipant.svelte, used under /ledger/[ledgerId]) -> no <h1>"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook, build script or backend route serving it in the repo (literal claim holds); every route except / renders the visitor's own OneDrive-encrypted ledgers (README: no backend), so there is nothing per-URL to list (enlist local-first precedent)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/ssr-disabled::src/routes/+layout.ts:4::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:4; deliberate SPA: the app has no server by design (README, comment SC-ARC-HST-1) and renders the visitor's own OneDrive data (local-first app-shell precedent)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 10 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/auth/callback/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/auth/callback/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 18 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/auth/start/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/auth/start/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 23 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/backup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/backup/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 16 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/[ledgerId]/balances/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/[ledgerId]/balances/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 8 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 12 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/[ledgerId]/expense/new/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 11 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/[ledgerId]/export/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/[ledgerId]/export/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 6 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/[ledgerId]/labels/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/[ledgerId]/labels/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 6 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/[ledgerId]/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/[ledgerId]/settings/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 15 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/join/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/join/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 13 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/ledger/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/ledger/new/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 10 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/settings/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 8 as reported; grep-verified: no later <title> or document.title on the route); public local-first web app on GitHub Pages (README:23), no auth gate, robots allows all (public local-first SPA convention)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/title-presence::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: ledger/[ledgerId]/expense/[expenseId]/+page.svelte has no svelte:head (topbar span 'Expense details' is body text), ledger/[ledgerId]/+layout.svelte none (RecoveryCode/ClaimParticipant no head), root +layout.svelte:19-23 head is favicon + build meta only, app.html only apple-mobile-web-app-title meta; ssr=false (+layout.ts:4) but no document.title in src; sibling pages (edit, new, balances) each set their own <title>, this one does not; only npm dep qr-creator (not Svelte)"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/callback (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/auth/start/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auth/start (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/backup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /backup (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/balances/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/balances (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/expense/[expenseId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/expense/[expenseId] (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/expense/[expenseId]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/expense/[expenseId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/expense/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/expense/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/export/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/export (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/labels/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/labels (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/settle/[settlementId]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/settle/[settlementId]/edit (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/[ledgerId]/settle/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/[ledgerId]/settle/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/join/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/join (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/ledger/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ledger/new (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  },
+  {
+    "key": "StefanBerlin/splitclone::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is PWA/theme/manifest metas, root +layout.svelte:19-23 icon + build meta, page heads <title> only; ssr=false app-wide (routes/+layout.ts:4) so client heads count and none emit it; only npm dep qr-creator (no Svelte components); no hooks; route renders (no loads))"
+  }
+]

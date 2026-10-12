@@ -1,0 +1,267 @@
+[
+  {
+    "key": "phonesett10401/thailand-dems:web::architecture/component-size::src/routes/report/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/report/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::architecture/prop-count::src/lib/components/MapView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/MapView.svelte has a single destructured $props() with 10 named props (> 6): markers, center, zoom, focus, onselect, areas, lines, fit, failed, class"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::correctness/each-index-key::src/lib/components/HazardSheet.svelte:29::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: HazardSheet.svelte:29 keyed by its index binding; steps = $derived(stepsFor(type, level)) from the constant guide data in $lib/prepare/guides, rendered as numbered plain-text steps; positional list (numbered steps of one guide)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::correctness/each-index-key::src/lib/components/NowPanel.svelte:84::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: NowPanel.svelte:84 keyed by its index binding; steps = $derived(stepsFor(type, level)) from the constant guide data in $lib/prepare/guides, rendered as numbered plain-text steps; positional list (numbered steps of one guide)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::correctness/each-index-key::src/routes/prepare/[hazard]/+page.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: +page.svelte:32 keyed by its index binding; g[key] is the before/during/after step list of one constant guide (GUIDE[data.id] from $lib/prepare/guides), numbered plain-text items; positional list (numbered steps of one guide)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::correctness/each-index-key::src/routes/route/+page.svelte:135::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: +page.svelte:135 keyed by its index binding; route.steps are the turn-by-turn steps of one fetched route result ($derived :59), replaced wholesale per request and numbered by position; positional list (steps of one result)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::performance/state-raw::src/routes/route/+page.svelte:41::\"sentZones\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"sentZones\" in src/routes/route/+page.svelte (d_refs.py): only whole-binding reassignments (:47) and read-only uses (.length :123); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::performance/state-raw::src/routes/shelters/+page.svelte:18::\"routes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"routes\" in src/routes/shelters/+page.svelte (d_refs.py): only whole-binding reassignments (:35 (in the .then)) and read-only uses (.length :84 and keyed {#each} :88 whose body only reads fields); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /about: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/admin/(protected)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "no <link rel=\"canonical\"> on /admin: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); but not a search target (auth-gated: admin/(protected)/+layout.server.ts:5 redirects every request without role admin to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /admin/login: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/map/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /map: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/more/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /more: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/prepare/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /prepare: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/prepare/[hazard]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /prepare/[hazard]: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/report/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /report: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/route/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /route: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/shelters/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /shelters: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/volunteer/(protected)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "no <link rel=\"canonical\"> on /volunteer: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); but not a search target (auth-gated: volunteer/(protected)/+layout.server.ts:5 redirects every request without role volunteer to /volunteer/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/canonical-url::src/routes/volunteer/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "no <link rel=\"canonical\"> on /volunteer/login: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no <link rel=\"canonical\">; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions <link rel=\"canonical\"> and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); publicly reachable rendered route with no auth gate, noindex or robots Disallow"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:10 literal <meta name=\"description\"> is the only description of all 13 routes, duplicate as claimed; mixed, labelled by majority: 9 are public disaster-information pages of the deployed site"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:9 literal <title>DEMS Thailand</title> is the only title of all 13 routes (no svelte:head in web/src), duplicate as claimed; mixed, labelled by majority: 9 are public disaster-information pages"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; / renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /about renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/admin/(protected)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin/login renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/map/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /map renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/more/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /more renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/prepare/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /prepare renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/prepare/[hazard]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /prepare/[hazard] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/report/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /report renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/route/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /route renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/shelters/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /shelters renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/volunteer/(protected)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /volunteer renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/json-ld::src/routes/volunteer/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /volunteer/login renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /about: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/admin/(protected)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /admin: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /admin/login: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/map/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /map: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/more/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /more: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/prepare/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /prepare: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/prepare/[hazard]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /prepare/[hazard]: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/report/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /report: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/route/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /route: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/shelters/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /shelters: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/volunteer/(protected)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /volunteer: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/og-url::src/routes/volunteer/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "no og:url on /volunteer/login: app.html:11-18 carries og:type/site_name/title/description/image and twitter:card but no og:url; no <svelte:head> anywhere in src (root +layout.svelte renders only Shell); hooks.server.ts handles only legacy-path redirects (MOVED), paraglide lang and Supabase auth; npm Svelte deps bits-ui/@lucide/svelte emit no head tags; script-verified (a1a_label.py: walk of src/ incl. app.html and static/, no file mentions og:url and none injects meta/link via createElement; local CLI run (a1a_compare.py) reproduces the first-look key set for all 6 rules exactly); route renders (root +layout.ts ssr=false SPA, admin/volunteer ssr=true; no load or hooks path redirects or errors on every request); missing as claimed (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook, build script or backend route serving it in the repo (literal claim holds); public disaster-information site deployed at thailand-dems.vercel.app (app.html og:image) with public map/shelters/prepare pages"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook, build script or backend route serving it in the repo (literal claim holds); public disaster-information site deployed at thailand-dems.vercel.app (app.html og:image) with public map/shelters/prepare pages"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/ssr-disabled::src/routes/+layout.ts:3::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at web/src/routes/+layout.ts:3 covering the public disaster-information pages (/, /about, /prepare, /prepare/[hazard], /shelters…) of the deployed site, so their content ships as an empty shell to non-JS crawlers as claimed"
+  },
+  {
+    "key": "phonesett10401/thailand-dems:web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/app.html at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 13 as reported; grep-verified: no later <title> or document.title on the route): app.html:9 \"DEMS Thailand\" is the only title of all 13 routes (no svelte:head anywhere in web/src); mixed, labelled by majority: 9 are public disaster-information pages of the deployed site (app.html og:image thailand-dems.vercel.app), /admin*, /volunteer* are gated"
+  }
+]

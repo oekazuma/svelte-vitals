@@ -1,0 +1,602 @@
+[
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::a11y/disallowed-aria-props::src/routes/dashboard/apps/+page.svelte:202::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read dashboard/apps/+page.svelte:202: <span class=\"text-success-500\" aria-label=\"Healthy\">✓</span> with no role; generic role prohibits a name, so screen readers get the bare ✓, as reported"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::a11y/no-autofocus::src/routes/dashboard/login/+page.svelte:32::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read dashboard/login/+page.svelte:32-38: password <input autofocus> unconditional in the sign-in form (no enclosing {#if}), so focus moves on page load with no user action (login page-load precedent)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::a11y/pattern-title::src/routes/dashboard/apps/+page.svelte:50::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read dashboard/apps/+page.svelte:47-56: <input required pattern=\"^[a-z0-9]+(\\.[\\w-]+)+$\"> with no title in a <form onsubmit={submit}> without novalidate, so the browser's mismatch message gives no format hint, as reported"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::architecture/component-size::src/routes/dashboard/admin/tokens/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/admin/tokens/+page.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::architecture/component-size::src/routes/dashboard/apps/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/apps/+page.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::architecture/component-size::src/routes/dashboard/apps/[id=appid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/apps/[id=appid]/+page.svelte has 508 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::architecture/component-size::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/apps/[id=appid]/settings/+page.svelte has 242 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/AdoptionChart.svelte:110::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AdoptionChart.svelte:110 iterates chart geometry/labels $derived from the adoption series (AdoptionChart.svelte:24-26, 48, 88: y ticks, stacked bars, x labels, version legend), stateless SVG/legend items; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/AdoptionChart.svelte:126::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AdoptionChart.svelte:126 iterates chart geometry/labels $derived from the adoption series (AdoptionChart.svelte:24-26, 48, 88: y ticks, stacked bars, x labels, version legend), stateless SVG/legend items; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/AdoptionChart.svelte:133::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AdoptionChart.svelte:133 iterates chart geometry/labels $derived from the adoption series (AdoptionChart.svelte:24-26, 48, 88: y ticks, stacked bars, x labels, version legend), stateless SVG/legend items; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/AdoptionChart.svelte:150::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AdoptionChart.svelte:150 iterates chart geometry/labels $derived from the adoption series (AdoptionChart.svelte:24-26, 48, 88: y ticks, stacked bars, x labels, version legend), stateless SVG/legend items; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/AutoRollbacksList.svelte:26::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AutoRollbacksList.svelte:26 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/BundleHealthBanner.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BundleHealthBanner.svelte:34 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/BundleStateSummary.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BundleStateSummary.svelte:25 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/BundleStateSummary.svelte:70::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BundleStateSummary.svelte:70 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/FailureBreakdown.svelte:20::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FailureBreakdown.svelte:20 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/FailureBreakdown.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FailureBreakdown.svelte:32 '{#each row.actions as a}' renders the action-code chips of one aggregated failure row; static per view (parts of one record)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/PlatformDonut.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PlatformDonut.svelte:46 iterates arcs = $derived.by(data.map(...)) (PlatformDonut.svelte:14), donut arc geometry and its legend; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/PlatformDonut.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PlatformDonut.svelte:68 iterates arcs = $derived.by(data.map(...)) (PlatformDonut.svelte:14), donut arc geometry and its legend; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/PluginVersionBars.svelte:14::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PluginVersionBars.svelte:14 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/RecentActivity.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: RecentActivity.svelte:32 '{#each data as ev}': the newest stats_events records (id, receivedAt, deviceId; RecentActivity.svelte:5-14) from the database, newest first, so new events shift rows on reload; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/RolloutFunnel.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: RolloutFunnel.svelte:56 iterates the read-only aggregated rows of one dashboard query (prop data/rows/pivoted), stateless table cells/bars with no per-row state; aggregate breakdown rows of one report"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/lib/components/dashboard/UpdateCheckSparkline.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: UpdateCheckSparkline.svelte:56 iterates sorted = $derived([...data].sort(by t)) (UpdateCheckSparkline.svelte:14), sparkline points of one time series; positional chart geometry"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/+layout.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:52 iterates nav = $derived(admin ? [...baseNav, tokens] : baseNav) (dashboard/+layout.svelte:18-20), the author-written dashboard nav links; static nav list"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/+layout.svelte:90::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +layout.svelte:90 iterates nav = $derived(admin ? [...baseNav, tokens] : baseNav) (dashboard/+layout.svelte:18-20), the author-written dashboard nav links; static nav list"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/apps/+page.svelte:146::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:146 '{#each list as app}': list = $derived(await getAppsWithHealth()) (apps/+page.svelte:5), the app records the page's create form adds to; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/apps/+page.svelte:77::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:77 '{#each list as app}': list = $derived(await getAppsWithHealth()) (apps/+page.svelte:5), the app records the page's create form adds to; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/apps/[id=appid]/+page.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:222 '{#each list as b}': list = $derived(await getBundles({ app_id })) (apps/[id=appid]/+page.svelte:17), the app's uploaded bundle records with state badges; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/apps/[id=appid]/+page.svelte:373::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:373 '{#each list as b}': list = $derived(await getBundles({ app_id })) (apps/[id=appid]/+page.svelte:17), the app's uploaded bundle records with state badges; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/stats/+page.svelte:100::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:100 '{#each rows as ev}': rows = $derived(await getStatsEvents(filters)) (stats/+page.svelte:12), the newest-first tail of the stats_events table, refetched per filter; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/stats/+page.svelte:51::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: +page.svelte:51 '{#each group.actions as code}' iterates the actions of one group of the imported constant ACTION_GROUPS (lib/util/statsActions.ts:152) as <option>s; static option list"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::correctness/each-key::src/routes/dashboard/stats/+page.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:70 '{#each rows as ev}': rows = $derived(await getStatsEvents(filters)) (stats/+page.svelte:12), the newest-first tail of the stats_events table, refetched per filter; runtime records"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); publicly reachable rendered route (hooks.server.ts:33-38 exempts the login page; / is outside /dashboard), no noindex"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/admin/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/admin/tokens (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/apps/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/apps (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/apps/[id=appid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/apps/[id=appid]/settings (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/apps/[id=appid]/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/cli/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/cli (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/login (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); publicly reachable rendered route (hooks.server.ts:33-38 exempts the login page; / is outside /dashboard), no noindex"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/canonical-url::src/routes/dashboard/stats/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins)); but not a search target (auth-gated: hooks.server.ts:33-38 redirects every session-less /dashboard request to /dashboard/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on / (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/admin/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/admin/tokens (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/apps/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/apps (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/apps/[id=appid] (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/apps/[id=appid]/settings (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/apps/[id=appid]/stats (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/cli/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/cli (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/login (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/description-presence::src/routes/dashboard/stats/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /dashboard/stats (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; / renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/admin/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/admin/tokens renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/apps/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/apps renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/apps/[id=appid] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/apps/[id=appid]/settings renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/apps/[id=appid]/stats renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/cli/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/cli renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/login renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/json-ld::src/routes/dashboard/stats/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /dashboard/stats renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/admin/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/admin/tokens (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/apps/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/apps (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/apps/[id=appid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/apps/[id=appid]/settings (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/apps/[id=appid]/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/cli/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/cli (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/login (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-description::src/routes/dashboard/stats/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/admin/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/admin/tokens (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/apps/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/apps (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/apps/[id=appid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/apps/[id=appid]/settings (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/apps/[id=appid]/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/cli/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/cli (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/login (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-image::src/routes/dashboard/stats/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/admin/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/admin/tokens (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/apps/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/apps (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/apps/[id=appid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/apps/[id=appid]/settings (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/apps/[id=appid]/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/cli/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/cli (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/login (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-title::src/routes/dashboard/stats/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/admin/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/admin/tokens (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/apps/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/apps (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/apps/[id=appid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/apps/[id=appid]/settings (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/apps/[id=appid]/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/cli/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/cli (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/login (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/og-url::src/routes/dashboard/stats/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook, build script or backend route serving it in the repo (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook, build script or backend route serving it in the repo (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/app.html at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 17 as reported; grep-verified: no later <title> or document.title on the route) (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/title-length::src/routes/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/dashboard/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 28 as reported; grep-verified: no later <title> or document.title on the route) (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/title-length::src/routes/dashboard/apps/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/dashboard/apps/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 24 as reported; grep-verified: no later <title> or document.title on the route) (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/title-length::src/routes/dashboard/cli/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/dashboard/cli/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 23 as reported; grep-verified: no later <title> or document.title on the route) (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/title-length::src/routes/dashboard/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/dashboard/login/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 27 as reported; grep-verified: no later <title> or document.title on the route) (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/title-length::src/routes/dashboard/stats/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/dashboard/stats/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 25 as reported; grep-verified: no later <title> or document.title on the route) (literal claim holds); but not a search target: self-hostable OTA update server (README), /dashboard/* is admin-token gated by hooks.server.ts:37 (login excepted) and / is an API-only info page"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/admin/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/admin/tokens (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/apps/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/apps (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/apps/[id=appid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/apps/[id=appid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/apps/[id=appid]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/apps/[id=appid]/settings (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/apps/[id=appid]/stats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/apps/[id=appid]/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/cli/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/cli (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/login (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  },
+  {
+    "key": "Kage0x3B/capgo-update-lite:packages/app::seo/twitter-card::src/routes/dashboard/stats/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/stats (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head is charset/viewport/<title>, root +layout.svelte has no head, page heads <title> only (Lightswitch.svelte head is a theme script); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @skeletonlabs/skeleton-svelte@4.15.2, layercake@10.0.2 emit none (@lucide/svelte icons); route renders (hooks.server.ts:25-37 redirects only session-less /dashboard requests; /dashboard/admin/tokens errors only for non-admins))"
+  }
+]
