@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { allRules } from '@svelte-vitals/core/internal';
@@ -35,5 +36,18 @@ describe('scripts/corpus/README.md matches the committed corpus measurement', ()
   it('matches the generator', () => {
     const committed = extractBlock(readFileSync(reportPath(repoRoot), 'utf8'));
     expect(normalizeBlock(committed), REGENERATE).toBe(normalizeBlock(renderBlock(allRules, measurement, targets)));
+  });
+});
+
+describe('readVerdicts', () => {
+  it('names the ledger file that does not parse', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-verdicts-'));
+    try {
+      writeFileSync(join(dir, 'a__good.json'), '[]');
+      writeFileSync(join(dir, 'b__broken.json'), '[{"key":');
+      expect(() => readVerdicts(dir)).toThrow(/b__broken\.json/);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
