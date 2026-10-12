@@ -525,13 +525,22 @@ export interface PropTest {
   negate: boolean;
 }
 
-/** An `{#if FLAG}`/`{#if !FLAG}` on an imported binding, decided where the module exports it as the literal `false`. */
+/** An `{#if FLAG}`/`{#if !FLAG}` on an imported binding, decided where the module exports it as the literal `false`; also `{#if FLAG && …}` and `{#if !FLAG || …}`. */
 export interface FlagGate {
   name: string;
   negate: boolean;
 }
 
 function flagGate(test: AST.IfBlock['test'], flags: ReadonlySet<string>): FlagGate | undefined {
+  // `FLAG && …` is false wherever `FLAG` is, and `!FLAG || …` true.
+  if (test.type === 'LogicalExpression' && test.operator !== '??') {
+    const negate = test.operator === '||';
+    for (const side of [test.left, test.right]) {
+      const gate = flagGate(side, flags);
+      if (gate?.negate === negate) return gate;
+    }
+    return undefined;
+  }
   const negate = test.type === 'UnaryExpression' && test.operator === '!';
   const id = test.type === 'UnaryExpression' && negate ? test.argument : test;
   return id.type === 'Identifier' && flags.has(id.name) ? { name: id.name, negate } : undefined;

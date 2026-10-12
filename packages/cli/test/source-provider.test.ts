@@ -1149,6 +1149,22 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.find((a) => a.route === '/live')!.landmarks.main).toHaveLength(1);
   });
 
+  it('decides `FLAG && …` and `!FLAG || …` by a literal-false flag, but not `!FLAG && …` or `FLAG || …`', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/flags.ts': 'export const ATTRS = false;\n',
+        'src/routes/+page.svelte': `<script>import { ATTRS } from '$lib/flags'; let { data } = $props();</script>
+          <i id="a"></i>{#if ATTRS && data.ok}<i id="a"></i>{/if}
+          <i id="b"></i>{#if !ATTRS || data.ok}{:else}<i id="b"></i>{/if}
+          <i id="c"></i>{#if !ATTRS && data.ok}<i id="c"></i>{/if}
+          <i id="d"></i>{#if ATTRS || data.ok}<i id="d"></i>{/if}`
+      }),
+      ''
+    );
+    const ids = a11y.find((a) => a.route === '/')!.ids;
+    expect(Object.keys(ids).filter((id) => ids[id]!.length > 1)).toEqual(['c', 'd']);
+  });
+
   it('does not read a <svelte:element> inside <svg> as a possible heading', async () => {
     const routes = await collectRoutes(
       createMemoryRuntime({
