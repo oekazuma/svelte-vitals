@@ -38,7 +38,7 @@ change adds or removes.
 
 <!-- rule-reliability:start -->
 
-Measured on 444 apps, each pinned to a commit:
+Measured on 443 apps, each pinned to a commit:
 
 - [huntabyte/bits-ui/docs](https://github.com/huntabyte/bits-ui/tree/4ece1256a548a3f23aec3131477cbc4077556dfd/docs) (`4ece125`)
 - [huntabyte/bits-ui/tests](https://github.com/huntabyte/bits-ui/tree/4ece1256a548a3f23aec3131477cbc4077556dfd/tests) (`4ece125`)
@@ -216,7 +216,6 @@ Measured on 444 apps, each pinned to a commit:
 - [disnet/skyreader/frontend](https://github.com/disnet/skyreader/tree/89d73c6a277416df5594c860020e62db3f218602/frontend) (`89d73c6`)
 - [sunnypilot/sunnylink-frontend](https://github.com/sunnypilot/sunnylink-frontend/tree/7edbc84f605e36dcf1f761401b3e3065e6b64e11) (`7edbc84`)
 - [Stoat-Labs/Stoat/apps/web](https://github.com/Stoat-Labs/Stoat/tree/25a4246c4022c0cc483a361254353b33c8d2790a/apps/web) (`25a4246`)
-- [yavuzilyas/laf](https://github.com/yavuzilyas/laf/tree/7cecd0693965b54b288aa05396f56cd5dc45eb8b) (`7cecd06`)
 - [mary-ext/anartia](https://github.com/mary-ext/anartia/tree/c94521e425648e74339421fb01d9ed11ae24b281) (`c94521e`)
 - [hammadmajid/silroad](https://github.com/hammadmajid/silroad/tree/590e0a0a0a25cfa8984345cf2d1427b5401c0c2e) (`590e0a0`)
 - [tanvoid0/portal-desktop](https://github.com/tanvoid0/portal-desktop/tree/65689c8040d77a722cc3cc17057573fca9ee493d) (`65689c8`)
@@ -485,7 +484,7 @@ Measured on 444 apps, each pinned to a commit:
 - [sernl/listing-sync/web](https://github.com/sernl/listing-sync/tree/360f10a666a834d4f29745874b73b5a7294c2130/web) (`360f10a`)
 - [jerryboganda/radiologyos/apps/web](https://github.com/jerryboganda/radiologyos/tree/8254579b00b188eb85fb65acd426a04c2c2b3507/apps/web) (`8254579`)
 
-184412 of 184437 corpus findings have a verdict.
+184069 of 184094 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -498,9 +497,9 @@ Measured on 444 apps, each pinned to a commit:
 | [`a11y/disallowed-aria-props`](../../docs/src/content/docs/rules/a11y/disallowed-aria-props.md)                       | 1712            | 235  | 1661 / 2 / 49 / 0                     | 100% (1661/1663)   | 3% (49/1712)     |
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                |
-| [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 652             | 141  | 616 / 5 / 31 / 0                      | 99% (616/621)      | 5% (31/652)      |
-| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1255            | 137  | 371 / 24 / 860 / 0                    | 94% (371/395)      | 69% (860/1255)   |
-| [`a11y/interactive-nesting`](../../docs/src/content/docs/rules/a11y/interactive-nesting.md)                           | 1086            | 157  | 1053 / 4 / 29 / 0                     | 100% (1053/1057)   | 3% (29/1086)     |
+| [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 646             | 140  | 615 / 5 / 26 / 0                      | 99% (615/620)      | 4% (26/646)      |
+| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1173            | 136  | 290 / 24 / 859 / 0                    | 92% (290/314)      | 73% (859/1173)   |
+| [`a11y/interactive-nesting`](../../docs/src/content/docs/rules/a11y/interactive-nesting.md)                           | 1085            | 156  | 1052 / 4 / 29 / 0                     | 100% (1052/1056)   | 3% (29/1085)     |
 | [`a11y/invalid-aria-value`](../../docs/src/content/docs/rules/a11y/invalid-aria-value.md)                             | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
 | [`a11y/invalid-role`](../../docs/src/content/docs/rules/a11y/invalid-role.md)                                         | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/label-has-control`](../../docs/src/content/docs/rules/a11y/label-has-control.md)                               | 1272            | 48   | 1272 / 0 / 0 / 0                      | 100% (1272/1272)   | 0% (0/1272)      |
@@ -509,7 +508,7 @@ Measured on 444 apps, each pinned to a commit:
 | [`a11y/no-duplicate-dt`](../../docs/src/content/docs/rules/a11y/no-duplicate-dt.md)                                   | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/no-missing-id-ref`](../../docs/src/content/docs/rules/a11y/no-missing-id-ref.md)                               | 26              | 7    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)        |
 | [`a11y/pattern-title`](../../docs/src/content/docs/rules/a11y/pattern-title.md)                                       | 87              | 46   | 80 / 0 / 7 / 0                        | 100% (80/80)       | 8% (7/87)        |
-| [`a11y/permitted-contents`](../../docs/src/content/docs/rules/a11y/permitted-contents.md)                             | 7362            | 359  | 7356 / 6 / 0 / 0                      | 100% (7356/7362)   | 0% (0/7362)      |
+| [`a11y/permitted-contents`](../../docs/src/content/docs/rules/a11y/permitted-contents.md)                             | 7353            | 358  | 7347 / 6 / 0 / 0                      | 100% (7347/7353)   | 0% (0/7353)      |
 | [`a11y/placeholder-label-option`](../../docs/src/content/docs/rules/a11y/placeholder-label-option.md)                 | 126             | 33   | 43 / 0 / 83 / 0                       | 100% (43/43)       | 66% (83/126)     |
 | [`a11y/positive-tabindex`](../../docs/src/content/docs/rules/a11y/positive-tabindex.md)                               | 6               | 2    | 6 / 0 / 0 / 0                         | 100% (6/6)         | 0% (0/6)         |
 | [`a11y/require-datetime`](../../docs/src/content/docs/rules/a11y/require-datetime.md)                                 | 21              | 2    | 21 / 0 / 0 / 0                        | 100% (21/21)       | 0% (0/21)        |
@@ -519,11 +518,11 @@ Measured on 444 apps, each pinned to a commit:
 | [`a11y/unknown-aria-attribute`](../../docs/src/content/docs/rules/a11y/unknown-aria-attribute.md)                     | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/unverified-id-ref`](../../docs/src/content/docs/rules/a11y/unverified-id-ref.md)                               | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/use-list`](../../docs/src/content/docs/rules/a11y/use-list.md)                                                 | 55              | 12   | 49 / 0 / 6 / 0                        | 100% (49/49)       | 11% (6/55)       |
-| [`architecture/component-size`](../../docs/src/content/docs/rules/architecture/component-size.md)                     | 18265           | 432  | 18265 / 0 / 0 / 0                     | 100% (18265/18265) | 0% (0/18265)     |
+| [`architecture/component-size`](../../docs/src/content/docs/rules/architecture/component-size.md)                     | 18222           | 431  | 18222 / 0 / 0 / 0                     | 100% (18222/18222) | 0% (0/18222)     |
 | [`architecture/directory-naming`](../../docs/src/content/docs/rules/architecture/directory-naming.md)                 | 0               | 0    | —                                     | —                  | —                |
 | [`architecture/doc-link-target`](../../docs/src/content/docs/rules/architecture/doc-link-target.md)                   | 0               | 0    | —                                     | —                  | —                |
 | [`architecture/private-scope-import`](../../docs/src/content/docs/rules/architecture/private-scope-import.md)         | 0               | 0    | —                                     | —                  | —                |
-| [`architecture/prop-count`](../../docs/src/content/docs/rules/architecture/prop-count.md)                             | 7309            | 407  | 7309 / 0 / 0 / 0                      | 100% (7309/7309)   | 0% (0/7309)      |
+| [`architecture/prop-count`](../../docs/src/content/docs/rules/architecture/prop-count.md)                             | 7284            | 406  | 7284 / 0 / 0 / 0                      | 100% (7284/7284)   | 0% (0/7284)      |
 | [`architecture/reserved-directory-names`](../../docs/src/content/docs/rules/architecture/reserved-directory-names.md) | 0               | 0    | —                                     | —                  | —                |
 | [`architecture/reserved-name-placement`](../../docs/src/content/docs/rules/architecture/reserved-name-placement.md)   | 0               | 0    | —                                     | —                  | —                |
 | [`architecture/route-component-import`](../../docs/src/content/docs/rules/architecture/route-component-import.md)     | 76              | 32   | 3 / 0 / 73 / 0                        | 100% (3/3)         | 96% (73/76)      |
@@ -531,9 +530,9 @@ Measured on 444 apps, each pinned to a commit:
 | [`correctness/autoplay-muted`](../../docs/src/content/docs/rules/correctness/autoplay-muted.md)                       | 23              | 17   | 12 / 0 / 11 / 0                       | 100% (12/12)       | 48% (11/23)      |
 | [`correctness/base-path-navigation`](../../docs/src/content/docs/rules/correctness/base-path-navigation.md)           | 191             | 23   | 71 / 0 / 120 / 0                      | 100% (71/71)       | 63% (120/191)    |
 | [`correctness/checkable-bind-value`](../../docs/src/content/docs/rules/correctness/checkable-bind-value.md)           | 0               | 0    | —                                     | —                  | —                |
-| [`correctness/each-index-key`](../../docs/src/content/docs/rules/correctness/each-index-key.md)                       | 3699            | 286  | 1767 / 0 / 1932 / 0                   | 100% (1767/1767)   | 52% (1932/3699)  |
-| [`correctness/each-key`](../../docs/src/content/docs/rules/correctness/each-key.md)                                   | 16390           | 294  | 11480 / 1 / 4908 / 1                  | 100% (11480/11481) | 30% (4908/16390) |
-| [`correctness/effect-as-derived`](../../docs/src/content/docs/rules/correctness/effect-as-derived.md)                 | 903             | 214  | 765 / 0 / 138 / 0                     | 100% (765/765)     | 15% (138/903)    |
+| [`correctness/each-index-key`](../../docs/src/content/docs/rules/correctness/each-index-key.md)                       | 3696            | 285  | 1765 / 0 / 1931 / 0                   | 100% (1765/1765)   | 52% (1931/3696)  |
+| [`correctness/each-key`](../../docs/src/content/docs/rules/correctness/each-key.md)                                   | 16330           | 293  | 11442 / 1 / 4886 / 1                  | 100% (11442/11443) | 30% (4886/16330) |
+| [`correctness/effect-as-derived`](../../docs/src/content/docs/rules/correctness/effect-as-derived.md)                 | 895             | 213  | 759 / 0 / 136 / 0                     | 100% (759/759)     | 15% (136/895)    |
 | [`correctness/effect-as-onmount`](../../docs/src/content/docs/rules/correctness/effect-as-onmount.md)                 | 236             | 98   | 171 / 2 / 63 / 0                      | 99% (171/173)      | 27% (63/236)     |
 | [`correctness/instance-browser-global`](../../docs/src/content/docs/rules/correctness/instance-browser-global.md)     | 46              | 28   | 4 / 0 / 42 / 0                        | 100% (4/4)         | 91% (42/46)      |
 | [`correctness/nonreactive-builtin-state`](../../docs/src/content/docs/rules/correctness/nonreactive-builtin-state.md) | 44              | 28   | 34 / 0 / 10 / 0                       | 100% (34/34)       | 23% (10/44)      |
@@ -541,13 +540,13 @@ Measured on 444 apps, each pinned to a commit:
 | [`correctness/orphan-lifecycle`](../../docs/src/content/docs/rules/correctness/orphan-lifecycle.md)                   | 0               | 0    | —                                     | —                  | —                |
 | [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 995             | 141  | 450 / 7 / 538 / 0                     | 98% (450/457)      | 54% (538/995)    |
 | [`correctness/server-browser-global`](../../docs/src/content/docs/rules/correctness/server-browser-global.md)         | 11              | 4    | 0 / 0 / 11 / 0                        | —                  | 100% (11/11)     |
-| [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 277             | 92   | 70 / 0 / 207 / 0                      | 100% (70/70)       | 75% (207/277)    |
-| [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 579             | 158  | 577 / 2 / 0 / 0                       | 100% (577/579)     | 0% (0/579)       |
+| [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 269             | 91   | 70 / 0 / 199 / 0                      | 100% (70/70)       | 74% (199/269)    |
+| [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 559             | 157  | 557 / 2 / 0 / 0                       | 100% (557/559)     | 0% (0/559)       |
 | [`performance/font-preload-crossorigin`](../../docs/src/content/docs/rules/performance/font-preload-crossorigin.md)   | 0               | 0    | —                                     | —                  | —                |
 | [`performance/heavy-import`](../../docs/src/content/docs/rules/performance/heavy-import.md)                           | 112             | 9    | 112 / 0 / 0 / 0                       | 100% (112/112)     | 0% (0/112)       |
 | [`performance/iframe-loading`](../../docs/src/content/docs/rules/performance/iframe-loading.md)                       | 319             | 145  | 76 / 0 / 240 / 3                      | 100% (76/76)       | 75% (240/319)    |
-| [`performance/image-dimensions`](../../docs/src/content/docs/rules/performance/image-dimensions.md)                   | 2845            | 293  | 785 / 2 / 2058 / 0                    | 100% (785/787)     | 72% (2058/2845)  |
-| [`performance/image-loading-hint`](../../docs/src/content/docs/rules/performance/image-loading-hint.md)               | 2585            | 307  | 932 / 2 / 1651 / 0                    | 100% (932/934)     | 64% (1651/2585)  |
+| [`performance/image-dimensions`](../../docs/src/content/docs/rules/performance/image-dimensions.md)                   | 2834            | 292  | 781 / 2 / 2051 / 0                    | 100% (781/783)     | 72% (2051/2834)  |
+| [`performance/image-loading-hint`](../../docs/src/content/docs/rules/performance/image-loading-hint.md)               | 2574            | 306  | 929 / 2 / 1643 / 0                    | 100% (929/931)     | 64% (1643/2574)  |
 | [`performance/lcp-image`](../../docs/src/content/docs/rules/performance/lcp-image.md)                                 | 230             | 81   | 96 / 5 / 129 / 0                      | 95% (96/101)       | 56% (129/230)    |
 | [`performance/load-waterfall`](../../docs/src/content/docs/rules/performance/load-waterfall.md)                       | 305             | 48   | 146 / 1 / 158 / 0                     | 99% (146/147)      | 52% (158/305)    |
 | [`performance/minify-disabled`](../../docs/src/content/docs/rules/performance/minify-disabled.md)                     | 0               | 0    | —                                     | —                  | —                |
@@ -555,12 +554,12 @@ Measured on 444 apps, each pinned to a commit:
 | [`performance/preconnect`](../../docs/src/content/docs/rules/performance/preconnect.md)                               | 3               | 3    | 3 / 0 / 0 / 0                         | 100% (3/3)         | 0% (0/3)         |
 | [`performance/preload-missing-as`](../../docs/src/content/docs/rules/performance/preload-missing-as.md)               | 0               | 0    | —                                     | —                  | —                |
 | [`performance/render-blocking-script`](../../docs/src/content/docs/rules/performance/render-blocking-script.md)       | 6               | 4    | 6 / 0 / 0 / 0                         | 100% (6/6)         | 0% (0/6)         |
-| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 2819            | 299  | 2352 / 4 / 463 / 0                    | 100% (2352/2356)   | 16% (463/2819)   |
-| [`performance/sequential-awaits`](../../docs/src/content/docs/rules/performance/sequential-awaits.md)                 | 2890            | 224  | 1545 / 2 / 1341 / 2                   | 100% (1545/1547)   | 46% (1341/2890)  |
-| [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 913             | 205  | 913 / 0 / 0 / 0                       | 100% (913/913)     | 0% (0/913)       |
+| [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 2812            | 298  | 2345 / 4 / 463 / 0                    | 100% (2345/2349)   | 16% (463/2812)   |
+| [`performance/sequential-awaits`](../../docs/src/content/docs/rules/performance/sequential-awaits.md)                 | 2882            | 223  | 1537 / 2 / 1341 / 2                   | 100% (1537/1539)   | 47% (1341/2882)  |
+| [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 909             | 204  | 909 / 0 / 0 / 0                       | 100% (909/909)     | 0% (0/909)       |
 | [`security/handler-state-write`](../../docs/src/content/docs/rules/security/handler-state-write.md)                   | 27              | 10   | 18 / 0 / 9 / 0                        | 100% (18/18)       | 33% (9/27)       |
 | [`security/javascript-url`](../../docs/src/content/docs/rules/security/javascript-url.md)                             | 45              | 3    | 45 / 0 / 0 / 0                        | 100% (45/45)       | 0% (0/45)        |
-| [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 3868            | 329  | 402 / 0 / 3465 / 1                    | 100% (402/402)     | 90% (3465/3868)  |
+| [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 3844            | 328  | 392 / 0 / 3451 / 1                    | 100% (392/392)     | 90% (3451/3844)  |
 | [`security/server-module-state`](../../docs/src/content/docs/rules/security/server-module-state.md)                   | 208             | 60   | 4 / 2 / 202 / 0                       | 67% (4/6)          | 97% (202/208)    |
 | [`security/shared-state-import`](../../docs/src/content/docs/rules/security/shared-state-import.md)                   | 64              | 12   | 49 / 0 / 15 / 0                       | 100% (49/49)       | 23% (15/64)      |
 | [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 11587           | 353  | 3935 / 78 / 7574 / 0                  | 98% (3935/4013)    | 65% (7574/11587) |
@@ -569,11 +568,11 @@ Measured on 444 apps, each pinned to a commit:
 | [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 8844            | 289  | 999 / 85 / 7760 / 0                   | 92% (999/1084)     | 88% (7760/8844)  |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 150             | 74   | 105 / 0 / 45 / 0                      | 100% (105/105)     | 30% (45/150)     |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 265             | 137  | 48 / 2 / 215 / 0                      | 96% (48/50)        | 81% (215/265)    |
-| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1348            | 227  | 1303 / 41 / 4 / 0                     | 97% (1303/1344)    | 0% (4/1348)      |
+| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1346            | 226  | 1301 / 41 / 4 / 0                     | 97% (1301/1342)    | 0% (4/1346)      |
 | [`seo/hreflang`](../../docs/src/content/docs/rules/seo/hreflang.md)                                                   | 0               | 0    | —                                     | —                  | —                |
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 4               | 4    | 3 / 0 / 1 / 0                         | 100% (3/3)         | 25% (1/4)        |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 26              | 6    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)        |
-| [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1309            | 106  | 1305 / 4 / 0 / 0                      | 100% (1305/1309)   | 0% (0/1309)      |
+| [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1304            | 105  | 1300 / 4 / 0 / 0                      | 100% (1300/1304)   | 0% (0/1304)      |
 | [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 13560           | 394  | 13487 / 54 / 19 / 0                   | 100% (13487/13541) | 0% (19/13560)    |
 | [`seo/json-ld-date-format`](../../docs/src/content/docs/rules/seo/json-ld-date-format.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`seo/json-ld-deprecated-type`](../../docs/src/content/docs/rules/seo/json-ld-deprecated-type.md)                     | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
@@ -586,7 +585,7 @@ Measured on 444 apps, each pinned to a commit:
 | [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 10948           | 327  | 10860 / 88 / 0 / 0                    | 99% (10860/10948)  | 0% (0/10948)     |
 | [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 11374           | 332  | 11323 / 49 / 2 / 0                    | 100% (11323/11372) | 0% (2/11374)     |
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 166             | 166  | 67 / 2 / 97 / 0                       | 97% (67/69)        | 58% (97/166)     |
-| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3414            | 360  | 3098 / 117 / 168 / 6                  | 96% (3098/3215)    | 5% (168/3389)    |
+| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3408            | 359  | 3093 / 117 / 167 / 6                  | 96% (3093/3210)    | 5% (167/3383)    |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 14              | 14   | 13 / 0 / 1 / 0                        | 100% (13/13)       | 7% (1/14)        |
 | [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 305             | 305  | 112 / 2 / 191 / 0                     | 98% (112/114)      | 63% (191/305)    |
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 610             | 149  | 137 / 0 / 473 / 0                     | 100% (137/137)     | 78% (473/610)    |
