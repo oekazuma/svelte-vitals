@@ -498,7 +498,7 @@ Measured on 457 apps, each pinned to a commit:
 - [Vermont-Complex-Systems/vcsi-website](https://github.com/Vermont-Complex-Systems/vcsi-website/tree/5bb1c83c14a9ce20038962f2261601ad7a5f9df9) (`5bb1c83`)
 - [Ak-sara/sso](https://github.com/Ak-sara/sso/tree/9b6ff75954172a903c73b86c355d96efc653485c) (`9b6ff75`)
 
-188356 of 188381 corpus findings have a verdict.
+188296 of 188321 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -552,7 +552,7 @@ Measured on 457 apps, each pinned to a commit:
 | [`correctness/nonreactive-builtin-state`](../../docs/src/content/docs/rules/correctness/nonreactive-builtin-state.md) | 44              | 28   | 34 / 0 / 10 / 0                       | 100% (34/34)       | 23% (10/44)      |
 | [`correctness/orphan-effect`](../../docs/src/content/docs/rules/correctness/orphan-effect.md)                         | 0               | 0    | —                                     | —                  | —                |
 | [`correctness/orphan-lifecycle`](../../docs/src/content/docs/rules/correctness/orphan-lifecycle.md)                   | 0               | 0    | —                                     | —                  | —                |
-| [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 1002            | 144  | 455 / 8 / 539 / 0                     | 98% (455/463)      | 54% (539/1002)   |
+| [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 942             | 138  | 455 / 3 / 484 / 0                     | 99% (455/458)      | 51% (484/942)    |
 | [`correctness/server-browser-global`](../../docs/src/content/docs/rules/correctness/server-browser-global.md)         | 11              | 4    | 0 / 0 / 11 / 0                        | —                  | 100% (11/11)     |
 | [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 273             | 94   | 70 / 0 / 203 / 0                      | 100% (70/70)       | 74% (203/273)    |
 | [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 571             | 159  | 569 / 2 / 0 / 0                       | 100% (569/571)     | 0% (0/571)       |
