@@ -498,7 +498,7 @@ Measured on 457 apps, each pinned to a commit:
 - [Vermont-Complex-Systems/vcsi-website](https://github.com/Vermont-Complex-Systems/vcsi-website/tree/5bb1c83c14a9ce20038962f2261601ad7a5f9df9) (`5bb1c83`)
 - [Ak-sara/sso](https://github.com/Ak-sara/sso/tree/9b6ff75954172a903c73b86c355d96efc653485c) (`9b6ff75`)
 
-188296 of 188321 corpus findings have a verdict.
+188294 of 188319 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -512,7 +512,7 @@ Measured on 457 apps, each pinned to a commit:
 | [`a11y/disallowed-element`](../../docs/src/content/docs/rules/a11y/disallowed-element.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/doctype`](../../docs/src/content/docs/rules/a11y/doctype.md)                                                   | 0               | 0    | —                                     | —                  | —                |
 | [`a11y/duplicate-landmark`](../../docs/src/content/docs/rules/a11y/duplicate-landmark.md)                             | 649             | 142  | 618 / 5 / 26 / 0                      | 99% (618/623)      | 4% (26/649)      |
-| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1186            | 139  | 300 / 26 / 860 / 0                    | 92% (300/326)      | 73% (860/1186)   |
+| [`a11y/id-duplication`](../../docs/src/content/docs/rules/a11y/id-duplication.md)                                     | 1184            | 139  | 300 / 24 / 860 / 0                    | 93% (300/324)      | 73% (860/1184)   |
 | [`a11y/interactive-nesting`](../../docs/src/content/docs/rules/a11y/interactive-nesting.md)                           | 1100            | 159  | 1067 / 4 / 29 / 0                     | 100% (1067/1071)   | 3% (29/1100)     |
 | [`a11y/invalid-aria-value`](../../docs/src/content/docs/rules/a11y/invalid-aria-value.md)                             | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
 | [`a11y/invalid-role`](../../docs/src/content/docs/rules/a11y/invalid-role.md)                                         | 0               | 0    | —                                     | —                  | —                |
