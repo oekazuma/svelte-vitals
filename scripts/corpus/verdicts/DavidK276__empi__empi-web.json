@@ -1,0 +1,1402 @@
+[
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/lib/components/Login.svelte:40::Duplicate id \"email\"",
+    "verdict": "tp",
+    "basis": "read Login.svelte:40 <input id=\"email\"> renders under {#if !is_logged_in}; routes/+layout.svelte renders <Login is_logged_in={false}> in the account Dropdown for anonymous visitors, and each listed page (account, account/activate, account/register, admin/add-admin, admin/password-reset) has its own unconditional id=\"email\" with no load gating anonymous users, so opening the dropdown duplicates the id"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/lib/components/Login.svelte:42::Duplicate id \"password\"",
+    "verdict": "tp",
+    "basis": "read Login.svelte:42 <input id=\"password\"> (layout Dropdown, anonymous arm) collides with account/register/+page.svelte:55 id=\"password\", which renders unconditionally on the public register page; duplicate as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/lib/components/ResearchPasswordRequiredModal.svelte:35::Duplicate id \"password\"",
+    "verdict": "tp",
+    "basis": "read ResearchPasswordRequiredModal.svelte:35 <input id=\"password\"> inside Modal.svelte's always-present <dialog> (rendered unconditionally by research/[nanoid=nanoid]/+page.svelte:130); the layout's anonymous <Login> (Dropdown) also has id=\"password\", so the id is duplicated for anonymous visitors, as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/lib/components/UserPasswordRequiredModal.svelte:29::Duplicate id \"password\"",
+    "verdict": "tp",
+    "basis": "mixed 1-1, tie broken by the first-look route: UserPasswordRequiredModal.svelte:29 id=\"password\" sits in Modal.svelte's always-present <dialog>; on /admin/student-points (first-look route) it renders unconditionally beside the layout's anonymous <Login> id=\"password\" (no load gating) → tp; on /research/[id=integer] it is under {#if page.data.user != null} while the layout Login copy is in the {:else} of data.user != null, so that route never co-renders (design)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/account/+page.svelte:90::Duplicate id \"submit-div\"",
+    "verdict": "tp",
+    "basis": "read account/+page.svelte:65 and :90: two unconditional <div id=\"submit-div\"> in the update-info and change-password forms of the same page; duplicate as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/research/[nanoid=nanoid]/+page.svelte:214::Duplicate id \"submit-div\"",
+    "verdict": "tp",
+    "basis": "read research/[nanoid=nanoid]/+page.svelte:214 div#submit-div under {#if data.research.is_protected} inside an AccordionTab (content always in the DOM, AccordionTab.svelte:19-23); it duplicates the unconditional #submit-div at :186 whenever the research is protected"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/research/[nanoid=nanoid]/+page.svelte:238::Duplicate id \"submit-div\"",
+    "verdict": "fp",
+    "basis": "read research/[nanoid=nanoid]/+page.svelte:220-238: this div#submit-div is under {#if ENABLE_ATTRS && data.attrs?.length > 0}, and ENABLE_ATTRS is imported (:19) from lib/constants.ts:8 `export const ENABLE_ATTRS = false`, so this copy never renders; the analyzer decides a bare {#if FLAG} but not FLAG && …"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/research/[nanoid=nanoid]/+page.svelte:239::Duplicate id \"submit\"",
+    "verdict": "fp",
+    "basis": "read research/[nanoid=nanoid]/+page.svelte:220-239: this button#submit is under {#if ENABLE_ATTRS && data.attrs?.length > 0} with ENABLE_ATTRS = false (lib/constants.ts:8, imported :19), so this copy never renders; the analyzer decides a bare {#if FLAG} but not FLAG && …"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/research/[nanoid=nanoid]/+page.svelte:294::Duplicate id \"submit-div\"",
+    "verdict": "tp",
+    "basis": "read research/[nanoid=nanoid]/+page.svelte:294 div#submit-div in the always-rendered send-email AccordionTab (AccordionTab renders children unconditionally) duplicates the unconditional #submit-div at :186; duplicate as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/research/[nanoid=nanoid]/+page.svelte:295::Duplicate id \"submit\"",
+    "verdict": "tp",
+    "basis": "read research/[nanoid=nanoid]/+page.svelte:295 button#submit in the always-rendered send-email AccordionTab duplicates button#submit at :215 whenever data.research.is_protected (AccordionTab content is always in the DOM); duplicate as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/id-duplication::src/routes/test/+page.svelte:178::Duplicate id \"text__blockquotes\"",
+    "verdict": "tp",
+    "basis": "read test/+page.svelte:86 and :178: two unconditional <article id=\"text__blockquotes\"> on the /test HTML sample page (no load); duplicate as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::a11y/interactive-nesting::src/lib/components/ThemeToggle.svelte:15::<select> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read ThemeToggle.svelte:9-20: <select id=\"theme-select\"> sits inside <button id=\"theme-toggle\">; interactive content inside a button, as reported"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::architecture/component-size::src/routes/research/[nanoid=nanoid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/research/[nanoid=nanoid]/+page.svelte has 335 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::architecture/component-size::src/routes/sentry-example-page/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sentry-example-page/+page.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count; the file is the Sentry wizard example page (its header comment says it can be deleted); tp because the ledger labels this rule tp uniformly with no scaffold exemption"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::architecture/component-size::src/routes/test/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/test/+page.svelte has 587 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count; the file is a static \"HTML5 Test Page\" element gallery; tp because the ledger labels this rule tp uniformly (length is the claim)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::correctness/each-key::src/routes/admin/student-points/+page.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:75 '{#each table.rows as row}': rows of a @vincjo/datatables TableHandler over the participation records (student-points/+page.svelte:53-75), re-sorted and filtered by ThSort/ThFilter, so rows reorder; runtime records (an eslint-disable for svelte/require-each-key sits above it, which this rule does not read)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::correctness/effect-as-onmount::src/lib/components/FormResultMessage.svelte:36::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: FormResultMessage.svelte:36 $effect.pre(() => document.querySelectorAll('.form-result').forEach(remove)) reads nothing reactive, as reported, but it relies on running before this component's own .form-result exists ('destroys all previous messages before adding new one', :35): $effect.pre is a RENDER_EFFECT that create_effect runs synchronously during script init, before the template is built (svelte src/internal/client/reactivity/effects.js user_pre_effect/create_effect), while onMount, which the rule suggests, runs after insertion and would remove the new message too"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::correctness/stale-prop-derivation::src/lib/components/FormResultMessage.svelte:9::\"result\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: FormResultMessage.svelte:9 const result = props.result is read once and rendered (claim structurally true), but every use mounts the component imperatively with a plain props object (mount(FormResultMessage, { props: { result } }) in lib/enhanceFunctions.js:20, Login.svelte:25), so the prop never changes"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/iframe-loading::src/routes/test/+page.svelte:409::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "read: <iframe> has no loading attribute and no spread; embedded iframe of the app's own home page (src=resolve('/')) in the IFrame article ~409 lines into the 587-line HTML5 test page - offscreen on load, and it loads a full document eagerly"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/guide/expert/create-research/+page.svelte:7::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; guide screenshot researchCreate ($lib/assets/screens/research-create.png, 1745x439) styled only max-width:100% (page <style>) - the height comes from the image, so the list below shifts when it loads"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/guide/expert/edit-research/+page.svelte:7::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; guide screenshot researchEdit ($lib/assets/screens/research-edit.png, 1745x1052) styled only max-width:100% (page <style>) - the height comes from the image, so the list below shifts when it loads"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/guide/student/register/+page.svelte:8::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; guide screenshot register ($lib/assets/screens/register.png, 2232x502) styled only max-width:100% (page <style>) - the height comes from the image, so the list below shifts when it loads"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/guide/student/signup/+page.svelte:8::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; guide screenshot researchUser ($lib/assets/screens/research-user.png, 1920x985) styled only max-width:100% (page <style>) - the height comes from the image, so the list below shifts when it loads"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/test/+page.svelte:344::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; placeholder kitten (placekitten.com) in the HTML5 test page's Images section (test/+page.svelte:344), no class or CSS size - natural size decides the box"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/test/+page.svelte:346::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; placeholder kitten (placekitten.com) in the HTML5 test page's Images section (test/+page.svelte:346), no class or CSS size - natural size decides the box"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/test/+page.svelte:350::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; placeholder kitten (placekitten.com) in the HTML5 test page's Images section (test/+page.svelte:350), no class or CSS size - natural size decides the box"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-dimensions::src/routes/test/+page.svelte:358::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; placeholder kitten (placekitten.com) in the HTML5 test page's Images section (test/+page.svelte:358), no class or CSS size - natural size decides the box"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/guide/expert/create-research/+page.svelte:7::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; guide screenshot in the <figure> directly under the page <h1> (:5-7) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/guide/expert/edit-research/+page.svelte:7::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; guide screenshot in the <figure> directly under the page <h1> (:5-7) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/guide/student/register/+page.svelte:8::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; guide screenshot in the <figure> directly under the page <h1> (:6-8) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/guide/student/signup/+page.svelte:8::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; guide screenshot in the <figure> directly under the page <h1> (:6-8) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/test/+page.svelte:344::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; kitten image in the Embedded content section ~344 lines into the 587-line test page, after the text sections - offscreen on load"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/test/+page.svelte:346::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; kitten image in the Embedded content section ~346 lines into the 587-line test page, after the text sections - offscreen on load"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/test/+page.svelte:350::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; kitten image in the Embedded content section ~350 lines into the 587-line test page, after the text sections - offscreen on load"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/image-loading-hint::src/routes/test/+page.svelte:358::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; kitten image in the Embedded content section ~358 lines into the 587-line test page, after the text sections - offscreen on load"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/load-waterfall::src/routes/+layout.ts:21::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.ts:5-21 + lib/translations.ts loaders: the hop is real in data flow (initLocale from `await cookieStore.get('locale')` in `if (browser)` feeds loadTranslations), but cookieStore is the browser's local Cookie Store API and sveltekit-i18n's loaders are `await import('./translations/<lang>/*.json')` bundled chunks — no browser network round trip (ledger in-process/no-round-trip hop convention)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/guide/expert/create-research/+page.svelte:7::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; src=researchCreate imported from $lib/assets/screens/research-create.png, a 1745x439 PNG raster shown at up to 100% width - one fixed-size asset for every device"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/guide/expert/edit-research/+page.svelte:7::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; src=researchEdit imported from $lib/assets/screens/research-edit.png, a 1745x1052 PNG raster shown at up to 100% width - one fixed-size asset for every device"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/guide/student/register/+page.svelte:8::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; src=register imported from $lib/assets/screens/register.png, a 2232x502 PNG raster shown at up to 100% width - one fixed-size asset for every device"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/guide/student/signup/+page.svelte:8::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; src=researchUser imported from $lib/assets/screens/research-user.png, a 1920x985 PNG raster shown at up to 100% width - one fixed-size asset for every device"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/test/+page.svelte:344::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; remote raster placekitten.com image at a fixed 420/480px - one fixed-size asset"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/test/+page.svelte:346::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; remote raster placekitten.com image at a fixed 420/480px - one fixed-size asset"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/responsive-image::src/routes/test/+page.svelte:350::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, not in <picture>; remote raster placekitten.com image at a fixed 420/480px - one fixed-size asset"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/sequential-awaits::src/routes/research/[id=integer]/+page.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :13-23: the appointments fetch uses only params.id; the research fetch before it only feeds the error() at :19-21 (exceptional path) and a body read — independent backend API requests serialized (ledger 404-gate tp convention)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/sequential-awaits::src/routes/research/[nanoid=nanoid]/+page.server.ts:159::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :153-162: the attr/research fetch uses only params.nanoid, nothing from the research-admin fetch before it — independent backend API requests serialized"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/sequential-awaits::src/routes/research/[nanoid=nanoid]/+page.server.ts:165::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :159-168: the paginated attr/ fetch uses nothing from the research attrs fetch before it — independent backend API requests serialized"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::performance/sequential-awaits::src/routes/research/[nanoid=nanoid]/+page.server.ts:181::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :165-184: the research-admin appointments fetch uses only params.nanoid, nothing from the attrs pagination before it — independent backend API requests serialized"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/account/activate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/activate (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/account/password-reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/account/points/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/account/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/admin/add-admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/add-admin (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/admin/attributes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/attributes (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); but not a search target (staff-only, client-gated: admin/attributes/+page.svelte:16-20 $effect goto(/) for non-staff), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/admin/password-reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/admin/research-list/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/research-list (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); but not a search target (staff-only, client-gated: admin/research-list/+page.svelte:12-16 onMount goto(/) for non-staff), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/admin/student-points/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/student-points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/expert/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/expert (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/expert/create-research/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/expert/create-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/expert/edit-research/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/expert/edit-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/student/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/student (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/student/cancel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/student/cancel (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/student/password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/student/password (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/student/points/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/student/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/student/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/student/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/guide/student/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guide/student/signup (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /participation/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/participation/cancel-ok/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /participation/cancel-ok (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/research/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); but not a search target (staff-only, client-gated: research/+page.svelte:17-21 onMount goto(/) for non-staff), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/research/[id=integer]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /research/[id=integer] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /research/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); but not a search target (staff-only, client-gated: research/[nanoid=nanoid]/+page.svelte:124-128 onMount goto(/) for non-staff), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/sentry-example-page/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sentry-example-page (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/canonical-url::src/routes/test/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /test (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response)); publicly reachable rendered route with no auth gate, redirect or noindex (no robots.txt)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on / (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /account (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/account/activate/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /account/activate (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/account/password-reset/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /account/password-reset (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/account/points/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /account/points (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/account/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /account/register (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/admin/add-admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /admin/add-admin (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/admin/attributes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /admin/attributes (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/admin/password-reset/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /admin/password-reset (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/admin/research-list/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /admin/research-list (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/admin/student-points/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /admin/student-points (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/expert/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/expert (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/expert/create-research/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/expert/create-research (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/expert/edit-research/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/expert/edit-research (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/student/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/student (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/student/cancel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/student/cancel (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/student/password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/student/password (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/student/points/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/student/points (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/student/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/student/register (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/guide/student/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /guide/student/signup (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /participation/[nanoid=nanoid] (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/participation/cancel-ok/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /participation/cancel-ok (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/research/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /research (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/research/[id=integer]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /research/[id=integer] (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); publicly reachable page of the course portal (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /research/[nanoid=nanoid] (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/sentry-example-page/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /sentry-example-page (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/description-presence::src/routes/test/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html, every svelte:head and lib component for name=\"description\", <meta {name}>/name={...} and client-side meta injection; no meta-tag package in deps): no <meta name=description> on /test (literal claim holds); route renders (no layout/page load or hooks.server.ts path that always redirects/throws for it); but not a search target: signed-in, staff-only, one-time-link or test/scaffold view of the course portal (account/admin views, /research staff create with goto(\"/\") for non-staff, nanoid participation/research links, /test HTML test page, /sentry-example-page)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <title>Empi</title> is the only title of all 28 routes (no svelte:head in src), duplicate as claimed; mixed, labelled by majority: 15 are public pages (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; / renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /account renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/account/activate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /account/activate renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/account/password-reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /account/password-reset renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/account/points/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /account/points renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/account/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /account/register renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/admin/add-admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin/add-admin renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/admin/attributes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin/attributes renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/admin/password-reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin/password-reset renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/admin/research-list/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin/research-list renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/admin/student-points/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /admin/student-points renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/expert/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/expert renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/expert/create-research/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/expert/create-research renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/expert/edit-research/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/expert/edit-research renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/student/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/student renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/student/cancel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/student/cancel renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/student/password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/student/password renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/student/points/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/student/points renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/student/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/student/register renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/guide/student/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /guide/student/signup renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /participation/[nanoid=nanoid] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/participation/cancel-ok/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /participation/cancel-ok renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/research/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /research renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/research/[id=integer]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /research/[id=integer] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /research/[nanoid=nanoid] renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/sentry-example-page/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /sentry-example-page renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/json-ld::src/routes/test/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /test renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/account/activate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/activate (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/account/password-reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/account/points/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/account/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/admin/add-admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/add-admin (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/admin/attributes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/attributes (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/admin/password-reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/admin/research-list/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/research-list (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/admin/student-points/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/student-points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/expert/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/expert (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/expert/create-research/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/expert/create-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/expert/edit-research/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/expert/edit-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/student/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/student (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/student/cancel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/student/cancel (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/student/password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/student/password (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/student/points/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/student/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/student/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/student/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/guide/student/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guide/student/signup (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /participation/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/participation/cancel-ok/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /participation/cancel-ok (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/research/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/research/[id=integer]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /research/[id=integer] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /research/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/sentry-example-page/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sentry-example-page (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-description::src/routes/test/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /test (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/account/activate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/activate (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/account/password-reset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/account/points/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/account/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/admin/add-admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/add-admin (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/admin/attributes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/attributes (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/admin/password-reset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/admin/research-list/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/research-list (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/admin/student-points/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/student-points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/expert/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/expert (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/expert/create-research/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/expert/create-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/expert/edit-research/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/expert/edit-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/student/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/student (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/student/cancel/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/student/cancel (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/student/password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/student/password (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/student/points/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/student/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/student/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/student/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/guide/student/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guide/student/signup (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /participation/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/participation/cancel-ok/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /participation/cancel-ok (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/research/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/research/[id=integer]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /research/[id=integer] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /research/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/sentry-example-page/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sentry-example-page (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-image::src/routes/test/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /test (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/account/activate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/activate (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/account/password-reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/account/points/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/account/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/admin/add-admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/add-admin (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/admin/attributes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/attributes (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/admin/password-reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/admin/research-list/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/research-list (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/admin/student-points/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/student-points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/expert/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/expert (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/expert/create-research/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/expert/create-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/expert/edit-research/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/expert/edit-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/student/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/student (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/student/cancel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/student/cancel (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/student/password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/student/password (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/student/points/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/student/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/student/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/student/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/guide/student/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guide/student/signup (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /participation/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/participation/cancel-ok/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /participation/cancel-ok (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/research/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/research/[id=integer]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /research/[id=integer] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /research/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/sentry-example-page/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sentry-example-page (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-title::src/routes/test/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /test (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/account/activate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/activate (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/account/password-reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/account/points/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/account/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/admin/add-admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/add-admin (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/admin/attributes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/attributes (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/admin/password-reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/admin/research-list/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/research-list (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/admin/student-points/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/student-points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/expert/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/expert (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/expert/create-research/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/expert/create-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/expert/edit-research/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/expert/edit-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/student/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/student (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/student/cancel/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/student/cancel (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/student/password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/student/password (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/student/points/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/student/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/student/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/student/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/guide/student/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guide/student/signup (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /participation/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/participation/cancel-ok/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /participation/cancel-ok (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/research/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/research/[id=integer]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /research/[id=integer] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /research/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/sentry-example-page/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sentry-example-page (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/og-url::src/routes/test/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /test (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook, build script or backend route serving it in the repo (literal claim holds); the course portal has public pages to list and crawl (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/single-h1::/participation/cancel-ok::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: participation/cancel-ok/+page.svelte renders only an icon row and a home button, and root +layout.svelte (nav: Dropdown/Login/ThemeToggle) renders no heading; grep finds no <h1> in src/lib/components except MarkdownGuideModal (not used here) -> no <h1>"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/single-h1::src/lib/components/MarkdownGuideModal.svelte:20::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page's own <h1> (research/[nanoid=nanoid]/+page.svelte:134) is the single visible one; the second counted is the demo '<h1>Nadpis 1</h1>' in the Markdown cheat-sheet table of MarkdownGuideModal (:20), inside Modal.svelte's <dialog> that opens only via showModal() when the user asks for the guide - as the ledger labels <h1>s in closed <dialog> modals"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/single-h1::src/routes/admin/research-list/+page.svelte:24::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: admin/research-list/+page.svelte renders <h1> page title (:20) and then an <h1>{research.name} per research in {#each data.researches} (:24) -> two or more <h1>s whenever the list is non-empty"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/single-h1::src/routes/participation/[nanoid=nanoid]/+page.svelte:13::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: participation/[nanoid=nanoid]/+page.svelte's top heading is <h2> appointment (:13); root layout renders no heading; +page.ts load renders it for an existing participation (errors only on a failed fetch) -> no <h1>"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/single-h1::src/routes/test/+page.svelte:61::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: test/+page.svelte is an 'HTML5 Test Page' that renders unconditional <h1>s at :7, :61, :67, :179, :192, :202 (section headers) -> six <h1>s on a shipped route (no load/guard)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook, build script or backend route serving it in the repo (literal claim holds); the course portal has public pages to list and crawl (empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/app.html at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 4 as reported; grep-verified: no later <title> or document.title on the route): app.html:7 \"Empi\" is the only title of all 28 routes (no svelte:head in src; sentry-example-page:35 <title> sits in the body); mixed, labelled by majority: 15 are public pages (/, /guide/**, /research/[id], account sign-up flows; empi has no auth gate: hooks.server.ts only hydrates the session and root +layout.server.ts only returns it, so its public pages (/ research list, /guide/**, /research/[id], account sign-up flows) are open to anyone, no noindex or robots rule)"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/account/activate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/activate (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/account/password-reset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/account/points/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/account/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/admin/add-admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/add-admin (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/admin/attributes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/attributes (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/admin/password-reset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/password-reset (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/admin/research-list/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/research-list (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/admin/student-points/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/student-points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/expert/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/expert (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/expert/create-research/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/expert/create-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/expert/edit-research/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/expert/edit-research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/student/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/student (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/student/cancel/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/student/cancel (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/student/password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/student/password (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/student/points/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/student/points (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/student/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/student/register (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/guide/student/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guide/student/signup (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/participation/[nanoid=nanoid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /participation/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/participation/cancel-ok/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /participation/cancel-ok (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/research/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /research (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/research/[id=integer]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /research/[id=integer] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/research/[nanoid=nanoid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /research/[nanoid=nanoid] (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/sentry-example-page/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sentry-example-page (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  },
+  {
+    "key": "DavidK276/empi:empi-web::seo/twitter-card::src/routes/test/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /test (script-verified (grep of the whole repo incl. app.html): no og:*/twitter:*/rel=canonical anywhere; app.html head charset/viewport/icon/<title>, root +layout.svelte has no head, page heads <title> only; hooks.server.ts handles session/lang only (transformPageChunk replaces %lang%); npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): svelte-exmarkdown@5.0.2, @vincjo/datatables@2.8.1 emit none (@sentry/sveltekit, sveltekit-i18n ship no components); route renders (loads error only on a failed API response))"
+  }
+]

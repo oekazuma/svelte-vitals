@@ -1,0 +1,407 @@
+[
+  {
+    "key": "jesperorb/intl-explorer::a11y/permitted-contents::src/lib/components/ui/CodeBlock.svelte:10::`<pre>` is not permitted content here — `<code>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <pre> at components/ui/CodeBlock.svelte:10 is a direct child of literal <code> (line 10) (<code><pre>{@render children()}</pre></code>); spec-invalid as reported"
+  },
+  {
+    "key": "jesperorb/intl-explorer::a11y/permitted-contents::src/lib/components/ui/ComboBox.svelte:103::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <div> at components/ui/ComboBox.svelte:103 is a direct child of literal <ul> (line 101) (a literal <div> wrapper directly inside the <ul>); spec-invalid as reported"
+  },
+  {
+    "key": "jesperorb/intl-explorer::a11y/permitted-contents::src/lib/components/ui/ComboBox.svelte:105::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <li> at components/ui/ComboBox.svelte:105 is a direct child of literal <div> (line 103) through {#each} only (the <li> items sit in a <div tabindex=\"0\"> wrapper inside the <ul>, so their parent is the div); spec-invalid as reported"
+  },
+  {
+    "key": "jesperorb/intl-explorer::a11y/permitted-contents::src/lib/components/ui/ComboBox.svelte:123::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <li> at components/ui/ComboBox.svelte:123 is a direct child of literal <div> (line 103) through {#each} only (the <li> items sit in a <div tabindex=\"0\"> wrapper inside the <ul>, so their parent is the div); spec-invalid as reported"
+  },
+  {
+    "key": "jesperorb/intl-explorer::a11y/permitted-contents::src/lib/components/ui/details/Details.svelte:20::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "parsed with svelte/compiler (e_pc.mjs): <div> at components/ui/details/Details.svelte:20 is a direct child of literal <summary> (line 16); spec-invalid as reported"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/component-size::src/lib/components/pages/Playground/Playground.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pages/Playground/Playground.svelte has 258 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/component-size::src/lib/components/ui/Navigation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/Navigation.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 17 named props (> 6): onClick, onKeyDown, id, type, ariaLabel, ariaControls, ariaExpanded, ref, textTransform, href, hrefLang, noBackground, bold, title, disabled, testId, children"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/ui/Input.svelte has a single destructured $props() with 9 named props (> 6): label, value, id, name, fullWidth, onInput, pattern, max, min"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/prop-count::src/lib/components/ui/Radio.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/ui/Radio.svelte has a single destructured $props() with 7 named props (> 6): name, id, value, checked, label, group, onChange"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/prop-count::src/lib/components/ui/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/ui/Select.svelte has a single destructured $props() with 8 named props (> 6): label, name, placeholder, items, value, fullWidth, removeEmpty, onChange"
+  },
+  {
+    "key": "jesperorb/intl-explorer::architecture/prop-count::src/lib/components/ui/Slider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/components/ui/Slider.svelte has a single destructured $props() with 7 named props (> 6): defaultValue, min, max, step, onValueChange, label, id"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Collator.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Collator.svelte:43 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Collator.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Collator.svelte:49 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/DateTimeFormat.svelte:80::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DateTimeFormat.svelte:80 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/DateTimeFormat.svelte:86::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DateTimeFormat.svelte:86 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/DurationFormat.svelte:72::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DurationFormat.svelte:72 '{#each Object.keys(duration)}': duration $state has fixed keys (DurationFormat.svelte:26-37); onInput only replaces values under the same keys (:52-65); static per view (fields of one record), never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/DurationFormat.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DurationFormat.svelte:78 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/DurationFormat.svelte:84::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DurationFormat.svelte:84 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/ListFormat.svelte:114::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ListFormat.svelte:114 iterates style = listFormatOptions.style ?? [] (ListFormat.svelte:43), the constant option list from $lib/format-options/common.options; static option list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/ListFormat.svelte:135::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ListFormat.svelte:135 iterates style = listFormatOptions.style ?? [] (ListFormat.svelte:43), the constant option list from $lib/format-options/common.options; static option list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/ListFormat.svelte:156::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ListFormat.svelte:156 iterates style = listFormatOptions.style ?? [] (ListFormat.svelte:43), the constant option list from $lib/format-options/common.options; static option list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/ListFormat.svelte:67::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ListFormat.svelte:67 '{#each list.split(\",\") as item, i}' renders stateless Token text of the typed comma list; positional list (text segments)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/ListFormat.svelte:89::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ListFormat.svelte:89 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/ListFormat.svelte:95::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ListFormat.svelte:95 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/NumberFormat.Currency.svelte:103::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NumberFormat.Currency.svelte:103 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/NumberFormat.Currency.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NumberFormat.Currency.svelte:97 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/NumberFormat.Unit.svelte:101::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NumberFormat.Unit.svelte:101 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/NumberFormat.Unit.svelte:107::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NumberFormat.Unit.svelte:107 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/NumberFormat.svelte:86::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NumberFormat.svelte:86 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/NumberFormat.svelte:92::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: NumberFormat.svelte:92 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Playground/PlaygroundOptions.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PlaygroundOptions.svelte:32 '{#each schema.options as option, index}': options of the author-time playground schema for the chosen method (lib/playground/schemas/*), swapped wholesale on method change (Playground.svelte:106-111), never reordered or spliced; inputs take value= from the schema; static config list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Playground/PlaygroundOptions.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PlaygroundOptions.svelte:64 iterates getItemsFromOption(...) = constant formatOptions[method][name] (lib/playground/format.utils.ts:68-76) as radios; static option list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Playground/PlaygroundSecondaryFormatters.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PlaygroundSecondaryFormatters.svelte:22 iterates secondaryFormatters = schema.secondaryFormatters mapped to outputs (format.utils.ts:134-148), the author-time list of one schema; static config list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/RelativeTimeFormat.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: RelativeTimeFormat.svelte:64 iterates relativeTimeFormatUnits, an exported array literal with a type annotation (relative-time-format.options.ts:8) that the module also places into the exported relativeTimeFormatOptions object (:30), so it is not the documented never-handed-out imported constant; static list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Segmenter.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Segmenter.svelte:47 iterates an Object.entries over a constant format-options object from $lib/format-options (author-time option names/values), not an exempt array-literal shape; static option list, never reorders"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/pages/Segmenter.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Segmenter.svelte:53 iterates the values array of one constant format-option entry ($lib/format-options), rendered as stateless Highlight examples; static option list fixed at author time"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/BrowserSupport/BrowserSupportGrid.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: BrowserSupportGrid.svelte:21 iterates Object.entries(data) of one browser-compat record (fixed browser keys); static per view (fields of one record)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/BrowserSupport/SpecificationUrls.svelte:13::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SpecificationUrls.svelte:13 iterates getSpecUrls(data), the spec URLs of one browser-compat record, as plain links; static per view (parts of one record)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/ComboBox.svelte:104::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ComboBox.svelte:104 '{#each output as renderOption}': output = $derived(getOutput(options, $inputValue, ...)) filters the options as the user types (ComboBox.svelte:57-73), so entries drop in and out mid-list under melt option actions; runtime data"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/ComboBox.svelte:93::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ComboBox.svelte:93 '{#each $selected as chip}': the chips the user selects and deletes mid-list (internalDelete filters by value, ComboBox.svelte:67-70); user-edited list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/Highlight.svelte:30::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Highlight.svelte:30 iterates Object.entries(values), the option fields of one example object passed by each caller ({[option]: value}); static per view (fields of one record)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/Select.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Select.svelte:45 '{#each items as [key, value]}' renders <option>s; every caller passes a constant list (paraglide locales, unitsAsEntries, Object.entries(currencies), formatMethods, getItemsFromOption); static option list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/SettingsDialog.svelte:93::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SettingsDialog.svelte:93 iterates settingsKeys = Object.keys(defaultSettings) (lib/store/settings.ts:71), a constant settings key list; static config list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/lib/components/ui/SettingsDialog.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SettingsDialog.svelte:97 iterates settingsConfiguration[key].values of the constant settingsConfiguration (lib/store/settings.ts:27); static option list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::correctness/each-key::src/routes/routing-links.svelte:7::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routing-links.svelte:7 iterates paraglide's locales ($paraglide/runtime, generated constant locale list) as hidden routing links; static list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::security/raw-html::src/routes/Playground/+page.svelte:19::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Playground/+page.svelte:4-5,19: github is the svelte-highlight/styles/github theme CSS string (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "jesperorb/intl-explorer::security/raw-html::src/routes/Playground/+page.svelte:21::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Playground/+page.svelte:4,21: oceanicNext is the svelte-highlight/styles/oceanicnext theme CSS string (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/Collator/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /Collator (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/DateTimeFormat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /DateTimeFormat (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/DisplayNames/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /DisplayNames (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/DurationFormat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /DurationFormat (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/ListFormat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ListFormat (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/Locale/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /Locale (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/NumberFormat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /NumberFormat (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/NumberFormat/Currency/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /NumberFormat/Currency (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/NumberFormat/Unit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /NumberFormat/Unit (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/Playground/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /Playground (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/PluralRules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /PluralRules (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/RelativeTimeFormat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /RelativeTimeFormat (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/canonical-url::src/routes/Segmenter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /Segmenter (script-verified (repo-wide grep incl. app.html/hooks, comments included): no rel=canonical anywhere; root +layout.svelte:35-52 emits og:*/twitter:* but no canonical, app.html:4-8 og:image/twitter:image only, the page heads (+page.svelte:10-12, Playground/+page.svelte:17-23) are <title> and svelte-highlight CSS; hooks.server.ts only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1b_npmscan.mjs): @melt-ui/svelte@0.86.6, svelte-highlight@7.8.2 emit none; route renders (no loads)); publicly reachable rendered docs page, literal robots \"index, follow\" at +layout.svelte:37"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; / renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/Collator/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /Collator renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/DateTimeFormat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /DateTimeFormat renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/DisplayNames/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /DisplayNames renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/DurationFormat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /DurationFormat renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/ListFormat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /ListFormat renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/Locale/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /Locale renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/NumberFormat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /NumberFormat renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/NumberFormat/Currency/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /NumberFormat/Currency renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/NumberFormat/Unit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /NumberFormat/Unit renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/Playground/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /Playground renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/PluralRules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /PluralRules renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/RelativeTimeFormat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /RelativeTimeFormat renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/json-ld::src/routes/Segmenter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the whole repo outside node_modules for ld+json|jsonld|json-ld|schema.org|structured data; no meta-tag/JSON-LD package in deps): no JSON-LD anywhere in the app source or app.html; /Segmenter renders and has none (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint, hook, build script or backend route serving it in the repo (literal claim holds); public site intl-explorer.com (README) with 14 public explorer pages to list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/single-h1::src/lib/components/ui/Header.svelte:27::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "key covers / and /Playground, both fp: root +layout.svelte:61 renders <Header header={route}/> (Header.svelte:27 <h1>) only {#if route && route !== \"Playground\"}, with route = $derived(page.route.id?.replace(\"/\", \"\")) - '' on / and 'Playground' on /Playground, so it renders on neither; / then has only the page <h1> (+page.svelte:19) and /Playground only Playground.svelte:150's Header <h1>, rendered in exclusive {#await} pending/then arms (Playground/+page.svelte:25-29) -> one <h1> on each"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook, build script or backend route serving it in the repo (literal claim holds); public site intl-explorer.com (README) with 14 public explorer pages to list"
+  },
+  {
+    "key": "jesperorb/intl-explorer::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_tl.py: literal <title> in src/routes/+page.svelte at top level, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, length = 13 as reported; grep-verified: no later <title> or document.title on the route): +page.svelte:11 renders after root +layout.svelte:36 and wins; public site intl-explorer.com (README)"
+  }
+]
