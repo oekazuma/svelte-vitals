@@ -1,0 +1,737 @@
+[
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::a11y/disallowed-aria-props::src/lib/components/stat.svelte:250::`aria-label` is prohibited on role `tooltip`",
+    "verdict": "tp",
+    "basis": "read stat.svelte:250: `<span` with no role-changing spread/use: action; ARIA 1.3 lists aria-label as prohibited on tooltip (ledger convention) as reported"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/lib/components/Distribution/DistributionPlot.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Distribution/DistributionPlot.svelte has 430 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/lib/components/PlayerSearch.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlayerSearch.svelte has 364 physical lines (newline count, trailing newline not counted; 317 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/lib/components/charts/CategoryBreakdownCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/charts/CategoryBreakdownCard.svelte has 276 physical lines (newline count, trailing newline not counted; 253 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/lib/components/stat.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/stat.svelte has 267 physical lines (newline count, trailing newline not counted; 259 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/chart/chart-tooltip.svelte has 211 physical lines (newline count, trailing newline not counted; 179 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/routes/[[a]]-vs-[[b]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[[a]]-vs-[[b]]/+page.svelte has 324 physical lines (newline count, trailing newline not counted; 299 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/component-size::src/routes/players/[uid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/players/[uid]/+page.svelte has 257 physical lines (newline count, trailing newline not counted; 241 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/prop-count::src/lib/components/Distribution/Distribution.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Distribution/Distribution.svelte has a single destructured $props() with 8 named props (> 6): id, title, data, logData, updatedAt, cacheUpdateIntervalHours, compactTooltip, scale"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::architecture/prop-count::src/lib/components/data-table/data-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/data-table/data-table.svelte has a single destructured $props() with 13 named props (> 6): ariaLabel, caption, columns, data, emptyMessage, getRowId, initialSorting, loadingRowCount, containerClass, tableClass, rowClass, headerClass, state"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::correctness/each-index-key::src/routes/leaderboard/LeaderboardTable.svelte:53::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/leaderboard/LeaderboardTable.svelte:53 '{#each definition.columns …}'; definition.columns, the column definitions of the leaderboard table view; static list keyed by index"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::correctness/each-index-key::src/routes/leaderboard/LoadingRows.svelte:16::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/leaderboard/LoadingRows.svelte:16 '{#each headers …}'; headers prop, the column headers of the loading skeleton rows; static list keyed by index"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::correctness/each-index-key::src/routes/leaderboard/Row.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/leaderboard/Row.svelte:32 '{#each stats …}'; stats, one value cell per column of a leaderboard row; positional list (table cells)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::performance/image-dimensions::src/routes/players/[uid]/+page.svelte:174::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> lacks width and/or height, no spread; badge img has no class or CSS size (players/[uid]/+page.svelte:174; app.css has no img rule) - the 86x20 natural size decides the box and the stats below shift"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::performance/image-loading-hint::src/routes/players/[uid]/+page.svelte:174::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 86x20 badge row right after the player <h1> and first/last-seen rows, before the stats (players/[uid]/+page.svelte:6-174) - above the fold"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::performance/image-loading-hint::src/routes/ranks/+page.svelte:11::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "<img> has no loading attribute and no spread; 256px rank icon per card of the {#each} 9-rank grid (ranks/+page.svelte:9-11), one per row on mobile; five of the imported SVGs exceed the 4 KB inline limit (gold-10/11, platinum/ruby/sapphire-12) - later cards are offscreen"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::performance/responsive-image::src/routes/players/[uid]/+page.svelte:174::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; imageURL is a static /badges/*.avif (players/[uid]/badge.ts:19-31) - raster, one fixed-size asset"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::performance/responsive-image::src/routes/ranks/+page.svelte:11::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; ranks[rank].icon is always one of the imported $lib/assets/ranks/*.svg (lib/rank.ts:1-9) - a vector, but read through a lookup object, outside the docs' static SVG detection"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/(home)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[[a]]-vs-[[b]] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/daily/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/daily (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/daily/battleRoyaleWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/daily/classicModeWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/daily/kills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/daily/kills (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/gamesELO/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/gamesELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/killsELO/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/killsELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/timeAlive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/timeAlive (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/leaderboard/xp/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leaderboard/xp (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/players/[uid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /players/[uid] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/ranks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ranks (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/servers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /servers (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/squads/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /squads (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/canonical-url::src/routes/squads/[squadName]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /squads/[squadName] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/app.html:6 literal <meta name=description content='Stats for War Brokers.'> (22 chars) is the only description of all 16 routes (no svelte:head sets one; local CLI list); public game-stats site, too short as claimed"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: src/app.html:6 literal description 'Stats for War Brokers.' is the only description of all 16 routes (no svelte:head sets one; local CLI list); public leaderboard/player/squad pages share one snippet, duplicate as claimed"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/(home)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); / has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /[[a]]-vs-[[b]] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/daily/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/daily has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/daily/battleRoyaleWins has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/daily/classicModeWins has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/daily/kills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/daily/kills has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/gamesELO/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/gamesELO has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/killsELO/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/killsELO has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/timeAlive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/timeAlive has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/leaderboard/xp/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /leaderboard/xp has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/players/[uid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /players/[uid] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/ranks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /ranks has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/servers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /servers has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/squads/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /squads has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/json-ld::src/routes/squads/[squadName]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/stats-site/src incl. app.html and libs/: no ld+json/jsonld; heads are app.html description and lib/components/title.svelte <title>); /squads/[squadName] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/(home)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[[a]]-vs-[[b]] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/daily/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/daily (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/daily/battleRoyaleWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/daily/classicModeWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/daily/kills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/daily/kills (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/gamesELO/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/gamesELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/killsELO/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/killsELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/timeAlive/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/timeAlive (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/leaderboard/xp/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /leaderboard/xp (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/players/[uid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /players/[uid] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/ranks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ranks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/servers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/squads/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /squads (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-description::src/routes/squads/[squadName]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /squads/[squadName] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/(home)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[[a]]-vs-[[b]] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/daily/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/daily (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/daily/battleRoyaleWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/daily/classicModeWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/daily/kills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/daily/kills (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/gamesELO/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/gamesELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/killsELO/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/killsELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/timeAlive/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/timeAlive (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/leaderboard/xp/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /leaderboard/xp (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/players/[uid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /players/[uid] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/ranks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ranks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/servers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/squads/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /squads (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-image::src/routes/squads/[squadName]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /squads/[squadName] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/(home)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[[a]]-vs-[[b]] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/daily/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/daily (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/daily/battleRoyaleWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/daily/classicModeWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/daily/kills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/daily/kills (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/gamesELO/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/gamesELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/killsELO/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/killsELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/timeAlive/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/timeAlive (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/leaderboard/xp/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /leaderboard/xp (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/players/[uid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /players/[uid] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/ranks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ranks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/servers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/squads/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /squads (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-title::src/routes/squads/[squadName]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /squads/[squadName] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/(home)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[[a]]-vs-[[b]] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/daily/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/daily (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/daily/battleRoyaleWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/daily/classicModeWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/daily/kills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/daily/kills (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/gamesELO/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/gamesELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/killsELO/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/killsELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/timeAlive/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/timeAlive (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/leaderboard/xp/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leaderboard/xp (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/players/[uid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /players/[uid] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/ranks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ranks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/servers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/squads/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /squads (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/og-url::src/routes/squads/[squadName]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /squads/[squadName] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/[[a]]-vs-[[b]]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/daily/battleRoyaleWins::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/daily/classicModeWins::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/daily/kills::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/gamesELO::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/killsELO::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/timeAlive::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::/leaderboard/xp::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: the page renders PaginatedLeaderboard/LeaderboardTable or the vs comparison, whose headings are <h2>/<h3> only; root layout Header has an <h2>, Footer none; no <h1> in src/lib - load redirects only on an invalid ?page"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::src/routes/(home)/+page.svelte:89::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on the route: its first heading is the <h2>/<h3> at src/routes/(home)/+page.svelte:89; root +layout.svelte renders Header (an <h2>), slot and Footer; no <h1> in src/lib"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::src/routes/leaderboard/+page.svelte:34::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on the route: its first heading is the <h2>/<h3> at src/routes/leaderboard/+page.svelte:34; root +layout.svelte renders Header (an <h2>), slot and Footer; no <h1> in src/lib"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::src/routes/leaderboard/daily/+page.svelte:31::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on the route: its first heading is the <h2>/<h3> at src/routes/leaderboard/daily/+page.svelte:31; root +layout.svelte renders Header (an <h2>), slot and Footer; no <h1> in src/lib"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::src/routes/ranks/+page.svelte:12::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on the route: its first heading is the <h2>/<h3> at src/routes/ranks/+page.svelte:12; root +layout.svelte renders Header (an <h2>), slot and Footer; no <h1> in src/lib"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::src/routes/servers/+page.svelte:45::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on the route: its first heading is the <h2>/<h3> at src/routes/servers/+page.svelte:45; root +layout.svelte renders Header (an <h2>), slot and Footer; no <h1> in src/lib"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/single-h1::src/routes/squads/+page.svelte:31::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> on the route: its first heading is the <h2>/<h3> at src/routes/squads/+page.svelte:31; root +layout.svelte renders Header (an <h2>), slot and Footer; no <h1> in src/lib"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint and no generator or server route for it in the repo (literal claim holds); static/robots.txt allows all and static/llms.txt lists the public leaderboard/ranks/servers/squads pages; public game-stats site with player and squad pages to list"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/(home)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/[[a]]-vs-[[b]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[[a]]-vs-[[b]] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/daily/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/daily (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/daily/battleRoyaleWins/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/daily/battleRoyaleWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/daily/classicModeWins/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/daily/classicModeWins (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/daily/kills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/daily/kills (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/gamesELO/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/gamesELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/killsELO/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/killsELO (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/timeAlive/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/timeAlive (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/leaderboard/xp/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /leaderboard/xp (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/players/[uid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /players/[uid] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/ranks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ranks (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/servers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/squads/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /squads (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  },
+  {
+    "key": "War-Brokers/War-Brokers:apps/stats-site::seo/twitter-card::src/routes/squads/[squadName]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /squads/[squadName] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public stats site (adapter-node, static/robots.txt allows all); only head emitter is lib/components/title.svelte (<title>); app.html has description/icon/analytics script; no hooks, workspace libs ship no .svelte, npm Svelte deps (bits-ui, layerchart, svelte-awesome, svelte-hamburgers, icon packs) emit no social/canonical tags; loads render (redirects only on ?page normalisation / 404 on unknown id)"
+  }
+]

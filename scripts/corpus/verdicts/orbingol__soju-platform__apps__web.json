@@ -1,0 +1,652 @@
+[
+  {
+    "key": "orbingol/soju-platform:apps/web::architecture/component-size::src/lib/components/ChatDock.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChatDock.svelte has 300 physical lines (newline count, trailing newline not counted; 260 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::architecture/component-size::src/lib/components/EdgePanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EdgePanel.svelte has 236 physical lines (newline count, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::architecture/component-size::src/lib/components/VocabularyTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/VocabularyTable.svelte has 287 physical lines (newline count, trailing newline not counted; 267 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::architecture/component-size::src/routes/education/practice/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/education/practice/+page.svelte has 588 physical lines (newline count, trailing newline not counted; 541 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-index-key::src/lib/components/ChatConversation.svelte:135::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChatConversation.svelte:135 '{#each messages …}'; messages = $state chat turns loaded from loadChatMessages and appended while streaming (ChatConversation.svelte:27-118), keyed by index; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/Breadcrumb.svelte:15::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Breadcrumb.svelte:15 '{#each crumbs …}'; crumbs prop = breadcrumb trail (+layout.svelte crumbs $derived.by); positional list (breadcrumbs)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/FlashcardDeck.svelte:171::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/FlashcardDeck.svelte:171 '{#each topics …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/GrammarConversation.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/GrammarConversation.svelte:35 '{#each conversation.turns …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/SiteChrome.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SiteChrome.svelte:36 '{#each navItems …}'; navItems = $derived nav literal / buildEducationNavItems (+layout.svelte:32-43); static nav list"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/SiteChrome.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SiteChrome.svelte:52 '{#each item.children …}'; navItems = $derived nav literal / buildEducationNavItems (+layout.svelte:32-43); static nav list"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/VocabularyTable.svelte:129::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/VocabularyTable.svelte:129 '{#each section.columns …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/VocabularyTable.svelte:146::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/VocabularyTable.svelte:146 '{#each section.columns …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/lib/components/VocabularyTable.svelte:188::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/VocabularyTable.svelte:188 '{#each section.columns …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/grammar/[slug]/+page.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/education/grammar/[slug]/+page.svelte:64 '{#each page.notes …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/grammar/[slug]/+page.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/education/grammar/[slug]/+page.svelte:78 '{#each section.examples …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/grammar/[slug]/+page.svelte:92::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/education/grammar/[slug]/+page.svelte:92 '{#each page.conversations …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/practice/+page.svelte:456::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/education/practice/+page.svelte:456 '{#each session.sentences ?? [] …}'; session = $state practice session generated by generatePracticeSession (practice/+page.svelte:27,161), replaced on each generation; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/practice/+page.svelte:482::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/education/practice/+page.svelte:482 '{#each session.questions ?? [] …}'; session = $state practice session generated by generatePracticeSession (practice/+page.svelte:27,161), replaced on each generation; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/practice/+page.svelte:519::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/education/practice/+page.svelte:519 '{#each session.fill_in_blank ?? [] …}'; session = $state practice session generated by generatePracticeSession (practice/+page.svelte:27,161), replaced on each generation; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/practice/+page.svelte:556::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/education/practice/+page.svelte:556 '{#each session.vocabulary_candidates ?? [] …}'; session = $state practice session generated by generatePracticeSession (practice/+page.svelte:27,161), replaced on each generation; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/practice/+page.svelte:571::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/education/practice/+page.svelte:571 '{#each session.vocabulary_candidates …}'; session = $state practice session generated by generatePracticeSession (practice/+page.svelte:27,161), replaced on each generation; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/topics/+page.svelte:15::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/education/topics/+page.svelte:15 '{#each data.topics …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::correctness/each-key::src/routes/education/words/+page.svelte:15::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/education/words/+page.svelte:15 '{#each data.types …}'; topics/types/grammar page content/vocabulary columns from committed data files loaded by $lib/data/loader in prerendered loads (education/*/+page.server.ts, prerender = true); static content fixed at author time"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::performance/state-raw::src/routes/education/practice/+page.svelte:30::\"answers\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"answers\" in src/routes/education/practice/+page.svelte (d_refs.sh): only whole-binding reassignments (:86 reset to {}, :102 spread-copy reassignment) and read-only uses (:464/:502/:539 value={answers[index]} keyed reads (not bind:)); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::performance/state-raw::src/routes/education/practice/+page.svelte:31::\"revealed\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"revealed\" in src/routes/education/practice/+page.svelte (d_refs.sh): only whole-binding reassignments (:87 reset to {}, :94 spread-copy reassignment) and read-only uses (:469/:507/:544 keyed reads in {#if}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::performance/state-raw::src/routes/education/practice/+page.svelte:32::\"promptTranslated\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"promptTranslated\" in src/routes/education/practice/+page.svelte (d_refs.sh): only whole-binding reassignments (:88 reset to {}, :98 spread-copy toggle reassignment) and read-only uses (:490/:494/:527/:531 keyed reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::security/raw-html::src/lib/components/ChatConversation.svelte:141::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/ChatConversation.svelte:141 + lib/format-chat-content.ts: formatChatContent escapes & < > \" (escapeHtml) before adding only <strong>/<em>/<ul>/<li>/<p>/<hr> wrappers — escaped, reported per docs"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::security/raw-html::src/lib/components/VocabularyTable.svelte:248::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/VocabularyTable.svelte:248 + lib/sanitize-html.ts: sanitizeHtml is an allowlist sanitizer (p/strong/em/b/i/br/ul/ol/li/a/span, all attributes dropped except an http(s)/# href, text escaped, script/style/iframe dropped with content) over curated topic descriptions — sanitized, reported per docs"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/flashcards/[source]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/flashcards/[source] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/grammar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/grammar (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/grammar/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/grammar/[slug] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/practice/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/practice (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/topics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/topics (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/topics/[topic]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/topics/[topic] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/vocabulary/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/vocabulary (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/words/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/words (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/words/[type]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/words/[type] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/canonical-url::src/routes/education/words/verbs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /education/words/verbs (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); / is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/flashcards/[source]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/flashcards/[source] is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/grammar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/grammar is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/grammar/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/grammar/[slug] is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/practice/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/practice is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/topics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/topics is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/topics/[topic]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/topics/[topic] is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/vocabulary/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/vocabulary is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/words/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/words is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/words/[type]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/words/[type] is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/description-presence::src/routes/education/words/verbs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html; page heads hold only <title>); /education/words/verbs is a public, prerendered page of the Soju Korean-learning site deployed to GitHub Pages (.github/workflows/publish.yml), no gate or noindex"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/heading-level-skip::src/routes/education/practice/+page.svelte:421::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>Practice (education/practice/+page.svelte:261) then the sample story <h4>{session.story.title} (:421) inside AiServiceGate (no heading of its own), no <h2>/<h3> between - h1 to h4"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); / has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/flashcards/[source]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/flashcards/[source] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/grammar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/grammar has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/grammar/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/grammar/[slug] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/practice/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/practice has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/topics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/topics has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/topics/[topic]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/topics/[topic] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/vocabulary/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/vocabulary has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/words/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/words has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/words/[type]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/words/[type] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/json-ld::src/routes/education/words/verbs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /education/words/verbs has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/flashcards/[source]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/flashcards/[source] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/grammar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/grammar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/grammar/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/grammar/[slug] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/practice/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/practice (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/topics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/topics (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/topics/[topic]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/topics/[topic] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/vocabulary/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/vocabulary (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/words/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/words (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/words/[type]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/words/[type] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-description::src/routes/education/words/verbs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /education/words/verbs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/flashcards/[source]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/flashcards/[source] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/grammar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/grammar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/grammar/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/grammar/[slug] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/practice/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/practice (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/topics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/topics (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/topics/[topic]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/topics/[topic] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/vocabulary/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/vocabulary (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/words/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/words (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/words/[type]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/words/[type] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-image::src/routes/education/words/verbs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /education/words/verbs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/flashcards/[source]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/flashcards/[source] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/grammar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/grammar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/grammar/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/grammar/[slug] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/practice/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/practice (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/topics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/topics (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/topics/[topic]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/topics/[topic] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/vocabulary/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/vocabulary (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/words/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/words (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/words/[type]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/words/[type] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-title::src/routes/education/words/verbs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /education/words/verbs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/flashcards/[source]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/flashcards/[source] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/grammar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/grammar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/grammar/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/grammar/[slug] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/practice/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/practice (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/topics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/topics (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/topics/[topic]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/topics/[topic] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/vocabulary/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/vocabulary (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/words/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/words (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/words/[type]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/words/[type] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/og-url::src/routes/education/words/verbs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /education/words/verbs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint and no generator or server route for it in the repo (literal claim holds); public Korean-learning reference site prerendered and deployed to GitHub Pages (.github/workflows/publish.yml, PUBLIC_BASE_PATH) with many grammar/vocabulary pages (GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint and no generator or server route for it in the repo (literal claim holds); public Korean-learning reference site prerendered and deployed to GitHub Pages (.github/workflows/publish.yml, PUBLIC_BASE_PATH) with many grammar/vocabulary pages (GitHub Pages project-path precedent: tp)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/+page.svelte, 9 graphemes as reported (소주 counted as 2), the route's only title; public GitHub Pages Korean-learning site, under 30 as claimed"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/title-length::src/routes/education/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/education/+page.svelte, 21 graphemes as reported (소주 counted as 2), the route's only title; public GitHub Pages Korean-learning site, under 30 as claimed"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/title-length::src/routes/education/words/verbs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/education/words/verbs/+page.svelte, 29 graphemes as reported (소주 counted as 2), the route's only title; public GitHub Pages Korean-learning site, under 30 as claimed"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/flashcards/[source]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/flashcards/[source] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/grammar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/grammar (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/grammar/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/grammar/[slug] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/practice/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/practice (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/topics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/topics (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/topics/[topic]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/topics/[topic] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/vocabulary/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/vocabulary (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/words/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/words (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/words/[type]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/words/[type] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  },
+  {
+    "key": "orbingol/soju-platform:apps/web::seo/twitter-card::src/routes/education/words/verbs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /education/words/verbs (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); public prerendered GitHub Pages site (adapter-static); page heads are <title> (+description) only, root +layout.svelte has no <svelte:head>, app.html has no social/canonical tags; only dep yaml; no hooks; route loads render (words/[type] redirects only topic ids)"
+  }
+]
