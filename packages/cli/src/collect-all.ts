@@ -25,6 +25,7 @@ import {
 import { collectProjectFacts } from './providers/source/project.js';
 import { dropConstantListEachBlocks, type ParseCache } from './providers/source/resolve.js';
 import { collectRoutes, deriveRoute } from './providers/source/routes.js';
+import { urlHolds } from './providers/source/url-cond.js';
 import { routeMatcher } from './route-matcher.js';
 
 /** An override's `route`/`files` field as a list — the schema allows one glob or many. */
@@ -33,6 +34,26 @@ function globList(globs: string | string[] | undefined): string[] {
 }
 
 const PAGE_MODULE_RE = /\/\+page(\.server)?\.(ts|js)$/;
+const HOOKS_RE = /(^|\/)src\/hooks\.server\.(ts|js)$/;
+
+/** Routes the app's `hooks.server` answers before `resolve()` on every request (`answeredPaths`). */
+async function hooksAnswered(
+  rt: Runtime,
+  cwd: string,
+  kitModules: KitModuleFacts[],
+  heads: { route: string }[],
+  project: Project,
+  sourceFiles: string[] | undefined
+): Promise<string[]> {
+  const conds = kitModules.filter((m) => HOOKS_RE.test(m.file)).flatMap((m) => m.answeredPaths ?? []);
+  // `event.url.pathname` carries `kit.paths.base`, and a `reroute` in `src/hooks` serves a route at
+  // other paths too (paraglide's `/id`), so the path the hook tests is not the route's own.
+  if (conds.length === 0 || project.kitPathsBase) return [];
+  const universal =
+    sourceFiles?.filter((f) => /^src\/hooks\.(ts|js)$/.test(f)) ?? (await rt.glob('src/hooks.{ts,js}', cwd));
+  if (universal.length > 0) return [];
+  return heads.map((h) => h.route).filter((r) => conds.some((c) => urlHolds(c, r) === true));
+}
 
 /** Everything the rule engine needs about a project, gathered through the Runtime. */
 interface CollectedFacts {
@@ -117,7 +138,8 @@ export async function collectAll(
   const redirectOnly = new Set([
     ...allKitModules.filter((m) => m.loadNeverRenders && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file)),
     ...collected.heads.filter((h) => layoutNeverRenders(h.file, ssrScope)).map((h) => h.route),
-    ...collected.neverRenders
+    ...collected.neverRenders,
+    ...(await hooksAnswered(rt, cwd, allKitModules, collected.heads, project, sourceFiles))
   ]);
   const routeLevel = (route: string) => matches(route) && !redirectOnly.has(route);
   const heads = collected.heads

@@ -264,6 +264,95 @@ function collectRedirectCalls(node: Node, locals: Set<string>, out: Node[] = [])
   return out;
 }
 
+/** Whether `node` calls `name` outside nested functions. */
+function callsOutsideFunctions(node: Node, name: string): boolean {
+  if (Array.isArray(node)) return node.some((n) => callsOutsideFunctions(n, name));
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return false;
+  if (node.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === name) return true;
+  return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && callsOutsideFunctions(node[key], name));
+}
+
+/**
+ * The request paths the exported `handle` answers on every request, before calling `resolve`: an `if` on
+ * the path alone (`pathname === '/x'`, `pathname.startsWith('/x')`, or an `||` of those, with `pathname`
+ * read from the `event` parameter, directly or through a `const`) whose body returns or throws, among the
+ * statements before the first one that calls `resolve`. A test that also reads anything else, a `sequence(…)`
+ * handle and a guard in another function are not read.
+ */
+function handleAnsweredPaths(program: Node, exits: Set<string>): { op: 'eq' | 'starts'; v: string }[] {
+  let handle: Node | undefined;
+  forEachNamedExport(program, (name, value) => {
+    if (name === 'handle' && isFunctionNode(value)) handle = value;
+    return handle !== undefined;
+  });
+  const param = handle?.params?.[0];
+  if (handle?.body?.type !== 'BlockStatement' || param?.type !== 'ObjectPattern') return [];
+  const local = (key: string) => {
+    const p = param.properties?.find(
+      (q: Node) => q.type === 'Property' && q.key?.type === 'Identifier' && q.key.name === key
+    );
+    return p?.value?.type === 'Identifier' ? (p.value.name as string) : undefined;
+  };
+  const event = local('event');
+  const resolve = local('resolve');
+  if (!event || !resolve) return [];
+  const isUrl = (n: Node) =>
+    n?.type === 'MemberExpression' &&
+    !n.computed &&
+    n.property?.name === 'url' &&
+    n.object?.type === 'Identifier' &&
+    n.object.name === event;
+  const aliases = new Set<string>();
+  const isPath = (n: Node): boolean => {
+    const e: Node = unwrapTs(n);
+    if (e?.type === 'Identifier') return aliases.has(e.name);
+    return e?.type === 'MemberExpression' && !e.computed && e.property?.name === 'pathname' && isUrl(e.object);
+  };
+  const literal = (n: Node) => (n?.type === 'Literal' && typeof n.value === 'string' ? (n.value as string) : undefined);
+  const conds = (t: Node): { op: 'eq' | 'starts'; v: string }[] | undefined => {
+    if (t?.type === 'LogicalExpression' && t.operator === '||') {
+      const l = conds(t.left);
+      const r = conds(t.right);
+      return l && r ? [...l, ...r] : undefined;
+    }
+    if (t?.type === 'BinaryExpression' && (t.operator === '===' || t.operator === '==')) {
+      const v = isPath(t.left) ? literal(t.right) : isPath(t.right) ? literal(t.left) : undefined;
+      return v === undefined ? undefined : [{ op: 'eq', v }];
+    }
+    const callee = t?.type === 'CallExpression' ? t.callee : undefined;
+    const v = literal(t?.arguments?.[0]);
+    return callee?.type === 'MemberExpression' &&
+      callee.property?.name === 'startsWith' &&
+      isPath(callee.object) &&
+      v !== undefined
+      ? [{ op: 'starts', v }]
+      : undefined;
+  };
+  const exitsAlways = (s: Node): boolean => {
+    if (s?.type === 'BlockStatement') return s.body.length > 0 && exitsAlways(s.body[s.body.length - 1]);
+    if (s?.type === 'ReturnStatement' || s?.type === 'ThrowStatement') return true;
+    const call: Node = s?.type === 'ExpressionStatement' ? unwrapTs(s.expression) : undefined;
+    return call?.type === 'CallExpression' && call.callee?.type === 'Identifier' && exits.has(call.callee.name);
+  };
+  const out: { op: 'eq' | 'starts'; v: string }[] = [];
+  for (const stmt of handle.body.body) {
+    if (callsOutsideFunctions(stmt, resolve)) break;
+    if (stmt.type === 'VariableDeclaration' && stmt.kind === 'const') {
+      for (const d of stmt.declarations ?? []) {
+        if (d.id?.type === 'Identifier' && isPath(d.init)) aliases.add(d.id.name);
+        if (d.id?.type === 'ObjectPattern' && isUrl(unwrapTs(d.init))) {
+          const p = d.id.properties?.find((q: Node) => q.type === 'Property' && q.key?.name === 'pathname');
+          if (p?.value?.type === 'Identifier') aliases.add(p.value.name);
+        }
+      }
+    }
+    if (stmt.type !== 'IfStatement' || !exitsAlways(stmt.consequent)) continue;
+    const c = conds(stmt.test);
+    if (c) out.push(...c);
+  }
+  return out;
+}
+
 /** Whether `node` holds a `return` outside nested functions. */
 function containsReturn(node: Node): boolean {
   if (Array.isArray(node)) return node.some(containsReturn);
@@ -1444,6 +1533,7 @@ export function parseKitModuleFacts(
   }
 
   const exitLocals = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
+  const answered = /(^|\/)hooks\.server\.(ts|js)$/.test(filename) ? handleAnsweredPaths(program, exitLocals) : [];
   const flagGuard = leadingFlagGuard(program, exitLocals, (local) => {
     const spec = namespaceImports.has(local) ? undefined : importedSpecifiers.get(local);
     const resolved = spec === undefined ? undefined : localModulePath(spec, filename, aliases);
@@ -1469,6 +1559,7 @@ export function parseKitModuleFacts(
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
+    ...(answered.length > 0 ? { answeredPaths: answered } : {}),
     ...(flagGuard ? { pendingFlagGuard: flagGuard } : {}),
     ...(factory ? { pendingLoadFactory: factory } : {}),
     ...(loadGatesOnLocals(program) ? { loadGated: true as const } : {}),

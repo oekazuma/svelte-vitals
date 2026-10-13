@@ -86,6 +86,38 @@ describe('collectAll', () => {
 });
 
 describe('collectAll — routes that never render', () => {
+  it('drops the routes the hooks handle answers before resolve, but not with a reroute or a paths.base', async () => {
+    const hooks = `export const handle = async ({ event, resolve }) => {
+  const path = event.url.pathname;
+  if (path === '/' && !event.locals.user) return new Response(null, { status: 302 });
+  if (path === '/') return new Response(null, { status: 302, headers: { location: '/a' } });
+  if (event.url.pathname.startsWith('/old')) throw new Error('gone');
+  if (path === '/b') console.log('b');
+  return resolve(event);
+};
+`;
+    const files = {
+      ...PROJECT,
+      'src/hooks.server.ts': hooks,
+      'src/routes/+page.svelte': '<h1>home</h1>',
+      'src/routes/old/x/+page.svelte': '<h1>old</h1>'
+    };
+    const routes = async (extra: Record<string, string>, opts = {}) =>
+      (await collectAll(createMemoryRuntime({ ...files, ...extra }), '', defaultConfig, opts)).heads
+        .map((h) => h.route)
+        .sort();
+
+    expect(await routes({})).toEqual(['/a', '/b']);
+    expect(await routes({}, { route: '/' })).toEqual([]);
+    expect(await routes({ 'src/hooks.ts': 'export const reroute = () => {};' })).toEqual(['/', '/a', '/b', '/old/x']);
+    expect(await routes({ 'svelte.config.js': "export default { kit: { paths: { base: '/app' } } };" })).toEqual([
+      '/',
+      '/a',
+      '/b',
+      '/old/x'
+    ]);
+  });
+
   it('drops the route facts of a page whose script throws on every render, but not on a guarded one', async () => {
     const rt = createMemoryRuntime({
       ...PROJECT,
