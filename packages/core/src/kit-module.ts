@@ -54,6 +54,8 @@ export interface KitModuleFacts {
   csrEnabled?: true;
   /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
   loadNeverRenders?: true;
+  /** The request paths the exported `handle` of a hooks file answers before calling `resolve` (see `handleAnsweredPaths` in kit-module-parse.ts): a route they cover never renders. */
+  answeredPaths?: { op: 'eq' | 'starts'; v: string }[];
   /** The imported flag a load's leading guard reads (`if (!FLAG) redirect(…)`): `collectKitModuleFacts` sets `loadNeverRenders` when that export is the literal `false`. */
   pendingFlagGuard?: { resolved: string; name: string; member?: string };
   /** The imported factory `export const load = factory(…)` calls: `collectKitModuleFacts` sets `loadNeverRenders` when the function it returns redirects or errors on every call. */

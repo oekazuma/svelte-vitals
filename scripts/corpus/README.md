@@ -510,7 +510,7 @@ Measured on 469 apps, each pinned to a commit:
 - [g2m7/gardensuite-marketing/gs_landing](https://github.com/g2m7/gardensuite-marketing/tree/f0008ae7dbd475d2b004e169f1742eb15daec13e/gs_landing) (`f0008ae`)
 - [Pikslots/pikslots/packages/ui](https://github.com/Pikslots/pikslots/tree/b1400d5929cb5a3ab4aab7121c1ee9fbf9052797/packages/ui) (`b1400d5`)
 
-191252 of 191277 corpus findings have a verdict.
+191242 of 191267 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -588,10 +588,10 @@ Measured on 469 apps, each pinned to a commit:
 | [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 3910            | 342  | 404 / 0 / 3505 / 1                    | 100% (404/404)     | 90% (3505/3910)  |
 | [`security/server-module-state`](../../docs/src/content/docs/rules/security/server-module-state.md)                   | 212             | 63   | 4 / 2 / 206 / 0                       | 67% (4/6)          | 97% (206/212)    |
 | [`security/shared-state-import`](../../docs/src/content/docs/rules/security/shared-state-import.md)                   | 64              | 12   | 49 / 0 / 15 / 0                       | 100% (49/49)       | 23% (15/64)      |
-| [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 12120           | 376  | 4123 / 79 / 7918 / 0                  | 98% (4123/4202)    | 65% (7918/12120) |
+| [`seo/canonical-url`](../../docs/src/content/docs/rules/seo/canonical-url.md)                                         | 12119           | 376  | 4123 / 78 / 7918 / 0                  | 98% (4123/4201)    | 65% (7918/12119) |
 | [`seo/charset`](../../docs/src/content/docs/rules/seo/charset.md)                                                     | 0               | 0    | —                                     | —                  | —                |
 | [`seo/description-length`](../../docs/src/content/docs/rules/seo/description-length.md)                               | 555             | 138  | 502 / 0 / 53 / 0                      | 100% (502/502)     | 10% (53/555)     |
-| [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 9308            | 308  | 1066 / 86 / 8156 / 0                  | 93% (1066/1152)    | 88% (8156/9308)  |
+| [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 9307            | 308  | 1066 / 85 / 8156 / 0                  | 93% (1066/1151)    | 88% (8156/9307)  |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 153             | 77   | 107 / 0 / 46 / 0                      | 100% (107/107)     | 30% (46/153)     |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 272             | 143  | 51 / 2 / 219 / 0                      | 96% (51/53)        | 81% (219/272)    |
 | [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 1394            | 238  | 1349 / 41 / 4 / 0                     | 97% (1349/1390)    | 0% (4/1394)      |
@@ -599,25 +599,25 @@ Measured on 469 apps, each pinned to a commit:
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 4               | 4    | 3 / 0 / 1 / 0                         | 100% (3/3)         | 25% (1/4)        |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 26              | 6    | 26 / 0 / 0 / 0                        | 100% (26/26)       | 0% (0/26)        |
 | [`seo/indexability`](../../docs/src/content/docs/rules/seo/indexability.md)                                           | 1329            | 106  | 1325 / 4 / 0 / 0                      | 100% (1325/1329)   | 0% (0/1329)      |
-| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 14133           | 418  | 14059 / 55 / 19 / 0                   | 100% (14059/14114) | 0% (19/14133)    |
+| [`seo/json-ld`](../../docs/src/content/docs/rules/seo/json-ld.md)                                                     | 14132           | 418  | 14059 / 54 / 19 / 0                   | 100% (14059/14113) | 0% (19/14132)    |
 | [`seo/json-ld-date-format`](../../docs/src/content/docs/rules/seo/json-ld-date-format.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`seo/json-ld-deprecated-type`](../../docs/src/content/docs/rules/seo/json-ld-deprecated-type.md)                     | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
 | [`seo/json-ld-placeholder`](../../docs/src/content/docs/rules/seo/json-ld-placeholder.md)                             | 0               | 0    | —                                     | —                  | —                |
 | [`seo/json-ld-relative-url`](../../docs/src/content/docs/rules/seo/json-ld-relative-url.md)                           | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)         | 0% (0/1)         |
 | [`seo/json-ld-required-props`](../../docs/src/content/docs/rules/seo/json-ld-required-props.md)                       | 0               | 0    | —                                     | —                  | —                |
 | [`seo/json-ld-validity`](../../docs/src/content/docs/rules/seo/json-ld-validity.md)                                   | 44              | 10   | 44 / 0 / 0 / 0                        | 100% (44/44)       | 0% (0/44)        |
-| [`seo/og-description`](../../docs/src/content/docs/rules/seo/og-description.md)                                       | 11618           | 349  | 11528 / 90 / 0 / 0                    | 99% (11528/11618)  | 0% (0/11618)     |
-| [`seo/og-image`](../../docs/src/content/docs/rules/seo/og-image.md)                                                   | 11686           | 354  | 11620 / 66 / 0 / 0                    | 99% (11620/11686)  | 0% (0/11686)     |
-| [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 11449           | 347  | 11360 / 89 / 0 / 0                    | 99% (11360/11449)  | 0% (0/11449)     |
-| [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 11905           | 354  | 11853 / 50 / 2 / 0                    | 100% (11853/11903) | 0% (2/11905)     |
+| [`seo/og-description`](../../docs/src/content/docs/rules/seo/og-description.md)                                       | 11617           | 349  | 11528 / 89 / 0 / 0                    | 99% (11528/11617)  | 0% (0/11617)     |
+| [`seo/og-image`](../../docs/src/content/docs/rules/seo/og-image.md)                                                   | 11685           | 354  | 11620 / 65 / 0 / 0                    | 99% (11620/11685)  | 0% (0/11685)     |
+| [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 11448           | 347  | 11360 / 88 / 0 / 0                    | 99% (11360/11448)  | 0% (0/11448)     |
+| [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 11904           | 354  | 11853 / 49 / 2 / 0                    | 100% (11853/11902) | 0% (2/11904)     |
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 180             | 180  | 73 / 2 / 105 / 0                      | 97% (73/75)        | 58% (105/180)    |
-| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3520            | 378  | 3190 / 123 / 176 / 6                  | 96% (3190/3313)    | 5% (176/3495)    |
+| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3519            | 378  | 3190 / 122 / 176 / 6                  | 96% (3190/3312)    | 5% (176/3494)    |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 14              | 14   | 13 / 0 / 1 / 0                        | 100% (13/13)       | 7% (1/14)        |
 | [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 326             | 326  | 119 / 2 / 205 / 0                     | 98% (119/121)      | 63% (205/326)    |
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 618             | 157  | 139 / 0 / 479 / 0                     | 100% (139/139)     | 78% (479/618)    |
 | [`seo/title-length`](../../docs/src/content/docs/rules/seo/title-length.md)                                           | 2697            | 296  | 2059 / 7 / 631 / 0                    | 100% (2059/2066)   | 23% (631/2697)   |
-| [`seo/title-presence`](../../docs/src/content/docs/rules/seo/title-presence.md)                                       | 2158            | 156  | 2052 / 41 / 64 / 1                    | 98% (2052/2093)    | 3% (64/2158)     |
-| [`seo/twitter-card`](../../docs/src/content/docs/rules/seo/twitter-card.md)                                           | 11762           | 350  | 11683 / 79 / 0 / 0                    | 99% (11683/11762)  | 0% (0/11762)     |
+| [`seo/title-presence`](../../docs/src/content/docs/rules/seo/title-presence.md)                                       | 2157            | 156  | 2052 / 40 / 64 / 1                    | 98% (2052/2092)    | 3% (64/2157)     |
+| [`seo/twitter-card`](../../docs/src/content/docs/rules/seo/twitter-card.md)                                           | 11761           | 350  | 11683 / 78 / 0 / 0                    | 99% (11683/11761)  | 0% (0/11761)     |
 | [`seo/viewport`](../../docs/src/content/docs/rules/seo/viewport.md)                                                   | 0               | 0    | —                                     | —                  | —                |
 
 <!-- rule-reliability:end -->

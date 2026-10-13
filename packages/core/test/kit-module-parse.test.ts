@@ -565,6 +565,35 @@ describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', (
   });
 });
 
+describe('parseKitModuleFacts — answeredPaths (paths the hooks handle answers before resolve)', () => {
+  const answered = (body: string, file = 'src/hooks.server.ts') =>
+    facts(`export async function handle({ event, resolve }) {\n${body}\n  return resolve(event);\n}`, file)
+      .answeredPaths;
+  it('reads an if on the path alone whose body returns or throws, before resolve', () => {
+    expect(answered("  if (event.url.pathname === '/') return new Response(null, { status: 302 });")).toEqual([
+      { op: 'eq', v: '/' }
+    ]);
+    expect(
+      answered(
+        "  const { pathname } = event.url;\n  if (pathname.startsWith('/old') || '/x' === pathname) { throw new Error(); }"
+      )
+    ).toEqual([
+      { op: 'starts', v: '/old' },
+      { op: 'eq', v: '/x' }
+    ]);
+  });
+  it('is absent for a test that reads anything else, a body that may fall through, after resolve, or outside hooks.server', () => {
+    expect(answered("  if (event.url.pathname === '/' && !event.locals.user) return new Response();")).toBeUndefined();
+    expect(answered("  if (event.url.pathname === '/') console.log('/');")).toBeUndefined();
+    expect(
+      answered("  const r = await resolve(event);\n  if (event.url.pathname === '/') return new Response();")
+    ).toBeUndefined();
+    expect(
+      answered("  if (event.url.pathname === '/') return new Response();", 'src/routes/+page.server.ts')
+    ).toBeUndefined();
+  });
+});
+
 describe('parseKitModuleFacts — loadNeverRenders (routes whose load always redirects or errors)', () => {
   const kit = "import { redirect } from '@sveltejs/kit';\n";
   const always = (src: string, file = 'src/routes/old/+page.ts') => facts(kit + src, file).loadNeverRenders;
