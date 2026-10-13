@@ -1,0 +1,657 @@
+[
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::a11y/permitted-contents::src/lib/components/CategoryTiles.svelte:212::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read CategoryTiles.svelte:212: literal `<div class=\"tile-inner\">` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::architecture/component-size::src/lib/components/CategoryTiles.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CategoryTiles.svelte has 387 physical lines (newline count, trailing newline not counted; 334 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::architecture/component-size::src/routes/cart/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cart/+page.svelte has 206 physical lines (newline count, trailing newline not counted; 175 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::architecture/component-size::src/routes/cart/CartProducts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cart/CartProducts.svelte has 312 physical lines (newline count, trailing newline not counted; 272 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::architecture/component-size::src/routes/orders/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/orders/+page.svelte has 240 physical lines (newline count, trailing newline not counted; 208 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::architecture/component-size::src/routes/orders/CartProducts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/orders/CartProducts.svelte has 302 physical lines (newline count, trailing newline not counted; 263 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::architecture/component-size::src/routes/product/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/product/[id]/+page.svelte has 457 physical lines (newline count, trailing newline not counted; 389 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::correctness/each-index-key::src/lib/components/CategoryTiles.svelte:184::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CategoryTiles.svelte:184 '{#each category.name.split(' ') …}'; category.name.split(' ') words of one category name; positional list (text segments)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::correctness/each-index-key::src/lib/components/CategoryTiles.svelte:196::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CategoryTiles.svelte:196 '{#each category.name.split(' ') …}'; category.name.split(' ') words of one category name; positional list (text segments)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::correctness/each-key::src/routes/orders/+page.svelte:97::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/orders/+page.svelte:97 '{#each orders …}'; orders = $state fetched from the orders API (orders/+page.svelte:20,37); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::correctness/each-key::src/routes/product/[id]/+page.svelte:162::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/product/[id]/+page.svelte:162 '{#each galleryImages …}'; galleryImages = product.gallery of the loaded product (product/[id]/+page.svelte:51); nested runtime records"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-dimensions::src/routes/newsletter/+page.svelte:39::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .newsletter__image {width:40%;height:80vh} with img width/height 100% (newsletter/+page.svelte style) - box reserved by CSS"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-dimensions::src/routes/product/[id]/+page.svelte:156::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .product__image {height:80vh} with img width/height 100% object-fit cover (product/[id]/+page.svelte style) - box reserved by CSS"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-dimensions::src/routes/product/[id]/+page.svelte:168::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .product__thumb-btn {width:80px;height:80px} with img 100%x100% (product/[id]/+page.svelte style) - box reserved by CSS"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-dimensions::src/routes/signin/+page.svelte:63::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .auth__desc-image {aspect-ratio:4/3} with img 100%x100% (signin/+page.svelte:126-136) - box reserved by CSS"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-dimensions::src/routes/signup/+page.svelte:65::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .auth__desc-image {aspect-ratio:4/3} with img 100%x100% (signup/+page.svelte:138-148) - box reserved by CSS"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-dimensions::src/routes/support/+page.svelte:29::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "<img> lacks width and/or height, no spread; .support__image {width:40%} has no height and the img is height:100% of it (support/+page.svelte:70-78); in the mobile column layout the natural aspect decides the height and the text below shifts"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/cart/+page.svelte:100::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 24px card icon in the PURCHASE button of the cartActions snippet in the first-section text column (cart/+page.svelte:98-100) - not demonstrably offscreen"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/cart/+page.svelte:49::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 12px info icon in the cart text column right under the <h1>CART and intro (cart/+page.svelte:44-50) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/cart/+page.svelte:57::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 12px check icon in the short cart text column under the <h1> (cart/+page.svelte:56-58) - within the first viewport"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/cart/+page.svelte:91::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 24px card icon in the PAY button of the cartActions snippet, rendered at the end of the short first-section text column (cart/+page.svelte:67-69,90-91) - not demonstrably offscreen"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/cart/+page.svelte:95::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 24px basket icon in the Shop More button of the cartActions snippet in the first-section text column (cart/+page.svelte:67-69,94-95) - not demonstrably offscreen"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/newsletter/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 80vh newsletter image beside the <h1> in the first section (newsletter/+page.svelte:38-40) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/orders/+page.svelte:126::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 24px basket icon in the Shop More button of the cartActions snippet at the end of the short first-section text column (orders/+page.svelte) - not demonstrably offscreen"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/orders/+page.svelte:79::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 12px check icon right under the <h1>MY ORDERS (orders/+page.svelte) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:156::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; main product gallery image, the first element of the page (product/[id]/+page.svelte:153-156) - the LCP image, kept eager per docs"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:168::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 80px thumbnails directly under the 80vh main image in the sticky gallery column (product/[id]/+page.svelte:160-168) - largely within the first viewport"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:182::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 18px star icon in the listing info right under the product <h1> (product/[id]/+page.svelte:177-182) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:194::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 18px rupee icon in the price row under the product <h1> (product/[id]/+page.svelte:193-195) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:210::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 20px minus icon in the quantity control of the product details column (product/[id]/+page.svelte:207-210) - above the fold on desktop"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:214::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 20px plus icon in the quantity control of the product details column (product/[id]/+page.svelte:213-214) - above the fold on desktop"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/product/[id]/+page.svelte:219::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 24px cart icon in the ADD TO CART button of the product details column (product/[id]/+page.svelte:218-219) - above the fold on desktop"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/signin/+page.svelte:63::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; banner image in the first-section description column under the <h1>Sign In (signin/+page.svelte:57-64) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/signup/+page.svelte:65::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; banner image in the first-section description column under the <h1>Sign Up (signup/+page.svelte:59-66) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/success/+page.svelte:11::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 48px success icon above the <h1>Order Confirmed (success/+page.svelte:10-14) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/image-loading-hint::src/routes/support/+page.svelte:29::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; support image, the first element of the page beside the <h1>Contact Us (support/+page.svelte:27-32) - above the fold"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/load-waterfall::src/routes/product/[id]/+page.ts:13::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read src/routes/product/[id]/+page.ts:6-13: getProducts({categoryId: product.categoryId}) uses the result of getProduct (lib/data.ts:38-61, fetches to ${API_BASE}/products) — a dependent second request; universal load, no csr export (root +layout.ts only sets prerender = true), so it re-runs in the browser on client navigation"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/responsive-image::src/routes/newsletter/+page.svelte:39::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; static /assets/types/kanchi-cotton/example.webp - raster, one fixed-size asset"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/responsive-image::src/routes/product/[id]/+page.svelte:156::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; currentImage.url, the product high-res upload (galleryImages, product/[id]/+page.svelte:51) - raster, one fixed-size asset at 50% x 80vh"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/responsive-image::src/routes/product/[id]/+page.svelte:168::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; img.thumb_url is the backend's -thumb.webp variant (product/[id]/+page.svelte:51; ENDPOINTS.md:157) shown in an 80px button - already a small variant, a srcset would add little"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/responsive-image::src/routes/signin/+page.svelte:63::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; static /assets/types/banner-1.webp - raster, one fixed-size asset"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/responsive-image::src/routes/signup/+page.svelte:65::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; static /assets/types/banner-2.webp - raster, one fixed-size asset"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::performance/responsive-image::src/routes/support/+page.svelte:29::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; static /assets/others/support.webp - raster, one fixed-size asset"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::security/raw-html::src/routes/+layout.svelte:81::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:19-27,81: Organization JSON-LD = JSON.stringify of a fully literal object — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::security/raw-html::src/routes/+page.svelte:45::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:4-14,45: WebSite JSON-LD = JSON.stringify of a fully literal object — a literal reviewed JSON-LD block per docs"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::security/raw-html::src/routes/category/[id]/+page.svelte:69::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/category/[id]/+page.svelte:13-40,69 + +page.ts: CollectionPage JSON-LD = JSON.stringify of currentCategory.name from the backend /api/tiles (getCategories) with no '<' escaping inside <script type=application/ld+json> — docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::security/raw-html::src/routes/product/[id]/+page.svelte:149::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/product/[id]/+page.svelte:17-42,149: Product JSON-LD = JSON.stringify of backend product.title/subtitle (getProduct, /api/products/:id) with no '<' escaping inside <script type=application/ld+json> — docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/canonical-url::src/routes/newsletter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /newsletter (script-verified: a1b_label.py comment-stripped grep of the app tree; <link rel=\"canonical\"> only in src/routes/+page.svelte, src/routes/contact/+page.svelte, src/routes/privacy/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/faq/+page.svelte, src/routes/signup/+page.svelte, src/routes/terms/+page.svelte, src/routes/return/+page.svelte, src/routes/about/+page.svelte, src/routes/shipping/+page.svelte, src/routes/product/[id]/+page.svelte, src/routes/blog/+page.svelte, src/routes/signin/+page.svelte, src/routes/support/+page.svelte, src/routes/cart/+page.svelte, src/routes/orders/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/canonical-url::src/routes/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /success (script-verified: a1b_label.py comment-stripped grep of the app tree; <link rel=\"canonical\"> only in src/routes/+page.svelte, src/routes/contact/+page.svelte, src/routes/privacy/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/faq/+page.svelte, src/routes/signup/+page.svelte, src/routes/terms/+page.svelte, src/routes/return/+page.svelte, src/routes/about/+page.svelte, src/routes/shipping/+page.svelte, src/routes/product/[id]/+page.svelte, src/routes/blog/+page.svelte, src/routes/signin/+page.svelte, src/routes/support/+page.svelte, src/routes/cart/+page.svelte, src/routes/orders/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/+page.svelte's top-level svelte:head, 194 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/cart/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/cart/+page.svelte's top-level svelte:head, 56 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/contact/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/contact/+page.svelte's top-level svelte:head, 53 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/faq/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/faq/+page.svelte's top-level svelte:head, 65 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/newsletter/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/newsletter/+page.svelte's top-level svelte:head, 65 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/orders/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/orders/+page.svelte's top-level svelte:head, 29 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/return/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/return/+page.svelte's top-level svelte:head, 59 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/signin/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/signin/+page.svelte's top-level svelte:head, 33 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/signup/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/signup/+page.svelte's top-level svelte:head, 29 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/support/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/support/+page.svelte's top-level svelte:head, 44 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-length::src/routes/terms/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal <meta name=description> in src/routes/terms/+page.svelte's top-level svelte:head, 69 graphemes as reported, the route's only description (layout/app.html none); public prerendered saree store page (layout robots index,follow), length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/description-presence::src/routes/success/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/success/+page.svelte:4-6 head has only <title>; root +layout.svelte head has robots/og/JSON-LD but no description, app.html none; /success is a prerendered page of the public Kalharam saree store (root +layout.ts prerender=true, layout robots index,follow), missing as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/heading-level-skip::src/routes/cart/+page.svelte:50::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>CART (cart/+page.svelte:44) then <h3>Quality Promise (:50), no <h2> between - h1 to h3"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/heading-level-skip::src/routes/orders/+page.svelte:80::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>MY ORDERS (orders/+page.svelte) then <h3>Order Status (:80), no <h2> between - h1 to h3"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/heading-level-skip::src/routes/product/[id]/+page.svelte:184::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>{product.title} (product/[id]/+page.svelte:177) then the stock <h3> (:184/:186), no <h2> between - h1 to h3"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/heading-level-skip::src/routes/support/+page.svelte:38::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>Contact Us (support/+page.svelte:32) then <h3>WhatsApp (:38), no <h2> between - h1 to h3"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/cart/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cart (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/contact/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contact (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/faq/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /faq (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /newsletter (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/orders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /orders (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /privacy (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/return/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /return (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/shipping/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shipping (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/signin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signin (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /success (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/support/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /support (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-description::src/routes/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /terms (script-verified: a1b_label.py comment-stripped grep of the app tree; og:description only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/cart/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cart (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/faq/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /faq (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /newsletter (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/orders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /orders (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/return/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /return (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/shipping/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shipping (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/signin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signin (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /success (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/support/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /support (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /terms (script-verified: a1b_label.py comment-stripped grep of the app tree; og:image only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/cart/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cart (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/contact/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /contact (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/faq/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /faq (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /newsletter (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/orders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /orders (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /privacy (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/return/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /return (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/shipping/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shipping (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/signin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signin (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /success (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/support/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /support (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-title::src/routes/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /terms (script-verified: a1b_label.py comment-stripped grep of the app tree; og:title only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/cart/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cart (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/contact/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /contact (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/faq/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /faq (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/newsletter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /newsletter (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /orders (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/return/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /return (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/shipping/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shipping (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/signin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signin (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /success (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/support/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /support (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (script-verified: a1b_label.py comment-stripped grep of the app tree; og:url only in src/routes/+page.svelte, src/routes/category/[id]/+page.svelte, src/routes/product/[id]/+page.svelte (not on this route's page/layout chain)); public storefront (layout robots meta index,follow at +layout.svelte:76, robots.txt allows all); root +layout.svelte:74-82 head emits og:site_name, og:type, twitter:card and JSON-LD only; per-page og:title/description/image/url exist only on /, category/[id], product/[id]; Nav/Footer/SimilarProducts/Banner emit none; deps gsap/lenis only; no hooks; route renders (prerendered, no redirecting load)"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/single-h1::src/lib/components/ShopCatalog.svelte:99::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1>s render on /: the page's sr-only <h1> (+page.svelte:49) and ShopCatalog's unconditional <h1>{currentCategory.name} (ShopCatalog.svelte:99), used at +page.svelte:63"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/title-length::src/routes/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/+page.svelte, 64 graphemes as reported; Svelte sets document.title to it on hydration (app.html:15's earlier <title>Kalharam</title>, 8 chars, is what non-JS readers see, also outside 30-60); public prerendered saree store page, length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/title-length::src/routes/orders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/orders/+page.svelte, 29 graphemes as reported; Svelte sets document.title to it on hydration (app.html:15's earlier <title>Kalharam</title>, 8 chars, is what non-JS readers see, also outside 30-60); public prerendered saree store page, length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/title-length::src/routes/signin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/signin/+page.svelte, 27 graphemes as reported; Svelte sets document.title to it on hydration (app.html:15's earlier <title>Kalharam</title>, 8 chars, is what non-JS readers see, also outside 30-60); public prerendered saree store page, length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/title-length::src/routes/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/signup/+page.svelte, 27 graphemes as reported; Svelte sets document.title to it on hydration (app.html:15's earlier <title>Kalharam</title>, 8 chars, is what non-JS readers see, also outside 30-60); public prerendered saree store page, length off as claimed"
+  },
+  {
+    "key": "hxri-nxrxyxn/kalharam:web::seo/title-length::src/routes/success/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/success/+page.svelte, 27 graphemes as reported; Svelte sets document.title to it on hydration (app.html:15's earlier <title>Kalharam</title>, 8 chars, is what non-JS readers see, also outside 30-60); public prerendered saree store page, length off as claimed"
+  }
+]

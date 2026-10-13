@@ -1,0 +1,812 @@
+[
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/interactive-nesting::src/routes/teams/+page.svelte:129::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read teams/+page.svelte:123-129: 'Wechseln' <button> (in {:else}) inside the team-head <div role=\"button\" tabindex=\"0\"> (:123) in the same {#each} template; nested as reported"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/interactive-nesting::src/routes/teams/+page.svelte:131::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read teams/+page.svelte:123-131: fold <button> inside the team-head <div role=\"button\" tabindex=\"0\"> (:123); nested as reported"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/einstellungen/+page.svelte:113::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read einstellungen/+page.svelte:113: literal `<div><div class=\"k\">Aufzeichnungen auf diesem Gerät <span cl…` sits (through elements/control-flow blocks only) in the literal <summary> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/einstellungen/+page.svelte:137::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read einstellungen/+page.svelte:137: literal `<div><div class=\"k\">Diagnose <span class=\"caret\">›</span></d…` sits (through elements/control-flow blocks only) in the literal <summary> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/spiele/+page.svelte:58::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read spiele/+page.svelte:58: literal `<span><a class=\"opp\" href={m.status === 'planned' ? `${base}…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/team/+page.svelte:103::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read team/+page.svelte:103: literal `<ul class=\"top\">{#each topPts as x (x.id)}<li><span class=\"j…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/team/+page.svelte:105::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read team/+page.svelte:105: literal `<ul class=\"top\">{#each topEff as x (x.id)}<li><span class=\"j…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/team/+page.svelte:107::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read team/+page.svelte:107: literal `<ul class=\"top\">{#each topRec as x (x.id)}<li><span class=\"j…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/team/+page.svelte:93::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read team/+page.svelte:93: literal `<span><a href={m.status === 'planned' ? `${base}/spiele/${m.…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/teams/+page.svelte:126::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read teams/+page.svelte:126: literal `<div class=\"s\">{s.parts.length ? s.parts.join(' · ') + ' · '…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::a11y/permitted-contents::src/routes/teams/+page.svelte:170::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read teams/+page.svelte:170: literal `<span><b>{m.display_name}</b>{#if m.id === $me?.user?.id} <s…` sits (through elements/control-flow blocks only) in the literal <span> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::architecture/component-size::src/lib/components/MatchForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MatchForm.svelte has 249 physical lines (newline count, trailing newline not counted; 238 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::architecture/component-size::src/routes/auswertung/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/auswertung/[id]/+page.svelte has 302 physical lines (newline count, trailing newline not counted; 289 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::architecture/component-size::src/routes/live/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/live/[id]/+page.svelte has 980 physical lines (newline count, trailing newline not counted; 950 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::architecture/component-size::src/routes/teams/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/teams/+page.svelte has 245 physical lines (newline count, trailing newline not counted; 235 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::architecture/prop-count::src/lib/components/Court.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Court.svelte has a single destructured $props() with 9 named props (> 6): court, byId, selected, serving, suggested, over, dragging, targets, onselect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-index-key::src/lib/components/Voice.svelte:118::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Voice.svelte:118 '{#each log …}'; log = $state prepended with each voice result ([new, ...log].slice(0, 3), Voice.svelte:77) and keyed by index; runtime list whose items shift position"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/lib/components/Court.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Court.svelte:16 '{#each row …}'; iterates row, an element of an outer inline constant literal ([[4, 3, 2], [5, 6, 1]], Court.svelte:14 / MatchForm.svelte:197); not the docs' bare inline-literal shape; static list (court positions)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/lib/components/MatchForm.svelte:198::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/MatchForm.svelte:198 '{#each row …}'; iterates row, an element of an outer inline constant literal ([[4, 3, 2], [5, 6, 1]], Court.svelte:14 / MatchForm.svelte:197); not the docs' bare inline-literal shape; static list (court positions)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/auswertung/[id]/+page.svelte:236::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/auswertung/[id]/+page.svelte:236 '{#each items.filter((i) => i.n) …}'; items = fixed category stats of the analysis (cats.pts/cats.lost), rendered as chart segments/legend; static list per report"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/auswertung/[id]/+page.svelte:237::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/auswertung/[id]/+page.svelte:237 '{#each items …}'; items = fixed category stats of the analysis (cats.pts/cats.lost), rendered as chart segments/legend; static list per report"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/auswertung/[id]/+page.svelte:254::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/auswertung/[id]/+page.svelte:254 '{#each GRADES.filter((x) => g[x]) …}'; GRADES.filter(...) of the constant GRADES list ($lib/engine.js); static list"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/einstellungen/+page.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/einstellungen/+page.svelte:142 '{#each diag …}'; diag = readDiag() diagnostics log from localStorage, cleared by clearDiag (einstellungen/+page.svelte:69-81); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/kader/+page.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/kader/+page.svelte:59 '{#each Object.entries(POS_NAME) …}'; Object.entries(POS_NAME), the constant positions table of $lib/engine.js; static list fixed at author time"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/kader/+page.svelte:74::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/kader/+page.svelte:74 '{#each Object.entries(POS_NAME) …}'; Object.entries(POS_NAME), the constant positions table of $lib/engine.js; static list fixed at author time"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/teams/+page.svelte:158::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/teams/+page.svelte:158 '{#each Object.entries(POS_NAME) …}'; Object.entries(POS_NAME), the constant positions table of $lib/engine.js; static list fixed at author time"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/each-key::src/routes/teams/+page.svelte:172::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/teams/+page.svelte:172 '{#each Object.entries(ROLES) …}'; Object.entries(ROLES), the constant roles table of $lib/people.js; static list fixed at author time"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/effect-as-derived::src/routes/einstellungen/+page.svelte:70::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/einstellungen/+page.svelte:70; the effect does diag = readDiag(), which reads localStorage (lib/stores.js:144-146); the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/effect-as-onmount::src/routes/live/[id]/+page.svelte:203::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/live/[id]/+page.svelte:203; the effect only toggles a body class with a cleanup (live/[id]/+page.svelte:203-206); no reactive read, runs once, as claimed"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::correctness/effect-as-onmount::src/routes/live/[id]/+page.svelte:41::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/live/[id]/+page.svelte:41; $effect(() => () => { alive = false; }) only returns a cleanup (live/[id]/+page.svelte:41); nothing is read when it runs, it acts as onDestroy (ledger cleanup-only convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/image-dimensions::src/routes/live/[id]/+page.svelte:538::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .score .serve {width:18px;height:18px} (src/app.css:247) - box reserved by CSS"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/image-dimensions::src/routes/live/[id]/+page.svelte:540::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; .score .serve {width:18px;height:18px} (src/app.css:247) - box reserved by CSS"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/image-loading-hint::src/routes/live/[id]/+page.svelte:538::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 18px serve indicator in the scoreboard at the top of the live view (live/[id]/+page.svelte:535-538) - above the fold"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/image-loading-hint::src/routes/live/[id]/+page.svelte:540::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 18px serve indicator in the scoreboard at the top of the live view (live/[id]/+page.svelte:535-540) - above the fold"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/image-loading-hint::src/routes/login/+page.svelte:53::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; 28px brand icon at the top of the login card (login/+page.svelte:51-53) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/state-raw::src/lib/components/Nav.svelte:34::\"menuPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"menuPos\" in src/lib/components/Nav.svelte (d_refs.sh): only whole-binding reassignments (:39 whole reassignment) and read-only uses (:86 member reads in a style attribute); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/state-raw::src/lib/components/Voice.svelte:28::\"log\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"log\" in src/lib/components/Voice.svelte (d_refs.sh): only whole-binding reassignments (:37 reset to [], :77 spread-copy reassignment) and read-only uses (:118 {#each} rendering l.ok/l.text/l.raw, :121 .length); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/state-raw::src/routes/spiele/+page.svelte:10::\"open\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"open\" in src/routes/spiele/+page.svelte (d_refs.sh): only whole-binding reassignments (:58 spread-copy toggle reassignment in an inline handler) and read-only uses (:58/:67 keyed reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/state-raw::src/routes/spiele/+page.svelte:14::\"ready\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"ready\" in src/routes/spiele/+page.svelte (d_refs.sh): only whole-binding reassignments (:33 reassigned from Object.fromEntries) and read-only uses (:58 keyed read in {#if}); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::performance/state-raw::src/routes/teams/+page.svelte:14::\"open\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"open\" in src/routes/teams/+page.svelte (d_refs.sh): only whole-binding reassignments (:30/:84/:96 spread-copy reassignments) and read-only uses (:122/:131/:133 keyed reads); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::security/raw-html::src/routes/anleitung/+page.svelte:38::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/anleitung/+page.svelte:9-24,38: css is the <style> text of the app's own static/hilfe/index.html (fetched from ${base}/hilfe/index.html) — repo-authored static content, reported per docs"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::security/raw-html::src/routes/anleitung/+page.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/anleitung/+page.svelte:9-24,39: html is the <article> of the app's own static/hilfe/index.html — repo-authored static content, reported per docs"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/anleitung/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /anleitung (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/auswertung/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auswertung (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/auswertung/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auswertung/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/einstellungen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /einstellungen (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/kader/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /kader (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/konto/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /konto (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/live/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /live/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); public route outside the auth gate"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/spiele/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /spiele (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/spiele/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /spiele/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/spiele/neu/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /spiele/neu (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/team/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /team (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/canonical-url::src/routes/teams/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /teams (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); but not a search target (client auth-gated: root +layout.svelte:22-33 $effect goto()s every non-/login path to /login when +layout.js load finds no /me session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/anleitung/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /anleitung); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/auswertung/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /auswertung); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/auswertung/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /auswertung/[id]); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/einstellungen/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /einstellungen); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/kader/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /kader); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/konto/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /konto); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/live/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /live/[id]); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /login); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/spiele/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /spiele); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/spiele/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /spiele/[id]); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/spiele/neu/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /spiele/neu); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/team/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /team); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/description-presence::src/routes/teams/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in web/src or app.html) (literal claim holds on /teams); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/anleitung/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /anleitung has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/auswertung/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /auswertung has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/auswertung/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /auswertung/[id] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/einstellungen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /einstellungen has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/kader/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /kader has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/konto/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /konto has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/live/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /live/[id] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /login has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/spiele/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /spiele has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/spiele/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /spiele/[id] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/spiele/neu/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /spiele/neu has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/team/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /team has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/json-ld::src/routes/teams/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of web/src incl. app.html: no ld+json/jsonld anywhere; page heads hold only <title>); /teams has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/anleitung/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /anleitung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/auswertung/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auswertung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/auswertung/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /auswertung/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/einstellungen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /einstellungen (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/kader/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /kader (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/konto/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /konto (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/live/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /live/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/spiele/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /spiele (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/spiele/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /spiele/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/spiele/neu/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /spiele/neu (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/team/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /team (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-description::src/routes/teams/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /teams (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/anleitung/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /anleitung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/auswertung/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auswertung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/auswertung/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /auswertung/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/einstellungen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /einstellungen (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/kader/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /kader (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/konto/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /konto (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/live/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /live/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/spiele/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /spiele (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/spiele/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /spiele/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/spiele/neu/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /spiele/neu (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/team/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /team (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-image::src/routes/teams/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /teams (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/anleitung/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /anleitung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/auswertung/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auswertung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/auswertung/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /auswertung/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/einstellungen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /einstellungen (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/kader/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /kader (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/konto/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /konto (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/live/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /live/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/spiele/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /spiele (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/spiele/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /spiele/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/spiele/neu/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /spiele/neu (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/team/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /team (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-title::src/routes/teams/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /teams (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/anleitung/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /anleitung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/auswertung/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auswertung (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/auswertung/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auswertung/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/einstellungen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /einstellungen (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/kader/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /kader (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/konto/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /konto (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/live/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /live/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/spiele/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /spiele (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/spiele/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /spiele/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/spiele/neu/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /spiele/neu (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/team/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /team (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/og-url::src/routes/teams/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /teams (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint and no generator or server route for it in the repo (literal claim holds); not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/single-h1::/anleitung::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<h1> IS rendered: the app is ssr=false (routes/+layout.js:2) and anleitung/+page.svelte:9-24,39 fetches static/hilfe/index.html and {@html}-renders its <article>, which opens with <h1>Sideout Anleitung</h1> (static/hilfe/index.html:91-92)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: login/+page.svelte has no heading element (brand div, form); root +layout.svelte renders Nav only {#if data.me}, no <h1>"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/single-h1::src/routes/live/[id]/+page.svelte:528::Missing <h#>",
+    "verdict": "tp",
+    "basis": "the live page's headings are <h2>s only (live/[id]/+page.svelte:528,617,626,648); Court/Pad/Voice and the layout Nav render no <h1> (no <h1> in src/lib)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint and no generator or server route for it in the repo (literal claim holds); not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/ssr-disabled::src/routes/+layout.js:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.js in the root layout (whole app SPA) (literal claim holds); deliberate SPA: not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/anleitung/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/anleitung/+page.svelte, 19 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/auswertung/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/auswertung/+page.svelte, 20 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/einstellungen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/einstellungen/+page.svelte, 23 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/kader/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/kader/+page.svelte, 15 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/konto/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/konto/+page.svelte, 15 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/login/+page.svelte, 18 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/spiele/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/spiele/+page.svelte, 16 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/spiele/[id]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/spiele/[id]/+page.svelte, 26 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/spiele/neu/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/spiele/neu/+page.svelte, 23 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/title-length::src/routes/teams/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py): literal top-level <svelte:head><title> in src/routes/teams/+page.svelte, 15 graphemes as reported, the route's only title (layout/app.html none) (literal claim holds); but not a search target: Sideout is a self-hosted volleyball scouting PWA (README: one binary on a small VPS) shipped as an ssr=false SPA (+layout.js:2) whose pages need a signed-in team"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/anleitung/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /anleitung (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/auswertung/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auswertung (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/auswertung/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /auswertung/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/einstellungen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /einstellungen (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/kader/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /kader (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/konto/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /konto (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/live/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /live/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/spiele/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /spiele (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/spiele/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /spiele/[id] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/spiele/neu/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /spiele/neu (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/team/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /team (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "JohnnyFFM/sideout:web::seo/twitter-card::src/routes/teams/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /teams (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); ssr=false SPA (+layout.js:2) so client heads count, and none emits it; page heads are <title> only, app.html is icons/manifest/theme/fonts; only dep vosk-browser; no hooks; routes render (only / redirects, +page.js:5, not in this batch); route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  }
+]

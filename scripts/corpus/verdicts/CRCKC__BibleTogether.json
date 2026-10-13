@@ -1,0 +1,717 @@
+[
+  {
+    "key": "CRCKC/BibleTogether::a11y/disallowed-aria-props::src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:216::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read (app)/bible/[scroll]/[chapter]/highlightPalette.svelte:216: `<div class=\"swatches\" aria-label={labels.title}>` with no role-changing spread/use: action; its implicit role does not take a name, so the name is not exposed as reported"
+  },
+  {
+    "key": "CRCKC/BibleTogether::a11y/interactive-nesting::src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:299::<div> is nested inside interactive <div role=\"slider\">",
+    "verdict": "tp",
+    "basis": "read highlightPalette.svelte:284-302: <div class=\"sv-square\" role=\"slider\" tabindex=\"0\"> nested inside the hue-ring <div role=\"slider\" tabindex=\"0\"> (:285-297); slider is children-presentational, so the inner slider is hidden from AT as reported"
+  },
+  {
+    "key": "CRCKC/BibleTogether::a11y/permitted-contents::src/routes/(app)/bible/bibleSelector.svelte:82::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/bible/bibleSelector.svelte:82: literal `<div` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::a11y/permitted-contents::src/routes/(user)/googleSigninButton.svelte:28::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (user)/googleSigninButton.svelte:28: literal `<div class=\"flex items-center justify-center rounded-l size-…` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/component-size::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte has 659 physical lines (newline count, trailing newline not counted; 608 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/component-size::src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte has 666 physical lines (newline count, trailing newline not counted; 618 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/component-size::src/routes/(app)/bible/navbarBible.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/bible/navbarBible.svelte has 213 physical lines (newline count, trailing newline not counted; 190 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/component-size::src/routes/(app)/home/scheduleCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/home/scheduleCard.svelte has 240 physical lines (newline count, trailing newline not counted; 217 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6): ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6): ref, opts, plugins, setApi, orientation, class, children; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6): ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6): open, ref, value, title, description, showCloseButton, portalProps, children, class; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, alignOffset, align, side, portalProps; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6): ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6): ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/toggle-group/toggle-group.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/toggle-group/toggle-group.svelte has a single destructured $props() with 7 named props (> 6): ref, value, class, size, spacing, orientation, variant; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, side, children, arrowClasses, portalProps; plus a ...rest element, not counted"
+  },
+  {
+    "key": "CRCKC/BibleTogether::architecture/prop-count::src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte has a single destructured $props() with 11 named props (> 6): anchor, initialColor, labels, defaultColor, savedColors, onApply, onSetDefault, onSaveCustom, onDeleteCustom, onRemove, onClose"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:85 '{#each weekdays …}'; weekdays header of the bits-ui calendar; positional list (weekday headers), ledger calendar convention"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] …}'; errors prop of field-error, runtime validation errors keyed by index (ledger field-error convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-index-key::src/lib/components/ui/range-calendar/range-calendar.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:82 '{#each weekdays …}'; weekdays header of the bits-ui calendar; positional list (weekday headers), ledger calendar convention"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-index-key::src/routes/(app)/home/scheduleCard.svelte:120::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/home/scheduleCard.svelte:120 '{#each carouselData …}'; carouselData built once by a for loop over 2024-2027 months (scheduleCard.svelte:73-80); static list fixed at author time"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/admin/+page.svelte:112::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/+page.svelte:112 '{#each results …}'; results = per-user reading progress mapped from fetched userProgress (admin/+page.svelte:56); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/admin/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/admin/+page.svelte:118 '{#each chapterProgress …}'; chapterProgress = Array.from({ length: totalChapters }, ...) one cell per chapter; positional list"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/admin/+page.svelte:89::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/admin/+page.svelte:89 '{#each Object.entries(bibleChinese) …}'; Object.entries of the constant bibleChinese / bibleSchedule tables ($lib/bible/constants); static list fixed at author time"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:245::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:245 '{#each savedColors …}'; savedColors, the user's saved highlight colours from the highlight projection (highlightPreferences.svelte:21-36); user-editable list"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:374::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/bible/[scroll]/[chapter]/highlightPalette.svelte:374 '{#each savedColors …}'; savedColors, the user's saved highlight colours from the highlight projection (highlightPreferences.svelte:21-36); user-editable list"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/feedback/+page.svelte:63::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/feedback/+page.svelte:63 '{#each FeedbackFormTypes.options …}'; FeedbackFormTypes.options of a zod enum (feedback/feedbackForm.ts); static list fixed at author time"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/settings/highlightPreferences.svelte:97::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/settings/highlightPreferences.svelte:97 '{#each projection.preferences.savedColors …}'; savedColors, the user's saved highlight colours from the highlight projection (highlightPreferences.svelte:21-36); user-editable list"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/settings/migrateProgress.svelte:33::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/migrateProgress.svelte:33 '{#each Object.entries(bibleSchedule) …}'; Object.entries of the constant bibleChinese / bibleSchedule tables ($lib/bible/constants); static list fixed at author time"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/settings/migrateProgress.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/migrateProgress.svelte:34 '{#each Object.entries(y) …}'; Object.entries of the constant bibleChinese / bibleSchedule tables ($lib/bible/constants); static list fixed at author time"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/each-key::src/routes/(app)/settings/migrateProgress.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/migrateProgress.svelte:35 '{#each Object.entries(m) …}'; Object.entries of the constant bibleChinese / bibleSchedule tables ($lib/bible/constants); static list fixed at author time"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/effect-as-derived::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte:327::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte:327; the effect only does chapterCompleted = chapComDerived ([chapter]/+page.svelte:327-329); chapterCompleted is otherwise written by bind:checked (:469), the writable-$derived override pattern (svelte 5 in the app)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/effect-as-derived::src/routes/(app)/bible/audioBar.svelte:11::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/bible/audioBar.svelte:11; the effect only derives sliderValue from currentTime/duration props (audioBar.svelte:11-13); later written by bind:value (:28), the writable-$derived override pattern (svelte 5 in the app)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/effect-as-derived::src/routes/(app)/bible/navbarBible.svelte:112::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/bible/navbarBible.svelte:112; the effect sets chapterChanged = true and audioSrc from $currentChapterStore (navbarBible.svelte:112-115); later writes are reassignments (:54), the writable-$derived override pattern (svelte 5 in the app)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/instance-browser-global::src/routes/(app)/bible/[scroll]/[chapter]/bibleCheckbox.svelte:25::IntersectionObserver is accessed during component initialisation — during SSR this runs on the server, where IntersectionObserver is not defined",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/bible/[scroll]/[chapter]/bibleCheckbox.svelte:25; new IntersectionObserver at the top level of bibleCheckbox.svelte:25 would crash SSR, but the root layout renders children only after loadingResult turns false in onMount (+layout.svelte:26,51,89-94), so the component never renders on the server; the docs' parent-gate case"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/login/+page.svelte:16::$state \"usernameField\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(user)/login/+page.svelte:16; usernameField $state(null); its only bind:ref sits inside an HTML comment (login/+page.svelte:57-84, signup/+page.svelte:71-102) and the focus() call is commented out, so nothing writes it, as claimed"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/signup/+page.svelte:18::$state \"usernameField\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(user)/signup/+page.svelte:18; usernameField $state(null); its only bind:ref sits inside an HTML comment (login/+page.svelte:57-84, signup/+page.svelte:71-102) and the focus() call is commented out, so nothing writes it, as claimed"
+  },
+  {
+    "key": "CRCKC/BibleTogether::security/raw-html::src/lib/pwa/pwa.svelte:43::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/pwa/pwa.svelte:5,43: webManifest = pwaInfo.webManifest.linkTag from virtual:pwa-info, a build-time constant generated by the PWA plugin — not user input, reported per docs"
+  },
+  {
+    "key": "CRCKC/BibleTogether::security/raw-html::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte:460::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte:356-365,460 + lib/backend.ts:3-30 + lib/bible/download.ts:8-45: bibleContent is loadChapter's verbatim chapter HTML file from the operator-configured Bible zip (PUBLIC_BIBLE_DOWNLOAD_URL) cached in IndexedDB — operator-published static content, not user input, reported per docs"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/bible/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /bible (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect; also an onMount goto() redirect stub to the current chapter ((app)/bible/+page.svelte:12-14)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /bible/[scroll]/[chapter] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/changelog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /changelog (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/feedback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /feedback (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(app)/settings/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/profile (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but not a search target (client auth-gated: root +layout.ts:7-9 sets requireLogin for every (app) route and root +layout.svelte:66-70 goto()s guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(user)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; public route outside the auth gate"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/(user)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; public route outside the auth gate"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; but route is an onMount goto('signup') redirect stub (+page.svelte:5-7), and a redirect stub is not demonstrably a defect"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /admin); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/bible/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /bible); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /bible/[scroll]/[chapter]); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/changelog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /changelog); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/feedback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /feedback); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/home/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /home); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /settings); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(app)/settings/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /settings/profile); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(user)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /login); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/(user)/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /signup); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in src or app.html; root +layout.svelte has no head, lib/pwa/pwa.svelte head only manifest+script) (literal claim holds on /); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/app.html:4 literal <title>禮中齊讀經</title> is the only title of the 10 routes in the key (local CLI list; only /changelog sets its own), duplicate as claimed; but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /admin has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/bible/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /bible has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /bible/[scroll]/[chapter] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/changelog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /changelog has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/feedback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /feedback has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /home has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /settings has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(app)/settings/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /settings/profile has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(user)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /login has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/(user)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); /signup has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html: no ld+json/jsonld/schema.org anywhere, no meta-tag package in deps); / has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/bible/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /bible (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention); also an onMount goto() redirect stub to the current chapter ((app)/bible/+page.svelte:12-14)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /bible/[scroll]/[chapter] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/changelog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /changelog (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/feedback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /feedback (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/profile (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(user)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/(user)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is an onMount goto('signup') redirect stub (+page.svelte:5-7), but the server HTML it serves still lacks the tag"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/bible/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /bible (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention); also an onMount goto() redirect stub to the current chapter ((app)/bible/+page.svelte:12-14)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /bible/[scroll]/[chapter] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/changelog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /changelog (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/feedback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /feedback (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/profile (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(user)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/(user)/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is an onMount goto('signup') redirect stub (+page.svelte:5-7), but the server HTML it serves still lacks the tag"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/bible/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /bible (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention); also an onMount goto() redirect stub to the current chapter ((app)/bible/+page.svelte:12-14)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /bible/[scroll]/[chapter] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/changelog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /changelog (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/feedback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /feedback (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/profile (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(user)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/(user)/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is an onMount goto('signup') redirect stub (+page.svelte:5-7), but the server HTML it serves still lacks the tag"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/bible/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /bible (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention); also an onMount goto() redirect stub to the current chapter ((app)/bible/+page.svelte:12-14)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /bible/[scroll]/[chapter] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/changelog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /changelog (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/feedback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /feedback (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/profile (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(user)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/(user)/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is an onMount goto('signup') redirect stub (+page.svelte:5-7), but the server HTML it serves still lacks the tag"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint and no generator or server route for it in the repo (literal claim holds); not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/::Missing <h#>",
+    "verdict": "design",
+    "basis": "routes/+page.svelte is a client-side redirect stub: onMount(() => goto(\"signup\")) and no markup - the claim holds but there is no page content to title"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/admin::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: (app)/admin/+page.svelte has no heading; (app)/+layout.svelte and root layout render nav items only; no <h1> in src/lib"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/bible/[scroll]/[chapter]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in the page, (app)/bible and (app) layouts; the chapter body is {@html bibleContent} (:460) from a zip downloaded at runtime (PUBLIC_BIBLE_DOWNLOAD_URL), whose chapter HTML uses <h3> titles and <h5> refs (lib/backend.ts:38-41)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/bible::Missing <h#>",
+    "verdict": "design",
+    "basis": "(app)/bible/+page.svelte is a client-side redirect stub: onMount(() => goto(`bible/${scroll}/${chapter}`)) and no markup - the claim holds but there is no page content to title"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/feedback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: (app)/feedback/+page.svelte (superForm feedback form) has no heading; layouts render none"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/home::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: (app)/home/+page.svelte renders VotdCard/ScheduleCard, neither with a heading; layouts render none; no <h1> in src/lib"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: (app)/settings/+page.svelte (ZoomPopup, HighlightPreferences, LogoutButton) has no <h1>; layouts render none"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint and no generator or server route for it in the repo (literal claim holds); not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title>禮中齊讀經</title> at src/app.html:4, 5 graphemes as reported; the 10 routes in the key set no title of their own) (literal claim holds); but not a search target: congregation Bible-reading tracker PWA (README; app.html title 禮中齊讀經) whose root +layout.svelte autoLogin sends signed-out visitors of every (app) route to /login and first visitors to /signup, and / only goto('signup')s in onMount"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/bible/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /bible (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention); also an onMount goto() redirect stub to the current chapter ((app)/bible/+page.svelte:12-14)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/bible/[scroll]/[chapter]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /bible/[scroll]/[chapter] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/changelog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /changelog (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/feedback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /feedback (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(app)/settings/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/profile (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is client auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(user)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/(user)/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signup (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders"
+  },
+  {
+    "key": "CRCKC/BibleTogether::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); static SPA build (adapter-static fallback); app.html:21 canonical is commented out; heads: app.html <title>, changelog/+page.svelte <title>, lib/pwa/pwa.svelte (manifest link); npm Svelte deps (bits-ui, mode-watcher, svelte-sonner, embla, paneforge, formsnap, vaul-svelte) emit no social/canonical tags; no hooks, every route renders; route is an onMount goto('signup') redirect stub (+page.svelte:5-7), but the server HTML it serves still lacks the tag"
+  }
+]

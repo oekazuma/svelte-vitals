@@ -1,0 +1,1457 @@
+[
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/disallowed-aria-props::src/lib/WizardFrame.svelte:72::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read WizardFrame.svelte:72: `<div class=\"mt-3 flex gap-1\" aria-label=\"Schritt {stepIndex + 1} von {…` with no role-changing spread/use: action; its implicit role does not take a name, so the name is not exposed as reported"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/disallowed-aria-props::src/routes/(app)/files/+page.svelte:383::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read (app)/files/+page.svelte:383: upload <label aria-label=\"Hochladen\"> wrapping a file <input> (:385), no role/spread/use:; docs name exactly this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (ledger convention: every <label> verdict is design)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/duplicate-landmark::src/routes/(app)/mail/+layout.svelte:216::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read (app)/mail/+layout.svelte:216: second <main> around the mail children while (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users; two main landmarks on each of the 3 mail routes"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/duplicate-landmark::src/routes/(app)/messenger/+page.svelte:107::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read (app)/messenger/+page.svelte:107: page <main> rendered unconditionally while (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users; two main landmarks"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/duplicate-landmark::src/routes/(app)/wiki/+page.svelte:74::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read (app)/wiki/+page.svelte:74: page <main> rendered unconditionally while (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users; two main landmarks"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/id-duplication::src/lib/WizardFrame.svelte:63::Duplicate id \"wizard-title\"",
+    "verdict": "design",
+    "basis": "read: <h2 id=\"wizard-title\"> (WizardFrame.svelte:63) appears via FeedbackWizard ({#if feedback.open}, :332, opened from AvatarMenu click) and OnboardingWizard ({#if visible}, :367), both mounted by (app)/+layout.svelte:349/:351; each is a full-screen aria-modal overlay, so the second cannot be opened while the first covers the page; separate {#if} blocks counted as co-rendering per docs (ledger: separate never-together blocks are design)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/interactive-nesting::src/routes/(app)/files/+page.svelte:537::<button> is nested inside interactive <tr role=\"button\">",
+    "verdict": "tp",
+    "basis": "read (app)/files/+page.svelte:494-541: menu <button> inside a <td> of the clickable <tr role=\"button\" tabindex=\"0\"> (:505-506) in the same template, no component boundary; nested interactive control as reported"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/no-autofocus::src/routes/login/+page.svelte:84::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; login/+page.svelte:80-88 TOTP <input autofocus> under {#if needsTotp}, needsTotp = $state(false) (:10) set only after the user submits credentials and the server answers totp_required (:31-33); focus follows a user action, not page load (author svelte-ignored a11y_autofocus)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/pattern-title::src/routes/login/+page.svelte:84::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read login/+page.svelte:84-95: TOTP <input pattern=\"[0-9 ]*\"> with no title inside <form onsubmit={submit}> (:57), no novalidate, so a mismatch shows the browser's bare validation message"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/calendar/+page.svelte:244::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/calendar/+page.svelte:244: literal `<div class=\"flex min-w-0 items-center justify-between gap-1\"…` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/calendar/+page.svelte:250::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/calendar/+page.svelte:250: literal `<div class=\"min-w-0 space-y-0.5\">` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/forum/+page.svelte:201::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/forum/+page.svelte:201: literal `<div class=\"mt-0.5\">{@render iconBadge(t.icon)}</div>` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/forum/+page.svelte:202::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/forum/+page.svelte:202: literal `<div class=\"min-w-0 flex-1\">` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/mail/+layout.svelte:169::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/mail/+layout.svelte:169: literal `><div class=\"h-3 w-3\"></div></button>` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/messenger/+page.svelte:96::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/messenger/+page.svelte:96: literal `<p class=\"truncate text-sm font-medium\">{partnerLabel(p)}</p…` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/messenger/+page.svelte:97::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/messenger/+page.svelte:97: literal `<p class=\"truncate text-[11px] text-zinc-500\">{p}</p>` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/messenger/+page.svelte:99::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/messenger/+page.svelte:99: literal `<p class=\"mt-0.5 truncate text-xs text-zinc-500\">{last.text}…` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/settings/+page.svelte:692::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/settings/+page.svelte:692: literal `<div class=\"flex h-20 gap-1 p-2\">` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/settings/+page.svelte:696::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/settings/+page.svelte:696: literal `<div class=\"border-t border-zinc-800 px-3 py-1.5 text-left t…` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/settings/+page.svelte:706::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/settings/+page.svelte:706: literal `<div class=\"flex h-20 flex-col gap-1 p-2\">` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/permitted-contents::src/routes/(app)/settings/+page.svelte:710::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (app)/settings/+page.svelte:710: literal `<div class=\"border-t border-zinc-800 px-3 py-1.5 text-left t…` sits (through elements/control-flow blocks only) in the literal <button> named in the message, whose content model excludes it; no component/snippet boundary between, as reported (read in context)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/files/+page.svelte:672::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/files/+page.svelte:670-674: unlabelled versions <aside> at the page top level under {#if versionsFor}, not inside sectioning content; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users, so it is a complementary landmark nested in main"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/mail/+layout.svelte:216::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/mail/+layout.svelte:216-218: <main> wrapping the mail children, itself rendered inside the (app) layout <main>; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users; true on the 3 mail routes"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/mail/+layout.svelte:78::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/mail/+layout.svelte:78: unlabelled folder <aside> at the mail layout top level, not in sectioning content; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users; true on the 3 mail routes"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/messenger/+page.svelte:107::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/messenger/+page.svelte:107: page <main> inside the (app) layout <main>; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/messenger/+page.svelte:75::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/messenger/+page.svelte:73-75: unlabelled conversation-list <aside> in a plain <div>, not sectioning content; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/settings/+page.svelte:324::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/settings/+page.svelte:324: unlabelled tab-rail <aside> (hidden md:flex) at the page top level, not in sectioning content; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/timetable/+page.svelte:479::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/timetable/+page.svelte:478-479: unlabelled rail <aside> (hidden xl:flex) in a plain <div>; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/wiki/+page.svelte:55::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/wiki/+page.svelte:55: unlabelled wiki <aside> (hidden md:flex) at the page top level, not in sectioning content; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::a11y/top-level-landmark::src/routes/(app)/wiki/+page.svelte:74::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/wiki/+page.svelte:74: page <main class=\"overflow-auto\"> inside the (app) layout <main>; (app)/+layout.svelte renders {@render children()} inside <main> in both arms of {#if navConfig.mode === 'topnav'} (:199-201, :253-255); (app)/+layout.server.ts only redirects to restore a group, the page renders for signed-in users"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/lib/ApiTokens.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ApiTokens.svelte has 237 physical lines (newline count, trailing newline not counted; 221 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/lib/ComposeWindow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ComposeWindow.svelte has 227 physical lines (newline count, trailing newline not counted; 216 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/lib/FeedbackWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/FeedbackWizard.svelte has 551 physical lines (newline count, trailing newline not counted; 518 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/lib/Icon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/Icon.svelte has 303 physical lines (newline count, trailing newline not counted; 301 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/lib/OnboardingWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/OnboardingWizard.svelte has 780 physical lines (newline count, trailing newline not counted; 742 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 351 physical lines (newline count, trailing newline not counted; 328 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/api-docs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/api-docs/+page.svelte has 237 physical lines (newline count, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/board/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/board/+page.svelte has 242 physical lines (newline count, trailing newline not counted; 231 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/calendar/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/calendar/+page.svelte has 305 physical lines (newline count, trailing newline not counted; 286 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/files/+page.svelte has 790 physical lines (newline count, trailing newline not counted; 762 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/forum/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/forum/+page.svelte has 311 physical lines (newline count, trailing newline not counted; 297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/mail/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/mail/+layout.svelte has 279 physical lines (newline count, trailing newline not counted; 270 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte has 208 physical lines (newline count, trailing newline not counted; 199 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/messenger/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/messenger/+page.svelte has 238 physical lines (newline count, trailing newline not counted; 224 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/+page.svelte has 1056 physical lines (newline count, trailing newline not counted; 1004 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/(app)/timetable/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/timetable/+page.svelte has 551 physical lines (newline count, trailing newline not counted; 520 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 211 physical lines (newline count, trailing newline not counted; 198 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/prop-count::src/lib/AvatarMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/AvatarMenu.svelte has a single destructured $props() with 10 named props (> 6): displayName, email, seed, size, placement, groups, currentGroup, showPersonal, onselectgroup, onapps"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/prop-count::src/lib/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ConfirmModal.svelte has a single destructured $props() with 10 named props (> 6): open, onclose, title, action, fields, onconfirm, confirmLabel, cancelLabel, tone, children"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::architecture/prop-count::src/lib/WizardFrame.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/WizardFrame.svelte has a single destructured $props() with 10 named props (> 6): title, badge, stepCount, stepIndex, onclose, closeLabel, banner, children, footer, scrollKey"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/ApiTokens.svelte:196::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ApiTokens.svelte:196 '{#each groups …}'; groups/list = $derived.by grouping tools by category (ApiTokens.svelte:24-32); tools is the MCP tool catalog fetched once from /api/connections/catalog (:42-48), a code-defined registry like the api-docs spec; static catalog (ledger fixed-catalog convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/ApiTokens.svelte:204::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ApiTokens.svelte:204 '{#each list …}'; groups/list = $derived.by grouping tools by category (ApiTokens.svelte:24-32); tools is the MCP tool catalog fetched once from /api/connections/catalog (:42-48), a code-defined registry like the api-docs spec; static catalog (ledger fixed-catalog convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/ConfirmModal.svelte:101::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ConfirmModal.svelte:101 '{#each Object.entries(fields) …}'; Object.entries(fields) renders hidden inputs for the fields object literal each caller writes ({ group, id, … } at board/forum/wiki +page.svelte); static per call (author-written form fields)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/ConnectionsList.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ConnectionsList.svelte:114 '{#each c.scopes …}'; c.scopes of one fetched connection (connections = d.connections, ConnectionsList.svelte:29); nested runtime records"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/ConnectionsList.svelte:93::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ConnectionsList.svelte:93 '{#each connections …}'; connections = $state filled from /api fetch (ConnectionsList.svelte:19,29); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/FeedbackWizard.svelte:262::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/FeedbackWizard.svelte:262 '{#each AREAS …}'; AREAS is an exported array literal with a spread of NAV_TABS.map(...) (lib/feedback.ts:38), the docs' non-exempt spread shape; static config list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/FeedbackWizard.svelte:266::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/FeedbackWizard.svelte:266 '{#each f.options ?? [] …}'; f.options of the constant STEPS field definitions (lib/feedback.ts); static config list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/FeedbackWizard.svelte:357::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/FeedbackWizard.svelte:357 '{#each Object.entries(FEEDBACK_TYPES) …}'; Object.entries(FEEDBACK_TYPES), the constant object literal of lib/feedback.ts:11; static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/FeedbackWizard.svelte:429::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/FeedbackWizard.svelte:429 '{#each logs …}'; logs = getLogs() console ring buffer (consoleBuffer.ts:61) refreshed while the wizard is open; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/GroupSelect.svelte:33::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/GroupSelect.svelte:33 '{#each groups …}'; groups = $derived(page.data.groups), the user's groups from the load; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/Icon.svelte:300::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/Icon.svelte:300 '{#each paths …}'; paths = ICONS[name], SVG path strings of the constant ICONS table (Icon.svelte:4,284); static list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/OnboardingWizard.svelte:391::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/OnboardingWizard.svelte:391 '{#each ORBIT …}'; ORBIT = NAV_TABS.filter(...).slice(0, 8) of the constant nav table (OnboardingWizard.svelte:158); static list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/lib/RecipientPicker.svelte:81::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/RecipientPicker.svelte:81 '{#each suggestions …}'; suggestions = $derived.by filtering contacts by the typed fragment (RecipientPicker.svelte:36); items inserted/removed while typing; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+layout.svelte:162::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+layout.svelte:162 '{#each visibleTabs …}'; visibleTabs (and mobileTabs/bottomTabs derived from it) follow navConfig.visible, the user's own tab order/visibility from loadNavConfig() re-read on storage/nav-changed events ((app)/+layout.svelte:14-36,69-70); user-reorderable list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+layout.svelte:187::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+layout.svelte:187 '{#each filteredGroups …}'; filteredGroups = data.groups filtered by route scopes ((app)/+layout.svelte:49); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+layout.svelte:213::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+layout.svelte:213 '{#each visibleTabs …}'; visibleTabs (and mobileTabs/bottomTabs derived from it) follow navConfig.visible, the user's own tab order/visibility from loadNavConfig() re-read on storage/nav-changed events ((app)/+layout.svelte:14-36,69-70); user-reorderable list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+layout.svelte:241::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+layout.svelte:241 '{#each filteredGroups …}'; filteredGroups = data.groups filtered by route scopes ((app)/+layout.svelte:49); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+layout.svelte:299::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+layout.svelte:299 '{#each mobileTabs …}'; visibleTabs (and mobileTabs/bottomTabs derived from it) follow navConfig.visible, the user's own tab order/visibility from loadNavConfig() re-read on storage/nav-changed events ((app)/+layout.svelte:14-36,69-70); user-reorderable list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+layout.svelte:317::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+layout.svelte:317 '{#each bottomTabs …}'; visibleTabs (and mobileTabs/bottomTabs derived from it) follow navConfig.visible, the user's own tab order/visibility from loadNavConfig() re-read on storage/nav-changed events ((app)/+layout.svelte:14-36,69-70); user-reorderable list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+page.svelte:119::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+page.svelte:119 '{#each data.openTasks.slice(0, 5) …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+page.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+page.svelte:142 '{#each data.notifications …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+page.svelte:67::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+page.svelte:67 '{#each data.upcoming …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/+page.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/+page.svelte:96 '{#each data.unread …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/api-docs/+page.svelte:190::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/api-docs/+page.svelte:190 '{#each categories …}'; categories = unique categories of ops parsed from data.spec, the server's fixed API spec (api-docs/+page.svelte:42-59); static catalog"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/api-docs/+page.svelte:212::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/api-docs/+page.svelte:212 '{#each props …}'; Object.entries(op.schema.properties) of one operation of the fixed API spec; static list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/board/+page.svelte:113::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/board/+page.svelte:113 '{#each data.entries …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/calendar/+page.svelte:159::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/calendar/+page.svelte:159 '{#each grid …}'; grid = monthGrid(year, month) calendar day cells (calendar/+page.svelte:61); positional list (calendar days)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/calendar/+page.svelte:232::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/calendar/+page.svelte:232 '{#each grid …}'; grid = monthGrid(year, month) calendar day cells (calendar/+page.svelte:61); positional list (calendar days)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/calendar/+page.svelte:251::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/calendar/+page.svelte:251 '{#each dayEntries.slice(0, 3) …}'; dayEntries = entriesByDay.get(key), calendar entries from the load; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/files/+page.svelte:280::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/files/+page.svelte:280 '{#each data.breadcrumb …}'; data.breadcrumb folder path segments; positional list (breadcrumbs)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/files/+page.svelte:488::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/files/+page.svelte:488 '{#each sortedChildren …}'; sortedChildren = $derived.by sorting the folder listing from the load (files/+page.svelte:68); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/files/+page.svelte:653::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/files/+page.svelte:653 '{#each e.versions …}'; versions of a file from the file API; nested runtime records"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/files/+page.svelte:688::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/files/+page.svelte:688 '{#each cur.versions …}'; versions of a file from the file API; nested runtime records"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/files/edit/+page.svelte:98::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/files/edit/+page.svelte:98 '{#each data.breadcrumb …}'; data.breadcrumb folder path segments; positional list (breadcrumbs)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/forum/+page.svelte:173::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/forum/+page.svelte:173 '{#each data.replies.filter((r) => r.id !== data.thread) …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/forum/+page.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/forum/+page.svelte:193 '{#each data.threads …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/mail/+layout.svelte:148::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/mail/+layout.svelte:148 '{#each selectedArr …}'; selectedArr = [...selected], the user's current message selection rendered as hidden inputs (mail/+layout.svelte:46); runtime list that grows/shrinks mid-list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/mail/+layout.svelte:156::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/mail/+layout.svelte:156 '{#each selectedArr …}'; selectedArr = [...selected], the user's current message selection rendered as hidden inputs (mail/+layout.svelte:46); runtime list that grows/shrinks mid-list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/mail/+layout.svelte:178::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/mail/+layout.svelte:178 '{#each data.messages …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/mail/+layout.svelte:99::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/mail/+layout.svelte:99 '{#each data.folders …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:134::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:134 '{#each moveTargets …}'; moveTargets = folders.filter(...) of the mailbox folders from the load; runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:186::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:186 '{#each m.files …}'; m.files attachments of the loaded message; nested runtime records"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/messenger/+page.svelte:137::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/messenger/+page.svelte:137 '{#each chats.get(active) ?? [] …}'; chats/partners/filteredMembers derived from message history and members of the load (messenger/+page.svelte:26-27,64); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/messenger/+page.svelte:192::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/messenger/+page.svelte:192 '{#each filteredMembers …}'; chats/partners/filteredMembers derived from message history and members of the load (messenger/+page.svelte:26-27,64); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/messenger/+page.svelte:89::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/messenger/+page.svelte:89 '{#each partners …}'; chats/partners/filteredMembers derived from message history and members of the load (messenger/+page.svelte:26-27,64); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/notes/+page.svelte:115::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/notes/+page.svelte:115 '{#each data.notes …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:804::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:804 '{#each data.groups …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:831::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:831 '{#each storage.account.devices.records …}'; storage.account.devices.records / connections.records fetched from /api/account/storage; revokeDevice filters a device out mid-list (settings/+page.svelte:146-160); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:880::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:880 '{#each storage.session.stored …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:890::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:890 '{#each storage.connections.stored …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:897::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:897 '{#each storage.connections.records …}'; storage.account.devices.records / connections.records fetched from /api/account/storage; revokeDevice filters a device out mid-list (settings/+page.svelte:146-160); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:912::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:912 '{#each storage.davinci?.stored ?? [] …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:929::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:929 '{#each storage.onboarding.stored …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:939::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:939 '{#each storage.feedback.stored …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:949::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:949 '{#each storage.office.stored …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:959::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:959 '{#each storage.browser.cookies …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:962::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:962 '{#each storage.browser.local_storage …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:970::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:970 '{#each Object.entries(storage.cache) …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/settings/+page.svelte:983::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/settings/+page.svelte:983 '{#each storage.not_stored …}'; storage.*.stored / cookies / local_storage / cache / not_stored are constant literal lists the /api/account/storage handler returns (api/account/storage/+server.ts:42-168); static list fixed at author time"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/tasks/+page.svelte:92::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/tasks/+page.svelte:92 '{#each visibleTasks …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/wiki/+page.svelte:44::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/wiki/+page.svelte:44 '{#each data.pages …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/(app)/wiki/+page.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/wiki/+page.svelte:63 '{#each data.pages …}'; iterates load data records (tasks/notifications/entries/threads/messages/folders/notes/groups/pages from the LernSax API); runtime list (tp per ledger runtime-data convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/oauth/authorize/+page.svelte:43::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/oauth/authorize/+page.svelte:43 '{#each data.scopes …}'; data.scopes requested by the OAuth client for this authorization; runtime list (request data)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/oauth/authorize/+page.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/oauth/authorize/+page.svelte:49 '{#each info.lines …}'; info.lines of the constant SCOPE_DESCRIPTIONS table (oauth/authorize/+page.svelte:44); static list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/oauth/authorize/+page.svelte:76::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/oauth/authorize/+page.svelte:76 '{#each Object.entries(data.raw) …}'; Object.entries(data.raw), the raw parameters of the incoming OAuth request; runtime list (request data)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/each-key::src/routes/oauth/authorize/+page.svelte:84::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/oauth/authorize/+page.svelte:84 '{#each Object.entries(data.raw) …}'; Object.entries(data.raw), the raw parameters of the incoming OAuth request; runtime list (request data)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/effect-as-onmount::src/lib/ScreenshotCropper.svelte:25::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/ScreenshotCropper.svelte:25; root is a plain let bound with bind:this (ScreenshotCropper.svelte:20,110), not $state; the effect only calls root.scrollIntoView and never re-runs, as claimed"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::correctness/effect-as-onmount::src/lib/WizardFrame.svelte:43::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/WizardFrame.svelte:43; the effect only sets document.body.style.overflow with a cleanup (WizardFrame.svelte:43-46); no reactive read, runs once, as claimed"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/iframe-loading::src/routes/(app)/files/+page.svelte:412::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "<iframe> has no loading attribute and no spread; inline PDF preview (h-full w-full) that replaces the file list when a file is selected ({#if data.file}, files/+page.svelte:408-412) - the page's main content, where eager is right per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/iframe-loading::src/routes/(app)/files/+page.svelte:418::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "<iframe> has no loading attribute and no spread; inline text-file preview (h-full w-full) that replaces the file list when a file is selected (files/+page.svelte:408-418) - the page's main content, where eager is right per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/image-dimensions::src/routes/(app)/files/+page.svelte:415::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "<img> lacks width and/or height, no spread; max-h-full max-w-full inside the grid h-full place-items-center preview pane (files/+page.svelte:410-415), whose size the 1fr row fixes - the image only centres inside it, nothing around it shifts"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/image-loading-hint::src/routes/(app)/files/+page.svelte:415::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "<img> has no loading attribute and no spread; inline image preview filling the content area when a file is selected (files/+page.svelte:408-415) - visible when rendered"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/responsive-image::src/routes/(app)/files/+page.svelte:415::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "<img> has no srcset and no spread, src not a literal .svg/data-svg/.svg import; src is viewUrl(file.id), the user's own LernSax file streamed as-is (files/+page.svelte:415) - no alternate sizes exist to list"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/sequential-awaits::src/routes/(app)/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/+page.server.ts:15: groupCals Promise.all over c.groups() (sync) calendar.list calls uses nothing from the :7 Promise.all (mail/notifications/tasks/calendar) — independent LernSax API requests serialized; @lernsax/core session.run (packages/core/src/session.ts:314-350) sends each call as its own JSON-RPC batch with set_session/set_focus prepended, so calls are independent HTTP requests (the same load already Promise.alls others)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/sequential-awaits::src/routes/(app)/+page.server.ts:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/+page.server.ts:32: groupTasks Promise.all (tasks.list per group) uses only c.groups(), nothing from :7 or :15 results (personalTasks is only joined in memory afterwards) — independent requests serialized; @lernsax/core session.run (packages/core/src/session.ts:314-350) sends each call as its own JSON-RPC batch with set_session/set_focus prepended, so calls are independent HTTP requests (the same load already Promise.alls others)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/sequential-awaits::src/routes/(app)/calendar/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/calendar/+page.server.ts:26: c.calendar.holidays() uses nothing from the :22 calendar.list result — independent LernSax API requests serialized; @lernsax/core session.run (packages/core/src/session.ts:314-350) sends each call as its own JSON-RPC batch with set_session/set_focus prepended, so calls are independent HTTP requests (the same load already Promise.alls others)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/sequential-awaits::src/routes/(app)/files/+page.server.ts:53::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/files/+page.server.ts:53: c.files.quota(group) uses only the url param, nothing from the :14 files.list result — independent LernSax API requests serialized; @lernsax/core session.run (packages/core/src/session.ts:314-350) sends each call as its own JSON-RPC batch with set_session/set_focus prepended, so calls are independent HTTP requests (the same load already Promise.alls others)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/sequential-awaits::src/routes/(app)/messenger/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/messenger/+page.server.ts:15: members.users per group uses only c.groups(), nothing from the :8 history/users Promise.all — independent LernSax API requests serialized; @lernsax/core session.run (packages/core/src/session.ts:314-350) sends each call as its own JSON-RPC batch with set_session/set_focus prepended, so calls are independent HTTP requests (the same load already Promise.alls others)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::performance/sequential-awaits::src/routes/(app)/wiki/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/wiki/+page.server.ts:23: c.wiki.page(group, pageId) uses only url params, nothing from the :22 wiki.list result — independent LernSax API requests serialized; @lernsax/core session.run (packages/core/src/session.ts:314-350) sends each call as its own JSON-RPC batch with set_session/set_focus prepended, so calls are independent HTTP requests (the same load already Promise.alls others)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/board/+page.svelte:121::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/board/+page.svelte:121 + lib/linkify.ts:53-61: sanitizeHtml = isomorphic-dompurify DOMPurify.sanitize (html profile, style/iframe/form forbidden) — sanitized, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/board/+page.svelte:160::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/board/+page.svelte:160 + lib/linkify.ts:53-61: sanitizeHtml = DOMPurify.sanitize — sanitized, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/board/+page.svelte:164::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/board/+page.svelte:164 + lib/linkify.ts:10-29: linkifyPlain HTML-escapes the whole text first (& < > \" '), then only wraps http(s)/www URLs and emails in <a> — escaped, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/forum/+page.svelte:114::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/forum/+page.svelte:114 + lib/linkify.ts:53-61: sanitizeHtml = DOMPurify.sanitize — sanitized, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/forum/+page.svelte:116::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/forum/+page.svelte:116 + lib/linkify.ts:10-29: linkifyPlain escapes the text before wrapping URLs/emails — escaped, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:171::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:171 + lib/linkify.ts:53-61: sanitizeHtml(m.body_html) = DOMPurify.sanitize — sanitized, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:175::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:175 + lib/linkify.ts:10-29: linkifyPlain escapes the plain body before wrapping URLs/emails — escaped, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/tasks/+page.svelte:145::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/tasks/+page.svelte:12,145: descriptionHtml = sanitizeHtml(...) (lib/linkify.ts:53-61, DOMPurify.sanitize) — sanitized, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::security/raw-html::src/routes/(app)/wiki/+page.svelte:89::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/wiki/+page.svelte:89 + lib/linkify.ts:53-61: sanitizeHtml(page text) = DOMPurify.sanitize — sanitized, reported per docs"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/api-docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /api-docs (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/board/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /board (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/calendar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /calendar (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/files/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files/edit (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/forum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /forum (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/mail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /mail (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /mail/[folderId]/[messageId] (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/mail/compose/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /mail/compose (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/messenger/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /messenger (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /notes (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/tasks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /tasks (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/timetable/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /timetable (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/(app)/wiki/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /wiki (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); public route outside the auth gate"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/canonical-url::src/routes/oauth/authorize/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /oauth/authorize (script-verified: a1b_label.py comment-stripped grep of the app tree; no <link rel=\"canonical\"> anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); but not a search target (auth-gated: hooks.server.ts:135-143 303-redirects every guest on a non-public path to /login (PUBLIC_PATHS = /login, /api/login, /api/logout)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/api-docs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /api-docs); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/board/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /board); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/calendar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /calendar); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /files); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/files/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /files/edit); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/forum/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /forum); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/mail/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /mail); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /mail/[folderId]/[messageId]); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/mail/compose/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /mail/compose); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/messenger/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /messenger); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/notes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /notes); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /settings); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/tasks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /tasks); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/timetable/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /timetable); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/(app)/wiki/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /wiki); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /login); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/description-presence::src/routes/oauth/authorize/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep: no <meta name=description> anywhere in apps/web/src or app.html) (literal claim holds on /oauth/authorize); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/app.html:14 literal <title>OpenSax</title> is the only title of /login and /oauth/authorize (local CLI list), duplicate as claimed; but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/heading-level-skip::src/routes/(app)/notes/+page.svelte:144::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>Notizen (notes/+page.svelte, header) then each note's <h3>{n.title} (:144), no <h2> between - h1 to h3"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); / has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/api-docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /api-docs has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/board/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /board has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/calendar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /calendar has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /files has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/files/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /files/edit has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/forum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /forum has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/mail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /mail has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /mail/[folderId]/[messageId] has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/mail/compose/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /mail/compose has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/messenger/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /messenger has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /notes has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /settings has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/tasks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /tasks has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/timetable/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /timetable has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/(app)/wiki/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /wiki has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /login has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/json-ld::src/routes/oauth/authorize/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of apps/web/src incl. app.html and workspace @lernsax/core: no ld+json/jsonld anywhere); /oauth/authorize has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/api-docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /api-docs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/board/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /board (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/calendar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calendar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/files/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files/edit (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/forum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forum (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/mail/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /mail (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /mail/[folderId]/[messageId] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/mail/compose/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /mail/compose (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/messenger/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /messenger (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/notes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /notes (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tasks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/timetable/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /timetable (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/(app)/wiki/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /wiki (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-description::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /oauth/authorize (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:description anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/api-docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /api-docs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/board/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /board (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/calendar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calendar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/files/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files/edit (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/forum/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forum (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/mail/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /mail (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /mail/[folderId]/[messageId] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/mail/compose/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /mail/compose (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/messenger/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /messenger (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/notes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /notes (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tasks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/timetable/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /timetable (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/(app)/wiki/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /wiki (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-image::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /oauth/authorize (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:image anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/api-docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /api-docs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/board/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /board (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/calendar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calendar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/files/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files/edit (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/forum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forum (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/mail/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /mail (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /mail/[folderId]/[messageId] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/mail/compose/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /mail/compose (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/messenger/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /messenger (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/notes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /notes (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tasks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/timetable/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /timetable (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/(app)/wiki/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /wiki (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-title::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /oauth/authorize (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:title anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/api-docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /api-docs (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/board/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /board (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/calendar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calendar (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/files/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files/edit (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/forum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forum (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/mail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /mail (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /mail/[folderId]/[messageId] (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/mail/compose/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /mail/compose (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/messenger/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /messenger (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/notes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /notes (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tasks (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/timetable/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /timetable (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/(app)/wiki/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /wiki (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/og-url::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /oauth/authorize (script-verified: a1b_label.py comment-stripped grep of the app tree; no og:url anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/, no src/routes/robots.txt endpoint and no generator or server route for it in the repo (literal claim holds); not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/single-h1::/files/edit::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: files/edit/+page.svelte renders the breadcrumb and the OnlyOffice editor host, no <h1>; the (app)/root layouts have none"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/single-h1::/files::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: files/+page.svelte (crumbs, toolbar, file table, preview) and the (app)/root layouts render no <h1>; only Icon/Modal/PersonChip components, none with a heading"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/single-h1::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte:154::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1>s render together: mail/+layout.svelte:170 folder-name <h1> in the message-list header (the default {:else} of {#if selected.size > 0}, list kept in the DOM, CSS-hidden on mobile only) and the message subject <h1> (:154)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/single-h1::src/routes/(app)/timetable/+page.svelte:518::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "responsive duplicate: <h1>Stundenplan in the xl:flex aside (timetable/+page.svelte:480) and in the xl:hidden header (:518), both always in the DOM"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint and no generator or server route for it in the repo (literal claim holds); not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title>OpenSax</title> at src/app.html:14, 7 graphemes, the only title of /login and /oauth/authorize) (literal claim holds); but not a search target: OpenSax is a self-hosted alternative web client for the LernSax school platform (README) whose hooks.server.ts:135-143 sends every session-less page request outside /login to /login"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/api-docs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /api-docs (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/board/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /board (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/calendar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calendar (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/files/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files/edit (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/forum/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forum (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/mail/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /mail (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/mail/[folderId]/[messageId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /mail/[folderId]/[messageId] (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/mail/compose/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /mail/compose (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/messenger/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /messenger (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/notes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /notes (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/tasks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tasks (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/timetable/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /timetable (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/(app)/wiki/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /wiki (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect)"
+  },
+  {
+    "key": "PalmarHealer/opensax:apps/web::seo/twitter-card::src/routes/oauth/authorize/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /oauth/authorize (script-verified: a1b_label.py comment-stripped grep of the app tree; no twitter:card anywhere in the app source or app.html); SSR app; heads: app.html <title>, (app)/+layout.svelte:147 <title> only; workspace @lernsax/core ships no .svelte; no meta-tag library; route loads render (no always-redirect); route is auth-gated but renders for signed-in users, and social tags are judged regardless (ledger convention)"
+  }
+]
