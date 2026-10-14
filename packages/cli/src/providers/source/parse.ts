@@ -1779,7 +1779,7 @@ function condOf(
       const strict = n.operator.length === 3;
       // As in `exclusiveIfs`: loose equality is exclusive only between numbers.
       if (value !== 'unknown' && reference(side) && (strict || typeof value.value === 'number')) {
-        const eq: Cond = { e: `${typeof value.value}:${text(side)}`, v: JSON.stringify(value.value) };
+        const eq: Cond = { e: `${strict ? '' : 'number:'}${text(side)}`, v: JSON.stringify(value.value) };
         return n.operator.startsWith('!') ? { not: eq } : eq;
       }
     }
@@ -1908,9 +1908,12 @@ function exclusiveIfs(fragment: AST.Fragment, source: string, eligible: (b: AST.
       const [side, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
       const value = literalValue(lit);
       // Loose equality to two different numbers (`step == 0`, `step == 2`) cannot both hold; to strings
-      // it can (`x == '0'` and `x == '00'` for `x = 0`), and across types too, so the key carries the type.
-      if (value !== 'unknown' && reference(side) && (test.operator === '===' || typeof value.value === 'number'))
-        out.set(`e:${typeof value.value}:${text(side)}`, JSON.stringify(value.value));
+      // it can (`x == '0'` and `x == '00'` for `x = 0`), and across types too, so its key carries the type.
+      // Strict equality to any two different literals (`step === 1`, `step === 'done'`) cannot.
+      if (value !== 'unknown' && reference(side) && test.operator === '===')
+        out.set(`e:${text(side)}`, JSON.stringify(value.value));
+      else if (value !== 'unknown' && reference(side) && typeof value.value === 'number')
+        out.set(`e:number:${text(side)}`, JSON.stringify(value.value));
     }
     return out;
   };
@@ -1923,22 +1926,21 @@ function exclusiveIfs(fragment: AST.Fragment, source: string, eligible: (b: AST.
     }
   };
   visit(fragment.nodes);
-  const byKey = new Map<string, Array<[AST.IfBlock, string]>>();
-  for (const block of blocks) {
-    for (const [key, value] of facts(block.test)) byKey.set(key, [...(byKey.get(key) ?? []), [block, value]]);
-  }
+  const known = new Map(blocks.map((block) => [block, facts(block.test)]));
+  // Two blocks exclude each other when they assert different values for one key, which need not be the
+  // same key for every pair: `{#if gone}`, `{#if !gone && step === 1}`, `{#if !gone && step === 2}`.
+  const excludes = (a: AST.IfBlock, b: AST.IfBlock) =>
+    [...known.get(a)!].some(([key, value]) => known.get(b)!.has(key) && known.get(b)!.get(key) !== value);
   const taken = new Set<AST.IfBlock>();
   const sets: AST.IfBlock[][] = [];
-  for (const entries of byKey.values()) {
-    const values = new Set<string>();
-    const set = entries.filter(([block, value]) => {
-      if (taken.has(block) || values.has(value)) return false;
-      values.add(value);
-      return true;
-    });
+  for (const block of blocks) {
+    if (taken.has(block)) continue;
+    const set = [block];
+    for (const other of blocks)
+      if (!taken.has(other) && !set.includes(other) && set.every((member) => excludes(member, other))) set.push(other);
     if (set.length < 2) continue;
-    for (const [block] of set) taken.add(block);
-    sets.push(set.map(([block]) => block));
+    for (const member of set) taken.add(member);
+    sets.push(set);
   }
   return sets;
 }

@@ -172,6 +172,18 @@ describe('parse: {#if} blocks of one arm whose tests contradict each other', () 
       [{ group: 0, branch: 1 }]
     ]);
   });
+  it('reads blocks that contradict pairwise on different values as one block, across literal types', () => {
+    expect(
+      paths(
+        "{#if gone}<h1>A</h1>{/if}{#if !gone && step === 1}<h1>B</h1>{/if}{#if !gone && step === 2}<h1>C</h1>{/if}{#if !gone && step === 'done'}<h1>D</h1>{/if}"
+      )
+    ).toEqual([
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 1 }],
+      [{ group: 0, branch: 2 }],
+      [{ group: 0, branch: 3 }]
+    ]);
+  });
   it('keeps blocks that can render together apart', () => {
     const separate = (src: string) => new Set(paths(src).map((p) => p?.[0]?.group)).size;
     expect(separate('{#if a}<h1>A</h1>{/if}{#if a}<h1>B</h1>{/if}')).toBe(2);

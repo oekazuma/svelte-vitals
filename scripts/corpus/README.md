@@ -510,7 +510,7 @@ Measured on 469 apps, each pinned to a commit:
 - [g2m7/gardensuite-marketing/gs_landing](https://github.com/g2m7/gardensuite-marketing/tree/f0008ae7dbd475d2b004e169f1742eb15daec13e/gs_landing) (`f0008ae`)
 - [Pikslots/pikslots/packages/ui](https://github.com/Pikslots/pikslots/tree/b1400d5929cb5a3ab4aab7121c1ee9fbf9052797/packages/ui) (`b1400d5`)
 
-191242 of 191267 corpus findings have a verdict.
+191241 of 191266 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share     |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ---------------- |
@@ -611,7 +611,7 @@ Measured on 469 apps, each pinned to a commit:
 | [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 11448           | 347  | 11360 / 88 / 0 / 0                    | 99% (11360/11448)  | 0% (0/11448)     |
 | [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 11904           | 354  | 11853 / 49 / 2 / 0                    | 100% (11853/11902) | 0% (2/11904)     |
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 180             | 180  | 73 / 2 / 105 / 0                      | 97% (73/75)        | 58% (105/180)    |
-| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3519            | 378  | 3190 / 122 / 176 / 6                  | 96% (3190/3312)    | 5% (176/3494)    |
+| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 3518            | 378  | 3190 / 121 / 176 / 6                  | 96% (3190/3311)    | 5% (176/3493)    |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 14              | 14   | 13 / 0 / 1 / 0                        | 100% (13/13)       | 7% (1/14)        |
 | [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 326             | 326  | 119 / 2 / 205 / 0                     | 98% (119/121)      | 63% (205/326)    |
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 618             | 157  | 139 / 0 / 479 / 0                     | 100% (139/139)     | 78% (479/618)    |
