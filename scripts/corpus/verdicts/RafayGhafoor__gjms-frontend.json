@@ -1,0 +1,117 @@
+[
+  {
+    "key": "RafayGhafoor/gjms-frontend::a11y/disallowed-aria-props::src/lib/components/ui/animated-number.svelte:90::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read animated-number.svelte:90-97: <span aria-label={format(value)}> with no role/spread/use:; generic span cannot take a name (ledger: aria-label on generic span/div is tp)"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::a11y/duplicate-landmark::src/lib/components/type/type-sample.svelte:44::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "route /type/[pair] (prerendered, noindex internal typography page) renders TypeSample, whose type-sample.svelte:44 <main> sits inside root +layout.svelte:22-24 <main id=\"main\">{@render children()}; two main landmarks in the DOM"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::a11y/top-level-landmark::src/routes/author-guideline.html/+page.svelte:62::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:22-24 wraps every page in <main>; the page puts an unlabelled <aside> at :62 inside plain <div> containers (no sectioning ancestor), so it is a complementary landmark nested in main; prerendered pages with build-time loads that always return"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::a11y/top-level-landmark::src/routes/contact.html/+page.svelte:103::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:22-24 wraps every page in <main>; the page puts an unlabelled <aside> at :103 inside plain <div> containers (no sectioning ancestor), so it is a complementary landmark nested in main; prerendered pages with build-time loads that always return"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::a11y/top-level-landmark::src/routes/current-issue.html/+page.svelte:174::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:22-24 wraps every page in <main>; the page puts an unlabelled <aside> at :174 inside plain <div> containers (no sectioning ancestor), so it is a complementary landmark nested in main; prerendered pages with build-time loads that always return"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::a11y/top-level-landmark::src/routes/vision-mission.html/+page.svelte:128::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:22-24 wraps every page in <main>; the page puts an unlabelled <aside> at :128 inside plain <div> containers (no sectioning ancestor), so it is a complementary landmark nested in main; prerendered pages with build-time loads that always return"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/component-size::src/lib/components/archive/archive-browser.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/archive/archive-browser.svelte has 494 physical lines (newline count, trailing newline not counted; 456 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/component-size::src/lib/components/archive/issue-detail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/archive/issue-detail.svelte has 208 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/component-size::src/lib/components/article/article-detail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/article/article-detail.svelte has 260 physical lines (newline count, trailing newline not counted; 247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 304 physical lines (newline count, trailing newline not counted; 288 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/component-size::src/routes/articles.html/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/articles.html/+page.svelte has 223 physical lines (newline count, trailing newline not counted; 201 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/component-size::src/routes/current-issue.html/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/current-issue.html/+page.svelte has 211 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/prop-count::src/lib/components/charts/bar-chart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/charts/bar-chart.svelte has a single destructured $props() with 7 named props (> 6): points, height, tone, ariaLabel, showValues, onSelect, class"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/prop-count::src/lib/components/site/seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/site/seo.svelte has a single destructured $props() with 13 named props (> 6): title, description, path, appendSiteName, type, image, imageWidth, imageHeight, jsonLd, includeSiteGraph, noindex, publishedTime, modifiedTime"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/prop-count::src/lib/components/ui/animated-number.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/animated-number.svelte has a single destructured $props() with 7 named props (> 6): value, start, duration, decimals, locale, class, animate"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/prop-count::src/lib/components/ui/input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/input.svelte has a single destructured $props() with 10 named props (> 6) plus a ...rest element: class, value, label, hint, placeholder, id, name, type, autocomplete, icon"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/prop-count::src/lib/components/ui/select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/select.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: class, value, label, options, id, name, disabled"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::architecture/prop-count::src/lib/components/ui/stat-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/stat-card.svelte has a single destructured $props() with 10 named props (> 6): value, label, hint, decimals, suffix, prefix, tone, variant, icon, class"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::security/raw-html::src/lib/components/archive/article-card.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read article-card.svelte:64 + src/lib/utils.ts:9-33: highlight() escapeHtml()s every part (& < > \" ') and only adds a fixed <mark class=\"mark\"> around matches — escaped, reported per docs"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::security/raw-html::src/lib/components/archive/article-card.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read article-card.svelte:67 + src/lib/utils.ts:9-33: highlight() escapeHtml()s every part (& < > \" ') and only adds a fixed <mark class=\"mark\"> around matches — escaped, reported per docs"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::security/raw-html::src/lib/components/archive/article-card.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read article-card.svelte:72 + src/lib/utils.ts:9-33: highlight() escapeHtml()s every part (& < > \" ') and only adds a fixed <mark class=\"mark\"> around matches — escaped, reported per docs"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::security/raw-html::src/lib/components/archive/issue-card.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read issue-card.svelte:55 + src/lib/utils.ts:9-33: highlight() escapeHtml()s every part (& < > \" ') and only adds a fixed <mark class=\"mark\"> around matches — escaped, reported per docs"
+  },
+  {
+    "key": "RafayGhafoor/gjms-frontend::security/raw-html::src/lib/components/site/seo.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read seo.svelte:77 + src/lib/seo.ts:196-202: jsonLdScript = JSON.stringify(data) with < > & escaped as \\u003c/\\u003e/\\u0026 — script-safe JSON-LD serialization per docs"
+  }
+]

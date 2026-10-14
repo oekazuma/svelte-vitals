@@ -1,0 +1,467 @@
+[
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/duplicate-landmark::src/routes/admin/curadoria/+page.svelte:234::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "admin/curadoria/+page.svelte:158-164 renders the <aside> (:184) and <main> (:234) only in the {:else} of {#if !isDev}, isDev = import.meta.env.DEV (:7), inside root +layout.svelte:276 <main>; nested/duplicated as reported in dev, but the production build only shows the \"Admin local\" notice (dev-only-route convention)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/interactive-nesting::src/routes/song/[id]/+page.svelte:602::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read song/[id]/+page.svelte:588-606: share <button> inside the verse <div role=\"button\" tabindex=\"0\" onclick> (in {#each verses}); nested interactive as reported"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/permitted-contents::src/routes/playlists/[id]/present/+page.svelte:129::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/playlists/[id]/present/+page.svelte): <div> at :129 has literal parent element button:123 (ancestors: If(currentVerses[verseIdx]):128 < button:123 < div:105 < If(currentSong):104 < If(!pl || items.length === 0):100); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/permitted-contents::src/routes/song/[id]/present/+page.svelte:89::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/song/[id]/present/+page.svelte): <div> at :89 has literal parent element button:83 (ancestors: If(verses[index]):88 < button:83 < div:67 < If(song):66); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/top-level-landmark::src/routes/admin/curadoria/+page.svelte:184::complementary landmark is nested inside main",
+    "verdict": "design",
+    "basis": "admin/curadoria/+page.svelte:158-164 renders the <aside> (:184) and <main> (:234) only in the {:else} of {#if !isDev}, isDev = import.meta.env.DEV (:7), inside root +layout.svelte:276 <main>; nested/duplicated as reported in dev, but the production build only shows the \"Admin local\" notice (dev-only-route convention)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/top-level-landmark::src/routes/admin/curadoria/+page.svelte:234::main landmark is nested inside main",
+    "verdict": "design",
+    "basis": "admin/curadoria/+page.svelte:158-164 renders the <aside> (:184) and <main> (:234) only in the {:else} of {#if !isDev}, isDev = import.meta.env.DEV (:7), inside root +layout.svelte:276 <main>; nested/duplicated as reported in dev, but the production build only shows the \"Admin local\" notice (dev-only-route convention)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::a11y/top-level-landmark::src/routes/song/[id]/+page.svelte:705::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "song/[id]/+page.svelte:705 unlabelled <aside class=\"hidden lg:block\"> (tools panel, shown on lg for the letra tab) sits in plain divs (role=presentation div adds no sectioning) inside root +layout.svelte:276 <main>; complementary nested in main"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/lib/components/Partituras.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Partituras.svelte has 291 physical lines (newline count, trailing newline not counted; 268 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 316 physical lines (newline count, trailing newline not counted; 291 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 438 physical lines (newline count, trailing newline not counted; 407 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/routes/admin/curadoria/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/curadoria/+page.svelte has 369 physical lines (newline count, trailing newline not counted; 344 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/routes/h/[number]/[instrumento]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/h/[number]/[instrumento]/+page.svelte has 228 physical lines (newline count, trailing newline not counted; 214 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/routes/playlists/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playlists/[id]/+page.svelte has 207 physical lines (newline count, trailing newline not counted; 194 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/component-size::src/routes/song/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/song/[id]/+page.svelte has 864 physical lines (newline count, trailing newline not counted; 801 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/prop-count::src/lib/components/ImagePreviewModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ImagePreviewModal.svelte has a single destructured $props() with 10 named props (> 6): open, title, number, lines, filename, shareTitle, shareCaption, eventName, onClose, onShared"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::architecture/route-component-import::src/testes/LayoutDeTeste.svelte:3::src/routes/+layout.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/testes/LayoutDeTeste.svelte:3,6-10 default-imports ../routes/+layout.svelte and renders <Layout> with a hand-written children snippet; its only importer is src/testes/interacoes.test.js:116,129 (montar() at :29-33 dynamic-imports it and renders it with @testing-library/svelte render(), testing the header search) -- a test-harness satellite outside the narrow default exemptImporters, same shape as the ledger's tracewayapp/rusty-shed/immich design entries"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/admin/curadoria/+page.svelte:280::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/curadoria/+page.svelte:280 '{#each candidates.chords as c, i}' has no key; candidates = candidatesJson[current.number] from the committed data/candidates.json (:4, :60), a static authored list per hymn; static list (admin page is ssr=false/dev curation tool)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/admin/curadoria/+page.svelte:321::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/curadoria/+page.svelte:321 '{#each candidates.sheets as c, i}' has no key; candidates from the committed data/candidates.json (:4, :60); static authored list per hymn"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/admin/curadoria/+page.svelte:345::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/curadoria/+page.svelte:345 '{#each candidates.searches as s}' has no key; candidates from the committed data/candidates.json (:4, :60); static authored list of links per hymn"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/h/[number]/[instrumento]/+page.svelte:183::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/h/[number]/[instrumento]/+page.svelte:183 '{#each trecho as verse}' has no key; trecho = $derived.by slice of the hymn's parsed verses (:17) from bundled $lib/songs.json; positional list (verses of one hymn text)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/h/[number]/[instrumento]/+page.svelte:188::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/h/[number]/[instrumento]/+page.svelte:188 '{#each verse.lines as line}' has no key; lines of one verse of a bundled hymn; positional list (segments of one string)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/playlists/[id]/+page.svelte:161::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/playlists/[id]/+page.svelte:161 '{#each addResults as { song }}' has no key; addResults = $derived(searchSongs(songs, addQuery).slice(0, 6)) (:13), search results that change on every keystroke; runtime results"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/playlists/[id]/present/+page.svelte:137::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/playlists/[id]/present/+page.svelte:137 '{#each currentVerses[verseIdx].lines as line}' has no key; lines of one verse of a bundled hymn; positional list (segments of one string)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/playlists/[id]/present/+page.svelte:156::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/playlists/[id]/present/+page.svelte:156 '{#each items as { song }, i}' has no key; items = the user's playlist songs from the $playlists store (:10-11), a user-edited list of records with identity (song.number); runtime user list"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/song/[id]/+page.svelte:587::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/song/[id]/+page.svelte:587 '{#each verses as verse, i}' has no key; verses = $derived(parseVerses(song.content)) (:110) of a bundled hymn; positional list (verses of one hymn text)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/song/[id]/+page.svelte:599::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/song/[id]/+page.svelte:599 '{#each verse.lines as line}' has no key; lines of one verse of a bundled hymn; positional list (segments of one string)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/song/[id]/present/+page.svelte:115::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/song/[id]/present/+page.svelte:115 '{#each verses as _, i}' has no key; one navigation dot per verse of the presented hymn (verses = $derived(buildPresentationSequence(parseVerses(song.content))) :11); positional list (dots by index)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/each-key::src/routes/song/[id]/present/+page.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/song/[id]/present/+page.svelte:97 '{#each verses[index].lines as line}' has no key; lines of one verse of a bundled hymn; positional list (segments of one string)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/effect-as-derived::src/routes/+page.svelte:40::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:40 the effect syncs filtroPartitura/filtroArranjo from $page.url, but both are also toggled by onclick handlers (:236, :241); the lockfile pins svelte 5.3.1 (package-lock.json:4495), before $derived became writable (5.25), so a $derived could not take those writes (ledger convention)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::correctness/effect-as-derived::src/routes/+page.svelte:46::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:46 the effect only does showFavoritesOnly = $page.url.searchParams.get('favs') === '1'; showFavoritesOnly ($state :20) has no other writer in the file, so $derived(browser ? … : false) expresses it directly, as claimed"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/iframe-loading::src/lib/components/Partituras.svelte:175::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the YouTube player created only {#if tocando} after the user taps play, autoplaying in place of the thumbnail (lib/components/Partituras.svelte:173-180) — visible when created"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/iframe-loading::src/lib/components/Partituras.svelte:240::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the score viewer filling the fixed full-screen dialog opened {#if telaCheia} (lib/components/Partituras.svelte:228-240) — the visible content when created"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/iframe-loading::src/lib/components/Partituras.svelte:253::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the autoplaying video player inside the full-screen dialog, only {#if tocando && atual.video} (lib/components/Partituras.svelte:242-259) — visible when created"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/iframe-loading::src/routes/h/[number]/[instrumento]/+page.svelte:145::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the YouTube player created only {#if tocando} after the user taps play, autoplaying in place of the thumbnail (h/[number]/[instrumento]/+page.svelte:143-150) — visible when created"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/iframe-loading::src/routes/h/[number]/[instrumento]/+page.svelte:221::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the score viewer filling the fixed full-screen dialog opened {#if telaCheia} (h/[number]/[instrumento]/+page.svelte:208-221) — the visible content when created"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/image-dimensions::src/routes/+page.svelte:281::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: YouTube thumbnail <img> (+page.svelte:281) lacks width/height, no spread, but class w-24 aspect-video fixes a 96x54 box — box reserved by CSS"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/image-dimensions::src/routes/h/[number]/[instrumento]/+page.svelte:154::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: video thumbnail <img class=\"w-full h-full\"> (h/[number]/[instrumento]/+page.svelte:154) lacks width/height, no spread, inside an aspect-video box (:141) — box reserved by CSS"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/lcp-image::src/routes/+page.svelte:281::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "<img> has literal loading=\"lazy\"; read: first <img> of the route is the 96px thumbnail of the 'novo no canal' card, only {#if novoNoCanal && youtube_id} (+page.svelte:274-289) — not the LCP candidate (the hymn list text is)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/lcp-image::src/routes/h/[number]/[instrumento]/+page.svelte:154::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "<img> has literal loading=\"lazy\"; read: first <img> of the route is the video thumbnail, but in the server-rendered order it sits below the PDF buttons and the full-width partitura viewer iframe (aspect-ratio 1/1.1, h/[number]/[instrumento]/+page.svelte:131-136) — offscreen on load, not the LCP candidate; only the client-side ?ver=video order (:51) moves it up"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/responsive-image::src/routes/+page.svelte:281::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=i.ytimg.com/vi/<id>/mqdefault.jpg> (+page.svelte:281) has no srcset, no spread — raster, one fixed-size asset"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/responsive-image::src/routes/h/[number]/[instrumento]/+page.svelte:154::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img src=i.ytimg.com/vi/<id>/hqdefault.jpg> (h/[number]/[instrumento]/+page.svelte:154) has no srcset, no spread, shown full width — raster, one fixed-size asset"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::performance/state-raw::src/routes/+layout.svelte:48::\"recentes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"recentes\" in src/routes/+layout.svelte: whole-binding reassignments from localStorage lists (:68,:72) and read-only .length / {#each} of strings (:258-264); no member writes, mutating calls, bind:, or call/prop escapes of the binding — $state.raw fits"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::security/raw-html::src/routes/+page.svelte:375::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:375 + lib/utils.js:77-82: highlightMatch inserts <mark> around regex-escaped query matches in song.title from the repo's src/lib/songs.json (git-tracked) (lib/stores.js:4-7); the inserted text comes from the repo data, not the query — repo-authored content, reported per docs"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::security/raw-html::src/routes/+page.svelte:382::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:382 + lib/utils.js:77-112: snippet is a slice of song.content from the repo's src/lib/songs.json (git-tracked), highlightMatch only wraps matches of the regex-escaped query in <mark> — repo-authored content, reported per docs"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::security/raw-html::src/routes/h/[number]/+page.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read h/[number]/+page.svelte:7,23 + +page.js:1-15: redirect script JSON.stringify(target) where target = base + /song/ + song.id from the repo songs.json; prerendered (prerender=true) — repo constants, reported per docs"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::security/raw-html::src/routes/h/[number]/[instrumento]/+page.svelte:94::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [instrumento]/+page.svelte:60-81,94 + +page.js: JSON-LD JSON.stringify of repo data (src/lib/songs.json (git-tracked), data/partituras.json), route prerendered — repo-authored constants, reported per docs"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::security/raw-html::src/routes/song/[id]/+page.svelte:383::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read song/[id]/+page.svelte:383-391 + +page.js: JSON-LD JSON.stringify of song.title/content from the repo src/lib/songs.json (git-tracked), route prerendered — repo-authored constants, reported per docs"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; no <svelte:head> in +page.svelte; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/admin/curadoria/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/curadoria: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks but not a search target (dev-only: admin/curadoria/+page.svelte:157-161 renders \"Admin local ... só funciona em dev\" when !import.meta.env.DEV), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/playlists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /playlists: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (playlists/+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/playlists/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /playlists/[id]: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/playlists/[id]/present/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /playlists/[id]/present: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/recentes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /recentes: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/sobre/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sobre: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; page head sobre/+page.svelte:1-6 is title/description/og:title/og:description; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/song/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /song/[id]: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; page head song/[id]/+page.svelte:1-18 is title/description/og:title/description/type + JSON-LD; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/canonical-url::src/routes/song/[id]/present/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /song/[id]/present: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/description-length::src/routes/inicio/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <meta name=description> in src/routes/inicio/+page.svelte, whitespace collapsed, grapheme count as reported, the route's only description) (literal claim holds); public prerendered landing page"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/heading-level-skip::src/routes/sobre/+page.svelte:46::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: sobre/+page.svelte:18 <h1> is followed by the feature cards' <h3>{f.title} (:46) with no <h2> between (the first <h2> is :54) -> <h1> to <h3>"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; / renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/admin/curadoria/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /admin/curadoria renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience); dev-only admin (shows \"Admin local\" outside dev), json-ld convention: tp"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/h/[number]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /h/[number] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience); the page SSR-renders a meta-refresh stub to /song/[id] (the canonical page, which carries JSON-LD), but this route itself ships none"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/inicio/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /inicio renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/playlists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /playlists renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/playlists/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /playlists/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/playlists/[id]/present/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /playlists/[id]/present renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/recentes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /recentes renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/sobre/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /sobre renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/json-ld::src/routes/song/[id]/present/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): the only JSON-LD is {@html} in song/[id]/+page.svelte:383 and h/[number]/[instrumento]/+page.svelte:94, neither rendered on this route; root +layout.svelte head has title/description/og only; /song/[id]/present renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; no <svelte:head> in +page.svelte; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/admin/curadoria/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/curadoria: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; dev-only admin route, og:url stays tp per ledger precedent for dev-only routes"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/h/[number]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /h/[number]: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; page head h/[number]/+page.svelte:1-12 is title/og:title/description/canonical(-> /song/{id}) plus a meta-refresh/location.replace redirect stub prerendered for link previews; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/h/[number]/[instrumento]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /h/[number]/[instrumento]: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; page head h/[number]/[instrumento]/+page.svelte:1-12 is title/description/canonical/og:title/description/type/image; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/playlists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /playlists: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (playlists/+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/playlists/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /playlists/[id]: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/playlists/[id]/present/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /playlists/[id]/present: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/recentes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recentes: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/sobre/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sobre: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; page head sobre/+page.svelte:1-6 is title/description/og:title/og:description; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/song/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /song/[id]: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; page head song/[id]/+page.svelte:1-18 is title/description/og:title/description/type + JSON-LD; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/og-url::src/routes/song/[id]/present/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /song/[id]/present: root +layout.svelte:156-167 head is title, description/og:title/og:description/og:type (unless the route is in SEO_PROPRIO) and og:image; app.html:10-12 og:site_name/og:locale/twitter:card; neither has og:url or canonical; ssr=false (+page.js) so client heads count; page head is <title> only; no meta-tag library, no hooks; public route, robots.txt/+server.js allows all, no noindex"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/single-h1::/h/[number]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "h/[number]/+page.svelte is a redirect stub (head script location.replace + meta refresh to /song/<id>, goto in onMount) rendering only <p>Abrindo hino…</p>; no <h1> in page or layout — redirect-stub convention"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/single-h1::/playlists/[id]/present::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: playlists/[id]/present/+page.svelte (ssr=false presentation mode) renders verse slides with no heading element; the layout hides its chrome on /present and has no heading — no <h1>"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/single-h1::/song/[id]/present::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: song/[id]/present/+page.svelte (ssr=false presentation mode) renders verse slides with no heading element; the layout hides its chrome on /present and has no heading — no <h1>"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/single-h1::src/routes/+page.svelte:320::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: +page.svelte heads its sections with <h2>s only (:320,:341,:346); +layout.svelte (header/nav/footer) renders no heading and no component; no <h1> on the route"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/ssr-disabled::src/routes/admin/curadoria/+page.js:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/curadoria/+page.js:2 (claim holds); dev-only local admin, not content for search; the public hymn pages keep SSR"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/ssr-disabled::src/routes/playlists/+page.js:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/playlists/+page.js:2 (claim holds); view of the visitor's own localStorage data (lib/stores.js playlists/recentlyViewed), not content for search; the public hymn pages keep SSR"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/ssr-disabled::src/routes/playlists/[id]/+page.js:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/playlists/[id]/+page.js:2 (claim holds); view of the visitor's own localStorage data (lib/stores.js playlists/recentlyViewed), not content for search; the public hymn pages keep SSR"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/ssr-disabled::src/routes/playlists/[id]/present/+page.js:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/playlists/[id]/present/+page.js:2 (claim holds); view of the visitor's own localStorage data (lib/stores.js playlists/recentlyViewed), not content for search; the public hymn pages keep SSR"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/ssr-disabled::src/routes/recentes/+page.js:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/recentes/+page.js:2 (claim holds); view of the visitor's own localStorage data (lib/stores.js playlists/recentlyViewed), not content for search; the public hymn pages keep SSR"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/ssr-disabled::src/routes/song/[id]/present/+page.js:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/song/[id]/present/+page.js:2 (claim holds); presentation mode of a hymn whose /song/[id] page is prerendered with SSR, not content for search; the public hymn pages keep SSR"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+layout.svelte, whitespace collapsed, 19 graphemes as reported; no other title emitter on the route): root +layout.svelte:157 <title>Harpa Cristã Online</title> is the only title of the public home page (+page.svelte sets none) (literal claim holds); public prerendered site"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/title-length::src/routes/admin/curadoria/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/admin/curadoria/+page.svelte, whitespace collapsed, 17 graphemes as reported; no other title emitter on the route) (literal claim holds); but a dev-only local admin (ssr=false; shows 'Essa interface só funciona em dev' outside dev), not a search target"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/title-length::src/routes/playlists/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/playlists/+page.svelte, whitespace collapsed, 28 graphemes as reported; no other title emitter on the route) (literal claim holds); but ssr=false view of the visitor's own localStorage playlists (lib/stores.js:133), not a search target"
+  },
+  {
+    "key": "chicomcastro/harpa-crista-online::seo/title-length::src/routes/sobre/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/sobre/+page.svelte, whitespace collapsed, 27 graphemes as reported; no other title emitter on the route) (literal claim holds); public prerendered about page"
+  }
+]

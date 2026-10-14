@@ -1,0 +1,362 @@
+[
+  {
+    "key": "darrelhong/openplays:web::a11y/disallowed-aria-props::src/lib/components/plays/play-roster-preview.svelte:13::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read play-roster-preview.svelte:13: <div class=\"flex ...\" aria-label={preview.label}> with no role/spread; generic div cannot take a name"
+  },
+  {
+    "key": "darrelhong/openplays:web::a11y/permitted-contents::src/lib/components/chat/conversation-header.svelte:33::`<h#>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/lib/components/chat/conversation-header.svelte): <h2> at :33 has literal parent element span:32 (ancestors: span:32 < a:27 < If(conversation.kind === 'play' && conversation.play_):26 < header:14); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "darrelhong/openplays:web::a11y/permitted-contents::src/lib/components/plays/play-details-content.svelte:738::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/lib/components/plays/play-details-content.svelte): <dt> at :738 has literal parent element div:737 (ancestors: div:737 < Each(play.contacts):736 < div:734 < If(play.contacts?.length):733 < section:469 < snippet details:468); not permitted content of that parent per the HTML content model, as reported; the parent and its own parent are non-dl elements (script-checked chain; the only <dl>s in play-details-content.svelte are elsewhere, the other files contain none), so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "darrelhong/openplays:web::a11y/permitted-contents::src/lib/components/plays/play-details-content.svelte:739::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/lib/components/plays/play-details-content.svelte): <dd> at :739 has literal parent element div:737 (ancestors: div:737 < Each(play.contacts):736 < div:734 < If(play.contacts?.length):733 < section:469 < snippet details:468); not permitted content of that parent per the HTML content model, as reported; the parent and its own parent are non-dl elements (script-checked chain; the only <dl>s in play-details-content.svelte are elsewhere, the other files contain none), so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/lib/components/notifications/notification-popover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/notifications/notification-popover.svelte has 205 physical lines (newline count, trailing newline not counted; 185 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/lib/components/plays/invite-player-field.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plays/invite-player-field.svelte has 438 physical lines (newline count, trailing newline not counted; 402 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/lib/components/plays/play-details-content.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plays/play-details-content.svelte has 824 physical lines (newline count, trailing newline not counted; 794 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/lib/components/plays/play-form-fields.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plays/play-form-fields.svelte has 236 physical lines (newline count, trailing newline not counted; 212 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/lib/components/plays/venue-search-field.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/plays/venue-search-field.svelte has 358 physical lines (newline count, trailing newline not counted; 327 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/routes/(app)/[username]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/[username]/+page.svelte has 274 physical lines (newline count, trailing newline not counted; 258 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/routes/(app)/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/profile/+page.svelte has 433 physical lines (newline count, trailing newline not counted; 397 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 341 physical lines (newline count, trailing newline not counted; 308 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/notifications/notification-feed-popover.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/notifications/notification-feed-popover.svelte has a single destructured $props() with 8 named props (> 6): open, notifications, openUnreadIds, unreadCount, canEnablePush, enablingPush, pushError, onEnablePush"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/ui/checkbox/checkbox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/checkbox/checkbox.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: ref, checked, indeterminate, disabled, class, labelClass, rootClass, children"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/ui/combobox/combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/combobox/combobox.svelte has a single destructured $props() with 9 named props (> 6) plus a ...rest element: items, value, open, placeholder, openOnClick, allowCustom, inputProps, contentProps, type"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/ui/date-picker/date-picker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/date-picker/date-picker.svelte has a single destructured $props() with 14 named props (> 6): value, placeholder, onValueChange, disabled, minValue, maxValue, granularity, weekStartsOn, fixedWeeks, locale, closeOnDateSelect, label, required, class"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/ui/date-range-picker/date-range-picker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/date-range-picker/date-range-picker.svelte has a single destructured $props() with 16 named props (> 6): value, placeholder, onValueChange, disabled, minValue, maxValue, granularity, weekStartsOn, fixedWeeks, locale, closeOnRangeSelect, label, required, numberOfMonths, pagedNavigation, class"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/ui/dialog/action-confirm-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/dialog/action-confirm-dialog.svelte has a single destructured $props() with 12 named props (> 6): title, description, action, method, confirmLabel, cancelLabel, confirmVariant, cancelVariant, size, contentClass, trigger, fields"
+  },
+  {
+    "key": "darrelhong/openplays:web::architecture/prop-count::src/lib/components/ui/slider/slider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/slider/slider.svelte has a single destructured $props() with 12 named props (> 6) plus a ...rest element: value, min, max, step, label, required, minLabel, maxLabel, autoSort, disabled, class, ticks"
+  },
+  {
+    "key": "darrelhong/openplays:web::correctness/each-index-key::src/lib/components/chat/message-bubble.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/chat/message-bubble.svelte:61 '{#each segments as segment, index (index)}' keyed by its index binding; the text/link segments of one message body; positional list (segments of one string)"
+  },
+  {
+    "key": "darrelhong/openplays:web::correctness/each-index-key::src/lib/components/plays/play-roster-preview.svelte:15::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/plays/play-roster-preview.svelte:15 '{#each preview.slots as slot, index (index)}' keyed by its index binding; preview = $derived(getPlayRosterPreview(play, maxVisibleSlots)) (:10), the computed avatar slots of one play's roster preview; positional slots"
+  },
+  {
+    "key": "darrelhong/openplays:web::performance/iframe-loading::src/routes/__dev/email-preview/+page.svelte:20::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe sandbox srcdoc> has no loading attribute and no spread; a dev-only page (+page.server.ts load error(404) unless dev && DEV_AUTH_ENABLED) whose main content is this srcdoc email preview right under the <h1> — above the fold, no fetch"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/[username]/(follow-list)/followers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[username]/followers: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/[username]/(follow-list)/following/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[username]/following: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[username]: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/chat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/chat/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /chat/[id]: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /create: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/favourites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /favourites: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/my-games/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /my-games: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/my-games/past/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /my-games/past: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/(app)/profile/follow-requests/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile/follow-requests: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: (app)/+layout.server.ts:5-7 redirects guests (!locals.user) to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/__dev/email-preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /__dev/email-preview: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (dev-only: __dev/email-preview/+page.server.ts:7-14 error(404) unless dev && DEV_AUTH_ENABLED), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/__dev/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /__dev/login: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (dev-only: __dev/login/+page.server.ts:22-29 error(404) unless dev && DEV_AUTH_ENABLED (assertDevAuthEnabled)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/demo/playwright/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /demo/playwright: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/play/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /play/[id]: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/play/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /play/[id]/edit: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: play/[id]/edit/+page.server.ts:34-36 redirects to /login without a session cookie or locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/play/[id]/review/[username]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /play/[id]/review/[username]: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session but not a search target (auth-gated: play/[id]/review/[username]/+page.server.ts:11-12 error(401) without a session cookie), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms: root +layout.svelte:47-63 head has og:url/og:type/og:title/og:description/og:image and twitter:* but no canonical; repo grep finds no rel=canonical anywhere in web/src (page heads are <title> at most); no meta-tag library; hooks.server.ts only resolves the session; publicly reachable, rendered route, static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:49 literal <title>OpenPlays</title> is the only title of the 19 routes in the key (local CLI list; no page sets its own) (claim holds); 11 are under (app) whose +layout.server.ts:6 redirects guests, but the public indexable /, /play/[id] session pages, /privacy, /terms and /login (static/robots.txt allows all, no noindex) all ship the same title and compete"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/[username]/(follow-list)/followers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /[username]/followers renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/[username]/(follow-list)/following/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /[username]/following renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /[username] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/chat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /chat renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/chat/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /chat/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /create renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/favourites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /favourites renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/my-games/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /my-games renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/my-games/past/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /my-games/past renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /profile renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/(app)/profile/follow-requests/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /profile/follow-requests renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; / renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/__dev/email-preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /__dev/email-preview renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience); dev-only route (load throws error(404) unless dev && DEV_AUTH_ENABLED), json-ld convention: tp"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/__dev/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /__dev/login renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience); dev-only route (load throws error(404) unless dev && DEV_AUTH_ENABLED), json-ld convention: tp"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /demo renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/demo/playwright/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /demo/playwright renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /login renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/play/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /play/[id] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/play/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /play/[id]/edit renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/play/[id]/review/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /play/[id]/review/[username] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /privacy renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /terms renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte renders only a link to /demo/playwright; root +layout.svelte (nav, dialogs) renders no heading — no <h1> on a public route"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); public site openplays.app with public /play/[id] session pages and robots.txt allowing all"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/+layout.svelte, whitespace collapsed, 9 graphemes as reported; no other title emitter on the route): root +layout.svelte:49 <title>OpenPlays</title> (9) is the only title of the 19 routes in the key (local CLI list; no page sets its own); 11 are under (app) whose +layout.server.ts:6 redirects guests and /demo, /demo/playwright are e2e stubs, but /, /play/[id], /privacy, /terms and /login are public indexable pages (static/robots.txt allows all, no noindex) that ship this short title (literal claim holds)"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/title-length::src/routes/__dev/email-preview/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/__dev/email-preview/+page.svelte, whitespace collapsed, 25 graphemes as reported; no other title emitter on the route) (literal claim holds); but dev-only (load throws error(404) unless dev && DEV_AUTH_ENABLED), not a search target"
+  },
+  {
+    "key": "darrelhong/openplays:web::seo/title-length::src/routes/__dev/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal <title> in src/routes/__dev/login/+page.svelte, whitespace collapsed, 21 graphemes as reported; no other title emitter on the route) (literal claim holds); but dev-only (load throws error(404) unless dev && DEV_AUTH_ENABLED), not a search target"
+  }
+]

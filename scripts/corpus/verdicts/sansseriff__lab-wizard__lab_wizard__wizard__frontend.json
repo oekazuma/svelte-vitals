@@ -1,0 +1,1482 @@
+[
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/disallowed-aria-props::src/routes/data/+page.svelte:465::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read data/+page.svelte:465: <div class=... aria-label=\"Plot\"> with no role/spread; generic div cannot take a name"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/interactive-nesting::src/lib/data/RunList.svelte:116::<input> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read RunList.svelte:101-124: visible <input type=\"checkbox\"> inside <li role=\"option\" tabindex=\"0\">; an option cannot contain an interactive control"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/interactive-nesting::src/lib/expressions/ExpressionInput.svelte:301::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read ExpressionInput.svelte:300-307: <button> inside <li role=\"option\">; an option cannot contain an interactive control"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/instruments/custom/+page.svelte:644::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/instruments/custom/+page.svelte): <div> at :644 has literal parent element button:639 (ancestors: button:639 < Each(source.attributes):638 < div:637 < If(source.attributes.length === 0):632 < If(!source.reachable):628 < <ScrollArea>:627); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/instruments/custom/+page.svelte:655::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/instruments/custom/+page.svelte): <div> at :655 has literal parent element button:639 (ancestors: button:639 < Each(source.attributes):638 < div:637 < If(source.attributes.length === 0):632 < If(!source.reachable):628 < <ScrollArea>:627); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/measurements/new/+page.svelte:61::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/measurements/new/+page.svelte): <div> at :61 has literal parent element button:56 (ancestors: button:56 < li:55 < Each(choices):54 < ul:53 < <ScrollArea>:52 < section:35); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/measurements/new/+page.svelte:78::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/measurements/new/+page.svelte): <div> at :78 has literal parent element button:56 (ancestors: If(c.description):77 < button:56 < li:55 < Each(choices):54 < ul:53 < <ScrollArea>:52); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/measurements/new/+page.svelte:81::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/measurements/new/+page.svelte): <div> at :81 has literal parent element button:56 (ancestors: If(c.roles):80 < button:56 < li:55 < Each(choices):54 < ul:53 < <ScrollArea>:52); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/measurements/new/+page.svelte:88::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/measurements/new/+page.svelte): <div> at :88 has literal parent element button:56 (ancestors: If(c.error):87 < button:56 < li:55 < Each(choices):54 < ul:53 < <ScrollArea>:52); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/permitted-contents::src/routes/measurements/resources/+page.svelte:858::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse of src/routes/measurements/resources/+page.svelte): <div> at :858 has literal parent element button:846 (ancestors: button:846 < Each(source.attributes):843 < div:842 < If(source.attributes.length === 0):837 < If(!source.reachable):833 < <ScrollArea>:832); not permitted content of that parent per the HTML content model, as reported"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/top-level-landmark::src/routes/data/+page.svelte:401::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:93-99 renders non-/live pages inside <main> (bare only when pathname startsWith /live); the page <aside> (labelled, or unlabelled with no sectioning ancestor: Tabs.svelte wraps children in a role=tabpanel div) is a complementary landmark nested in main"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/top-level-landmark::src/routes/data/+page.svelte:556::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:93-99 renders non-/live pages inside <main> (bare only when pathname startsWith /live); the page <aside> (labelled, or unlabelled with no sectioning ancestor: Tabs.svelte wraps children in a role=tabpanel div) is a complementary landmark nested in main"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::a11y/top-level-landmark::src/routes/procedures/edit/+page.svelte:438::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "root +layout.svelte:93-99 renders non-/live pages inside <main> (bare only when pathname startsWith /live); the page <aside> (labelled, or unlabelled with no sectioning ancestor: Tabs.svelte wraps children in a role=tabpanel div) is a complementary landmark nested in main"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/components/BokehPlot.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BokehPlot.svelte has 235 physical lines (newline count, trailing newline not counted; 215 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/components/PlotSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlotSettings.svelte has 260 physical lines (newline count, trailing newline not counted; 247 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 258 physical lines (newline count, trailing newline not counted; 223 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/components/instruments/LocalTree.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/instruments/LocalTree.svelte has 1162 physical lines (newline count, trailing newline not counted; 1087 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/components/instruments/ServerTree.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/instruments/ServerTree.svelte has 580 physical lines (newline count, trailing newline not counted; 543 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/data/ActivityChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/data/ActivityChart.svelte has 647 physical lines (newline count, trailing newline not counted; 612 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/expressions/ExpressionInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/expressions/ExpressionInput.svelte has 383 physical lines (newline count, trailing newline not counted; 360 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/procedures/ParamGroupEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/procedures/ParamGroupEditor.svelte has 237 physical lines (newline count, trailing newline not counted; 235 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/procedures/PlotsEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/procedures/PlotsEditor.svelte has 287 physical lines (newline count, trailing newline not counted; 268 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/procedures/PresetsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/procedures/PresetsPanel.svelte has 275 physical lines (newline count, trailing newline not counted; 272 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/procedures/StepInspector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/procedures/StepInspector.svelte has 397 physical lines (newline count, trailing newline not counted; 380 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/procedures/StepOutline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/procedures/StepOutline.svelte has 287 physical lines (newline count, trailing newline not counted; 282 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/procedures/ValueInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/procedures/ValueInput.svelte has 225 physical lines (newline count, trailing newline not counted; 211 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/run/SchemaField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/run/SchemaField.svelte has 238 physical lines (newline count, trailing newline not counted; 225 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/settings/FileSettingsForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/settings/FileSettingsForm.svelte has 206 physical lines (newline count, trailing newline not counted; 193 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/lib/setups/FieldsEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/setups/FieldsEditor.svelte has 374 physical lines (newline count, trailing newline not counted; 351 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/data/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/data/+page.svelte has 667 physical lines (newline count, trailing newline not counted; 623 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/instruments/custom/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instruments/custom/+page.svelte has 709 physical lines (newline count, trailing newline not counted; 677 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/measurements/resources/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/measurements/resources/+page.svelte has 1084 physical lines (newline count, trailing newline not counted; 1044 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/measurements/run/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/measurements/run/+page.svelte has 637 physical lines (newline count, trailing newline not counted; 597 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/procedures/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/procedures/edit/+page.svelte has 597 physical lines (newline count, trailing newline not counted; 577 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/servers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/+page.svelte has 285 physical lines (newline count, trailing newline not counted; 266 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/servers/hardware/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/hardware/+page.svelte has 366 physical lines (newline count, trailing newline not counted; 350 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/servers/permissions/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/permissions/+page.svelte has 424 physical lines (newline count, trailing newline not counted; 393 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/servers/remote/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/servers/remote/+page.svelte has 214 physical lines (newline count, trailing newline not counted; 200 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/component-size::src/routes/setups/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setups/+page.svelte has 282 physical lines (newline count, trailing newline not counted; 262 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/BokehPlot.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BokehPlot.svelte has a single destructured $props() with 12 named props (> 6): series, xLabel, yLabel, y2Label, kind, connect, logX, logY, xRange, yRange, onpoint, webgl"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/Combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Combobox.svelte has a single destructured $props() with 10 named props (> 6): value, options, onValueChange, placeholder, noneLabel, empty, disabled, mono, id, aria-label"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ConfirmDialog.svelte has a single destructured $props() with 10 named props (> 6): open, title, description, confirmLabel, cancelLabel, tone, busy, onconfirm, oncancel, children"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/IconButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/IconButton.svelte has a single destructured $props() with 7 named props (> 6): label, onclick, disabled, small, ghost, class, children"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/PlotSettings.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PlotSettings.svelte has a single destructured $props() with 7 named props (> 6): plot, columns, candidates, ondeclare, labelKeys, shape, swept"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Select.svelte has a single destructured $props() with 9 named props (> 6): value, options, onValueChange, placeholder, disabled, mono, id, class, aria-label"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/Splitter.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Splitter.svelte has a single destructured $props() with 8 named props (> 6): size, initial, min, max, orientation, reverse, storageKey, label"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/Tabs.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Tabs.svelte has a single destructured $props() with 10 named props (> 6): value, onValueChange, tabs, label, size, lead, actions, class, panelClass, children"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/TreeNode.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TreeNode.svelte has a single destructured $props() with 10 named props (> 6): node, depth, onSelect, isSelectable, isCompatible, isSelected, selectionLabel, transportBadge, busyBadge, path"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/instruments/InstrumentOutline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/instruments/InstrumentOutline.svelte has a single destructured $props() with 11 named props (> 6): node, metadata, path, selected, query, onselect, onadd, onreset, onremove, transportBadge, disabled"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/components/instruments/InstrumentWorkbench.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/instruments/InstrumentWorkbench.svelte has a single destructured $props() with 11 named props (> 6): tree, metadata, onadd, onaddparent, onreset, onremove, onsave, onrefresh, transportBadge, dirty, busy"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/data/ActivityChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/data/ActivityChart.svelte has a single destructured $props() with 10 named props (> 6): activity, now, live, estimatedEnd, cursor, closeUp, center, expectedSteps, onhover, onpick"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/data/RunList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/data/RunList.svelte has a single destructured $props() with 8 named props (> 6): runs, total, selected, filters, loading, onselect, onmore, onfilters"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/expressions/ExpressionInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/expressions/ExpressionInput.svelte has a single destructured $props() with 8 named props (> 6): value, candidates, onchange, ondeclare, placeholder, invalid, class, aria-label"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/run/SchemaField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/run/SchemaField.svelte has a single destructured $props() with 10 named props (> 6): name, schema, defs, value, path, onchange, onproblem, problems, unit, depth"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/setups/NeedBindings.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/setups/NeedBindings.svelte has a single destructured $props() with 7 named props (> 6): needs, fields, bindings, onchange, onsetfield, editable, disabled"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::architecture/prop-count::src/lib/setups/UnitInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/setups/UnitInput.svelte has a single destructured $props() with 8 named props (> 6): value, onchange, class, placeholder, disabled, small, quiet, aria-label"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/components/instruments/LocalTree.svelte:898::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/instruments/LocalTree.svelte:898 '{#each discoveryResult.children as child, i (i)}' keyed by its index binding; the read-only child rows of one discovery result (discoveryResult $state, replaced wholesale); positional list (rows of one result)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/components/instruments/LocalTree.svelte:926::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/instruments/LocalTree.svelte:926 '{#each discoveryResult.warnings as warning, i (i)}' keyed by its index binding; the warning lines of one discovery result, plain text; positional list (messages of one result)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/components/instruments/LocalTree.svelte:966::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/instruments/LocalTree.svelte:966 '{#each discoveryResult.found as candidate, i (i)}' keyed by its index binding; the candidate buttons of one discovery result, replaced wholesale per discovery; positional list (rows of one result)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/data/ActivityChart.svelte:594::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/data/ActivityChart.svelte:594 '{#each lanes as lane, i (i)}' keyed by its index binding; lanes = $derived(activity.lanes) (:86), the lanes of one computed activity chart; positional list (computed chart geometry)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/data/DateFilter.svelte:127::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/data/DateFilter.svelte:127 '{#each month.weeks as week, w (w)}' keyed by its index binding; the week rows of one calendar month grid; positional list (calendar slots)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/data/DevicesPanel.svelte:116::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/data/DevicesPanel.svelte:116 '{#each rows as row, i (i)}' keyed by its index binding; rows $state (:22) with bind:value inputs per row (:118, :120), push (:124) and rows.splice(i, 1) from a per-row Remove button (:121): editable runtime list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/data/RunContext.svelte:29::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/data/RunContext.svelte:29 '{#each crumbs as crumb, i (i)}' keyed by its index binding; crumbs = the breadcrumb trail of one run context (:16-19), plain text; positional list (breadcrumbs)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/procedures/PlotsEditor.svelte:161::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:161 '{#each plots as entry, index (index)}' keyed by its index binding; plots = editor.definition.plots, appended (:64), removed by index (:69-71) and reordered (:78): editable runtime list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/lib/procedures/StepInspector.svelte:322::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/procedures/StepInspector.svelte:322 '{#each problems as problem, i (i)}' keyed by its index binding; problems = the editor's validation problems for this step (:41), recomputed after every edit; runtime validation list (ledger field-error convention)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/routes/data/+page.svelte:467::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/data/+page.svelte:467 '{#each detail.plots as plot, i (i)}' keyed by its index binding; the plot tab buttons of the one run detail shown (detail replaced wholesale per run, :216, :326); positional list (parts of one result)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/routes/procedures/edit/+page.svelte:382::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/procedures/edit/+page.svelte:382 '{#each problems as problem, i (i)}' keyed by its index binding; problems = $derived(editor?.check?.problems ?? []) (:86), the backend's validation problems recomputed after every edit; runtime validation list (ledger field-error convention)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/routes/procedures/edit/+page.svelte:398::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/procedures/edit/+page.svelte:398 '{#each warnings as warning, i (i)}' keyed by its index binding; warnings = $derived(editor?.check?.warnings ?? []) (:87), recomputed after every edit; runtime validation list (ledger field-error convention)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/routes/servers/permissions/+page.svelte:323::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/servers/permissions/+page.svelte:323 '{#each draftConds as cond, idx (idx)}' keyed by its index binding; draftConds $state (:70) appended (:79) and removed by index (:82), with per-row inputs: editable runtime list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-index-key::src/routes/servers/permissions/+page.svelte:377::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/servers/permissions/+page.svelte:377 '{#each draftDeny as deny, idx (idx)}' keyed by its index binding; draftDeny $state (:71) appended (:85) and removed by index (:88), with per-row controls: editable runtime list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/components/instruments/InstrumentInspector.svelte:149::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/instruments/InstrumentInspector.svelte:149 '{#each readOnly.filter(…) as name}' has no key; the read-only address-field names of the one selected instrument node (readOnly = $derived(meta?.read_only_fields ?? Object.keys(node.fields)), :35), rendered as <dt>/<dd> text; parts of one record shown read-only (ledger convention)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/components/instruments/ServerTree.svelte:438::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/instruments/ServerTree.svelte:438 '{#each discoveryResult.found ?? [] as found}' has no key; the candidates of one discovery result, replaced wholesale; parts of one result shown read-only (ledger convention)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/components/instruments/ServerTree.svelte:452::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/instruments/ServerTree.svelte:452 '{#each discoveryResult.children ?? [] as child}' has no key; the child rows of one discovery result, replaced wholesale; parts of one result shown read-only (ledger convention)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/ParamGroupEditor.svelte:226::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/procedures/ParamGroupEditor.svelte:226 '{#each problems as problem}' has no key; the editor's validation problems for this parameter group, recomputed after every edit; runtime validation list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/PlotsEditor.svelte:210::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:210 '{#each problems.filter(…) as problem}' has no key; the editor's validation problems for one derived column, recomputed after every edit; runtime validation list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/PlotsEditor.svelte:276::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:276 '{#each plotProblems(selected) as problem}' has no key; the editor's validation problems for the selected plot, recomputed after every edit; runtime validation list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/RolesEditor.svelte:118::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/procedures/RolesEditor.svelte:118 '{#each problems as problem}' has no key; the editor's validation problems for roles, recomputed after every edit; runtime validation list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/StepInspector.svelte:121::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/StepInspector.svelte:121 '{#each context.breadcrumbs as entry, i}' has no key; context = $derived(stepContext(…)) (:24), the breadcrumb trail of the selected step; positional list (breadcrumbs)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/StepInspector.svelte:331::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/StepInspector.svelte:331 '{#each context.bindings as [name, value]}' has no key; the inherited row-label bindings computed for the selected step (:24), plain text; parts of one computed result shown read-only"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/lib/procedures/StepInspector.svelte:345::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/StepInspector.svelte:345 '{#each childFields as [name, field]}' has no key; childFields = the step-typed fields of the selected step's schema (:46), fixed by the catalog; static schema-derived list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/routes/+layout.svelte:121::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:121 '{#each trail as part, i}' has no key; trail = $derived.by breadcrumb parts of the current path (:54); positional list (breadcrumbs)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/routes/measurements/resources/+page.svelte:660::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/measurements/resources/+page.svelte:660 '{#each instrumentReqs as r}' has no key; instrumentReqs = the requirements of the one measurement the load returns (:102, :156), fixed per measurement, with per-requirement choices kept by variable_name in `selected`, not in the DOM; parts of one record"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/each-key::src/routes/procedures/edit/+page.svelte:430::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/procedures/edit/+page.svelte:430 '{#each editor.check?.records ?? [] as column}' has no key; the recorded column names of one check result, plain text chips; parts of one result shown read-only"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/effect-as-derived::src/lib/data/DateFilter.svelte:42::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/data/DateFilter.svelte:42 the effect only does draft = fromFilter(filter) (prop); the other write is draft = next in changed() (:49), the writable-$derived override pattern, available in the app's svelte (^5.55.9)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/effect-as-derived::src/lib/data/RunTimeline.svelte:35::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/data/RunTimeline.svelte:35 the effect only does kept = cursor (prop); the other write is the onpick handler (:138), the writable-$derived override pattern, available in the app's svelte (^5.55.9)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:51::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:51 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:60::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:60 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:61::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:61 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:79::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:79 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:86::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:86 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:91::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:91 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:97::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:97 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/components/PlotSettings.svelte:98::Prop \"plot\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlotSettings.svelte:98 writes/deletes a member of the non-bindable plot prop (PlotSettings.svelte:16, :24, plain PlotDecl type); both callers pass a $state proxy owned elsewhere (PlotsEditor.svelte:45/275 an element of the ProcedureEditor's definition.plots, data/+page.svelte:84/558 the page's spec $state), so the child mutates a proxy it does not own, as documented"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/ParamGroupEditor.svelte:38::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/ParamGroupEditor.svelte:38 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/ParamGroupEditor.svelte:52::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/ParamGroupEditor.svelte:52 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/ParamGroupEditor.svelte:79::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/ParamGroupEditor.svelte:79 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/ParamGroupEditor.svelte:89::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/ParamGroupEditor.svelte:89 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:105::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:105 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:113::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:113 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:128::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:128 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:131::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:131 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:136::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:136 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:137::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:137 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:147::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:147 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:148::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:148 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:203::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:203 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:64::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:64 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:70::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:70 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:71::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:71 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:78::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:78 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/PlotsEditor.svelte:85::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/PlotsEditor.svelte:85 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/RolesEditor.svelte:133::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/RolesEditor.svelte:133 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/RolesEditor.svelte:20::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/RolesEditor.svelte:20 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/prop-mutation::src/lib/procedures/RolesEditor.svelte:32::Prop \"editor\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/procedures/RolesEditor.svelte:32 writes a field of the editor prop, a ProcedureEditor class instance whose definition/selectedParameter/selectedRole are $state fields (lib/procedures/editor.svelte.ts:32-45); the write goes through the instance's reactive state by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/unmutated-state::src/lib/components/instruments/LocalTree.svelte:41::$state \"roots\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/lib/components/instruments/LocalTree.svelte:41 roots = $state(untrack(() => data.roots ?? {})); its only other mention is the read roots[`inst://${node.key}`] (:49); never written, mutated, bound or passed"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::correctness/unmutated-state::src/routes/servers/permissions/+page.svelte:30::$state \"stateDefaults\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/servers/permissions/+page.svelte:30 stateDefaults = $state(untrack(() => data.permissions?.state_defaults ?? {})) is never written, mutated or bound; its only other mention places it in the object sent by api.PUT (:172), which only serializes it; the docs' placed-in-an-object exemption needs the object shown in the initial value or a $state type argument (here a call, and a binding annotation), so it is reported as documented and the state is indeed never mutated"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/instruments/+page.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read instruments/+page.ts:23,37-40: the Promise.all of /api/transport-status and /api/local-servers uses nothing from the preceding /api/manage-instruments await — independent HTTP requests to the wizard FastAPI backend serialized (ssr=false universal load)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/measurements/resources/+page.ts:87::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read measurements/resources/+page.ts:80-90: /api/instrument-sources uses nothing from the preceding /api/get-resources await, which only feeds the result and the error return — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/measurements/resources/+page.ts:91::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read measurements/resources/+page.ts:91-93: /api/measurement-choices uses nothing from the earlier get-resources / instrument-sources awaits — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/measurements/resources/+page.ts:95::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read measurements/resources/+page.ts:95: setupsApi.list() uses nothing from the earlier get-resources / instrument-sources / measurement-choices awaits — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/procedures/edit/+page.ts:16::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read procedures/edit/+page.ts:12-21: /api/procedures/{name} takes name/from from the URL, nothing from the preceding /api/procedures/catalog await — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/servers/+page.ts:29::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read servers/+page.ts:19,29-31: /api/server/suggest-port uses nothing from the preceding /api/server/status await — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/servers/permissions/+page.ts:89::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read servers/permissions/+page.ts:86-89: /api/server/status uses nothing from the preceding /api/permissions await — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/sequential-awaits::src/routes/servers/permissions/+page.ts:97::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read servers/permissions/+page.ts:97-99: /api/server/suggest-port uses nothing from the earlier /api/permissions and /api/server/status awaits — independent HTTP requests serialized"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::performance/state-raw::src/routes/measurements/run/+page.svelte:174::\"operators\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"operators\" in src/routes/measurements/run/+page.svelte: reassigned from facets (:180) and read only in a <datalist> {#each} of <option value> (:501); no member writes, mutating calls, bind:, or call/prop escapes of the binding — $state.raw fits"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /data (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/instruments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /instruments (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/instruments/custom/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /instruments/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/live/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /live (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/measurements/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /measurements (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/measurements/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /measurements/new (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/measurements/resources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /measurements/resources (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/measurements/run/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /measurements/run (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/procedures/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /procedures (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/procedures/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /procedures/edit (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/servers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /servers (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/servers/hardware/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /servers/hardware (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/servers/permissions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /servers/permissions (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/servers/remote/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /servers/remote (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/canonical-url::src/routes/setups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /setups (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex (a local lab GUI, but no auth gate or noindex; same call as the ledger's localhost-only dashboards)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on / (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/data/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /data (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/instruments/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /instruments (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/instruments/custom/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /instruments/custom (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/live/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /live (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/measurements/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /measurements (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/measurements/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /measurements/new (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/measurements/resources/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /measurements/resources (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/measurements/run/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /measurements/run (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/procedures/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /procedures (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/procedures/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /procedures/edit (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/servers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /servers (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/servers/hardware/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /servers/hardware (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/servers/permissions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /servers/permissions (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/servers/remote/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /servers/remote (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /settings (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/description-presence::src/routes/setups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html for <meta ...description / dynamic-name metas; no meta-tag library in deps): no <meta name=description> on /setups (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not a search target"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/heading-level-skip::src/routes/measurements/run/+page.svelte:430::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: PageHeader renders <h1>{title} (PageHeader.svelte:27, run/+page.svelte:347); Callout/Tabs/ScrollArea between render no heading, and the next heading is the 'Setup' <h3> (:430) -> <h1> to <h3>"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; / renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /data renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/instruments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /instruments renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/instruments/custom/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /instruments/custom renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/live/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /live renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/measurements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /measurements renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/measurements/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /measurements/new renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/measurements/resources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /measurements/resources renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/measurements/run/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /measurements/run renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/procedures/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /procedures renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/procedures/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /procedures/edit renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/servers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /servers renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/servers/hardware/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /servers/hardware renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/servers/permissions/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /servers/permissions renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/servers/remote/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /servers/remote renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /settings renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/json-ld::src/routes/setups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /setups renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/data/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /data (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/instruments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instruments (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/instruments/custom/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instruments/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/live/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /live (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/measurements/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /measurements (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/measurements/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /measurements/new (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/measurements/resources/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /measurements/resources (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/measurements/run/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /measurements/run (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/procedures/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /procedures (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/procedures/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /procedures/edit (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/servers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/servers/hardware/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers/hardware (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/servers/permissions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers/permissions (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/servers/remote/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /servers/remote (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-description::src/routes/setups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setups (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/data/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /data (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/instruments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instruments (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/instruments/custom/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instruments/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/live/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /live (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/measurements/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /measurements (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/measurements/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /measurements/new (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/measurements/resources/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /measurements/resources (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/measurements/run/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /measurements/run (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/procedures/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /procedures (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/procedures/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /procedures/edit (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/servers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/servers/hardware/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers/hardware (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/servers/permissions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers/permissions (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/servers/remote/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /servers/remote (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-image::src/routes/setups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setups (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/data/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /data (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/instruments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instruments (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/instruments/custom/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instruments/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/live/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /live (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/measurements/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /measurements (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/measurements/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /measurements/new (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/measurements/resources/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /measurements/resources (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/measurements/run/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /measurements/run (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/procedures/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /procedures (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/procedures/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /procedures/edit (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/servers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/servers/hardware/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers/hardware (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/servers/permissions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers/permissions (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/servers/remote/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /servers/remote (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-title::src/routes/setups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setups (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/data/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /data (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/instruments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instruments (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/instruments/custom/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instruments/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/live/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /live (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/measurements/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /measurements (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/measurements/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /measurements/new (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/measurements/resources/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /measurements/resources (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/measurements/run/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /measurements/run (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/procedures/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /procedures (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/procedures/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /procedures/edit (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/servers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/servers/hardware/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers/hardware (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/servers/permissions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers/permissions (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/servers/remote/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /servers/remote (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/og-url::src/routes/setups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setups (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/single-h1::/live::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: live/+page.svelte renders LiveRunView, whose only heading is an <h3> (LiveRunView.svelte:102); root +layout.svelte renders none — no <h1>"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, no src/routes/sitemap.xml endpoint, hook or generator script (literal claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), nothing for a crawler to list"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/+page.ts:82::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/data/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/data/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/instruments/+page.ts:59::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/instruments/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/instruments/custom/+page.ts:58::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/instruments/custom/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/live/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/live/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/measurements/+page.ts:34::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/measurements/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/measurements/new/+page.ts:35::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/measurements/new/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/measurements/resources/+page.ts:111::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/measurements/resources/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/measurements/run/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/measurements/run/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/procedures/+page.ts:26::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/procedures/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/procedures/edit/+page.ts:41::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/procedures/edit/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/servers/+page.ts:41::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/servers/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/servers/permissions/+page.ts:114::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/servers/permissions/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/servers/remote/+page.ts:32::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/servers/remote/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/settings/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/settings/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/ssr-disabled::src/routes/setups/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false in src/routes/setups/+page.ts (claim holds); but local GUI of the Lab Wizard SNSPD measurement toolkit (talks to a local API), not content for search"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/data/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/data/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/instruments/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/instruments/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/instruments/custom/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/instruments/custom/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/measurements/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/measurements/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/measurements/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/measurements/new/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/measurements/resources/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/measurements/resources/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/measurements/run/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/measurements/run/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/procedures/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/procedures/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/procedures/edit/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/procedures/edit/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/servers/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/servers/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/servers/hardware/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/servers/hardware/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/servers/permissions/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/servers/permissions/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/servers/remote/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/servers/remote/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/settings/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/title-presence::src/routes/setups/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (a2c_closure.js: page + layout chain + transitive local imports, grep for <title/svelte:head/document.title): src/routes/setups/+page.svelte and its imports have no svelte:head/<title>; root +layout.svelte:88-90 svelte:head is only a favicon link, section layouts render SectionTabs only, app.html has no <title>, no document.title in src (the only <title> is live/+page.svelte:14, another route); route renders (no redirect/error in its +page.ts); npm svelte deps bits-ui/phosphor-svelte emit no document title; main window of a pywebview desktop app whose sibling /live sets a <title>, so the gap is real (desktop-app precedent: portal-desktop/rusty-shed tp)"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/data/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /data (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/instruments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instruments (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/instruments/custom/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instruments/custom (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/live/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /live (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/measurements/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /measurements (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/measurements/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /measurements/new (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/measurements/resources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /measurements/resources (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/measurements/run/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /measurements/run (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/procedures/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /procedures (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/procedures/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /procedures/edit (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/servers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/servers/hardware/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers/hardware (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/servers/permissions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers/permissions (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/servers/remote/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /servers/remote (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  },
+  {
+    "key": "sansseriff/lab-wizard:lab_wizard/wizard/frontend::seo/twitter-card::src/routes/setups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setups (repo grep: no og:*/twitter:*/rel=canonical anywhere in sansseriff/lab-wizard; frontend app.html is charset/viewport; the only head tag is root +layout.svelte:88-90 favicon link; npm Svelte deps bits-ui/phosphor-svelte emit none); prerendered static route (+layout.ts:1 prerender) whose load neither redirects nor throws; static/robots.txt allows all, no noindex"
+  }
+]

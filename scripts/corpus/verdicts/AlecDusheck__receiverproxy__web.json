@@ -1,0 +1,177 @@
+[
+  {
+    "key": "AlecDusheck/receiverproxy:web::architecture/prop-count::src/parts/JobRunner.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/parts/JobRunner.svelte has a single destructured $props() with 7 named props (> 6): label, confirm, commitLabel, disabled, reason, run, onresult"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::correctness/each-index-key::src/parts/Lines.svelte:18::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/parts/Lines.svelte:18 '{#each lines as l, i (i)}' keyed by its index binding; command output lines, newest at the bottom (comment :2-3), plain text spans in a <pre>; positional list (append-only log lines, ledger convention)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::correctness/each-index-key::src/routes/setup/Output.svelte:13::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/setup/Output.svelte:13 '{#each canvas.panels as panel, i (i)}' keyed by its index binding; the panel rectangles of one computed output-canvas preview (setup/+page.svelte:89 canvas={preview.output}); positional list (computed geometry)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-dimensions::src/routes/cards/+page.svelte:24::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: table thumbnail <img> (cards/+page.svelte:24) lacks width/height, no spread; its CSS is height:48px; width:auto — the width comes from the image, so the table's columns shift when it loads"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-dimensions::src/routes/cards/[model]/+page.svelte:77::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: figure <img> (cards/[model]/+page.svelte:77) lacks width/height, no spread; CSS width:100%; max-width:480px; height:auto — no height reserved, the sections below shift when it loads"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-dimensions::src/routes/panels/+page.svelte:121::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: table thumbnail <img> (panels/+page.svelte:121) lacks width/height, no spread; its CSS is height:48px; width:auto — the width comes from the image, so the table's columns shift when it loads"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-dimensions::src/routes/panels/[name]/+page.svelte:107::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: figure <img> (panels/[name]/+page.svelte:107) lacks width/height, no spread; CSS width:100%; max-width:320px; height:auto — no height reserved, the sections below shift when it loads"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-loading-hint::src/routes/cards/+page.svelte:24::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: card photo in the cards table, which has 3 rows (config/cards/: e120, e320, e80) right under the title (cards/+page.svelte:3-27) — all in view on load"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-loading-hint::src/routes/cards/[model]/+page.svelte:77::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: the product photo in the first section after the title and summary (cards/[model]/+page.svelte:77) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-loading-hint::src/routes/panels/+page.svelte:121::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: panel photo in every row of the {#each rows} panels table (panels/+page.svelte:116-136); 42 of 90 config/panels entries have an image — later rows are offscreen"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/image-loading-hint::src/routes/panels/[name]/+page.svelte:107::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: the product photo in the first section after the title and summary (panels/[name]/+page.svelte:107) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/responsive-image::src/routes/cards/+page.svelte:24::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> (cards/+page.svelte:24) has no srcset, no spread; src is a card/panel photo (static/cards/*.jpg or assets.receiverproxy.com/images/panels/*.jpg) — raster, one fixed-size asset"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/responsive-image::src/routes/cards/[model]/+page.svelte:77::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> (cards/[model]/+page.svelte:77) has no srcset, no spread; src is the card/panel .jpg photo shown up to 480px — raster, one fixed-size asset"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/responsive-image::src/routes/panels/+page.svelte:121::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> (panels/+page.svelte:121) has no srcset, no spread; src is a card/panel photo (static/cards/*.jpg or assets.receiverproxy.com/images/panels/*.jpg) — raster, one fixed-size asset"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::performance/responsive-image::src/routes/panels/[name]/+page.svelte:107::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> (panels/[name]/+page.svelte:107) has no srcset, no spread; src is the card/panel .jpg photo shown up to 320px — raster, one fixed-size asset"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; / renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/builder/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /builder renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/builder/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /builder/import renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/builder/inspect/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /builder/inspect renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/cards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /cards renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/cards/[model]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /cards/[model] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/cards/[model]/firmware/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /cards/[model]/firmware renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/card/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control/card renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/firmware/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control/firmware renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/flash/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control/flash renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/mirror/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control/mirror renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/provision/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control/provision renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/control/show/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /control/show renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/panels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /panels renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/panels/[name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /panels/[name] renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|structuredData|schema.org and createElement('script'); no meta/JSON-LD library in package.json): no JSON-LD anywhere in the app's src or app.html; /setup renders (no load/hook that always redirects or throws) and has no JSON-LD block, missing as claimed (json-ld convention: tp regardless of audience)"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/ssr-disabled::src/routes/builder/+layout.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/builder/+layout.ts:3 (claim holds); client-only tool (needs WASM/daemon and browser storage, per its comment), left out of the site's sitemap; the docs recommend exactly this per-route scoping"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/ssr-disabled::src/routes/control/+layout.ts:3::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/control/+layout.ts:3 (claim holds); client-only tool (needs WASM/daemon and browser storage, per its comment), left out of the site's sitemap; the docs recommend exactly this per-route scoping"
+  },
+  {
+    "key": "AlecDusheck/receiverproxy:web::seo/ssr-disabled::src/routes/setup/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/setup/+layout.ts:1 (claim holds); client-only tool (needs WASM/daemon and browser storage, per its comment), left out of the site's sitemap; the docs recommend exactly this per-route scoping"
+  }
+]
